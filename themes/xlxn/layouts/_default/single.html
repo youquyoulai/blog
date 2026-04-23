@@ -1,0 +1,214 @@
+{{ define "main" }}
+
+{{/* ====== 归档页 ====== */}}
+{{ if eq .Title "归档" }}
+<nav class="breadcrumbs" aria-label="面包屑导航">
+    <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
+    <span class="separator"><i class="icon">›</i></span>
+    <span class="current">{{ .Title }}</span>
+</nav>
+<h1 class="page-title">{{ .Title }}</h1>
+
+{{ $allPosts := where .Site.RegularPages "Section" "posts" }}
+{{ $totalPosts := len $allPosts }}
+{{ $years := 0 }}
+{{ range $allPosts.GroupByDate "2006" }}{{ $years = add $years 1 }}{{ end }}
+
+<div class="page-content">
+    <div class="archive-stats">
+        <div class="stat-item">
+            <span class="stat-number">{{ $totalPosts }}</span>
+            <span class="stat-label">篇文章</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">{{ $years }}</span>
+            <span class="stat-label">个年份</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">{{ .Site.Params.commentCount | default "0" }}</span>
+            <span class="stat-label">条评论</span>
+        </div>
+    </div>
+    <div style="text-align: center; margin: 20px 0;">
+        <button class="expand-all-btn" id="expandAllBtn">展开全部</button>
+    </div>
+    <div class="archive-container">
+        {{ range $allPosts.GroupByDate "2006" }}
+        {{ $yearTotal := len .Pages }}
+        <div class="archive-year collapsed">
+            <div class="year-header">
+                <span class="year-text">{{ .Key }} 年</span>
+                <span class="year-count">{{ $yearTotal }} 篇</span>
+            </div>
+            <div class="year-months">
+                {{ range .Pages.GroupByDate "2006-01" }}
+                {{ $mn := index (slice "" "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12") (int (strings.TrimPrefix "0" (substr .Key 5 2))) }}
+                <div class="archive-month collapsed">
+                    <div class="month-header">
+                        <span class="month-text">{{ $mn }} 月</span>
+                        <span class="month-count">{{ len .Pages }} 篇</span>
+                    </div>
+                    <ul class="month-posts">
+                        {{ range .Pages }}
+                        <li class="post-item">
+                            <a href="{{ .Permalink }}" class="post-link">
+                                <span class="post-title">{{ .Title }}</span>
+                                <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+                            </a>
+                        </li>
+                        {{ end }}
+                    </ul>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+        {{ else }}
+        <p style="text-align:center;padding:40px;">暂无文章</p>
+        {{ end }}
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){var b=document.getElementById('expandAllBtn'),ys=document.querySelectorAll('.archive-year'),ex=false;if(b)b.addEventListener('click',function(){if(ex){ys.forEach(function(y){y.classList.remove('expanded');y.classList.add('collapsed');y.querySelectorAll('.archive-month').forEach(function(m){m.classList.remove('expanded');m.classList.add('collapsed')})});b.textContent='展开全部';ex=false}else{ys.forEach(function(y){y.classList.remove('collapsed');y.classList.add('expanded');y.querySelectorAll('.archive-month').forEach(function(m){m.classList.remove('collapsed');m.classList.add('expanded')})});b.textContent='折叠全部';ex=true}});ys.forEach(function(y){var h=y.querySelector('.year-header');if(h)h.addEventListener('click',function(e){e.stopPropagation();y.classList.toggle('expanded');y.classList.toggle('collapsed')})});document.querySelectorAll('.archive-month').forEach(function(m){var h=m.querySelector('.month-header');if(h)h.addEventListener('click',function(e){e.stopPropagation();m.classList.toggle('expanded');m.classList.toggle('collapsed')})})});
+</script>
+<style>
+.archive-stats{display:flex;justify-content:space-around;margin:20px 0;padding:20px;background:#f8f9fa;border-radius:12px}
+.stat-item{text-align:center}
+.stat-number{display:block;font-size:clamp(1.6rem,5vw,2rem);font-weight:400;color:#2c5faa}
+.stat-label{font-size:.9rem;color:#888}
+.expand-all-btn{display:inline-block;background:#1a1a2e;color:#fff;border:none;padding:8px 24px;border-radius:6px;font-size:.9rem;cursor:pointer;transition:background .2s}
+.expand-all-btn:hover{background:#2c5faa}
+.archive-container{max-width:100%;padding:0}
+.archive-year{margin-bottom:20px;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.year-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:#f8f9fa;cursor:pointer;transition:background .2s}
+.year-header:hover{background:#f0f2f5}
+.year-text{font-size:clamp(1rem,2vw,1.2rem);font-weight:500;color:#1a3f7a}
+.year-count{background:#2c5faa;color:#fff;padding:2px 10px;border-radius:20px;font-size:.75rem}
+.year-months{padding:15px}
+.archive-month{margin-bottom:15px;border-radius:6px;background:#fff}
+.archive-month:last-child{margin-bottom:0}
+.month-header{display:flex;align-items:center;gap:10px;padding:10px 15px;background:#fafafa;cursor:pointer;transition:background .2s;border-radius:6px}
+.month-header:hover{background:#f5f5f5}
+.month-text{font-size:.95rem;font-weight:500;color:#555}
+.month-count{background:#e8edf5;color:#2c5faa;padding:1px 8px;border-radius:15px;font-size:.75rem}
+.month-posts{list-style:none;margin:0;padding:10px 10px 10px 30px;border-left:2px dashed #e0e0e0;margin-left:15px}
+.post-item{margin:8px 0;padding:6px 0;border-bottom:1px dashed #f0f0f0}
+.post-item:last-child{border-bottom:none}
+.post-link{display:flex;justify-content:space-between;align-items:center;text-decoration:none;color:#444;font-size:.95rem;transition:color .2s}
+.post-link:hover{color:#2c5faa}
+.post-title{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.post-date{color:#bbb;font-size:.8rem;margin-left:15px;flex-shrink:0}
+.archive-year.collapsed .year-months{display:none}
+.archive-year.expanded .year-months{display:block}
+.archive-month.collapsed .month-posts{display:none}
+.archive-month.expanded .month-posts{display:block}
+@media(max-width:768px){.post-link{flex-direction:column;align-items:flex-start;gap:4px}.post-date{margin-left:0;font-size:.7rem}.post-title{white-space:normal;font-size:.9rem}}
+</style>
+
+{{/* ====== 友链页 - 暂用普通模板 ====== */}}
+{{ else if eq .Title "友情链接" }}
+{{ partial "links-content.html" . }}
+
+{{/* ====== 普通文章/页面 ====== */}}
+{{ else }}
+<nav class="breadcrumbs" aria-label="面包屑导航">
+    <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
+    {{ with .CurrentSection }}
+    <span class="separator"><i class="icon">›</i></span>
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ end }}
+    <span class="separator"><i class="icon">›</i></span>
+    <span class="current">{{ .Title }}</span>
+</nav>
+
+<article class="post-single" itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="url" content="{{ .Permalink }}">
+    <meta itemprop="datePublished" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+    <meta itemprop="dateModified" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+    <meta itemprop="author" content="{{ .Site.Title }}">
+    <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display:none;">
+        <meta itemprop="name" content="{{ .Site.Title }}">
+    </span>
+    {{ with .Params.thumb }}<meta itemprop="image" content="{{ . }}">{{ end }}
+
+    <h1 class="post-title" itemprop="headline">{{ .Title }}</h1>
+    <div class="post-meta">
+        <span class="meta-date"><i class="icon">📅</i> {{ .Date.Format "2006-01-02" }}</span>
+        <span class="meta-category">
+            <i class="icon">📁</i>
+            {{ range $i, $cat := .Params.categories }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/categories/%s" $cat)).Permalink }}">{{ $cat }}</a>{{ end }}
+        </span>
+    </div>
+
+    <div class="post-content" itemprop="articleBody">
+        {{ .Content }}
+    </div>
+
+    {{ with .Params.tags }}
+    <div class="post-tags">
+        <span><i class="icon">🏷️</i> 标签：</span>
+        {{ range . }}<a href="{{ (site.GetPage (printf "/tags/%s" .)).Permalink }}" class="post-tag" itemprop="keywords">{{ . }}</a> {{ end }}
+    </div>
+    {{ end }}
+
+    <div class="post-nav">
+        <div class="post-prev">
+            <span class="nav-label">↩ 上一篇</span>
+            {{ with .PrevInSection }}<a href="{{ .Permalink }}">{{ .Title }}</a>{{ else }}<span class="no-post">没有了</span>{{ end }}
+        </div>
+        <div class="post-next">
+            <span class="nav-label">↪ 下一篇</span>
+            {{ with .NextInSection }}<a href="{{ .Permalink }}">{{ .Title }}</a>{{ else }}<span class="no-post">没有了</span>{{ end }}
+        </div>
+    </div>
+
+    {{ $related := .Site.RegularPages.Related . | first 3 }}
+    {{ with $related }}
+    <div class="related-posts">
+        <h3 class="section-title"><i class="icon">👍</i> 猜你喜欢</h3>
+        <div class="related-posts-grid">
+            {{ range . }}
+            {{ $relTitle := .Title }}
+            <div class="related-post-item">
+                <a href="{{ .Permalink }}" class="related-post-thumb">
+                    {{ with .Params.thumb }}
+                    <img src="{{ . }}" alt="{{ $relTitle }}" loading="lazy" decoding="async">
+                    {{ else }}
+                    <div class="no-thumb"><i class="icon">🖼️</i></div>
+                    {{ end }}
+                </a>
+                <div class="related-post-info">
+                    <a href="{{ .Permalink }}" class="related-post-title">{{ .Title }}</a>
+                    <div class="related-post-meta">
+                        <span>{{ .Date.Format "2006-01-02" }}</span>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+</article>
+
+{{ if .Site.Params.giscus.repoId }}
+<div class="comments-section" id="comments">
+    <h3 class="section-title comments-count"><i class="icon">💬</i> 评论</h3>
+    <script src="https://giscus.app/client.js"
+        data-repo="{{ .Site.Params.giscus.repo }}"
+        data-repo-id="{{ .Site.Params.giscus.repoId }}"
+        data-category="{{ .Site.Params.giscus.category | default "Announcements" }}"
+        data-category-id="{{ .Site.Params.giscus.categoryId }}"
+        data-mapping="{{ .Site.Params.giscus.mapping | default "pathname" }}"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+{{ end }}
+{{ end }}
+{{ end }}

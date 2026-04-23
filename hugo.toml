@@ -1,46 +1,55 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://www.pgoj.top/'
 languageCode = 'zh-cn'
 defaultContentLanguage = 'zh'
-title = '我的博客'
-theme = 'PaperMod'
+title = '平哥偶记'
+theme = 'xlxn'
+
+hasCJKLanguage = true
+paginate = 5
+mainSections = ['posts']
+capitalizeListTitles = false
 
 [params]
-  author = '博主'
-  description = '一个 Hugo 静态博客'
-  defaultTheme = 'auto'
-  ShowReadingTime = true
-  ShowShareButtons = false
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = true
-  ShowCodeCopyButtons = true
-  ShowWordCount = true
+  author = '平哥'
+  description = '记录日常观感，分享生活随笔'
+  keywords = '博客,随笔,观感,教育,文艺,阅读'
+  logo = '平哥偶记'
+  builtYear = '2021'
 
-[params.homeInfoParams]
-  Title = "你好 👋"
-  Content = "欢迎来到我的博客"
+  # Giscus 评论配置
+  [params.giscus]
+  repo = 'youquyoulai/blog'
+  repoId = 'R_kgDOSKS49Q'
+  category = 'Announcements'
+  categoryId = 'DIC_kwDOSKS49c4C7g9k'
+  mapping = 'pathname'
 
-[[params.socialIcons]]
-  name = 'github'
-  url = 'https://github.com/'
+[taxonomies]
+  tag = 'tags'
+  category = 'categories'
 
-[menu]
-[[menu.main]]
-  identifier = 'posts'
-  name = '文章'
-  url = '/posts/'
-  weight = 10
-[[menu.main]]
-  identifier = 'tags'
-  name = '标签'
-  url = '/tags/'
-  weight = 20
-[[menu.main]]
-  identifier = 'archives'
-  name = '归档'
-  url = '/archives/'
-  weight = 30
-[[menu.main]]
-  identifier = 'search'
-  name = '搜索'
-  url = '/search/'
-  weight = 40
+[outputs]
+  home = ['HTML', 'RSS']
+  section = ['HTML', 'RSS']
+  taxonomy = ['HTML', 'RSS']
+  term = ['HTML', 'RSS']
+
+[services.rss]
+  limit = 20
+
+[outputFormats.RSS]
+  mediatype = "application/rss+xml"
+  baseName = "feed"
+
+[sitemap]
+  changefreq = 'weekly'
+  priority = 0.5
+  filename = 'sitemap.xml'
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

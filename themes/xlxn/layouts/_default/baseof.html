@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default .Summary | plainify | truncate 150 }}{{ end }}">
+    <meta name="keywords" content="{{ .Site.Params.keywords | default "" }}">
+    {{ if .Site.Params.favicon }}
+    <link rel="shortcut icon" href="{{ .Site.Params.favicon }}" type="image/x-icon">
+    <link rel="icon" href="{{ .Site.Params.favicon }}">
+    {{ end }}
+
+    <link rel="stylesheet" href="{{ "css/style.css" | relURL }}?v={{ now.Unix }}">
+
+    {{ if not .IsHome }}
+    <!-- 结构化数据：面包屑 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "{{ .Site.BaseURL }}"
+            }{{ if .IsPage }},
+            {
+                "@type": "ListItem",
+                "position": 2{{ with .CurrentSection }},
+                "name": "{{ .Title }}",
+                "item": "{{ .Permalink }}"{{ end }}
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{{ .Title }}"
+            }{{ else if .IsSection }},
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "{{ .Title }}"
+            }{{ end }}
+        ]
+    }
+    </script>
+    {{ end }}
+
+    <!-- SEO -->
+    <link rel="canonical" href="{{ .Permalink }}">
+    {{ with .OutputFormats.Get "rss" }}
+    <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
+    {{ end }}
+
+    {{ if .IsPage }}
+    <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+    {{ if not .Date.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+    {{ end }}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}">
+    <meta property="og:description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (cond (gt (len .RawContent) 0) (substr .RawContent 0 150 | plainify) "") }}{{ end }}">
+    <meta property="og:site_name" content="{{ .Site.Title }}">
+    {{ with .Params.thumb }}<meta property="og:image" content="{{ . }}">{{ end }}
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}">
+
+    {{ hugo.Generator }}
+</head>
+<body class="page-{{ if .IsHome }}index{{ else if .IsSection }}archive{{ else if .IsPage }}post{{ else }}archive{{ end }}">
+
+<!-- Skip Link for Accessibility -->
+<a href="#main-content" class="skip-link">跳到正文</a>
+
+{{ partial "header.html" . }}
+
+<div class="site-main" id="main-content">
+    <div class="container">
+        <div class="content-wrap">
+            <div class="main-content">
+                {{ block "main" . }}{{ end }}
+            </div>
+
+            <aside class="sidebar{{ if .IsHome }} is-index-sidebar{{ end }}">
+                {{ partial "sidebar.html" . }}
+            </aside>
+        </div>
+    </div>
+</div>
+
+<!-- 移动端滑出侧边栏 -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="sidebar-panel" id="sidebarPanel">
+    <div class="sidebar-panel-header">
+        <button class="sidebar-panel-close" id="sidebarPanelClose" aria-label="关闭侧边栏">
+            <i class="icon" aria-hidden="true">✕</i>
+        </button>
+    </div>
+    <div class="sidebar-panel-body">
+        {{ partial "sidebar.html" . }}
+    </div>
+</div>
+
+{{ partial "footer.html" . }}
+
+<a href="#" class="back-to-top" id="backToTop" title="返回顶部">⬆</a>
+
+<script src="{{ "js/main.js" | relURL }}?v={{ now.Unix }}"></script>
+</body>
+</html>

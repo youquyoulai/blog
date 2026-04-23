@@ -1,0 +1,70 @@
+{{ define "main" }}
+<div class="post-list">
+    {{ range .Paginator.Pages }}
+    <article class="post-card">
+        <h2 class="post-card-title">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </h2>
+        <div class="post-card-body">
+            {{ $thumb := .Params.thumb }}
+            {{ if not $thumb }}
+                {{ $thumb = .Resources.GetMatch "*thumb*" }}
+            {{ end }}
+            {{ if not $thumb }}
+                {{ with .Params.images }}
+                    {{ $thumb = index . 0 }}
+                {{ end }}
+            {{ end }}
+            {{ if $thumb }}
+            <a href="{{ .Permalink }}" class="post-card-thumb">
+                <img src="{{ $thumb }}" alt="{{ .Title }}" loading="lazy" decoding="async">
+            </a>
+            {{ end }}
+            <div class="post-card-excerpt">
+                <p>{{ substr (plainify .RawContent) 0 150 }}{{ if gt (len (plainify .RawContent)) 150 }}...{{ end }}</p>
+            </div>
+        </div>
+        <div class="post-card-meta">
+            <span class="meta-date"><i class="icon">📅</i> {{ .Date.Format "2006-01-02" }}</span>
+            <span class="meta-category">
+                <i class="icon">📁</i>
+                {{ range $i, $cat := .Params.categories }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/categories/%s" $cat)).Permalink }}">{{ $cat }}</a>{{ end }}
+            </span>
+            {{ with .Params.tags }}
+            <span class="meta-tags">
+                <i class="icon">🏷️</i>
+                {{ range $i, $tag := . }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/tags/%s" $tag)).Permalink }}">{{ $tag }}</a>{{ end }}
+            </span>
+            {{ end }}
+        </div>
+    </article>
+    {{ end }}
+</div>
+
+<div class="pagination">
+    <ul class="pagination-list">
+        {{ if .Paginator.HasPrev }}
+        <li class="prev">
+            <a href="{{ .Paginator.Prev.URL }}">&laquo;</a>
+        </li>
+        {{ end }}
+        {{ range .Paginator.Pagers }}
+        {{ $pageNum := .PageNumber }}
+        {{ if eq $pageNum $.Paginator.PageNumber }}
+        <li class="active"><span>{{ $pageNum }}</span></li>
+        {{ else if or (le $pageNum 2) (ge $pageNum (sub $.Paginator.TotalPages 1)) (and (ge $pageNum (sub $.Paginator.PageNumber 2)) (le $pageNum (add $.Paginator.PageNumber 2))) }}
+        <li><a href="{{ .URL }}">{{ $pageNum }}</a></li>
+        {{ else if eq $pageNum (sub $.Paginator.PageNumber 3) }}
+        <li><span>...</span></li>
+        {{ else if eq $pageNum (add $.Paginator.PageNumber 3) }}
+        <li><span>...</span></li>
+        {{ end }}
+        {{ end }}
+        {{ if .Paginator.HasNext }}
+        <li class="next">
+            <a href="{{ .Paginator.Next.URL }}">&raquo;</a>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}

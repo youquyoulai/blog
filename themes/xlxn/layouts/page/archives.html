@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>{{ .Title }} - {{ .Site.Title }}</title>
+    <meta name="description" content="{{ .Title }} - {{ .Site.Title }}">
+    <meta name="keywords" content="{{ .Site.Params.keywords | default "" }}">
+    <link rel="stylesheet" href="/css/style.css?v={{ now.Unix }}">
+    <link rel="canonical" href="{{ .Permalink }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ .Title }} - {{ .Site.Title }}">
+    <meta name="generator" content="Hugo {{ hugo.Version }}">
+</head>
+<body class="page-archives">
+
+<a href="#main-content" class="skip-link">跳到正文</a>
+
+{{ partial "header.html" . }}
+
+<div class="site-main" id="main-content">
+    <div class="container">
+        <div class="content-wrap">
+            <div class="main-content">
+
+<div class="page-single">
+    <nav class="breadcrumbs" aria-label="面包屑导航">
+        <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
+        <span class="separator"><i class="icon">›</i></span>
+        <span class="current">{{ .Title }}</span>
+    </nav>
+    <h1 class="page-title">{{ .Title }}</h1>
+    <div class="page-content">
+        {{ if .Content }}
+        <div class="archive-intro">{{ .Content }}</div>
+        {{ end }}
+
+        {{/* 统计 */}}
+        {{ $allPosts := where .Site.RegularPages "Section" "posts" }}
+        {{ $totalPosts := len $allPosts }}
+        {{ $years := 0 }}
+        {{ range $allPosts.GroupByDate "2006" }}
+        {{ $years = add $years 1 }}
+        {{ end }}
+
+        <div class="archive-stats">
+            <div class="stat-item">
+                <span class="stat-number">{{ $totalPosts }}</span>
+                <span class="stat-label">篇文章</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ $years }}</span>
+                <span class="stat-label">个年份</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ .Site.Params.commentCount | default "0" }}</span>
+                <span class="stat-label">条评论</span>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <button class="expand-all-btn" id="expandAllBtn">展开全部</button>
+        </div>
+
+        <div class="archive-container">
+            {{ range $allPosts.GroupByDate "2006" }}
+            {{ $yearTotal := len .Pages }}
+            <div class="archive-year collapsed">
+                <div class="year-header">
+                    <span class="year-text">{{ .Key }} 年</span>
+                    <span class="year-count">{{ $yearTotal }} 篇</span>
+                </div>
+                <div class="year-months">
+                    {{ range .Pages.GroupByDate "2006-01" }}
+                    {{ $monthName := index (slice "" "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12") (int (substr .Key 5 2)) }}
+                    <div class="archive-month collapsed">
+                        <div class="month-header">
+                            <span class="month-text">{{ $monthName }} 月</span>
+                            <span class="month-count">{{ len .Pages }} 篇</span>
+                        </div>
+                        <ul class="month-posts">
+                            {{ range .Pages }}
+                            <li class="post-item">
+                                <a href="{{ .Permalink }}" class="post-link">
+                                    <span class="post-title">{{ .Title }}</span>
+                                    <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+                                </a>
+                            </li>
+                            {{ end }}
+                        </ul>
+                    </div>
+                    {{ end }}
+                </div>
+            </div>
+            {{ else }}
+            <p style="text-align:center;padding:40px;">暂无文章</p>
+            {{ end }}
+        </div>
+    </div>
+</div>
+
+            </div>
+            <aside class="sidebar">
+                {{ partial "sidebar.html" . }}
+            </aside>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="sidebar-panel" id="sidebarPanel">
+    <div class="sidebar-panel-header">
+        <button class="sidebar-panel-close" id="sidebarPanelClose" aria-label="关闭侧边栏">
+            <i class="icon" aria-hidden="true">✕</i>
+        </button>
+    </div>
+    <div class="sidebar-panel-body">
+        {{ partial "sidebar.html" . }}
+    </div>
+</div>
+
+{{ partial "footer.html" . }}
+
+<a href="#" class="back-to-top" id="backToTop" title="返回顶部">⬆</a>
+
+<script src="/js/main.js?v={{ now.Unix }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var expandAllBtn = document.getElementById('expandAllBtn');
+    var years = document.querySelectorAll('.archive-year');
+    var allExpanded = false;
+
+    if (expandAllBtn) {
+        expandAllBtn.addEventListener('click', function() {
+            if (allExpanded) {
+                years.forEach(function(year) {
+                    year.classList.remove('expanded');
+                    year.classList.add('collapsed');
+                    var months = year.querySelectorAll('.archive-month');
+                    months.forEach(function(month) {
+                        month.classList.remove('expanded');
+                        month.classList.add('collapsed');
+                    });
+                });
+                expandAllBtn.textContent = '展开全部';
+                allExpanded = false;
+            } else {
+                years.forEach(function(year) {
+                    year.classList.remove('collapsed');
+                    year.classList.add('expanded');
+                    var months = year.querySelectorAll('.archive-month');
+                    months.forEach(function(month) {
+                        month.classList.remove('collapsed');
+                        month.classList.add('expanded');
+                    });
+                });
+                expandAllBtn.textContent = '折叠全部';
+                allExpanded = true;
+            }
+        });
+    }
+
+    years.forEach(function(year) {
+        var yearHeader = year.querySelector('.year-header');
+        if (yearHeader) {
+            yearHeader.addEventListener('click', function(e) {
+                e.stopPropagation();
+                year.classList.toggle('expanded');
+                year.classList.toggle('collapsed');
+            });
+        }
+    });
+
+    document.querySelectorAll('.archive-month').forEach(function(month) {
+        var monthHeader = month.querySelector('.month-header');
+        if (monthHeader) {
+            monthHeader.addEventListener('click', function(e) {
+                e.stopPropagation();
+                month.classList.toggle('expanded');
+                month.classList.toggle('collapsed');
+            });
+        }
+    });
+});
+</script>
+
+<style>
+/* 归档页样式 */
+.archive-stats { display: flex; justify-content: space-around; margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 12px; }
+.stat-item { text-align: center; }
+.stat-number { display: block; font-size: clamp(1.6rem, 5vw, 2rem); font-weight: 400; color: #2c5faa; }
+.stat-label { font-size: 0.9rem; color: #888; }
+.expand-all-btn { display: inline-block; background: #1a1a2e; color: #fff; border: none; padding: 8px 24px; border-radius: 6px; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; }
+.expand-all-btn:hover { background: #2c5faa; }
+.archive-container { max-width: 100%; padding: 0; }
+.archive-year { margin-bottom: 20px; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.year-header { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: #f8f9fa; cursor: pointer; transition: background 0.2s; }
+.year-header:hover { background: #f0f2f5; }
+.year-text { font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 500; color: #1a3f7a; }
+.year-count { background: #2c5faa; color: #fff; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; }
+.year-months { padding: 15px; }
+.archive-month { margin-bottom: 15px; border-radius: 6px; background: #fff; }
+.archive-month:last-child { margin-bottom: 0; }
+.month-header { display: flex; align-items: center; gap: 10px; padding: 10px 15px; background: #fafafa; cursor: pointer; transition: background 0.2s; border-radius: 6px; }
+.month-header:hover { background: #f5f5f5; }
+.month-text { font-size: 0.95rem; font-weight: 500; color: #555; }
+.month-count { background: #e8edf5; color: #2c5faa; padding: 1px 8px; border-radius: 15px; font-size: 0.75rem; }
+.month-posts { list-style: none; margin: 0; padding: 10px 10px 10px 30px; border-left: 2px dashed #e0e0e0; margin-left: 15px; }
+.post-item { margin: 8px 0; padding: 6px 0; border-bottom: 1px dashed #f0f0f0; }
+.post-item:last-child { border-bottom: none; }
+.post-link { display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: #444; font-size: 0.95rem; transition: color 0.2s; }
+.post-link:hover { color: #2c5faa; }
+.post-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.post-date { color: #bbb; font-size: 0.8rem; margin-left: 15px; flex-shrink: 0; }
+.archive-year.collapsed .year-months { display: none; }
+.archive-year.expanded .year-months { display: block; }
+.archive-month.collapsed .month-posts { display: none; }
+.archive-month.expanded .month-posts { display: block; }
+@media (max-width: 768px) {
+    .post-link { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .post-date { margin-left: 0; font-size: 0.7rem; }
+    .post-title { white-space: normal; font-size: 0.9rem; }
+}
+</style>
+</body>
+</html>

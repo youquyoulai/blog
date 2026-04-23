@@ -1,0 +1,76 @@
+<header class="site-header">
+    <div class="header-inner">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="打开导航菜单" aria-expanded="false" aria-controls="headerNav">
+            <i class="icon" aria-hidden="true">☰</i>
+        </button>
+
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="打开侧边栏" aria-expanded="false" aria-controls="sidebarPanel">
+            <i class="icon" aria-hidden="true">⧉</i>
+        </button>
+
+        <div class="header-logo">
+            <a href="{{ .Site.BaseURL }}">
+                {{ $logo := .Site.Params.logo }}
+                {{ if $logo }}
+                    {{ if strings.HasPrefix $logo "http" }}
+                        <img src="{{ $logo }}" alt="{{ .Site.Title }}" class="logo-img">
+                    {{ else }}
+                        <span class="logo-text">{{ $logo }}</span>
+                    {{ end }}
+                {{ else }}
+                    <span class="logo-text">LOGO</span>
+                {{ end }}
+            </a>
+        </div>
+
+        <nav class="header-nav" id="headerNav">
+            <ul>
+                <li class="{{ if .IsHome }}active{{ end }}">
+                    <a href="{{ .Site.BaseURL }}">首页</a>
+                </li>
+                {{/* 固定顺序分类导航 */}}
+                {{ $navCats := slice "散言" "片语" }}
+                {{ range $navCats }}
+                    {{ $cat := site.GetPage (printf "/categories/%s" .) }}
+                    {{ if $cat }}
+                    <li class="nav-item{{ if eq $.Permalink $cat.Permalink }} active{{ end }}">
+                        <a href="{{ $cat.Permalink }}">{{ $cat.Title }}</a>
+                    </li>
+                    {{ end }}
+                {{ end }}
+                {{/* 固定顺序独立页面导航 */}}
+                {{ $archives := site.GetPage "/archives" }}
+                {{ if $archives }}
+                <li class="{{ if eq $.Permalink $archives.Permalink }}active{{ end }}">
+                    <a href="{{ $archives.Permalink }}">归档</a>
+                </li>
+                {{ end }}
+                {{ $navPages := slice (dict "name" "links" "label" "友链") (dict "name" "guestbook" "label" "留言") (dict "name" "about" "label" "关于") }}
+                {{ range $navPages }}
+                    {{ $page := site.GetPage (printf "/pages/%s" .name) }}
+                    {{ if $page }}
+                    <li class="{{ if eq $.Permalink $page.Permalink }}active{{ end }}">
+                        <a href="{{ $page.Permalink }}">{{ .label }}</a>
+                    </li>
+                    {{ end }}
+                {{ end }}
+            </ul>
+            <!-- 移动端搜索 -->
+            <div class="nav-search-wrap">
+                <form method="get" action="{{ .Site.BaseURL }}" class="nav-search-form" role="search">
+                    <label for="mobileSearchInput" class="sr-only">搜索</label>
+                    <input type="text" id="mobileSearchInput" name="s" placeholder="搜索...">
+                    <button type="submit" aria-label="提交搜索"><i class="icon" aria-hidden="true">🔍</i></button>
+                </form>
+            </div>
+        </nav>
+
+        <div class="header-search">
+            <form method="get" action="{{ .Site.BaseURL }}" class="search-form" role="search">
+                <label for="desktopSearchInput" class="sr-only">搜索</label>
+                <input type="text" id="desktopSearchInput" name="s" placeholder="搜索...">
+                <button type="submit" aria-label="提交搜索"><i class="icon" aria-hidden="true">🔍</i></button>
+            </form>
+        </div>
+    </div>
+</header>

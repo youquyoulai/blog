@@ -1,0 +1,45 @@
+{{/* 热门文章 - 按日期取最近文章（静态站点无评论数） */}}
+{{ $posts := where .Site.RegularPages "Section" "posts" | first 8 }}
+{{ if $posts }}
+<div class="widget widget-hot-posts">
+    <h3 class="widget-title"><i class="icon">🔥</i> 热门文章</h3>
+    <ul class="hot-posts-list">
+        {{ range $i, $p := $posts }}
+        <li class="hot-post-item">
+            <span class="hot-post-index">{{ add $i 1 }}</span>
+            <a href="{{ $p.Permalink }}" class="hot-post-title">{{ $p.Title }}</a>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}
+
+{{/* 热门标签 */}}
+{{ if .Site.Taxonomies.tags }}
+<div class="widget widget-tags">
+    <h3 class="widget-title"><i class="icon">🏷️</i> 热门标签</h3>
+    <div class="tag-cloud">
+        {{ range $tagName, $weightedPages := .Site.Taxonomies.tags }}
+        {{ $tagPage := site.GetPage (printf "/tags/%s" $tagName) }}
+        <a href="{{ $tagPage.Permalink }}" class="tag-item">{{ $tagPage.Title }} ({{ len $weightedPages }})</a>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
+
+{{/* 友情链接 - 显示所有分类 */}}
+{{ $links := hugo.Data.links }}
+{{ if $links }}
+{{ range $links }}
+<div class="widget widget-links">
+    <h3 class="widget-title"><i class="icon">🔗</i> {{ .category }}</h3>
+    <div class="friend-links-grid">
+        {{ range .links }}
+        <a href="{{ .url }}" class="friend-link-item" target="_blank" rel="noopener" title="{{ .name }}">
+            {{ .name }}
+        </a>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
+{{ end }}

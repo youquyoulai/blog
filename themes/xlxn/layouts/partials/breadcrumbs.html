@@ -1,0 +1,16 @@
+{{ define "main" }}
+<nav class="breadcrumbs" aria-label="面包屑导航">
+    <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
+    {{ if .IsPage }}
+        {{ with .CurrentSection }}
+        <span class="separator"><i class="icon">›</i></span>
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        {{ end }}
+        <span class="separator"><i class="icon">›</i></span>
+        <span class="current">{{ .Title }}</span>
+    {{ else if .IsSection }}
+        <span class="separator"><i class="icon">›</i></span>
+        <span class="current"><i class="icon">📁</i> {{ .Title }}</span>
+    {{ end }}
+</nav>
+{{ end }}

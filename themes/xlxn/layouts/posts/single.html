@@ -1,0 +1,102 @@
+{{ define "main" }}
+<nav class="breadcrumbs" aria-label="面包屑导航">
+    <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
+    {{ with .CurrentSection }}
+    <span class="separator"><i class="icon">›</i></span>
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ end }}
+    <span class="separator"><i class="icon">›</i></span>
+    <span class="current">{{ .Title }}</span>
+</nav>
+
+<article class="post-single" itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="url" content="{{ .Permalink }}">
+    <meta itemprop="datePublished" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+    <meta itemprop="dateModified" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+    <meta itemprop="author" content="{{ .Site.Title }}">
+    <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display:none;">
+        <meta itemprop="name" content="{{ .Site.Title }}">
+    </span>
+    {{ with .Params.thumb }}<meta itemprop="image" content="{{ . }}">{{ end }}
+
+    <h1 class="post-title" itemprop="headline">{{ .Title }}</h1>
+    <div class="post-meta">
+        <span class="meta-date"><i class="icon">📅</i> {{ .Date.Format "2006-01-02" }}</span>
+        <span class="meta-category">
+            <i class="icon">📁</i>
+            {{ range $i, $cat := .Params.categories }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/categories/%s" $cat)).Permalink }}">{{ $cat }}</a>{{ end }}
+        </span>
+    </div>
+
+    <div class="post-content" itemprop="articleBody">
+        {{ .Content }}
+    </div>
+
+    {{ with .Params.tags }}
+    <div class="post-tags">
+        <span><i class="icon">🏷️</i> 标签：</span>
+        {{ range . }}<a href="{{ (site.GetPage (printf "/tags/%s" .)).Permalink }}" class="post-tag" itemprop="keywords">{{ . }}</a> {{ end }}
+    </div>
+    {{ end }}
+
+    <div class="post-nav">
+        <div class="post-prev">
+            <span class="nav-label">↩ 上一篇</span>
+            {{ with .PrevInSection }}<a href="{{ .Permalink }}">{{ .Title }}</a>{{ else }}<span class="no-post">没有了</span>{{ end }}
+        </div>
+        <div class="post-next">
+            <span class="nav-label">↪ 下一篇</span>
+            {{ with .NextInSection }}<a href="{{ .Permalink }}">{{ .Title }}</a>{{ else }}<span class="no-post">没有了</span>{{ end }}
+        </div>
+    </div>
+
+    {{ $related := .Site.RegularPages.Related . | first 3 }}
+    {{ with $related }}
+    <div class="related-posts">
+        <h3 class="section-title"><i class="icon">👍</i> 猜你喜欢</h3>
+        <div class="related-posts-grid">
+            {{ range . }}
+            {{ $relTitle := .Title }}
+            <div class="related-post-item">
+                <a href="{{ .Permalink }}" class="related-post-thumb">
+                    {{ with .Params.thumb }}
+                    <img src="{{ . }}" alt="{{ $relTitle }}" loading="lazy" decoding="async">
+                    {{ else }}
+                    <div class="no-thumb"><i class="icon">🖼️</i></div>
+                    {{ end }}
+                </a>
+                <div class="related-post-info">
+                    <a href="{{ .Permalink }}" class="related-post-title">{{ .Title }}</a>
+                    <div class="related-post-meta">
+                        <span>{{ .Date.Format "2006-01-02" }}</span>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+</article>
+
+{{ if .Site.Params.giscus.repo }}
+<div class="comments-section" id="comments">
+    <h3 class="section-title comments-count"><i class="icon">💬</i> 评论</h3>
+    <script src="https://giscus.app/client.js"
+        data-repo="{{ .Site.Params.giscus.repo }}"
+        data-repo-id="{{ .Site.Params.giscus.repoId }}"
+        data-category="{{ .Site.Params.giscus.category }}"
+        data-category-id="{{ .Site.Params.giscus.categoryId }}"
+        data-mapping="{{ .Site.Params.giscus.mapping | default "pathname" }}"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+{{ end }}
+{{ end }}

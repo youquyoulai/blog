@@ -2,3 +2,6 @@ public/
 resources/
 .hugo_build.lock
 *.zip
+metrics*.txt
+template-metrics.txt
+check_posts.py

@@ -317,8 +317,9 @@ a.comment-author:hover{color:var(--primary-dark)}
 .post-card{padding:12px}
 .related-posts-grid{grid-template-columns:1fr}
 .post-title{font-size:1.3rem}
-.post-card-body{flex-direction:column;gap:10px}
-.post-card-thumb{width:100%;aspect-ratio:16/9}
+.post-card{display:flex;flex-direction:column}
+.post-card-thumb{width:100%;aspect-ratio:16/9;order:-1;margin-bottom:8px}
+.post-card-body{flex-direction:column;gap:8px}
 .post-card-meta{font-size:0.85rem;gap:8px}
 .comment-avatar{width:36px;height:36px}
 .comment-list .comment-list{margin-left:20px}

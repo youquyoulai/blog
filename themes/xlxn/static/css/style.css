@@ -279,26 +279,28 @@ a.comment-author:hover{color:var(--primary-dark)}
 ::-webkit-scrollbar-thumb{background:#cccccc;border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--text-light)}
 @media (max-width:768px){
-.content-wrap{flex-direction:column}
+.container{padding:0 12px}
+.content-wrap{flex-direction:column;padding:15px 0}
 .content-wrap .sidebar{display:none}
 .related-posts-grid{grid-template-columns:repeat(2,1fr)}
 .site-footer{padding:15px 0}
 .footer-inner{flex-direction:column;gap:6px;text-align:center}
+.post-card{padding:15px;border-radius:10px}
 .post-title{font-size:1.4rem}
 .post-card-title{font-size:clamp(1rem,4vw,1.15rem)}
 .post-card-meta{font-size:0.9rem}
 .post-card-body{gap:12px}
 .post-card-thumb{width:100px}
 .post-card-excerpt p{font-size:0.95rem;-webkit-line-clamp:3}
-.post-single,.page-single,.comments-section{padding:20px}
+.post-single,.page-single,.comments-section{padding:15px}
 .post-content,.page-content{font-size:1rem;line-height:1.8}
 .tag-item,.post-tag{padding:4px 10px;border-radius:20px;font-size:0.78rem}
 .comment-form-fields{flex-direction:column}
 .comment-submit-btn{width:100%;justify-content:center}
 .pagination-list a,.pagination-list span{min-width:36px;height:36px;font-size:0.9rem}
-.breadcrumbs{font-size:0.78rem;padding:8px 14px}
+.breadcrumbs{font-size:0.78rem;padding:8px 12px}
 .breadcrumbs .current{max-width:160px}
-.pagination{padding:10px 15px;overflow:hidden}
+.pagination{padding:10px 12px;border-radius:10px;overflow:hidden}
 .pagination-list{flex-wrap:wrap;justify-content:center;gap:5px}
 .pagination-list li:not([class])>a{display:none}
 .pagination-list li:not([class])>span{display:inline-flex;border:1px solid var(--border-input);background:var(--card-bg);color:#999999;min-width:36px;height:36px;align-items:center;justify-content:center;border-radius:6px;font-size:0.9rem;pointer-events:none}
@@ -311,10 +313,19 @@ a.comment-author:hover{color:var(--primary-dark)}
 .feed-pagination .pager li.prev a,.feed-pagination .pager li.next a{padding:0 14px;min-width:auto;font-size:1rem}
 }
 @media (max-width:480px){
+.container{padding:0 10px}
+.post-card{padding:12px}
 .related-posts-grid{grid-template-columns:1fr}
 .post-title{font-size:1.3rem}
+.post-card-body{flex-direction:column;gap:10px}
+.post-card-thumb{width:100%;aspect-ratio:16/9}
+.post-card-meta{font-size:0.85rem;gap:8px}
 .comment-avatar{width:36px;height:36px}
 .comment-list .comment-list{margin-left:20px}
+.pagination{padding:8px 10px}
+.pagination-list a,.pagination-list span{min-width:34px;height:34px;font-size:0.85rem}
+.archive-header{padding:15px 12px}
+.breadcrumbs{padding:8px 10px;font-size:0.75rem}
 }
 /* 灯箱关闭按钮优化 */
 .lightbox-overlay button{background:rgba(0,0,0,0.7);color:#fff;border:2px solid rgba(255,255,255,0.5)}

@@ -28,7 +28,7 @@
 {{ end }}
 
 {{/* 友情链接 - 显示所有分类 */}}
-{{ $links := hugo.Data.links }}
+{{ $links := index hugo.Data "links" }}
 {{ if $links }}
 {{ range $links }}
 <div class="widget widget-links">

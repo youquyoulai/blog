@@ -5,7 +5,8 @@ title = '平哥偶记'
 theme = 'xlxn'
 
 hasCJKLanguage = true
-paginate = 5
+[pagination]
+  pagerSize = 5
 mainSections = ['posts']
 capitalizeListTitles = false
 

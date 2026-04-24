@@ -115,5 +115,6 @@
 {{ if eq .Layout "search" }}
 <script src="{{ "js/search.js" | relURL }}?v={{ now.Unix }}"></script>
 {{ end }}
+<script>if(window.Cloudflare){window.Cloudflare=[];var c=document.querySelectorAll('script[src*="cloudflareinsights"]');c.forEach(function(s){s.remove()})}</script>
 </body>
 </html>

@@ -6,7 +6,7 @@ theme = 'xlxn'
 
 hasCJKLanguage = true
 [pagination]
-  pagerSize = 5
+  pagerSize = 6
 mainSections = ['posts']
 capitalizeListTitles = false
 

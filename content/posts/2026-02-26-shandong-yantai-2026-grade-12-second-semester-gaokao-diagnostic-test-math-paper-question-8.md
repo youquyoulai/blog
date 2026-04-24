@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/shandong-yantai-2026-grade-12-second-semester-gaokao-diagnostic-test-math-paper-question-8.html
 
 title: "山东省烟台市2026届高三下学期高考诊断性测试数学试卷第8题"
 date: 2026-02-26
 lastmod: 2026-03-06
 slug: "shandong-yantai-2026-grade-12-second-semester-gaokao-diagnostic-test-math-paper-question-8"
-categories: ['散言']
+categories: ['guangan']
 tags: ["题解"]
 thumb: "/img/thumbs/sxtj.jpg"
 ---

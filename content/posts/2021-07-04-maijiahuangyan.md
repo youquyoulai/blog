@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/maijiahuangyan.html
 
 title: "买家用谎言验证了卖家的谎言"
 date: 2021-07-04
 lastmod: 2026-04-01
 slug: "maijiahuangyan"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

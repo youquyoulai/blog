@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/yishupingkongxiwang.html
 
 title: "艺术中的希望现实中的绝望"
 date: 2021-12-22
 lastmod: 2026-03-24
 slug: "yishupingkongxiwang"
-categories: ['散言']
+categories: ['guangan']
 tags: ["文艺"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/dayexiaoshuo.html
 
 title: "八十岁大爷曾交我一部手稿"
 date: 2026-01-09
 lastmod: 2026-01-16
 slug: "dayexiaoshuo"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 catalog: "0"
 ---

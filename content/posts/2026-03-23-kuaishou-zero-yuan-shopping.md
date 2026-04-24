@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/kuaishou-zero-yuan-shopping.html
 
 title: "第一次用快手差点弄成零元购"
 date: 2026-03-23
 lastmod: 2026-03-25
 slug: "kuaishou-zero-yuan-shopping"
-categories: ['散言']
+categories: ['guangan']
 tags: ["购物"]
 thumb: "/img/thumbs/tu02.jpg"
 ---

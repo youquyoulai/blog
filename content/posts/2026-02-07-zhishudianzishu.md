@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/zhishudianzishu.html
 
 title: "纸书与电子书就像包子和饺子"
 date: 2026-02-07
 slug: "zhishudianzishu"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读", "认知"]
 ---
 

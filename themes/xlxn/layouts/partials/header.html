@@ -1,4 +1,4 @@
-<header class="site-header">
+﻿<header class="site-header">
     <div class="header-inner">
         <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="打开导航菜单" aria-expanded="false" aria-controls="headerNav">
             <i class="icon" aria-hidden="true">☰</i>
@@ -28,17 +28,9 @@
                 <li class="{{ if .IsHome }}active{{ end }}">
                     <a href="{{ .Site.BaseURL }}">首页</a>
                 </li>
-                {{/* 固定顺序分类导航 - 显示中文名，URL 用 Typecho 兼容的 slug */}}
-                {{ $navCats := slice "散言" "片语" }}
-                {{ $catSlugs := dict "散言" "guangan" "片语" "weibo" }}
-                {{ range $navCats }}
-                    {{ $cat := site.GetPage (printf "/categories/%s" .) }}
-                    {{ if $cat }}
-                    <li class="nav-item{{ if eq $.Permalink $cat.Permalink }} active{{ end }}">
-                        <a href="/category/{{ index $catSlugs . }}/">{{ . }}</a>
-                    </li>
-                    {{ end }}
-                {{ end }}
+                {{/* 固定顺序分类导航 */}}
+                <li class="nav-item"><a href="/categories/guangan/">散言</a></li>
+                <li class="nav-item"><a href="/categories/weibo/">片语</a></li>
                 {{/* 固定顺序独立页面导航 */}}
                 {{ $archives := site.GetPage "/archives" }}
                 {{ if $archives }}

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/banyinzhe.html
 
 title: "如今我已成半隐者"
 date: 2026-01-07
 lastmod: 2026-04-08
 slug: "banyinzhe"
-categories: ['片语']
+categories: ['weibo']
 tags: ["认知"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/butanzuoyou.html
 
 title: "我这样的普通人不配谈论左右"
 date: 2025-12-21
 lastmod: 2026-01-18
 slug: "butanzuoyou"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 catalog: "0"
 ---

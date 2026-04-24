@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/wangluoxiaoshuoshoufei.html
 
 title: "不愿为网络小说付费"
 date: 2023-06-14
 lastmod: 2026-04-01
 slug: "wangluoxiaoshuoshoufei"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

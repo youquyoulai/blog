@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/shuxuejiachenxingshen.html
 
 title: "陈省身的成长与现在的辅导班"
 date: 2022-11-23
 lastmod: 2026-04-01
 slug: "shuxuejiachenxingshen"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

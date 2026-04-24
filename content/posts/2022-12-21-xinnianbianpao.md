@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xinnianbianpao.html
 
 title: "鞭炮声声只是如我之辈的一点儿执念"
 date: 2022-12-21
 lastmod: 2026-03-25
 slug: "xinnianbianpao"
-categories: ['散言']
+categories: ['guangan']
 tags: ["节日"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/dulibokeAI.html
 
 title: "独立博客展现博主自我还是AI塑造"
 date: 2026-04-12
 lastmod: 2026-04-15
 slug: "dulibokeAI"
-categories: ['散言']
+categories: ['guangan']
 tags: ["博客", "认知"]
 images:
   - /img/uploads/2026/04/1550736496.jpg

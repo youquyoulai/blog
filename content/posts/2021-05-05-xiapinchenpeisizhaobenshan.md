@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xiapinchenpeisizhaobenshan.html
 
 title: "小品的开山祖师与春晚舞台的小品王"
 date: 2021-05-05
 lastmod: 2026-03-24
 slug: "xiapinchenpeisizhaobenshan"
-categories: ['散言']
+categories: ['guangan']
 tags: ["文艺"]
 ---
 

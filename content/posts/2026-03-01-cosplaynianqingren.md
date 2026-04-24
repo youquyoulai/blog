@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/cosplaynianqingren.html
 
 title: "玩cosplay的年轻人越来越多了"
 date: 2026-03-01
 slug: "cosplaynianqingren"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

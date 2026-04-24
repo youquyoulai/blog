@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/jiapingwachenmo.html
 
 title: "沉默不是贾平凹和贾浅浅最好的选择"
 date: 2026-04-07
 slug: "jiapingwachenmo"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 images:
   - /img/uploads/2026/04/1099864449.png

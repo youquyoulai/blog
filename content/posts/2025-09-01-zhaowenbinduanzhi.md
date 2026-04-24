@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/zhaowenbinduanzhi.html
 
 title: "一个断指的不同意义"
 date: 2025-09-01
 lastmod: 2026-04-03
 slug: "zhaowenbinduanzhi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/shipinlahei.html
 
 title: "一边刷视频一边拉黑"
 date: 2026-01-15
 lastmod: 2026-04-08
 slug: "shipinlahei"
-categories: ['片语']
+categories: ['weibo']
 tags: ["认知"]
 ---
 

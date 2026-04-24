@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jiaoshibudushu.html
 
 title: "教师不读书归根结底是没有养成阅读习惯"
 date: 2022-02-14
 lastmod: 2026-04-01
 slug: "jiaoshibudushu"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

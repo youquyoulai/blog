@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/bokezhuti.html
 
 title: "快乐又疲惫的主题重构"
 date: 2026-01-25
 lastmod: 2026-01-29
 slug: "bokezhuti"
-categories: ['散言']
+categories: ['guangan']
 tags: ["博客", "AI"]
 ---
 

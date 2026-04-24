@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/sanbuwangluoxiaoshuo.html
 
 title: "这段时间看的三部网络小说"
 date: 2024-08-30
 lastmod: 2026-03-25
 slug: "sanbuwangluoxiaoshuo"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

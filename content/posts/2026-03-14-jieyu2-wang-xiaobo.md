@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jieyu2-wang-xiaobo.html
 
 title: "孑与2的文字让我想起了王小波的小说"
 date: 2026-03-14
 lastmod: 2026-03-25
 slug: "jieyu2-wang-xiaobo"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读", "王小波"]
 thumb: "/img/thumbs/tu10.jpg"
 ---

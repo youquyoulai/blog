@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/sdjnkxxqdysx.html
 
 title: "山东济南市2026届高三下学期开学学情调研测试数学试题第14题"
 date: 2026-02-18
 lastmod: 2026-03-06
 slug: "sdjnkxxqdysx"
-categories: ['散言']
+categories: ['guangan']
 tags: ["题解"]
 thumb: "/img/thumbs/sxtj.jpg"
 ---

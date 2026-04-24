@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/zaoshenluoji.html
 
 title: "不在乎逻辑的逻辑"
 date: 2026-01-31
 slug: "zaoshenluoji"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读", "教育"]
 ---
 

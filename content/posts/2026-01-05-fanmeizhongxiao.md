@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/fanmeizhongxiao.html
 
 title: "范美忠不过是漏出了下面的‘小’"
 date: 2026-01-05
 lastmod: 2026-01-16
 slug: "fanmeizhongxiao"
-categories: ['散言']
+categories: ['guangan']
 tags: ["王小波"]
 catalog: "0"
 ---

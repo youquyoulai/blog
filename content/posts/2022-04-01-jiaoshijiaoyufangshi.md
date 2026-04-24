@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jiaoshijiaoyufangshi.html
 
 title: "教师的教育方式、语气得慎而又慎"
 date: 2022-04-01
 lastmod: 2026-03-25
 slug: "jiaoshijiaoyufangshi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jiangkunxiangshengdixian.html
 
 title: "姜昆不食人间烟火的表态"
 date: 2021-09-17
 lastmod: 2026-03-24
 slug: "jiangkunxiangshengdixian"
-categories: ['散言']
+categories: ['guangan']
 tags: ["文艺"]
 ---
 

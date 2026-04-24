@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/shuxuebucunzai.html
 
 title: "数学教的东西都是不存在的"
 date: 2021-10-25
 lastmod: 2026-03-31
 slug: "shuxuebucunzai"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

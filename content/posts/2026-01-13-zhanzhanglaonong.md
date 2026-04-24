@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/zhanzhanglaonong.html
 
 title: "站长就像守着土地的老农"
 date: 2026-01-13
 lastmod: 2026-01-16
 slug: "zhanzhanglaonong"
-categories: ['散言']
+categories: ['guangan']
 tags: ["博客"]
 catalog: "0"
 ---

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/zhiboluanxiang.html
 
 title: "只有幻想，不愿付出的年轻人"
 date: 2026-02-02
 lastmod: 2026-02-02
 slug: "zhiboluanxiang"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

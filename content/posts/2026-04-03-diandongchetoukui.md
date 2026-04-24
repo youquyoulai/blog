@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/diandongchetoukui.html
 
 title: "为骑电动车带不带头盔打嘴仗"
 date: 2026-04-03
 slug: "diandongchetoukui"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 thumb: "/img/thumbs/tu05.jpg"
 ---

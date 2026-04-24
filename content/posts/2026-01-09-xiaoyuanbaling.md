@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xiaoyuanbaling.html
 
 title: "不同时代不同的霸凌"
 date: 2026-01-09
 lastmod: 2026-01-16
 slug: "xiaoyuanbaling"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 catalog: "0"
 ---

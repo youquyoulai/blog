@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/mubiaoyongqi.html
 
 title: "总要有些小目标有些小勇气"
 date: 2026-01-02
 lastmod: 2026-01-21
 slug: "mubiaoyongqi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 catalog: "0"
 ---

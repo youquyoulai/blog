@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/shoubingyouxiji.html
 
 title: "想起了落满灰尘的手柄游戏机"
 date: 2021-08-26
 lastmod: 2026-03-24
 slug: "shoubingyouxiji"
-categories: ['散言']
+categories: ['guangan']
 tags: ["日常"]
 ---
 

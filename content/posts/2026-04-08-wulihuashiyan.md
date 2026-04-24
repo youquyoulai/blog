@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/wulihuashiyan.html
 
 title: "初高中物理化学生物实验的变迁"
 date: 2026-04-08
 lastmod: 2026-04-13
 slug: "wulihuashiyan"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 thumb: "/img/thumbs/wulihuaxueshengwushiyan.png"
 ---

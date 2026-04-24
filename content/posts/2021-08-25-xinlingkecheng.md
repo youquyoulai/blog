@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xinlingkecheng.html
 
 title: "忽悠接着忽悠的心灵课程"
 date: 2021-08-25
 lastmod: 2026-03-24
 slug: "xinlingkecheng"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

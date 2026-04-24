@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/chuhechuyi.html
 
 title: "小学数学中的除和除以"
 date: 2021-10-08
 lastmod: 2026-03-31
 slug: "chuhechuyi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

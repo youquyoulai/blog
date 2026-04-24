@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/fangxiafangbuxia.html
 
 title: "放不下也就放不下了"
 date: 2022-10-03
 lastmod: 2026-03-25
 slug: "fangxiafangbuxia"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/kaiqiduliboke.html
 
 title: "我又忍不住，折腾起博客来了"
 date: 2026-01-16
 lastmod: 2026-01-16
 slug: "kaiqiduliboke"
-categories: ['散言']
+categories: ['guangan']
 tags: ["博客"]
 catalog: "0"
 ---

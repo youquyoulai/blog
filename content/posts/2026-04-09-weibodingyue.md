@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/weibodingyue.html
 
 title: "实现友链订阅与微博功能调整"
 date: 2026-04-09
 slug: "weibodingyue"
-categories: ['片语']
+categories: ['weibo']
 tags: ["博客"]
 ---
 

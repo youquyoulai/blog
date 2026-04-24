@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/shijiecaotaibanzi.html
 
 title: "草台班子里平庸的你我"
 date: 2026-01-04
 lastmod: 2026-01-30
 slug: "shijiecaotaibanzi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 catalog: "0"
 ---

@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/nianqingjiaoshi.html
 
 title: "两难的学生和教师"
 date: 2026-01-27
 slug: "nianqingjiaoshi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/baipiaofufei.html
 
 title: "白嫖时狂热与付费后失落"
 date: 2026-02-24
 lastmod: 2026-02-25
 slug: "baipiaofufei"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

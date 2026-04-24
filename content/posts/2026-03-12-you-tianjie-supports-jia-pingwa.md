@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/you-tianjie-supports-jia-pingwa.html
 
 title: "游天杰对贾平凹的支持软弱无力"
 date: 2026-03-12
 lastmod: 2026-03-12
 slug: "you-tianjie-supports-jia-pingwa"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 images:
   - /img/uploads/2026/03/3139728353.png

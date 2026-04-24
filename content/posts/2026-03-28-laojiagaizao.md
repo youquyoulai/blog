@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/laojiagaizao.html
 
 title: "老家的局部改造终于开始了"
 date: 2026-03-28
 lastmod: 2026-03-29
 slug: "laojiagaizao"
-categories: ['散言']
+categories: ['guangan']
 tags: ["日常"]
 thumb: "/img/thumbs/tu12.jpg"
 ---

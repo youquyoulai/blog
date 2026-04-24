@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/shuashipinlahei.html
 
 title: "说话是你的权利，拉黑是我的自由"
 date: 2026-04-22
 slug: "shuashipinlahei"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知", "软件"]
 thumb: "/img/thumbs/tu12.jpg"
 ---

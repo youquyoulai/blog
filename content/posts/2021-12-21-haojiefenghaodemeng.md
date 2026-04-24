@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/haojiefenghaodemeng.html
 
 title: "郝杰的《冯海的梦》的先锋性"
 date: 2021-12-21
 lastmod: 2026-03-31
 slug: "haojiefenghaodemeng"
-categories: ['散言']
+categories: ['guangan']
 tags: ["文艺"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/shirenjingqiaoqiao.html
 
 title: "诗人的存在静悄悄"
 date: 2021-05-28
 lastmod: 2026-03-24
 slug: "shirenjingqiaoqiao"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

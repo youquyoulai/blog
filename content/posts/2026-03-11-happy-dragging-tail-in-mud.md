@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/happy-dragging-tail-in-mud.html
 
 title: "或许，快乐地曳尾涂中就挺好"
 date: 2026-03-11
 slug: "happy-dragging-tail-in-mud"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读", "认知"]
 ---
 

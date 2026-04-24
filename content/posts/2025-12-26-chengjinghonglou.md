@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/chengjinghonglou.html
 
 title: "老树成精的《红楼梦》"
 date: 2025-12-26
 lastmod: 2026-01-16
 slug: "chengjinghonglou"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 catalog: "0"
 ---

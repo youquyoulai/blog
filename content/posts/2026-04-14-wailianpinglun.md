@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/wailianpinglun.html
 
 title: "主题增加了外链跳转，重写了评论区"
 date: 2026-04-14
 slug: "wailianpinglun"
-categories: ['片语']
+categories: ['weibo']
 tags: ["博客"]
 images:
   - /img/uploads/2026/04/709271874.png

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/meiyoudixiandewanghong.html
 
 title: "以撕扯国民伤疤来吸引眼球的‘网红’"
 date: 2021-07-06
 lastmod: 2026-04-01
 slug: "meiyoudixiandewanghong"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

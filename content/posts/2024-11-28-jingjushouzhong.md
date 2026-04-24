@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jingjushouzhong.html
 
 title: "渐行渐远的京剧艺术"
 date: 2024-11-28
 lastmod: 2026-03-25
 slug: "jingjushouzhong"
-categories: ['散言']
+categories: ['guangan']
 tags: ["文艺"]
 ---
 

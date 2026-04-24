@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/daolangchaofeng.html
 
 title: "享受《罗刹海市》盛宴者也是被嘲讽者"
 date: 2023-07-31
 lastmod: 2026-04-01
 slug: "daolangchaofeng"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

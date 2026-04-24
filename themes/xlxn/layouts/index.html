@@ -1,4 +1,4 @@
-{{ define "main" }}
+﻿{{ define "main" }}
 <div class="post-list">
     {{ range .Paginator.Pages }}
     <article class="post-card">
@@ -15,11 +15,14 @@
                     {{ $thumb = index . 0 }}
                 {{ end }}
             {{ end }}
-            {{ if $thumb }}
+            {{ if not $thumb }}
+                {{ $imgs := slice "/img/thumbs/tu01.jpg" "/img/thumbs/tu02.jpg" "/img/thumbs/tu03.jpg" "/img/thumbs/tu04.jpg" "/img/thumbs/tu05.jpg" "/img/thumbs/tu06.jpg" "/img/thumbs/tu07.jpg" "/img/thumbs/tu08.jpg" "/img/thumbs/tu09.jpg" "/img/thumbs/tu10.jpg" "/img/thumbs/tu11.jpg" "/img/thumbs/tu12.jpg" "/img/thumbs/tu13.jpg" }}
+                {{ $idx := mod .Date.Unix (len $imgs) }}
+                {{ $thumb = index $imgs $idx }}
+            {{ end }}
             <a href="{{ .Permalink }}" class="post-card-thumb">
                 <img src="{{ $thumb }}" alt="{{ .Title }}" loading="lazy" decoding="async">
             </a>
-            {{ end }}
             <div class="post-card-excerpt">
                 <p>{{ substr (plainify .RawContent) 0 150 }}{{ if gt (len (plainify .RawContent)) 150 }}...{{ end }}</p>
             </div>
@@ -28,7 +31,7 @@
             <span class="meta-date"><i class="icon">📅</i> {{ .Date.Format "2006-01-02" }}</span>
             <span class="meta-category">
                 <i class="icon">📁</i>
-                {{ $catSlugs := dict "散言" "guangan" "片语" "weibo" }}{{ range $i, $cat := .Params.categories }}{{ if $i }}, {{ end }}<a href="/category/{{ index $catSlugs $cat }}/">{{ $cat }}</a>{{ end }}
+                {{ $catNames := dict "guangan" "散言" "weibo" "片语" }}{{ range $i, $cat := .Params.categories }}{{ if $i }}, {{ end }}{{ $displayName := index $catNames $cat }}{{ if not $displayName }}{{ $displayName = $cat }}{{ end }}<a href="/categories/{{ $cat }}/">{{ $displayName }}</a>{{ end }}
             </span>
             {{ with .Params.tags }}
             <span class="meta-tags">

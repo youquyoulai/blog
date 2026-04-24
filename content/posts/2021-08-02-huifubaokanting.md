@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/huifubaokanting.html
 
 title: "想当然的恢复报刊亭的呼吁"
 date: 2021-08-02
 lastmod: 2026-03-31
 slug: "huifubaokanting"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

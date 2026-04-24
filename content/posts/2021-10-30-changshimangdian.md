@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/changshimangdian.html
 
 title: "你的常识对别人来说可能是盲点"
 date: 2021-10-30
 lastmod: 2026-03-31
 slug: "changshimangdian"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

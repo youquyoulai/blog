@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/guangboke.html
 
 title: "我喜欢逛独立博客的原因"
 date: 2026-01-11
 lastmod: 2026-01-16
 slug: "guangboke"
-categories: ['散言']
+categories: ['guangan']
 tags: ["博客"]
 catalog: "0"
 ---

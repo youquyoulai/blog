@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/laotaitaisongkua.html
 
 title: "老太太棉裤腰般的松垮"
 date: 2026-04-19
 lastmod: 2026-04-20
 slug: "laotaitaisongkua"
-categories: ['片语']
+categories: ['weibo']
 tags: ["认知"]
 thumb: "/img/thumbs/tu03.jpg"
 ---

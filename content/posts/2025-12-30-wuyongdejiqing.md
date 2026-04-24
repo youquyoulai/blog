@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/wuyongdejiqing.html
 
 title: "不留痕迹的无用的激情"
 date: 2025-12-30
 lastmod: 2026-02-01
 slug: "wuyongdejiqing"
-categories: ['散言']
+categories: ['guangan']
 tags: ["博客", "认知"]
 catalog: "0"
 ---

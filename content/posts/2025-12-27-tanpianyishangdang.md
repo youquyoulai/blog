@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/tanpianyishangdang.html
 
 title: "贪便宜要有上当的自觉"
 date: 2025-12-27
 lastmod: 2026-02-01
 slug: "tanpianyishangdang"
-categories: ['散言']
+categories: ['guangan']
 tags: ["购物", "认知"]
 catalog: "0"
 ---

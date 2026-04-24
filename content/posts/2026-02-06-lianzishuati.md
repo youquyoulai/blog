@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/lianzishuati.html
 
 title: "走心的努力也是一种能力"
 date: 2026-02-06
 lastmod: 2026-02-06
 slug: "lianzishuati"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/quxiezuozhehan.html
 
 title: "曲协不能瘸子打围坐着喊"
 date: 2021-05-07
 lastmod: 2026-03-24
 slug: "quxiezuozhehan"
-categories: ['散言']
+categories: ['guangan']
 tags: ["文艺"]
 ---
 

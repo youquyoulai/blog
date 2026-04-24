@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xiaoyaoxianer.html
 
 title: "石一枫的小说《逍遥仙儿》"
 date: 2026-01-10
 lastmod: 2026-02-03
 slug: "xiaoyaoxianer"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

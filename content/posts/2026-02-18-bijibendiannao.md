@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/bijibendiannao.html
 
 title: "鸡肋般的笔记本电脑"
 date: 2026-02-18
 lastmod: 2026-02-24
 slug: "bijibendiannao"
-categories: ['散言']
+categories: ['guangan']
 tags: ["情感"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/hanweiquanli.html
 
 title: "观念不同最好相忘于江湖"
 date: 2024-06-13
 lastmod: 2026-03-25
 slug: "hanweiquanli"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

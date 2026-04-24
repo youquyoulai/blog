@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/nongcunyanglao.html
 
 title: "回农村养老，只是想起来美好"
 date: 2026-03-02
 lastmod: 2026-03-04
 slug: "nongcunyanglao"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

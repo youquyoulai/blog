@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/guizhouguiyanggaosanshuxueyi.html
 
 title: "贵州贵阳市2026届高三年级适用性考试（一）数学试卷第8题"
 date: 2026-02-15
 lastmod: 2026-03-06
 slug: "guizhouguiyanggaosanshuxueyi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["题解"]
 thumb: "/img/thumbs/sxtj.jpg"
 ---

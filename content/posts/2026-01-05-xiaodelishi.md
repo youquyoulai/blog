@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xiaodelishi.html
 
 title: "笑的故事与笑的历史"
 date: 2026-01-05
 lastmod: 2026-04-08
 slug: "xiaodelishi"
-categories: ['片语']
+categories: ['weibo']
 tags: ["阅读"]
 ---
 

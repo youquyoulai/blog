@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xiyanrenpin.html
 
 title: "有些吸烟者人品恶劣"
 date: 2026-01-02
 lastmod: 2026-04-08
 slug: "xiyanrenpin"
-categories: ['片语']
+categories: ['weibo']
 tags: ["认知"]
 ---
 

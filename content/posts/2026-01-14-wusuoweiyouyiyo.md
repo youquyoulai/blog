@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/wusuoweiyouyiyo.html
 
 title: "意义本无所谓无所谓无"
 date: 2026-01-14
 lastmod: 2026-02-04
 slug: "wusuoweiyouyiyo"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读", "认知"]
 ---
 

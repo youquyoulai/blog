@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jiaocaigaigeshoushiwuzi.html
 
 title: "教材改革与收拾屋子"
 date: 2021-10-10
 lastmod: 2026-03-31
 slug: "jiaocaigaigeshoushiwuzi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

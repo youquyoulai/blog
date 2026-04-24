@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/laoshirentianzhenhan.html
 
 title: "古失去的原因就是因为其古"
 date: 2022-11-18
 lastmod: 2026-04-01
 slug: "laoshirentianzhenhan"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

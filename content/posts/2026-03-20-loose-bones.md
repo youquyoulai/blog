@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/loose-bones.html
 
 title: "安静的孩子疏松的骨头"
 date: 2026-03-20
 lastmod: 2026-03-25
 slug: "loose-bones"
-categories: ['散言']
+categories: ['guangan']
 tags: ["日常"]
 thumb: "/img/thumbs/tu04.jpg"
 ---

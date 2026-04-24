@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xiaohaizidexihuan.html
 
 title: "小孩子的一时兴起的喜欢"
 date: 2021-12-31
 lastmod: 2026-03-24
 slug: "xiaohaizidexihuan"
-categories: ['散言']
+categories: ['guangan']
 tags: ["日常"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/weixingxiaoshuoyuebaotushu.html
 
 title: "看了几篇微型小说月报的短篇小说"
 date: 2024-12-13
 lastmod: 2026-03-25
 slug: "weixingxiaoshuoyuebaotushu"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

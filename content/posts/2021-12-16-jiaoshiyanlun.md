@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jiaoshiyanlun.html
 
 title: "教师时刻应该注意保持理智与克制"
 date: 2021-12-16
 lastmod: 2026-03-31
 slug: "jiaoshiyanlun"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

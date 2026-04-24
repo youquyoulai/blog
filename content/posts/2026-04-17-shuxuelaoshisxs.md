@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/shuxuelaoshisxs.html
 
 title: "数学老师不讲发现√2的意义"
 date: 2026-04-17
 slug: "shuxuelaoshisxs"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 images:
   - /img/uploads/2026/04/2778215688.jpg

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/haoranzhengqi.html
 
 title: "虚假的浩然正气"
 date: 2026-01-08
 lastmod: 2026-04-08
 slug: "haoranzhengqi"
-categories: ['片语']
+categories: ['weibo']
 tags: ["认知"]
 ---
 

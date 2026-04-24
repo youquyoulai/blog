@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jiaoyulaoguo.html
 
 title: "教育让我想起老郭的‘我就是个裤衩’"
 date: 2026-04-10
 lastmod: 2026-04-10
 slug: "jiaoyulaoguo"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 thumb: "/img/thumbs/tu03.jpg"
 ---

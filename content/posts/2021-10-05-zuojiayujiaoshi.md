@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/zuojiayujiaoshi.html
 
 title: "作家群体面临的境遇和教师类似"
 date: 2021-10-05
 lastmod: 2026-03-31
 slug: "zuojiayujiaoshi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xueshengjuanyang.html
 
 title: "难解的学生课间圈养"
 date: 2026-01-12
 lastmod: 2026-04-08
 slug: "xueshengjuanyang"
-categories: ['片语']
+categories: ['weibo']
 tags: ["教育", "认知"]
 ---
 

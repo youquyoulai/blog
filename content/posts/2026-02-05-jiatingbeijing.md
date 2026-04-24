@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jiatingbeijing.html
 
 title: "卸下《家庭背景》的重担"
 date: 2026-02-05
 lastmod: 2026-02-05
 slug: "jiatingbeijing"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读", "情感"]
 ---
 

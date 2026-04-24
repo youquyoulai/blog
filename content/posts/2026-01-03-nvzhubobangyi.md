@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/nvzhubobangyi.html
 
 title: "我的堂弟也曾当榜一大哥"
 date: 2026-01-03
 lastmod: 2026-01-29
 slug: "nvzhubobangyi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读", "情感"]
 catalog: "0"
 ---

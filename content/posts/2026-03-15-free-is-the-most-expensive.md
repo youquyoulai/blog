@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/free-is-the-most-expensive.html
 
 title: "由免费理财想到摸石看病"
 date: 2026-03-15
 lastmod: 2026-03-25
 slug: "free-is-the-most-expensive"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 thumb: "/img/thumbs/tu08.jpg"
 ---

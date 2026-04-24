@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/Justice-may-be-delayed.html
 
 title: "迟到的正义，虚伪的尊重"
 date: 2026-03-13
 lastmod: 2026-03-13
 slug: "Justice-may-be-delayed"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

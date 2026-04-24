@@ -1,4 +1,4 @@
-{{ define "main" }}
+﻿{{ define "main" }}
 
 {{/* ====== 归档页 ====== */}}
 {{ if eq .Title "归档" }}
@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
 @media(max-width:768px){.post-link{flex-direction:column;align-items:flex-start;gap:4px}.post-date{margin-left:0;font-size:.7rem}.post-title{white-space:normal;font-size:.9rem}}
 </style>
 
-{{/* ====== 友链页 - 暂用普通模板 ====== */}}
-{{ else if eq .Title "友情链接" }}
+{{/* ====== 友链页 ====== */}}
+{{ else if or (eq .Title "友链") (eq .Title "友情链接") }}
 {{ partial "links-content.html" . }}
 
 {{/* ====== 普通文章/页面 ====== */}}
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
         <span class="meta-date"><i class="icon">📅</i> {{ .Date.Format "2006-01-02" }}</span>
         <span class="meta-category">
             <i class="icon">📁</i>
-            {{ $catSlugs := dict "散言" "guangan" "片语" "weibo" }}{{ range $i, $cat := .Params.categories }}{{ if $i }}, {{ end }}<a href="/category/{{ index $catSlugs $cat }}/">{{ $cat }}</a>{{ end }}
+            {{ $catNames := dict "guangan" "散言" "weibo" "片语" }}{{ range $i, $cat := .Params.categories }}{{ if $i }}, {{ end }}{{ $displayName := index $catNames $cat }}{{ if not $displayName }}{{ $displayName = $cat }}{{ end }}<a href="/categories/{{ $cat }}/">{{ $displayName }}</a>{{ end }}
         </span>
     </div>
 

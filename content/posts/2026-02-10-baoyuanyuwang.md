@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/baoyuanyuwang.html
 
 title: "抱怨源于能力撑不住欲望"
 date: 2026-02-10
 lastmod: 2026-02-24
 slug: "baoyuanyuwang"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

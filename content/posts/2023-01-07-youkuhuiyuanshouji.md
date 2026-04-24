@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/youkuhuiyuanshouji.html
 
 title: "优酷会员账号只能登录一个手机"
 date: 2023-01-07
 lastmod: 2026-03-25
 slug: "youkuhuiyuanshouji"
-categories: ['散言']
+categories: ['guangan']
 tags: ["购物"]
 ---
 

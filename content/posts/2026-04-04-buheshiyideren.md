@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/buheshiyideren.html
 
 title: "罪恶之链的终结与延续"
 date: 2026-04-04
 slug: "buheshiyideren"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 thumb: "/img/thumbs/tu04.jpg"
 ---

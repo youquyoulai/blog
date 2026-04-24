@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/wwibopinglun.html
 
 title: "tyoecho分类页面做微博说说"
 date: 2026-02-02
 lastmod: 2026-04-08
 slug: "wwibopinglun"
-categories: ['片语']
+categories: ['weibo']
 tags: ["博客", "AI"]
 ---
 

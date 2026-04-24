@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/xiachongyubibg.html
 
 title: "我们有一颗永不相交的心"
 date: 2026-01-28
 slug: "xiachongyubibg"
-categories: ['散言']
+categories: ['guangan']
 tags: ["摇滚"]
 ---
 

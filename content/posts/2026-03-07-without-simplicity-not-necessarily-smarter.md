@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/without-simplicity-not-necessarily-smarter.html
 
 title: "少了憨厚拙直，却未必聪明了"
 date: 2026-03-07
 lastmod: 2026-03-07
 slug: "without-simplicity-not-necessarily-smarter"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

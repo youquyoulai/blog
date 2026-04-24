@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/renjiguanxi.html
 
 title: "远去的关系永久的记忆"
 date: 2026-02-26
 slug: "renjiguanxi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["情感", "认知"]
 ---
 

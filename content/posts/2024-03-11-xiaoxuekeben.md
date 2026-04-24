@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xiaoxuekeben.html
 
 title: "小学生教材的问题"
 date: 2024-03-11
 lastmod: 2026-03-25
 slug: "xiaoxuekeben"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

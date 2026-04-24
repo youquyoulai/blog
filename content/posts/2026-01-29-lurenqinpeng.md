@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/lurenqinpeng.html
 
 title: "亲近的路人疏远的亲朋"
 date: 2026-01-29
 lastmod: 2026-02-01
 slug: "lurenqinpeng"
-categories: ['散言']
+categories: ['guangan']
 tags: ["手机"]
 ---
 

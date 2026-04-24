@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/deepseekditu.html
 
 title: "deepseek帮我解决了地图插件"
 date: 2026-01-16
 lastmod: 2026-01-29
 slug: "deepseekditu"
-categories: ['散言']
+categories: ['guangan']
 tags: ["博客", "AI"]
 catalog: "0"
 ---

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/weidongyipingjia.html
 
 title: "对韦东奕不中肯的评价"
 date: 2021-10-29
 lastmod: 2026-03-31
 slug: "weidongyipingjia"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

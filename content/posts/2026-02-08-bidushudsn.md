@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/bidushudsn.html
 
 title: "没有所谓的必读书单"
 date: 2026-02-08
 lastmod: 2026-02-24
 slug: "bidushudsn"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

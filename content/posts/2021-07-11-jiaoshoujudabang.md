@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jiaoshoujudabang.html
 
 title: "天津大学教授马知遥的大棒高举"
 date: 2021-07-11
 lastmod: 2026-04-01
 slug: "jiaoshoujudabang"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

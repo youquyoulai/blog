@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/weixindushushubi.html
 
 title: "世界读书日,微信读书赠免费书币"
 date: 2026-04-23
 lastmod: 2026-04-23
 slug: "weixindushushubi"
-categories: ['片语']
+categories: ['weibo']
 tags: ["软件"]
 images:
   - /img/uploads/2026/04/1336191206.jpg

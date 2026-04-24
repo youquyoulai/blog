@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/danshenyudingke.html
 
 title: "单身与丁克的认知"
 date: 2026-01-12
 lastmod: 2026-04-08
 slug: "danshenyudingke"
-categories: ['片语']
+categories: ['weibo']
 tags: ["情感", "认知"]
 ---
 

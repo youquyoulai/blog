@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/zaidayangkaijiuguan.html
 
 title: "放弃了《我在大唐开酒馆》"
 date: 2023-06-22
 lastmod: 2026-03-25
 slug: "zaidayangkaijiuguan"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

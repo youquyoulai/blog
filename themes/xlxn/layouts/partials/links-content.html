@@ -1,8 +1,71 @@
+<style>
+.links-page { max-width: 100%; }
+.links-header { text-align: center; margin-bottom: 30px; }
+.links-header h1 { font-size: clamp(1.6rem, 4vw, 2rem); color: #1a3f7a; margin-bottom: 10px; }
+.links-header p { color: #888; font-size: 0.95rem; }
+.links-category { margin-bottom: 40px; }
+.links-category.single-line { margin-bottom: 30px; }
+.category-title { font-size: clamp(1.2rem, 2.5vw, 1.5rem); font-weight: 600; color: #2c5faa; padding-bottom: 10px; margin-bottom: 20px; border-bottom: 2px solid #2c5faa; display: inline-block; }
+.single-line .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+.single-line .link-card { width: auto; min-width: 0; }
+.default-category .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.link-card { background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.3s ease; }
+.link-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+.link-name { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+.link-name a { color: #333; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.link-name a:hover { color: #2c5faa; }
+.link-name i { color: #2c5faa; font-size: 1.2rem; }
+.link-name { display: flex; align-items: center; justify-content: space-between; }
+.rss-icon { font-size: 1rem; text-decoration: none; opacity: 0.6; transition: opacity 0.2s; flex-shrink: 0; }
+.rss-icon:hover { opacity: 1; }
+.link-url { font-size: 0.75rem; color: #aaa; margin-bottom: 12px; word-break: break-all; }
+@media (max-width: 768px) {
+    .default-category .links-grid { grid-template-columns: 1fr; }
+}
+</style>
+
 <nav class="breadcrumbs" aria-label="面包屑导航">
     <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
     <span class="separator"><i class="icon">›</i></span>
-    <span class="current">{{ .Title }}</span>
+    <span class="current">友链</span>
 </nav>
-<div class="page-content">
-    {{ .Content }}
+<div class="page-single links-page">
+    <div class="links-header">
+        <h1>友情链接</h1>
+        {{ with .Content }}
+        <div class="page-content">{{ . }}</div>
+        {{ end }}
+    </div>
+
+    {{ $links := hugo.Data.links }}
+    {{ $singleLineCategories := slice "友情链接" "友人帐" "博客圈" "Friends" "Blogroll" }}
+
+    {{ if $links }}
+        {{ range $links }}
+        {{ $isSingleLine := in $singleLineCategories .category }}
+        <div class="links-category {{ if $isSingleLine }}single-line{{ else }}default-category{{ end }}">
+            <h2 class="category-title">
+                <i class="icon">🏷️</i> {{ .category }}
+                <span class="category-count">({{ len .links }})</span>
+            </h2>
+            <div class="links-grid">
+                {{ range .links }}
+                <div class="link-card">
+                    <div class="link-name">
+                        <a href="{{ .url }}" target="_blank" rel="noopener">
+                            <i class="icon">↗</i> {{ .name }}
+                        </a>
+                    </div>
+                    <div class="link-url">{{ $parsed := urls.Parse .url }}{{ $parsed.Host }}</div>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+    {{ else }}
+    <div class="links-empty" style="text-align:center;padding:60px;background:#fff;border-radius:12px;">
+        <i class="icon" style="font-size:3rem;color:#ccc;">🔗</i>
+        <p style="margin-top:16px;color:#999;">暂无友情链接，请在 data/links.yaml 中添加</p>
+    </div>
+    {{ end }}
 </div>

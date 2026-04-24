@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/chuanyuexiaoshuo.html
 
 title: "穿越不过是心中的妄念罢了"
 date: 2026-03-24
 lastmod: 2026-03-25
 slug: "chuanyuexiaoshuo"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 thumb: "/img/thumbs/tu01.jpg"
 ---

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/bokehuifang.html
 
 title: "顺其自然的回访与留言"
 date: 2026-02-04
 lastmod: 2026-02-04
 slug: "bokehuifang"
-categories: ['散言']
+categories: ['guangan']
 tags: ["博客", "认知"]
 ---
 

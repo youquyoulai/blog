@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/liaozhaichangqingseng.html
 
 title: "别样的穿越-《长清僧》"
 date: 2025-12-23
 lastmod: 2026-01-16
 slug: "liaozhaichangqingseng"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 catalog: "0"
 ---

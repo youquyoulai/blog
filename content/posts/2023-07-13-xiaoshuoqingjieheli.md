@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xiaoshuoqingjieheli.html
 
 title: "不合理的小说的情节"
 date: 2023-07-13
 lastmod: 2026-04-01
 slug: "xiaoshuoqingjieheli"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

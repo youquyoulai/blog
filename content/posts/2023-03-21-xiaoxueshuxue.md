@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xiaoxueshuxue.html
 
 title: "孩子会计算10+2也会计算10+8，是家长的想当然"
 date: 2023-03-21
 lastmod: 2026-03-25
 slug: "xiaoxueshuxue"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

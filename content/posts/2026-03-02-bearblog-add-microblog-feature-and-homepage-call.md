@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/bearblog-add-microblog-feature-and-homepage-call.html
 
 title: "bearblog添加微博功能并首页调用"
 date: 2026-03-02
 lastmod: 2026-03-21
 slug: "bearblog-add-microblog-feature-and-homepage-call"
-categories: ['散言']
+categories: ['guangan']
 tags: ["博客"]
 ---
 

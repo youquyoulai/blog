@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/zimeitisuiyi.html
 
 title: "头条作者南宫寻欢不该的随意为之"
 date: 2021-07-10
 lastmod: 2026-04-01
 slug: "zimeitisuiyi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/chencunyitian.html
 
 title: "张三的一天，许三观的猪肝"
 date: 2026-02-28
 slug: "chencunyitian"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

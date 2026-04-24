@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/aimeifenwei.html
 
 title: "你眼里他人是裹挟你的氛围"
 date: 2023-07-10
 lastmod: 2026-03-25
 slug: "aimeifenwei"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

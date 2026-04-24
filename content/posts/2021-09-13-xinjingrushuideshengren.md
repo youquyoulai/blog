@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xinjingrushuideshengren.html
 
 title: "恶心的心静如水心胸宽广的圣人"
 date: 2021-09-13
 lastmod: 2026-03-31
 slug: "xinjingrushuideshengren"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/meishitouzhele.html
 
 title: "生活得学会‘没事偷着乐’"
 date: 2026-01-07
 lastmod: 2026-01-30
 slug: "meishitouzhele"
-categories: ['散言']
+categories: ['guangan']
 tags: ["西西佛斯", "认知"]
 catalog: "0"
 ---

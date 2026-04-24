@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jiaoshidelei.html
 
 title: "教师的累病去如抽丝"
 date: 2026-01-06
 lastmod: 2026-01-16
 slug: "jiaoshidelei"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 catalog: "0"
 ---

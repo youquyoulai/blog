@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/chuanyuewuxia.html
 
 title: "穿越就是今天的武侠"
 date: 2026-02-15
 lastmod: 2026-02-24
 slug: "chuanyuewuxia"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

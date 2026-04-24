@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/high-quality-human-nonsense.html
 
 title: "西装革履者的蝗虫不吃庄稼"
 date: 2026-03-21
 lastmod: 2026-03-25
 slug: "high-quality-human-nonsense"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 thumb: "/img/thumbs/tu03.jpg"
 ---

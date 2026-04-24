@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/indifferent-to-surroundings.html
 
 title: "对远方指手画脚，对身边漠不关心"
 date: 2026-03-16
 lastmod: 2026-03-25
 slug: "indifferent-to-surroundings"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 thumb: "/img/thumbs/tu07.jpg"
 ---

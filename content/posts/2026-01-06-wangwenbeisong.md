@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/wangwenbeisong.html
 
 title: "中规中矩的网文《北颂》"
 date: 2026-01-06
 lastmod: 2026-04-08
 slug: "wangwenbeisong"
-categories: ['片语']
+categories: ['weibo']
 tags: ["阅读"]
 ---
 

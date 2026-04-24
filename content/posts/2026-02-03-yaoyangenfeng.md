@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/yaoyangenfeng.html
 
 title: "推波助澜的凑趣跟风"
 date: 2026-02-03
 lastmod: 2026-02-03
 slug: "yaoyangenfeng"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/chongqingyouxi.html
 
 title: "对《重庆》的游戏之语"
 date: 2026-02-13
 lastmod: 2026-02-24
 slug: "chongqingyouxi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

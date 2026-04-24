@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/hunqianhunhou.html
 
 title: "婚前睁大眼，婚后少生气"
 date: 2026-01-18
 lastmod: 2026-02-01
 slug: "hunqianhunhou"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读", "认知"]
 catalog: "0"
 ---

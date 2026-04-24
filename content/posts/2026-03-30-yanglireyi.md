@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/yanglireyi.html
 
 title: "汝之佳肴彼之毒药的杨笠"
 date: 2026-03-30
 lastmod: 2026-03-30
 slug: "yanglireyi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 thumb: "/img/thumbs/tu10.jpg"
 ---

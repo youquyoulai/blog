@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jiapingwaboli.html
 
 title: "破碎的玻璃完整的人性"
 date: 2026-01-01
 lastmod: 2026-01-16
 slug: "jiapingwaboli"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 catalog: "0"
 ---

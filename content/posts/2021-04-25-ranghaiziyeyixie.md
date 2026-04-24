@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/ranghaiziyeyixie.html
 
 title: "亡羊补牢的‘让孩子野一些’"
 date: 2021-04-25
 lastmod: 2026-03-24
 slug: "ranghaiziyeyixie"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

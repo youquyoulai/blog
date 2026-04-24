@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/tangxiaolinwenping.html
 
 title: "唐小林的近期文评有些无趣"
 date: 2026-03-04
 slug: "tangxiaolinwenping"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

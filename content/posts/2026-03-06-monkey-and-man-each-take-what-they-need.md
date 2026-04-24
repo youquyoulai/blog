@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/monkey-and-man-each-take-what-they-need.html
 
 title: "各取所需的猴子与人"
 date: 2026-03-06
 slug: "monkey-and-man-each-take-what-they-need"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读", "认知"]
 ---
 

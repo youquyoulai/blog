@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/from-deepin-back-to-windows.html
 
 title: "笔记本系统从deepin换回windows"
 date: 2026-03-13
 lastmod: 2026-03-13
 slug: "from-deepin-back-to-windows"
-categories: ['散言']
+categories: ['guangan']
 tags: ["软件"]
 ---
 

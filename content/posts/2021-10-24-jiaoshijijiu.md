@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jiaoshijijiu.html
 
 title: "与其教师掌握急救知识不如安排校医"
 date: 2021-10-24
 lastmod: 2026-03-31
 slug: "jiaoshijijiu"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 ---
 

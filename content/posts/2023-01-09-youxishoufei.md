@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/youxishoufei.html
 
 title: "立法强制下载有些收费？"
 date: 2023-01-09
 lastmod: 2026-03-25
 slug: "youxishoufei"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

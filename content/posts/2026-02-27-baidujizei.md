@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/baidujizei.html
 
 title: "一如既往的鸡贼的百度"
 date: 2026-02-27
 lastmod: 2026-03-03
 slug: "baidujizei"
-categories: ['散言']
+categories: ['guangan']
 tags: ["软件"]
 images:
   - /img/uploads/2026/03/3064020482.png

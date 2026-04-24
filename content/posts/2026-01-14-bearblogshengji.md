@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/bearblogshengji.html
 
 title: "纠结是否对bearblog升级"
 date: 2026-01-14
 lastmod: 2026-01-16
 slug: "bearblogshengji"
-categories: ['散言']
+categories: ['guangan']
 tags: ["博客"]
 catalog: "0"
 ---

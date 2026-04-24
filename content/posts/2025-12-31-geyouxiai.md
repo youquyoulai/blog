@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/geyouxiai.html
 
 title: "各有喜爱，无需互相伤害"
 date: 2025-12-31
 lastmod: 2026-01-30
 slug: "geyouxiai"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 catalog: "0"
 ---

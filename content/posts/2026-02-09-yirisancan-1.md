@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/yirisancan-1.html
 
 title: "平平淡淡的一日三餐"
 date: 2026-02-09
 lastmod: 2026-02-24
 slug: "yirisancan-1"
-categories: ['散言']
+categories: ['guangan']
 tags: ["情感"]
 ---
 

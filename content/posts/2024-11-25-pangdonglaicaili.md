@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/pangdonglaicaili.html
 
 title: "胖东来的彩礼要求"
 date: 2024-11-25
 lastmod: 2026-03-25
 slug: "pangdonglaicaili"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

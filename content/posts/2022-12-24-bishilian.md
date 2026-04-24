@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/bishilian.html
 
 title: "鄙视链上的你和我"
 date: 2022-12-24
 lastmod: 2026-03-25
 slug: "bishilian"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

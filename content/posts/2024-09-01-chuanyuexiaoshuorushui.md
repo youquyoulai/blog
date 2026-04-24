@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/chuanyuexiaoshuorushui.html
 
 title: "网络穿越文如水"
 date: 2024-09-01
 lastmod: 2026-03-25
 slug: "chuanyuexiaoshuorushui"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

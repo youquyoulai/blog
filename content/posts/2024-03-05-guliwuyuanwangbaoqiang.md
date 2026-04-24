@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/guliwuyuanwangbaoqiang.html
 
 title: "《孤立无援》与《hello！树先生》"
 date: 2024-03-05
 lastmod: 2026-03-25
 slug: "guliwuyuanwangbaoqiang"
-categories: ['散言']
+categories: ['guangan']
 tags: ["文艺"]
 ---
 

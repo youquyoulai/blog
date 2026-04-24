@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/hongluyidianxue.html
 
 title: "红炉一点雪，笑意越千年"
 date: 2026-02-01
 slug: "hongluyidianxue"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

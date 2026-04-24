@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/liboxixing.html
 
 title: "不中肯的对郦波《西行》的批评"
 date: 2021-09-11
 lastmod: 2026-03-24
 slug: "liboxixing"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

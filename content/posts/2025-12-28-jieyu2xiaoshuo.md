@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jieyu2xiaoshuo.html
 
 title: "2025读了孑与2四部小说"
 date: 2025-12-28
 lastmod: 2026-01-16
 slug: "jieyu2xiaoshuo"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 catalog: "0"
 ---

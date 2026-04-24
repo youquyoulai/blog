@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/zhizhangzhihui.html
 
 title: "如今每个声音都显得声嘶力竭"
 date: 2022-12-28
 lastmod: 2026-03-25
 slug: "zhizhangzhihui"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

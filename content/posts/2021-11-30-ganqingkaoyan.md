@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/ganqingkaoyan.html
 
 title: "没事找抽型的感情考验"
 date: 2021-11-30
 lastmod: 2026-03-31
 slug: "ganqingkaoyan"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

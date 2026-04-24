@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/fenxiangrichang.html
 
 title: "分享日常生活要自得其乐"
 date: 2023-04-28
 lastmod: 2026-03-25
 slug: "fenxiangrichang"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

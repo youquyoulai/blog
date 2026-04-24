@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/gaotiedushu.html
 
 title: "坐高铁读书是发达，我先前比他们阔"
 date: 2026-04-06
 lastmod: 2026-04-08
 slug: "gaotiedushu"
-categories: ['片语']
+categories: ['weibo']
 tags: ["认知"]
 images:
   - /img/uploads/2026/04/1966243681.jpg

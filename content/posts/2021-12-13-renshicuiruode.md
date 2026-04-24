@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/renshicuiruode.html
 
 title: "人是自然界最脆弱的东西"
 date: 2021-12-13
 lastmod: 2026-03-31
 slug: "renshicuiruode"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

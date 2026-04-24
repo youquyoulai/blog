@@ -1,10 +1,10 @@
----
+﻿---
 url: /archives/the-criticisms-of-plagiarism-in-literary-circles-are-as-faint-as-the-buzz-of-mosquitoes.html
 
 title: "对文坛抄袭的讨伐声若蚊蝇"
 date: 2026-03-09
 slug: "the-criticisms-of-plagiarism-in-literary-circles-are-as-faint-as-the-buzz-of-mosquitoes"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

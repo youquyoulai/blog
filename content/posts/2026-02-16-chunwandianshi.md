@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/chunwandianshi.html
 
 title: "我家的第一台电视机源于春晚"
 date: 2026-02-16
 lastmod: 2026-02-24
 slug: "chunwandianshi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["节日", "情感"]
 ---
 

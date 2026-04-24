@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/yangyibingdian.html
 
 title: "我对杨议的好感降至冰点"
 date: 2025-12-22
 lastmod: 2026-01-16
 slug: "yangyibingdian"
-categories: ['散言']
+categories: ['guangan']
 tags: ["文艺"]
 catalog: "0"
 ---

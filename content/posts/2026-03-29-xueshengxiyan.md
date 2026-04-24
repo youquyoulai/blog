@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/xueshengxiyan.html
 
 title: "我觉得我们更该关注学生吸烟现象"
 date: 2026-03-29
 lastmod: 2026-03-29
 slug: "xueshengxiyan"
-categories: ['散言']
+categories: ['guangan']
 tags: ["教育"]
 thumb: "/img/thumbs/tu11.jpg"
 ---

@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/liuliangmingxing.html
 
 title: "对流量明星的双标"
 date: 2021-10-20
 lastmod: 2026-03-31
 slug: "liuliangmingxing"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

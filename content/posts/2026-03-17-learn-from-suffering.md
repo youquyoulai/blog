@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/learn-from-suffering.html
 
 title: "以苦难为师与孙子才画得圆"
 date: 2026-03-17
 lastmod: 2026-03-25
 slug: "learn-from-suffering"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 thumb: "/img/thumbs/tu06.jpg"
 ---

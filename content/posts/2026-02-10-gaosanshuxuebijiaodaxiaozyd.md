@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/gaosanshuxuebijiaodaxiaozyd.html
 
 title: "高三数学试题之比较大小（a=0.2b=0.16）"
 date: 2026-02-10
 lastmod: 2026-03-06
 slug: "gaosanshuxuebijiaodaxiaozyd"
-categories: ['散言']
+categories: ['guangan']
 tags: ["题解"]
 thumb: "/img/thumbs/sxtj.jpg"
 ---

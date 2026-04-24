@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/renovate-hometown-house.html
 
 title: "我理解父母为什么不愿修缮老家的房子"
 date: 2026-03-18
 lastmod: 2026-03-25
 slug: "renovate-hometown-house"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读", "日常"]
 thumb: "/img/thumbs/tu05.jpg"
 ---

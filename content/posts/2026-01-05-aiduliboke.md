@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/aiduliboke.html
 
 title: "AI或许会杀死独立博客？"
 date: 2026-01-05
 lastmod: 2026-01-29
 slug: "aiduliboke"
-categories: ['散言']
+categories: ['guangan']
 tags: ["博客", "AI"]
 catalog: "0"
 ---

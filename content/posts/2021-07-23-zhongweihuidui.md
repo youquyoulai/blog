@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/zhongweihuidui.html
 
 title: "忽略了公众人物身份的周炜"
 date: 2021-07-23
 lastmod: 2026-04-01
 slug: "zhongweihuidui"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

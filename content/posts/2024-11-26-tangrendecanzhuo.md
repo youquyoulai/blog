@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/tangrendecanzhuo.html
 
 title: "在追孑与2的小说《唐人的餐桌》"
 date: 2024-11-26
 lastmod: 2026-03-25
 slug: "tangrendecanzhuo"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

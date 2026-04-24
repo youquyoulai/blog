@@ -1,4 +1,4 @@
-{{ define "main" }}
+{{ define "links-page" }}
 <style>
 .links-page { max-width: 100%; }
 .links-header { text-align: center; margin-bottom: 30px; }
@@ -25,14 +25,14 @@
 }
 </style>
 
+<nav class="breadcrumbs" aria-label="面包屑导航">
+    <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
+    <span class="separator"><i class="icon">›</i></span>
+    <span class="current">友链</span>
+</nav>
 <div class="page-single links-page">
-    <nav class="breadcrumbs" aria-label="面包屑导航">
-        <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
-        <span class="separator"><i class="icon">›</i></span>
-        <span class="current">{{ .Title }}</span>
-    </nav>
     <div class="links-header">
-        <h1>{{ .Title }}</h1>
+        <h1>友情链接</h1>
         {{ with .Content }}
         <div class="page-content">{{ . }}</div>
         {{ end }}

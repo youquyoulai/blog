@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/jingguoshence.html
 
 title: "不知道靖国神厕的是啥玩意儿"
 date: 2021-08-14
 lastmod: 2026-03-31
 slug: "jingguoshence"
-categories: ['散言']
+categories: ['guangan']
 tags: ["认知"]
 ---
 

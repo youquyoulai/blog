@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/zimeitikuanghuan.html
 
 title: "某些自媒体狂欢的盛宴"
 date: 2026-01-13
 lastmod: 2026-01-16
 slug: "zimeitikuanghuan"
-categories: ['散言']
+categories: ['guangan']
 catalog: "0"
 ---
 

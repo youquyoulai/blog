@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/zhangboxinbushihe.html
 
 title: "张伯鑫真的不适合说相声"
 date: 2025-12-27
 lastmod: 2026-01-16
 slug: "zhangboxinbushihe"
-categories: ['散言']
+categories: ['guangan']
 tags: ["文艺"]
 catalog: "0"
 ---

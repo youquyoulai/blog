@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/dutedejianchi.html
 
 title: "人的独特就在于某种坚持"
 date: 2025-12-20
 lastmod: 2026-02-01
 slug: "dutedejianchi"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读", "认知"]
 catalog: "0"
 ---

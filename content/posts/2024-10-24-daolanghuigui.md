@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/daolanghuigui.html
 
 title: "不管怎样，刀郎的歌还是会听的"
 date: 2024-10-24
 lastmod: 2026-03-25
 slug: "daolanghuigui"
-categories: ['散言']
+categories: ['guangan']
 tags: ["文艺"]
 ---
 

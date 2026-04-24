@@ -1,11 +1,11 @@
----
+﻿---
 url: /archives/liuliangchenghuangbo.html
 
 title: "《我改变的事物》让我想起《杀生》"
 date: 2026-03-26
 lastmod: 2026-03-26
 slug: "liuliangchenghuangbo"
-categories: ['散言']
+categories: ['guangan']
 tags: ["阅读"]
 ---
 

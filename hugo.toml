@@ -5,10 +5,11 @@ title = '平哥偶记'
 theme = 'xlxn'
 
 hasCJKLanguage = true
-[pagination]
-  pagerSize = 6
 mainSections = ['posts']
 capitalizeListTitles = false
+
+[pagination]
+  pagerSize = 7
 
 [params]
   author = '平哥'

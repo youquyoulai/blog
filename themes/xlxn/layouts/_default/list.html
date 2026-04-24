@@ -34,7 +34,7 @@
         <div class="post-card-meta">
             <span class="meta-date"><i class="icon">📅</i> {{ .Date.Format "2006-01-02" }}</span>
             <span class="meta-category"><i class="icon">📁</i>
-                {{ range $i, $cat := .Params.categories }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/categories/%s" $cat)).Permalink }}">{{ $cat }}</a>{{ end }}
+                {{ $catSlugs := dict "散言" "guangan" "片语" "weibo" }}{{ range $i, $cat := .Params.categories }}{{ if $i }}, {{ end }}<a href="/category/{{ index $catSlugs $cat }}/">{{ $cat }}</a>{{ end }}
             </span>
         </div>
     </article>

@@ -28,13 +28,14 @@
                 <li class="{{ if .IsHome }}active{{ end }}">
                     <a href="{{ .Site.BaseURL }}">首页</a>
                 </li>
-                {{/* 固定顺序分类导航 */}}
+                {{/* 固定顺序分类导航 - 显示中文名，URL 用 Typecho 兼容的 slug */}}
                 {{ $navCats := slice "散言" "片语" }}
+                {{ $catSlugs := dict "散言" "guangan" "片语" "weibo" }}
                 {{ range $navCats }}
                     {{ $cat := site.GetPage (printf "/categories/%s" .) }}
                     {{ if $cat }}
                     <li class="nav-item{{ if eq $.Permalink $cat.Permalink }} active{{ end }}">
-                        <a href="{{ $cat.Permalink }}">{{ $cat.Title }}</a>
+                        <a href="/category/{{ index $catSlugs . }}/">{{ . }}</a>
                     </li>
                     {{ end }}
                 {{ end }}

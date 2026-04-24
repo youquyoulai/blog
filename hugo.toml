@@ -18,13 +18,9 @@ capitalizeListTitles = false
   logo = '平哥偶记'
   builtYear = '2021'
 
-  # Giscus 评论配置
-  [params.giscus]
-  repo = 'youquyoulai/blog'
-  repoId = 'R_kgDOSKS49Q'
-  category = 'Announcements'
-  categoryId = 'DIC_kwDOSKS49c4C7g9k'
-  mapping = 'pathname'
+  # Waline 评论配置
+  [params.waline]
+  serverURL = 'https://waline.pgoj.top'
 
 [taxonomies]
   tag = 'tags'

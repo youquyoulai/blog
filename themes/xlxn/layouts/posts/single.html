@@ -49,54 +49,27 @@
             {{ with .NextInSection }}<a href="{{ .Permalink }}">{{ .Title }}</a>{{ else }}<span class="no-post">没有了</span>{{ end }}
         </div>
     </div>
-
-    {{ $related := .Site.RegularPages.Related . | first 3 }}
-    {{ with $related }}
-    <div class="related-posts">
-        <h3 class="section-title"><i class="icon">👍</i> 猜你喜欢</h3>
-        <div class="related-posts-grid">
-            {{ range . }}
-            {{ $relTitle := .Title }}
-            <div class="related-post-item">
-                <a href="{{ .Permalink }}" class="related-post-thumb">
-                    {{ with .Params.thumb }}
-                    <img src="{{ . }}" alt="{{ $relTitle }}" loading="lazy" decoding="async">
-                    {{ else }}
-                    <div class="no-thumb"><i class="icon">🖼️</i></div>
-                    {{ end }}
-                </a>
-                <div class="related-post-info">
-                    <a href="{{ .Permalink }}" class="related-post-title">{{ .Title }}</a>
-                    <div class="related-post-meta">
-                        <span>{{ .Date.Format "2006-01-02" }}</span>
-                    </div>
-                </div>
-            </div>
-            {{ end }}
-        </div>
-    </div>
-    {{ end }}
 </article>
 
-{{ if .Site.Params.giscus.repo }}
-<div class="comments-section" id="comments">
+{{ if .Site.Params.waline.serverURL }}
+{{ $walineURL := .Site.Params.waline.serverURL }}
+<div class="comments-section" id="waline">
     <h3 class="section-title comments-count"><i class="icon">💬</i> 评论</h3>
-    <script src="https://giscus.app/client.js"
-        data-repo="{{ .Site.Params.giscus.repo }}"
-        data-repo-id="{{ .Site.Params.giscus.repoId }}"
-        data-category="{{ .Site.Params.giscus.category }}"
-        data-category-id="{{ .Site.Params.giscus.categoryId }}"
-        data-mapping="{{ .Site.Params.giscus.mapping | default "pathname" }}"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-    </script>
+    <div id="waline-comment"></div>
 </div>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
+<script type="module">
+import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+init({
+    el: '#waline-comment',
+    serverURL: {{ $walineURL }},
+    lang: 'zh-CN',
+    dark: 'auto',
+    locale: {
+        placeholder: '欢迎留言～',
+        sofa: '还没有评论，快来抢沙发吧！',
+    },
+});
+</script>
 {{ end }}
 {{ end }}

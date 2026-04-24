@@ -2,6 +2,7 @@
 
 {{/* ====== 归档页 ====== */}}
 {{ if eq .Title "归档" }}
+<div class="page-single archive-page">
 <nav class="breadcrumbs" aria-label="面包屑导航">
     <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
     <span class="separator"><i class="icon">›</i></span>
@@ -103,6 +104,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
 .archive-month.expanded .month-posts{display:block}
 @media(max-width:768px){.post-link{flex-direction:column;align-items:flex-start;gap:4px}.post-date{margin-left:0;font-size:.7rem}.post-title{white-space:normal;font-size:.9rem}}
 </style>
+</div>
 
 {{/* ====== 友链页 ====== */}}
 {{ else if or (eq .Title "友链") (eq .Title "友情链接") }}
@@ -189,26 +191,26 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
     {{ end }}
 </article>
 
-{{ if .Site.Params.giscus.repoId }}
-<div class="comments-section" id="comments">
+{{ if .Site.Params.waline.serverURL }}
+{{ $walineURL := .Site.Params.waline.serverURL }}
+<div class="comments-section" id="waline">
     <h3 class="section-title comments-count"><i class="icon">💬</i> 评论</h3>
-    <script src="https://giscus.app/client.js"
-        data-repo="{{ .Site.Params.giscus.repo }}"
-        data-repo-id="{{ .Site.Params.giscus.repoId }}"
-        data-category="{{ .Site.Params.giscus.category | default "Announcements" }}"
-        data-category-id="{{ .Site.Params.giscus.categoryId }}"
-        data-mapping="{{ .Site.Params.giscus.mapping | default "pathname" }}"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-    </script>
+    <div id="waline-comment"></div>
 </div>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
+<script type="module">
+import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+init({
+    el: '#waline-comment',
+    serverURL: {{ $walineURL }},
+    lang: 'zh-CN',
+    dark: 'auto',
+    locale: {
+        placeholder: '欢迎留言～',
+        sofa: '还没有评论，快来抢沙发吧！',
+    },
+});
+</script>
 {{ end }}
 {{ end }}
 {{ end }}

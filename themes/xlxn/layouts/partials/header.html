@@ -58,7 +58,7 @@
             </ul>
             <!-- 移动端搜索 -->
             <div class="nav-search-wrap">
-                <form method="get" action="{{ .Site.BaseURL }}" class="nav-search-form" role="search">
+                <form method="get" action="/search" class="nav-search-form" role="search">
                     <label for="mobileSearchInput" class="sr-only">搜索</label>
                     <input type="text" id="mobileSearchInput" name="s" placeholder="搜索...">
                     <button type="submit" aria-label="提交搜索"><i class="icon" aria-hidden="true">🔍</i></button>
@@ -67,7 +67,7 @@
         </nav>
 
         <div class="header-search">
-            <form method="get" action="{{ .Site.BaseURL }}" class="search-form" role="search">
+            <form method="get" action="/search" class="search-form" role="search">
                 <label for="desktopSearchInput" class="sr-only">搜索</label>
                 <input type="text" id="desktopSearchInput" name="s" placeholder="搜索...">
                 <button type="submit" aria-label="提交搜索"><i class="icon" aria-hidden="true">🔍</i></button>

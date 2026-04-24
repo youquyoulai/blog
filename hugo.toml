@@ -30,10 +30,16 @@ capitalizeListTitles = false
   category = 'categories'
 
 [outputs]
-  home = ['HTML', 'RSS']
+  home = ['HTML', 'RSS', 'JSON']
   section = ['HTML', 'RSS']
   taxonomy = ['HTML', 'RSS']
   term = ['HTML', 'RSS']
+
+[outputFormats.JSON]
+  mediatype = "application/json"
+  baseName = "searchindex"
+  isPlainText = true
+  notAlternative = true
 
 [services.rss]
   limit = 20

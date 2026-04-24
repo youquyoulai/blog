@@ -1,0 +1,82 @@
+{{ define "main" }}
+<div class="container">
+  <div class="main-content">
+    <div class="breadcrumbs">
+      <a href="{{ .Site.BaseURL }}">首页</a> &gt; <span>搜索</span>
+    </div>
+    <div class="search-results-page">
+      <h1 class="page-title">搜索结果</h1>
+      <div class="search-results-header">
+        <form method="get" action="{{ .Site.BaseURL }}" class="search-form" role="search">
+          <input type="text" id="searchPageInput" name="s" placeholder="搜索..." value="{{ .Params.s }}">
+          <button type="submit">🔍</button>
+        </form>
+      </div>
+      <div id="searchResults" class="search-results-list">
+        <p class="search-loading">搜索中...</p>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var query = (params.get('s') || '').trim();
+  var container = document.getElementById('searchResults');
+
+  if (!query) {
+    container.innerHTML = '<p class="search-empty">请输入搜索关键词</p>';
+    return;
+  }
+
+  fetch('{{ .Site.BaseURL }}searchindex.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var results = [];
+      var q = query.toLowerCase();
+      for (var i = 0; i < data.length; i++) {
+        var post = data[i];
+        var text = (post.title + ' ' + post.summary + ' ' + (post.tags || []).join(' ')).toLowerCase();
+        if (text.indexOf(q) !== -1) {
+          results.push(post);
+        }
+      }
+
+      if (results.length === 0) {
+        container.innerHTML = '<p class="search-empty">没有找到与 "<strong>' + query + '</strong>" 相关的文章</p>';
+        return;
+      }
+
+      var html = '<p class="search-count">找到 ' + results.length + ' 篇相关文章</p>';
+      for (var j = 0; j < results.length; j++) {
+        var r = results[j];
+        html += '<div class="search-result-item">';
+        html += '<a href="' + r.url + '" class="search-result-title">' + highlight(r.title, query) + '</a>';
+        if (r.summary) {
+          html += '<p class="search-result-summary">' + highlight(truncate(r.summary, 150), query) + '</p>';
+        }
+        html += '<span class="search-result-meta">' + (r.categories || []).join(', ') + ' · ' + r.date + '</span>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+    })
+    .catch(function() {
+      container.innerHTML = '<p class="search-empty">搜索失败，请稍后重试</p>';
+    });
+
+  function truncate(str, len) {
+    var plain = str.replace(/<[^>]*>/g, '');
+    return plain.length > len ? plain.substring(0, len) + '...' : plain;
+  }
+
+  function highlight(text, q) {
+    if (!q) return text;
+    var regex = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+})();
+</script>
+{{ end }}

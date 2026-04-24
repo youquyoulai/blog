@@ -197,9 +197,9 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
     <h3 class="section-title comments-count"><i class="icon">💬</i> 评论</h3>
     <div id="waline-comment"></div>
 </div>
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.13.0/dist/waline.css">
 <script type="module">
-import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+import { init } from 'https://unpkg.com/@waline/client@3.13.0/dist/waline.js';
 init({
     el: '#waline-comment',
     serverURL: {{ $walineURL }},

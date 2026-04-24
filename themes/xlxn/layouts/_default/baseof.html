@@ -115,6 +115,6 @@
 {{ if eq .Layout "search" }}
 <script src="{{ "js/search.js" | relURL }}?v={{ now.Unix }}"></script>
 {{ end }}
-<script>if(window.Cloudflare){window.Cloudflare=[];var c=document.querySelectorAll('script[src*="cloudflareinsights"]');c.forEach(function(s){s.remove()})}</script>
+<script>(function(){var o=new MutationObserver(function(m){m.forEach(function(m){m.addedNodes.forEach(function(n){if(n.tagName==='SCRIPT'&&n.src&&n.src.indexOf('cloudflareinsights')>-1)n.remove()})})});o.observe(document.documentElement,{childList:true,subtree:true})})()</script>
 </body>
 </html>

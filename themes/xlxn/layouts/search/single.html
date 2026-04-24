@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="container">
+    <div class="main-content">
+        <div class="breadcrumbs">
+            <a href="{{ .Site.BaseURL }}">首页</a> > <span>搜索</span>
+        </div>
+        <div class="search-results-page">
+            <h1 class="page-title">搜索结果</h1>
+            <div class="search-results-header">
+                <form method="get" action="{{ .Site.BaseURL }}" class="search-form" role="search">
+                    <input type="text" id="searchPageInput" name="s" placeholder="{{ .Params.placeholder }}">
+                    <button type="submit">&#128269;</button>
+                </form>
+            </div>
+            <div id="searchResults" class="search-results-list">
+                <p class="search-loading">搜索中...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}

@@ -203,7 +203,7 @@ import { init } from '/js/lib/waline.js';
 init({
     el: '#waline-comment',
     serverURL: {{ $walineURL }},
-    path: window.location.pathname.replace(/\/$/, '.html'),
+    path: window.location.pathname.endsWith('.html') ? window.location.pathname : window.location.pathname + '.html',
     lang: 'zh-CN',
     dark: 'auto',
     locale: {

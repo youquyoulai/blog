@@ -63,6 +63,7 @@ import { init } from '/js/lib/waline.js';
 init({
     el: '#waline-comment',
     serverURL: {{ $walineURL }},
+    path: window.location.pathname.replace(/\/$/, '.html'),
     lang: 'zh-CN',
     dark: 'auto',
     locale: {

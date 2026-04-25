@@ -71,39 +71,6 @@
 <script>
 document.addEventListener('DOMContentLoaded',function(){var b=document.getElementById('expandAllBtn'),ys=document.querySelectorAll('.archive-year'),ex=false;if(b)b.addEventListener('click',function(){if(ex){ys.forEach(function(y){y.classList.remove('expanded');y.classList.add('collapsed');y.querySelectorAll('.archive-month').forEach(function(m){m.classList.remove('expanded');m.classList.add('collapsed')})});b.textContent='展开全部';ex=false}else{ys.forEach(function(y){y.classList.remove('collapsed');y.classList.add('expanded');y.querySelectorAll('.archive-month').forEach(function(m){m.classList.remove('collapsed');m.classList.add('expanded')})});b.textContent='折叠全部';ex=true}});ys.forEach(function(y){var h=y.querySelector('.year-header');if(h)h.addEventListener('click',function(e){e.stopPropagation();y.classList.toggle('expanded');y.classList.toggle('collapsed')})});document.querySelectorAll('.archive-month').forEach(function(m){var h=m.querySelector('.month-header');if(h)h.addEventListener('click',function(e){e.stopPropagation();m.classList.toggle('expanded');m.classList.toggle('collapsed')})})});
 </script>
-<style>
-.archive-stats{display:flex;justify-content:space-around;margin:20px 0;padding:20px;background:#f8f9fa;border-radius:12px}
-.stat-item{text-align:center}
-.stat-number{display:block;font-size:clamp(1.6rem,5vw,2rem);font-weight:400;color:#2c5faa}
-.stat-label{font-size:.9rem;color:#888}
-.expand-all-btn{display:inline-block;background:#1a1a2e;color:#fff;border:none;padding:8px 24px;border-radius:6px;font-size:.9rem;cursor:pointer;transition:background .2s}
-.expand-all-btn:hover{background:#2c5faa}
-.archive-container{max-width:100%;padding:0}
-.archive-year{margin-bottom:20px;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.year-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:#f8f9fa;cursor:pointer;transition:background .2s}
-.year-header:hover{background:#f0f2f5}
-.year-text{font-size:clamp(1rem,2vw,1.2rem);font-weight:500;color:#1a3f7a}
-.year-count{background:#2c5faa;color:#fff;padding:2px 10px;border-radius:20px;font-size:.75rem}
-.year-months{padding:15px}
-.archive-month{margin-bottom:15px;border-radius:6px;background:#fff}
-.archive-month:last-child{margin-bottom:0}
-.month-header{display:flex;align-items:center;gap:10px;padding:10px 15px;background:#fafafa;cursor:pointer;transition:background .2s;border-radius:6px}
-.month-header:hover{background:#f5f5f5}
-.month-text{font-size:.95rem;font-weight:500;color:#555}
-.month-count{background:#e8edf5;color:#2c5faa;padding:1px 8px;border-radius:15px;font-size:.75rem}
-.month-posts{list-style:none;margin:0;padding:10px 10px 10px 30px;border-left:2px dashed #e0e0e0;margin-left:15px}
-.post-item{margin:8px 0;padding:6px 0;border-bottom:1px dashed #f0f0f0}
-.post-item:last-child{border-bottom:none}
-.post-link{display:flex;justify-content:space-between;align-items:center;text-decoration:none;color:#444;font-size:.95rem;transition:color .2s}
-.post-link:hover{color:#2c5faa}
-.post-title{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.post-date{color:#bbb;font-size:.8rem;margin-left:15px;flex-shrink:0}
-.archive-year.collapsed .year-months{display:none}
-.archive-year.expanded .year-months{display:block}
-.archive-month.collapsed .month-posts{display:none}
-.archive-month.expanded .month-posts{display:block}
-@media(max-width:768px){.post-link{flex-direction:column;align-items:flex-start;gap:4px}.post-date{margin-left:0;font-size:.7rem}.post-title{white-space:normal;font-size:.9rem}}
-</style>
 </div>
 
 {{/* ====== 友链页 ====== */}}

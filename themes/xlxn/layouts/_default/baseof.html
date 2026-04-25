@@ -8,13 +8,15 @@
     <meta name="theme-color" content="#1a1a2e">
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
     <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default .Summary | plainify | truncate 150 }}{{ end }}">
-    <meta name="keywords" content="{{ .Site.Params.keywords | default "" }}">
+    <meta name="keywords" content="{{ if .IsPage }}{{ with .Params.tags }}{{ delimit . "," }}{{ else }}{{ .Site.Params.keywords | default "" }}{{ end }}{{ else }}{{ .Site.Params.keywords | default "" }}{{ end }}">
     {{ if .Site.Params.favicon }}
     <link rel="shortcut icon" href="{{ .Site.Params.favicon }}" type="image/x-icon">
     <link rel="icon" href="{{ .Site.Params.favicon }}">
     {{ end }}
 
-    <link rel="stylesheet" href="{{ "css/style.css" | relURL }}?v={{ now.Unix }}">
+    {{ with .Site.Params.waline.serverURL }}<link rel="dns-prefetch" href="{{ . }}">{{ end }}
+    {{ $css := resources.Get "css/style.css" | fingerprint }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 
     {{ if not .IsHome }}
     <!-- 结构化数据：面包屑 -->
@@ -70,6 +72,7 @@
     {{ with .Params.thumb }}<meta property="og:image" content="{{ . }}">{{ end }}
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}">
+    {{ with .Params.thumb }}<meta name="twitter:image" content="{{ . }}">{{ end }}
 
     {{ hugo.Generator }}
 </head>
@@ -111,9 +114,11 @@
 
 <a href="#" class="back-to-top" id="backToTop" title="返回顶部">⬆</a>
 
-<script src="{{ "js/main.js" | relURL }}?v={{ now.Unix }}"></script>
+{{ $js := resources.Get "js/main.js" | fingerprint }}
+<script src="{{ $js.RelPermalink }}" defer></script>
 {{ if eq .Layout "search" }}
-<script src="{{ "js/search.js" | relURL }}?v={{ now.Unix }}"></script>
+{{ $searchJs := resources.Get "js/search.js" | fingerprint }}
+<script src="{{ $searchJs.RelPermalink }}" defer></script>
 {{ end }}
 <script>(function(){var r=function(){document.querySelectorAll('script[src*="cloudflareinsights"],script[data-cf-beacon]').forEach(function(s){s.remove()})};r();var o=new MutationObserver(function(m){m.forEach(function(m){m.addedNodes.forEach(function(n){if(n.tagName==='SCRIPT'&&(n.src&&n.src.indexOf('cloudflareinsights')>-1||n.dataset&&n.dataset.cfBeacon))n.remove()})})});o.observe(document.documentElement,{childList:true,subtree:true})})()</script>
 </body>

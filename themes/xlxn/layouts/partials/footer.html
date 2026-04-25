@@ -9,10 +9,6 @@
                     {{ else }}
                         &copy; {{ with .Site.Params.builtYear }}{{ . }} &mdash; {{ end }}{{ now.Year }}
                     {{ end }}
-                    {{ with .Site.Params.icp }}
-                    &nbsp;|&nbsp;
-                    <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">{{ . }}</a>
-                    {{ end }}
                 </span>
             </div>
             <div class="footer-right">

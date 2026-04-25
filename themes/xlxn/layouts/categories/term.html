@@ -10,56 +10,6 @@
 
 {{ if $isWeibo }}
 {{/* ========== 片语 - 朋友圈时间线风格 ========== */}}
-<style>
-.weibo-feed { width: 100%; padding: 0 12px; }
-.feed-header { text-align: center; padding: 32px 20px 24px; background: #fff; border-radius: 24px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
-.feed-header h1 { font-size: clamp(1.6rem, 5vw, 2rem); margin: 0 0 8px; color: #1a1a2e; font-weight: 600; }
-.feed-header p { color: #8a8f99; font-size: 0.9rem; margin: 0; }
-.feed-item { background: #fff; border-radius: 24px; margin-bottom: 20px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); transition: box-shadow 0.25s, transform 0.2s; border: 1px solid rgba(0,0,0,0.02); }
-.feed-item:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
-.feed-avatar { float: left; width: 52px; margin-right: 14px; }
-.feed-avatar img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid #f0f2f5; }
-.feed-item:hover .feed-avatar img { border-color: #2c5faa; }
-.feed-content { margin-left: 66px; }
-.feed-info { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-.feed-author { font-weight: 700; font-size: 1rem; color: #1e293b; }
-.feed-time { font-size: 0.75rem; color: #94a3b8; }
-.feed-text { font-size: 0.95rem; line-height: 1.68; color: #334155; word-break: break-word; margin-bottom: 16px; }
-.feed-text p { margin: 0 0 10px; }
-.feed-text p:last-child { margin-bottom: 0; }
-.feed-readmore { display: inline-block; color: #2c5faa; font-size: 0.85rem; font-weight: 500; margin-top: 6px; padding: 2px 0; border-bottom: 1px dashed rgba(44,95,170,0.3); }
-.feed-readmore:hover { border-bottom-color: #2c5faa; }
-.feed-images { display: grid; gap: 6px; margin: 16px 0 8px; border-radius: 16px; overflow: hidden; background: #f8fafc; }
-.image-grid-1 { grid-template-columns: 1fr; }
-.image-grid-1 img { max-height: 420px; width: 100%; object-fit: cover; }
-.image-grid-2 { grid-template-columns: 1fr 1fr; }
-.image-grid-2 img { aspect-ratio: 1 / 1; object-fit: cover; }
-.image-grid-3 { grid-template-columns: 1fr 1fr; }
-.image-grid-3 > a:first-child { grid-column: span 2; }
-.image-grid-3 > a:first-child img { max-height: 280px; width: 100%; object-fit: cover; }
-.image-grid-3 img { aspect-ratio: 4 / 3; object-fit: cover; }
-.image-grid-4 { grid-template-columns: 1fr 1fr; }
-.image-grid-4 img { aspect-ratio: 1 / 1; object-fit: cover; }
-.feed-image-link { display: block; overflow: hidden; cursor: zoom-in; }
-.feed-image-link img { width: 100%; height: 100%; transition: transform 0.3s ease; }
-.feed-image-link:hover img { transform: scale(1.03); }
-.feed-actions { margin-top: 16px; display: flex; align-items: center; gap: 16px; }
-.feed-reply-btn { display: inline-flex; align-items: center; gap: 4px; background: #f8fafc; color: #475569; padding: 3px 10px; border-radius: 14px; font-size: 0.75rem; font-weight: 500; text-decoration: none; border: 1px solid #e2e8f0; }
-.feed-reply-btn:hover { background: #2c5faa; color: #fff; border-color: #2c5faa; }
-.feed-empty { text-align: center; padding: 64px 24px; background: #fff; border-radius: 24px; }
-.feed-empty p { color: #64748b; font-size: 1rem; }
-@media (max-width: 600px) {
-    .weibo-feed { padding: 0 8px; }
-    .feed-item { padding: 16px; border-radius: 20px; }
-    .feed-avatar { width: 48px; margin-right: 12px; }
-    .feed-avatar img { width: 48px; height: 48px; }
-    .feed-content { margin-left: 60px; }
-    .feed-text { font-size: 1rem; }
-    .feed-author { font-size: 1.05rem; }
-    .feed-time { font-size: 0.8rem; }
-    .image-grid-1 img { max-height: 300px; }
-}
-</style>
 
 <div class="weibo-feed">
     <div class="feed-header">
@@ -160,7 +110,8 @@
 {{ else }}
 {{/* ========== 散言 - 默认卡片列表风格 ========== */}}
 <div class="post-list">
-    {{ range .Paginator.Pages }}
+    {{ range $idx, $page := .Paginator.Pages }}
+    {{ $isLazy := not (and (eq $.Paginator.PageNumber 1) (eq $idx 0)) }}
     <article class="post-card">
         <h2 class="post-card-title">
             <a href="{{ .Permalink }}">{{ .Title }}</a>
@@ -177,11 +128,11 @@
             {{ end }}
             {{ if not $thumb }}
                 {{ $imgs := slice "/img/thumbs/tu01.jpg" "/img/thumbs/tu02.jpg" "/img/thumbs/tu03.jpg" "/img/thumbs/tu04.jpg" "/img/thumbs/tu05.jpg" "/img/thumbs/tu06.jpg" "/img/thumbs/tu07.jpg" "/img/thumbs/tu08.jpg" "/img/thumbs/tu09.jpg" "/img/thumbs/tu10.jpg" "/img/thumbs/tu11.jpg" "/img/thumbs/tu12.jpg" "/img/thumbs/tu13.jpg" }}
-                {{ $idx := mod .Date.Unix (len $imgs) }}
-                {{ $thumb = index $imgs $idx }}
+                {{ $ti := mod .Date.Unix (len $imgs) }}
+                {{ $thumb = index $imgs $ti }}
             {{ end }}
             <a href="{{ .Permalink }}" class="post-card-thumb">
-                <img src="{{ $thumb }}" alt="{{ .Title }}" loading="lazy" decoding="async">
+                <img src="{{ $thumb }}" alt="{{ .Title }}"{{ if $isLazy }} loading="lazy"{{ end }} decoding="async">
             </a>
             <div class="post-card-excerpt">
                 <p>{{ substr (plainify .RawContent) 0 150 }}{{ if gt (len (plainify .RawContent)) 150 }}...{{ end }}</p>

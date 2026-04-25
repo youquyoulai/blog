@@ -1,0 +1,57 @@
+﻿hugo : INFO  deprecated: project config key languageCode was deprecated in Hugo v0.158.0 and will be removed in a futur
+e release. Use locale instead.
+所在位置 行:1 字符: 176
++ ... TF8; cd E:\blog; hugo --templateMetrics --logLevel debug 2>&1 | Out-F ...
++                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO  deprecate...locale instead.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Start building sites … 
+hugo v0.160.1-d6bc8165e62b29d7d70ede01ed01d0f88de327e6 windows/amd64 BuildDate=2026-04-08T14:02:42Z VendorInfo=gohugoio
+
+INFO  build:  step process substep collect files 268 files_total 268 pagesources_total 268 resourcesources_total 0 dura
+tion 4.0006ms
+INFO  build:  step process duration 4.0006ms
+INFO  static: syncing static files to \ duration 74.6441ms
+INFO  build:  step assemble duration 243.7138ms
+INFO  build:  step render substep pages site zh outputFormat html duration 4.4311605s
+INFO  build:  step render substep pages site zh outputFormat json duration 27.3583ms
+INFO  build:  step render substep pages site zh outputFormat rss duration 53.6489ms
+INFO  build:  step render pages 425 content 294 duration 4.5141471s
+INFO  build:  step render deferred count 0 duration 0s
+INFO  build:  step postProcess duration 0s
+
+Template Metrics:
+
+       cumulative       average       maximum         
+         duration      duration      duration  count  template
+       ----------      --------      --------  -----  --------
+       6.8770818s     26.1486ms    617.5962ms    263  posts/single.html
+       4.7768755s    5.956203ms     434.681ms    802  _partials/sidebar.html
+       1.1909463s   27.696425ms     199.366ms     43  list.html
+       1.1123888s   28.522789ms    200.3017ms     39  index.html
+       996.1989ms   19.923978ms     119.272ms     50  taxonomy/term.html
+       961.9692ms    2.398925ms      113.27ms    401  _partials/header.html
+       329.6575ms   82.414375ms    155.7237ms      4  single.html
+        47.2545ms     117.841µs     10.0024ms    401  _partials/footer.html
+        43.9395ms     1.99725ms     10.2863ms     22  rss.xml
+        21.9028ms     21.9028ms     21.9028ms      1  sitemap.xml
+        12.7158ms     12.7158ms     12.7158ms      1  index.json
+         8.8313ms      8.8313ms      8.8313ms      1  404.html
+         4.0012ms      4.0012ms      4.0012ms      1  search.html
+         1.0013ms      1.0013ms      1.0013ms      1  _partials/links-content.html
+          509.1µs       23.14µs       509.1µs     22  alias.html
+
+INFO  build:  duration 4.7623981s
+
+                  │ ZH  
+──────────────────┼─────
+ Pages            │ 315 
+ Paginator pages  │ 110 
+ Non-page files   │   0 
+ Static files     │  45 
+ Processed images │   0 
+ Aliases          │  22 
+ Cleaned          │   0 
+
+Total in 4838 ms

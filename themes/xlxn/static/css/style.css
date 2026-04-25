@@ -319,6 +319,7 @@ a.comment-author:hover{color:var(--primary-dark)}
 .post-card{padding:12px}
 .related-posts-grid{grid-template-columns:1fr}
 .post-title{font-size:1.3rem}
+.post-card-title{font-size:1.1rem}
 .post-card{display:flex;flex-direction:column}
 .post-card-thumb{width:100%;aspect-ratio:16/9;order:-1;margin-bottom:8px}
 .post-card-body{flex-direction:column;gap:8px}

@@ -4,7 +4,7 @@ date: 2026-04-26T08:30:00+08:00
 categories: ['guangan']
 tags: ['教育', '认知']
 url: /archives/qirenyoutian-teenagers.html
-image: https://img.pgoj.top/haizishuashouji.jpg
+thumb: https://img.pgoj.top/haizishuashouji.jpg
 ---
 
 有人看到孩子玩手机时，注意力主要停留在三类内容上：刷那些无脑、狗血、毫无底线的网文爽剧，看充斥着暴力血腥的欧美电影解说，或者沉浸于游戏视频的教学攻略。于是便有人感慨，对青少年的未来深感悲观——种种糟粕的信息、低劣的价值观，无时无刻不在侵蚀着当代青年。

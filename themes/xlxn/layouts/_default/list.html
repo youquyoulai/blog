@@ -24,9 +24,7 @@
                 <span class="feed-time">{{ .Date.Format "2006-01-02 15:04" }}</span>
             </div>
             <div class="feed-text">
-                {{ $plainText := plainify .Content }}
-                {{ if gt (len $plainText) 280 }}<p>{{ substr $plainText 0 280 }}...</p><a href="{{ .Permalink }}" class="feed-readmore">阅读全文 ›</a>
-                {{ else }}{{ .Content }}{{ end }}
+                {{ .Content }}
             </div>
             <div class="feed-actions"><a href="{{ .Permalink }}#comment-form" class="feed-reply-btn">✏️ 写回复</a></div>
         </div>

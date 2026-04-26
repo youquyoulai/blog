@@ -5,6 +5,10 @@
 .skip-link{position:absolute;top:-999px;left:-999px;z-index:9999;padding:12px 24px;background:var(--primary);color:#fff;font-size:1rem;font-weight:500;border-radius:0 0 8px 8px;text-decoration:none;transition:top 0.2s,left 0.2s}
 .skip-link:focus{top:0;left:0;outline:3px solid #fff;outline-offset:2px}
 
+/* Scrollbar - 隐藏但保留滚动功能 */
+.sidebar,.sidebar-panel,.sidebar-panel-body{scrollbar-width:none;-ms-overflow-style:none}
+.sidebar::-webkit-scrollbar,.sidebar-panel::-webkit-scrollbar,.sidebar-panel-body::-webkit-scrollbar{display:none}
+
 /* Animation */
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .container{max-width:var(--container-max);margin:0 auto;padding:0 15px}

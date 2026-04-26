@@ -33,5 +33,7 @@ lastmod: 2026-04-10
 
 
 **注意：**
-（1）本站RSS:https://www.pgoj.top/feed.xml
+
+（1）本站RSS：https://www.pgoj.top/feed.xml
+
 （2）第三项为 RSS 订阅地址（选填），填写后可自动获取最新文章。

@@ -24,13 +24,14 @@
             </h2>
             <div class="links-grid">
                 {{ range .links }}
-                <div class="link-card">
+                <div class="link-card" {{ if $isSingleLine }}data-blog-url="{{ .url }}"{{ if .rss }} data-rss="{{ .rss }}"{{ end }}{{ end }}>
                     <div class="link-name">
                         <a href="{{ .url }}" target="_blank" rel="noopener">
                             <i class="icon">↗</i> {{ .name }}
                         </a>
                     </div>
                     <div class="link-url">{{ $parsed := urls.Parse .url }}{{ $parsed.Host }}</div>
+                    {{ if $isSingleLine }}<div class="link-latest-post">加载中...</div>{{ end }}
                 </div>
                 {{ end }}
             </div>
@@ -43,3 +44,76 @@
     </div>
     {{ end }}
 </div>
+<style>
+.link-latest-post{font-size:.78rem;color:#999;margin-top:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.link-latest-post a{color:#999;text-decoration:none}
+.link-latest-post a:hover{color:#2c5faa}
+.link-latest-post .link-latest-loading{opacity:.5}
+</style>
+<script>
+(function(){
+function tryRssUrls(url){
+var u=new URL(url);
+var paths=['/feed/','/rss/','/atom.xml','/feed.xml','/index.xml','/rss.xml','/feed.atom'];
+return [url+'/feed/',url+'/index.xml',url+'/atom.xml'].concat(paths.map(function(p){return u.origin+p}));
+}
+function parseRssFeed(text){
+var parser=new DOMParser();
+var doc=parser.parseFromString(text,'text/xml');
+var items=doc.querySelectorAll('item');
+if(!items.length) items=doc.querySelectorAll('entry');
+if(items.length){
+var title=items[0].querySelector('title');
+var link=items[0].querySelector('link');
+if(!link) link=items[0].getElementsByTagName('link')[0];
+var titleText=title?title.textContent.trim():'';
+var linkHref=link?(link.getAttribute('href')||link.textContent.trim()):'';
+if(titleText) return{title:titleText,url:linkHref};
+}
+return null;
+}
+async function fetchLatestPost(blogUrl,rssUrl){
+var urls=rssUrl?[rssUrl]:tryRssUrls(blogUrl);
+var proxy='https://api.rss2json.com/v1/api.json?rss_url=';
+for(var i=0;i<urls.length;i++){
+try{
+var target=proxy+encodeURIComponent(urls[i]);
+var resp=await fetch(target,{signal:AbortSignal.timeout(5000)});
+var data=await resp.json();
+if(data.status==='ok'&&data.items&&data.items.length){
+return{title:data.items[0].title,url:data.items[0].link};
+}
+}catch(e){continue}
+}
+return null;
+}
+var cards=document.querySelectorAll('.link-card[data-blog-url]');
+var promises=[];
+cards.forEach(function(card){
+var blogUrl=card.getAttribute('data-blog-url');
+var rssUrl=card.getAttribute('data-rss')||'';
+var el=card.querySelector('.link-latest-post');
+if(!el) return;
+promises.push(
+fetchLatestPost(blogUrl,rssUrl).then(function(post){
+if(post){
+var title=post.title;
+if(title.length>30) title=title.substring(0,30)+'...';
+var a=document.createElement('a');
+a.href=post.url;
+a.target='_blank';
+a.rel='noopener';
+a.textContent='最新：'+title;
+a.title=post.title;
+el.textContent='';
+el.appendChild(a);
+}else{
+el.textContent='';
+}
+}).catch(function(){
+el.textContent='';
+})
+);
+});
+})();
+</script>

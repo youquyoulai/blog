@@ -14,9 +14,9 @@
     <link rel="icon" href="{{ .Site.Params.favicon }}">
     {{ end }}
 
-    {{ with .Site.Params.waline.serverURL }}<link rel="dns-prefetch" href="{{ . }}">{{ end }}
-    <link rel="dns-prefetch" href="https://img.pgoj.top">
-    {{ $css := resources.Get "css/style.css" | fingerprint }}
+    {{ with .Site.Params.waline.serverURL }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
+    <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
+    {{ $css := resources.Get "css/style.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 
     {{ if not .IsHome }}
@@ -115,13 +115,13 @@
 
 <a href="#" class="back-to-top" id="backToTop" title="返回顶部">⬆</a>
 
-{{ $js := resources.Get "js/main.js" | fingerprint }}
+{{ $js := resources.Get "js/main.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}" defer></script>
 {{ if eq .Layout "search" }}
-{{ $searchJs := resources.Get "js/search.js" | fingerprint }}
+{{ $searchJs := resources.Get "js/search.js" | minify | fingerprint }}
 <script src="{{ $searchJs.RelPermalink }}" defer></script>
 {{ end }}
-<script>(function(){var r=function(){document.querySelectorAll('script[src*="cloudflareinsights"],script[data-cf-beacon]').forEach(function(s){s.remove()})};r();var o=new MutationObserver(function(m){m.forEach(function(m){m.addedNodes.forEach(function(n){if(n.tagName==='SCRIPT'&&(n.src&&n.src.indexOf('cloudflareinsights')>-1||n.dataset&&n.dataset.cfBeacon))n.remove()})})});o.observe(document.documentElement,{childList:true,subtree:true})})()</script>
-<script>document.querySelectorAll('.post-content img:not([loading])').forEach(function(img){img.loading='lazy';img.decoding='async'})</script>
+<script>(function(){var r=function(){document.querySelectorAll('script[src*="cloudflareinsights"],script[data-cf-beacon]').forEach(function(s){s.remove()})};r();var o=new MutationObserver(function(m){m.forEach(function(m){m.addedNodes.forEach(function(n){if(n.tagName==='SCRIPT'&&(n.src&&n.src.indexOf('cloudflareinsights')>-1||n.dataset&&n.dataset.cfBeacon))n.remove()})})});o.observe(document.head,{childList:true});o.observe(document.body,{childList:true})})()</script>
+<script>document.querySelectorAll('.post-content img:not([loading])').forEach(function(img){img.loading='lazy';img.decoding='async';if(img.naturalWidth){img.style.aspectRatio=img.naturalWidth+'/'+img.naturalHeight}})</script>
 </body>
 </html>

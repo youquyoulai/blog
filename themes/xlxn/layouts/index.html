@@ -34,7 +34,7 @@
             <span class="meta-date"><i class="icon">📅</i> {{ $page.Date.Format "2006-01-02" }}</span>
             <span class="meta-category">
                 <i class="icon">📁</i>
-                {{ $catNames := dict "guangan" "散言" "weibo" "片语" }}{{ range $i, $cat := $page.Params.categories }}{{ if $i }}, {{ end }}{{ $displayName := index $catNames $cat }}{{ if not $displayName }}{{ $displayName = $cat }}{{ end }}<a href="/categories/{{ $cat }}/">{{ $displayName }}</a>{{ end }}
+                {{ partial "cat-names.html" $page.Params.categories }}
             </span>
             {{ with $page.Params.tags }}
             <span class="meta-tags">

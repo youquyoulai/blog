@@ -44,18 +44,11 @@
     </div>
     {{ end }}
 </div>
-<style>
-.link-latest-post{font-size:.78rem;color:#999;margin-top:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.link-latest-post a{color:#999;text-decoration:none}
-.link-latest-post a:hover{color:#2c5faa}
-.link-latest-post .link-latest-loading{opacity:.5}
-</style>
 <script>
 (function(){
 function tryRssUrls(url){
 var u=new URL(url);
-var paths=['/feed/','/rss/','/atom.xml','/feed.xml','/index.xml','/rss.xml','/feed.atom'];
-return [url+'/feed/',url+'/index.xml',url+'/atom.xml'].concat(paths.map(function(p){return u.origin+p}));
+return[ url+'/feed/', url+'/index.xml', url+'/atom.xml'];
 }
 function parseRssFeed(text){
 var parser=new DOMParser();
@@ -78,7 +71,7 @@ var proxy='https://api.rss2json.com/v1/api.json?rss_url=';
 for(var i=0;i<urls.length;i++){
 try{
 var target=proxy+encodeURIComponent(urls[i]);
-var resp=await fetch(target,{signal:AbortSignal.timeout(5000)});
+var resp=await fetch(target,{signal:AbortSignal.timeout(4000)});
 var data=await resp.json();
 if(data.status==='ok'&&data.items&&data.items.length){
 return{title:data.items[0].title,url:data.items[0].link};
@@ -88,32 +81,21 @@ return{title:data.items[0].title,url:data.items[0].link};
 return null;
 }
 var cards=document.querySelectorAll('.link-card[data-blog-url]');
-var promises=[];
 cards.forEach(function(card){
 var blogUrl=card.getAttribute('data-blog-url');
 var rssUrl=card.getAttribute('data-rss')||'';
 var el=card.querySelector('.link-latest-post');
 if(!el) return;
-promises.push(
 fetchLatestPost(blogUrl,rssUrl).then(function(post){
 if(post){
 var title=post.title;
 if(title.length>30) title=title.substring(0,30)+'...';
 var a=document.createElement('a');
-a.href=post.url;
-a.target='_blank';
-a.rel='noopener';
-a.textContent='最新：'+title;
-a.title=post.title;
-el.textContent='';
-el.appendChild(a);
-}else{
-el.textContent='';
-}
-}).catch(function(){
-el.textContent='';
-})
-);
+a.href=post.url;a.target='_blank';a.rel='noopener';
+a.textContent='最新：'+title;a.title=post.title;
+el.textContent='';el.appendChild(a);
+}else{el.textContent=''}
+}).catch(function(){el.textContent=''});
 });
 })();
 </script>

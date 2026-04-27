@@ -22,6 +22,9 @@ capitalizeListTitles = false
   [params.waline]
   serverURL = 'https://waline.pgoj.top'
 
+[permalinks]
+  posts = '/archives/:slug.html'
+
 [taxonomies]
   tag = 'tags'
   category = 'categories'

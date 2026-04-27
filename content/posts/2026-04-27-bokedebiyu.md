@@ -5,7 +5,7 @@ draft: false
 date: "2026-04-27T02:09:43+08:00"
 slug: "bokedebiyu"
 categories:
- - 
+ - weibo
 tags:
  - 博客
 image: "/img/thumbs/tu01.jpg"

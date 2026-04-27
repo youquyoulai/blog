@@ -5,7 +5,7 @@ draft: false
 date: "2021-12-11T10:33:47+08:00"
 slug: "datangzongwang"
 categories:
- - 散言
+ - guangan
 tags:
  - 阅读
 image: ""

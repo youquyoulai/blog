@@ -89,7 +89,7 @@
 .sidebar-panel .friend-link-item:hover{background:var(--primary-light);color:var(--text-white)}
 }
 .post-list{display:flex;flex-direction:column;gap:0}
-.post-card{background:var(--card-bg);padding:20px 25px;margin-bottom:15px;border-radius:12px;box-shadow:var(--shadow-sm);transition:box-shadow 0.2s;opacity:0;transform:translateY(12px);animation:fadeInUp 0.4s ease forwards}
+.post-card{background:var(--card-bg);padding:20px 25px;margin-bottom:15px;border-radius:12px;box-shadow:var(--shadow-sm);transition:box-shadow 0.2s;opacity:0;transform:translateY(12px);animation:fadeInUp 0.4s ease forwards;display:flex !important;flex-direction:column !important;gap:12px;align-items:stretch}
 .post-list .post-card:nth-child(1){animation-delay:0s}
 .post-list .post-card:nth-child(2){animation-delay:0.06s}
 .post-list .post-card:nth-child(3){animation-delay:0.12s}
@@ -98,12 +98,12 @@
 @keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media (prefers-reduced-motion:reduce){.post-card{opacity:1;transform:none;animation:none}}
 .post-card:hover{box-shadow:var(--shadow-md)}
+.post-card-content{flex:1;min-width:0;display:flex;flex-direction:column;gap:0}
 .post-card-title{font-size:clamp(1rem,1.8vw,1.15rem);font-weight:600;margin-bottom:8px;line-height:1.5}
 .post-card-title a{color:#555555}
 .post-card-title a:hover{color:var(--primary)}
 .post-card-meta{font-size:0.867rem;color:var(--text-muted);margin-top:8px;display:flex;flex-wrap:wrap;gap:12px}
 .post-card-meta span{display:inline-flex;align-items:center;gap:4px}
-.post-card-body{display:flex;gap:18px;align-items:center}
 .post-card-thumb{flex-shrink:0;width:140px;aspect-ratio:4/3;overflow:hidden;border-radius:6px;display:block;background:linear-gradient(135deg,#e8edf5 0%,#d0dce8 50%,#c5d5e6 100%)}
 .post-card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
 .post-card-thumb:hover img{transform:scale(1.05)}
@@ -290,8 +290,7 @@ a.comment-author:hover{color:var(--primary-dark)}
 .post-title{font-size:1.4rem}
 .post-card-title{font-size:clamp(1rem,4vw,1.15rem)}
 .post-card-meta{font-size:0.9rem}
-.post-card-body{gap:12px}
-.post-card-thumb{width:100px}
+.post-card-thumb{width:100px;aspect-ratio:4/3}
 .post-card-excerpt p{font-size:0.95rem;-webkit-line-clamp:3}
 .post-single,.page-single,.comments-section{padding:15px}
 .page-single{border-radius:8px}
@@ -320,9 +319,10 @@ a.comment-author:hover{color:var(--primary-dark)}
 .related-posts-grid{grid-template-columns:1fr}
 .post-title{font-size:1.3rem}
 .post-card-title{font-size:1.1rem}
-.post-card{display:flex;flex-direction:column}
+.post-card{flex-direction:column;align-items:stretch}
+.post-card-body{flex-direction:column}
 .post-card-thumb{width:100%;aspect-ratio:16/9;order:-1;margin-bottom:8px}
-.post-card-body{flex-direction:column;gap:8px}
+.post-card-content{flex-direction:column;gap:0}
 .post-card-meta{font-size:0.85rem;gap:8px}
 .post-single,.page-single,.comments-section{padding:10px;border-radius:6px}
 .comment-avatar{width:36px;height:36px}

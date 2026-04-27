@@ -5,30 +5,30 @@
     {{ range $idx, $page := $paginator.Pages }}
     {{ $isLazy := not (and (eq $paginator.PageNumber 1) (eq $idx 0)) }}
     <article class="post-card">
+        {{ $thumb := $page.Params.thumb }}
+        {{ if not $thumb }}
+            {{ $thumb = $page.Resources.GetMatch "*thumb*" }}
+        {{ end }}
+        {{ if not $thumb }}
+            {{ with $page.Params.images }}
+                {{ $thumb = index . 0 }}
+            {{ end }}
+        {{ end }}
+        {{ if not $thumb }}
+            {{ $imgs := slice "/img/thumbs/tu01.jpg" "/img/thumbs/tu02.jpg" "/img/thumbs/tu03.jpg" "/img/thumbs/tu04.jpg" "/img/thumbs/tu05.jpg" "/img/thumbs/tu06.jpg" "/img/thumbs/tu07.jpg" "/img/thumbs/tu08.jpg" "/img/thumbs/tu09.jpg" "/img/thumbs/tu10.jpg" "/img/thumbs/tu11.jpg" "/img/thumbs/tu12.jpg" "/img/thumbs/tu13.jpg" }}
+            {{ $thumbIdx := mod $page.Date.Unix (len $imgs) }}
+            {{ $thumb = index $imgs $thumbIdx }}
+        {{ end }}
         <h2 class="post-card-title">
             <a href="{{ $page.Permalink }}">{{ $page.Title }}</a>
         </h2>
         <div class="post-card-body">
-            {{ $thumb := $page.Params.thumb }}
-            {{ if not $thumb }}
-                {{ $thumb = $page.Resources.GetMatch "*thumb*" }}
-            {{ end }}
-            {{ if not $thumb }}
-                {{ with $page.Params.images }}
-                    {{ $thumb = index . 0 }}
-                {{ end }}
-            {{ end }}
-            {{ if not $thumb }}
-                {{ $imgs := slice "/img/thumbs/tu01.jpg" "/img/thumbs/tu02.jpg" "/img/thumbs/tu03.jpg" "/img/thumbs/tu04.jpg" "/img/thumbs/tu05.jpg" "/img/thumbs/tu06.jpg" "/img/thumbs/tu07.jpg" "/img/thumbs/tu08.jpg" "/img/thumbs/tu09.jpg" "/img/thumbs/tu10.jpg" "/img/thumbs/tu11.jpg" "/img/thumbs/tu12.jpg" "/img/thumbs/tu13.jpg" }}
-                {{ $thumbIdx := mod $page.Date.Unix (len $imgs) }}
-                {{ $thumb = index $imgs $thumbIdx }}
-            {{ end }}
-            <a href="{{ $page.Permalink }}" class="post-card-thumb">
-                <img src="{{ $thumb }}" alt="{{ $page.Title }}"{{ if $isLazy }} loading="lazy"{{ end }} decoding="async">
-            </a>
-            <div class="post-card-excerpt">
-                <p>{{ substr (plainify $page.RawContent) 0 150 }}{{ if gt (len (plainify $page.RawContent)) 150 }}...{{ end }}</p>
-            </div>
+        <a href="{{ $page.Permalink }}" class="post-card-thumb">
+            <img src="{{ $thumb }}" alt="{{ $page.Title }}"{{ if $isLazy }} loading="lazy"{{ end }} decoding="async">
+        </a>
+        <div class="post-card-excerpt">
+            <p>{{ substr (plainify $page.RawContent) 0 150 }}{{ if gt (len (plainify $page.RawContent)) 150 }}...{{ end }}</p>
+        </div>
         </div>
         <div class="post-card-meta">
             <span class="meta-date"><i class="icon">📅</i> {{ $page.Date.Format "2006-01-02" }}</span>

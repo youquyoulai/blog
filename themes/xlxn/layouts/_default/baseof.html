@@ -15,6 +15,7 @@
     {{ end }}
 
     {{ with .Site.Params.waline.serverURL }}<link rel="dns-prefetch" href="{{ . }}">{{ end }}
+    <link rel="dns-prefetch" href="https://img.pgoj.top">
     {{ $css := resources.Get "css/style.css" | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 
@@ -121,5 +122,6 @@
 <script src="{{ $searchJs.RelPermalink }}" defer></script>
 {{ end }}
 <script>(function(){var r=function(){document.querySelectorAll('script[src*="cloudflareinsights"],script[data-cf-beacon]').forEach(function(s){s.remove()})};r();var o=new MutationObserver(function(m){m.forEach(function(m){m.addedNodes.forEach(function(n){if(n.tagName==='SCRIPT'&&(n.src&&n.src.indexOf('cloudflareinsights')>-1||n.dataset&&n.dataset.cfBeacon))n.remove()})})});o.observe(document.documentElement,{childList:true,subtree:true})})()</script>
+<script>document.querySelectorAll('.post-content img:not([loading])').forEach(function(img){img.loading='lazy';img.decoding='async'})</script>
 </body>
 </html>

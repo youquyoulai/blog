@@ -162,22 +162,35 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
 {{ $walineURL := .Site.Params.waline.serverURL }}
 <div class="comments-section" id="waline">
     <h3 class="section-title comments-count"><i class="icon">💬</i> 评论</h3>
-    <div id="waline-comment"></div>
+    <div id="waline-comment">加载评论中…</div>
 </div>
-<link rel="stylesheet" href="/css/lib/waline.css">
-<script type="module">
-import { init } from '/js/lib/waline.js';
-init({
-    el: '#waline-comment',
-    serverURL: {{ $walineURL }},
-    path: window.location.pathname.endsWith('.html') ? window.location.pathname : window.location.pathname + '.html',
-    lang: 'zh-CN',
-    dark: 'auto',
-    locale: {
-        placeholder: '欢迎留言～',
-        sofa: '还没有评论，快来抢沙发吧！',
-    },
-});
+<script>
+(function(){
+    var loaded=false;
+    var obs=new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting&&!loaded){
+            loaded=true;
+            obs.disconnect();
+            var link=document.createElement('link');
+            link.rel='stylesheet';link.href='/css/lib/waline.css';
+            document.head.appendChild(link);
+            import('/js/lib/waline.js').then(function(m){
+                m.init({
+                    el:'#waline-comment',
+                    serverURL:{{ $walineURL }},
+                    path:window.location.pathname.endsWith('.html')?window.location.pathname:window.location.pathname+'.html',
+                    lang:'zh-CN',
+                    dark:'auto',
+                    locale:{
+                        placeholder:'欢迎留言～',
+                        sofa:'还没有评论，快来抢沙发吧！',
+                    },
+                });
+            });
+        }
+    },{threshold:0.1});
+    obs.observe(document.getElementById('waline'));
+})();
 </script>
 {{ end }}
 {{ end }}

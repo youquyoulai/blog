@@ -5,7 +5,7 @@ title: "我的几次大考中的难堪往事"
 date: 2026-04-28
 lastmod: 2026-04-28
 slug: "wodejicidakaonan"
-categories: ['sanwen']
+categories: ['guangan']
 tags: ["日常"]
 images:
   - https://img.pgoj.top/taniangdetiancai.jpg
@@ -24,3 +24,5 @@ images:
 高考最后一场考试是我的弱项学科。我把客观题半蒙半做地完成后，就再也做不下去了。仿佛高考的大山已经将我压垮，我浑身乏力；又仿佛我把高考的大山耸肩一摇就晃了下去，顿感浑身轻松。反正眼里已经没了试题，感觉神游物外，脑子里尽是：终于要考完了，终于要脱离苦海了，终于要放长假了，考完后我干什么……好吧，就这样胡思乱想到收卷。真的，收卷铃响起的时候，我看着一片空白的解答题，说不出的难过与绝望。
 
 时光磨练人，岁月催人老。如今聊起这些，脑子里不由自主地浮现出李云龙的经典名句："你他娘的还真是个天才！"
+
+![天才](https://img.pgoj.top/taniangdetiancai.jpg)

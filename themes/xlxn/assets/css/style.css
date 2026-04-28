@@ -347,6 +347,16 @@
 .feed-actions{margin-top:16px;display:flex;align-items:center;gap:16px}
 .feed-reply-btn{display:inline-flex;align-items:center;gap:4px;background:#f8fafc;color:#475569;padding:3px 10px;border-radius:14px;font-size:.75rem;font-weight:500;text-decoration:none;border:1px solid #e2e8f0}
 .feed-reply-btn:hover{background:#2c5faa;color:#fff;border-color:#2c5faa}
+.feed-comments{margin-top:12px;padding:10px 14px;background:#f8fafc;border-radius:10px;font-size:.8rem;min-height:0;transition:all .3s}
+.feed-comments:empty{display:none}
+.feed-comments-loading{color:#94a3b8}
+.feed-comments-list{display:flex;flex-direction:column;gap:8px}
+.feed-comment-item{display:flex;gap:8px;align-items:flex-start}
+.feed-comment-avatar{width:22px;height:22px;border-radius:50%;flex-shrink:0;object-fit:cover}
+.feed-comment-body{flex:1;min-width:0}
+.feed-comment-nick{font-weight:600;color:#334155;margin-right:6px}
+.feed-comment-time{color:#94a3b8;font-size:.7rem}
+.feed-comment-text{margin:2px 0 0;color:#475569;line-height:1.4;word-break:break-word}
 .feed-empty{text-align:center;padding:64px 24px;background:#fff;border-radius:24px}
 .feed-empty p{color:#64748b;font-size:1rem}
 @media(max-width:600px){.weibo-feed{padding:0 8px}.feed-item{padding:16px;border-radius:20px}.feed-avatar{width:48px;margin-right:12px}.feed-avatar img{width:48px;height:48px}.feed-content{margin-left:60px}.feed-text{font-size:1rem}.feed-author{font-size:1.05rem}.feed-time{font-size:.8rem}.image-grid-1 img{max-height:300px}}

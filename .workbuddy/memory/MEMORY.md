@@ -16,10 +16,18 @@
 - path 逻辑兼容带/不带 .html: `pathname.endsWith('.html') ? pathname : pathname + '.html'`
 - 评论区使用 lazy load（滚动到评论区才加载）
 
+## Waline 评论
+- path 逻辑兼容带/不带 .html: `pathname.endsWith('.html') ? pathname : pathname + '.html'`
+- 评论区使用 lazy load（滚动到评论区才加载）
+- v3.13.0 客户端有 bug：API 返回的字段是 `insertedAt` 而非 `time`，导致时间显示 NaN-NaN-NaN
+  - 修复方案：在 Waline init 前拦截 fetch，给评论数据补上 `time = insertedAt`
+- 部分历史评论 path 存为 `.html/.html`（双重后缀），是旧代码 bug 产生的
+
 ## 注意事项
 - 批量修改文章 frontmatter 时注意编码问题，建议用 Python 脚本而非 PowerShell
 - `public/` 目录缓存可能导致构建错误（如 .html 变成目录），需彻底删除后重建
 - Cloudflare 重定向规则容易造成无限循环，慎用
+- Hugo 模板中不可用 `regexp.QuoteMeta`，需用 `replaceRE` 替代
 
 ## 主题优化记录（2026-04-28）
 - CSS/JS 通过 Hugo pipeline minify + fingerprint

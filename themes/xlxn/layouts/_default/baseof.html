@@ -121,7 +121,8 @@
 {{ $searchJs := resources.Get "js/search.js" | minify | fingerprint }}
 <script src="{{ $searchJs.RelPermalink }}" defer></script>
 {{ end }}
-<script>(function(){var r=function(){document.querySelectorAll('script[src*="cloudflareinsights"],script[data-cf-beacon]').forEach(function(s){s.remove()})};r();var o=new MutationObserver(function(m){m.forEach(function(m){m.addedNodes.forEach(function(n){if(n.tagName==='SCRIPT'&&(n.src&&n.src.indexOf('cloudflareinsights')>-1||n.dataset&&n.dataset.cfBeacon))n.remove()})})});o.observe(document.head,{childList:true});o.observe(document.body,{childList:true})})()</script>
+
+
 <script>document.querySelectorAll('.post-content img:not([loading])').forEach(function(img){img.loading='lazy';img.decoding='async';if(img.naturalWidth){img.style.aspectRatio=img.naturalWidth+'/'+img.naturalHeight}})</script>
 </body>
 </html>

@@ -68,6 +68,21 @@
             link.rel='stylesheet';link.href='/css/lib/waline.css';
             document.head.appendChild(link);
             import('/js/lib/waline.js').then(function(m){
+                var _fetch=window.fetch;
+                window.fetch=function(){
+                    return _fetch.apply(this,arguments).then(function(r){
+                        if(r.url.indexOf('/api/comment')!==-1){
+                            return r.clone().json().then(function(d){
+                                if(d&&d.data){
+                                    var list=Array.isArray(d.data)?d.data:d.data.data||[];
+                                    list.forEach(function(c){if(!c.time&&c.insertedAt)c.time=c.insertedAt});
+                                }
+                                return new Response(JSON.stringify(d),{status:r.status,statusText:r.statusText,headers:r.headers});
+                            });
+                        }
+                        return r;
+                    });
+                };
                 m.init({
                     el:'#waline-comment',
                     serverURL:{{ $walineURL }},

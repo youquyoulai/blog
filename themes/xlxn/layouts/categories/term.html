@@ -30,10 +30,6 @@
                     <span class="feed-time">{{ .Date.Format "2006-01-02 15:04" }}</span>
                 </div>
 
-                <div class="feed-text">
-                    {{ .Content }}
-                </div>
-
                 {{/* 提取文章中的图片 */}}
                 {{ $images := slice }}
                 {{ with .Params.images }}
@@ -47,6 +43,11 @@
                 {{ end }}
                 {{ $imageCount := len $images }}
                 {{ if gt $imageCount 0 }}
+                {{/* 有图片时，从 content 中去掉图片，只在网格中展示 */}}
+                {{ $cleanContent := replaceRE `<img[^>]*>` "" .Content }}
+                <div class="feed-text">
+                    {{ $cleanContent | safeHTML }}
+                </div>
                 <div class="feed-images image-grid-{{ if le $imageCount 1 }}1{{ else if le $imageCount 2 }}2{{ else if le $imageCount 3 }}3{{ else }}4{{ end }}">
                     {{ range $i, $img := $images }}
                         {{ if lt $i 9 }}
@@ -55,6 +56,11 @@
                         </a>
                         {{ end }}
                     {{ end }}
+                </div>
+                {{ end }}
+                {{ if not (gt $imageCount 0) }}
+                <div class="feed-text">
+                    {{ .Content }}
                 </div>
                 {{ end }}
 

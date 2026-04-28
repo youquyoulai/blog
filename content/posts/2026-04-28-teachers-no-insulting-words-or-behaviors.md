@@ -8,7 +8,9 @@ categories:
  - guangan
 tags:
  - 教育
-image: "https://img.pgoj.top/shide.jpg"
+image: ""
+images:
+ - https://img.pgoj.top/shide.jpg
 ---
 
 桐柏县一名四年级学生的作业被老师批注“你的字和你一样丑吗？”，家长质疑老师进行人身攻击。事情发酵后，处理结果很快出炉：学校对涉事教师进行了严肃的批评教育，并责令其写出深刻检查；学校及教师向学生家长致歉，并上门慰问；县教体局对该校予以通报批评，并对校长进行了约谈。

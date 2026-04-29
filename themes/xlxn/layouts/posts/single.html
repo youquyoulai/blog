@@ -71,6 +71,7 @@
                     envId:{{ $twikooEnvId }},
                     el:'#twikoo-comment',
                     lang:'zh-CN',
+                    path:window.location.pathname.endsWith('.html')?window.location.pathname:window.location.pathname+'.html',
                 });
             };
             document.head.appendChild(s);

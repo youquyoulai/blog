@@ -158,11 +158,11 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
     {{ end }}
 </article>
 
-{{ if .Site.Params.waline.serverURL }}
-{{ $walineURL := .Site.Params.waline.serverURL }}
-<div class="comments-section" id="waline">
-    <h3 class="section-title comments-count"><i class="icon">💬</i> 评论</h3>
-    <div id="waline-comment">加载评论中…</div>
+{{ if and .Site.Params.twikoo.envId (eq .Params.layout "guestbook") }}
+{{ $twikooEnvId := .Site.Params.twikoo.envId }}
+<div class="comments-section" id="twikoo-wrap">
+    <h3 class="section-title comments-count"><i class="icon">💬</i> 留言</h3>
+    <div id="twikoo-comment">加载评论中…</div>
 </div>
 <script>
 (function(){
@@ -171,25 +171,20 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
         if(entries[0].isIntersecting&&!loaded){
             loaded=true;
             obs.disconnect();
-            var link=document.createElement('link');
-            link.rel='stylesheet';link.href='/css/lib/waline.css';
-            document.head.appendChild(link);
-            import('/js/lib/waline.js').then(function(m){
-                m.init({
-                    el:'#waline-comment',
-                    serverURL:{{ $walineURL }},
-                    path:window.location.pathname.endsWith('.html')?window.location.pathname:window.location.pathname+'.html',
+            var s=document.createElement('script');
+            s.src='/js/lib/twikoo.all.min.js';
+            s.onload=function(){
+                twikoo.init({
+                    envId:{{ $twikooEnvId }},
+                    el:'#twikoo-comment',
                     lang:'zh-CN',
-                    dark:'auto',
-                    locale:{
-                        placeholder:'欢迎留言～',
-                        sofa:'还没有评论，快来抢沙发吧！',
-                    },
+                    path:'{{ .Permalink }}',
                 });
-            });
+            };
+            document.head.appendChild(s);
         }
     },{threshold:0.1});
-    obs.observe(document.getElementById('waline'));
+    obs.observe(document.getElementById('twikoo-wrap'));
 })();
 </script>
 {{ end }}

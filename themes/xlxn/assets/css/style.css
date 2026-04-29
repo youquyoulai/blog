@@ -264,12 +264,16 @@
 .pagination-list{flex-wrap:wrap;justify-content:center;gap:5px}
 .pagination-list li:not([class])>a{display:none}
 .pagination-list li:not([class])>span{display:inline-flex;border:1px solid var(--border-input);background:var(--card-bg);color:#999999;min-width:36px;height:36px;align-items:center;justify-content:center;border-radius:6px;font-size:0.9rem;pointer-events:none}
+.pagination-list li.active+li:not(.active)>a{display:inline-flex}
+.pagination-list li:not([class]):has(+li.active)>a{display:inline-flex}
 .pagination-list li.prev a,.pagination-list li.next a{padding:0 14px;min-width:auto;font-size:1rem}
 .pagination-list li.active a,.pagination-list li.active span{min-width:36px;height:36px}
 .feed-pagination{overflow:hidden}
 .feed-pagination .pager{flex-wrap:wrap;justify-content:center;gap:5px}
 .feed-pagination .pager li:not([class])>a{display:none}
 .feed-pagination .pager li:not([class])>span{display:inline-flex;border:1px solid #e2e8f0;background:var(--card-bg);color:#999999;min-width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;font-size:0.9rem;pointer-events:none}
+.feed-pagination .pager li.active+li:not(.active)>a{display:inline-flex}
+.feed-pagination .pager li:not([class]):has(+li.active)>a{display:inline-flex}
 .feed-pagination .pager li.prev a,.feed-pagination .pager li.next a{padding:0 14px;min-width:auto;font-size:1rem}
 }
 @media (max-width:480px){

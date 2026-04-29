@@ -51,11 +51,11 @@
     </div>
 </article>
 
-{{ if .Site.Params.waline.serverURL }}
-{{ $walineURL := .Site.Params.waline.serverURL }}
-<div class="comments-section" id="waline">
+{{ if .Site.Params.twikoo.envId }}
+{{ $twikooEnvId := .Site.Params.twikoo.envId }}
+<div class="comments-section" id="twikoo-wrap">
     <h3 class="section-title comments-count"><i class="icon">💬</i> 评论</h3>
-    <div id="waline-comment">加载评论中…</div>
+    <div id="twikoo-comment">加载评论中…</div>
 </div>
 <script>
 (function(){
@@ -64,40 +64,19 @@
         if(entries[0].isIntersecting&&!loaded){
             loaded=true;
             obs.disconnect();
-            var link=document.createElement('link');
-            link.rel='stylesheet';link.href='/css/lib/waline.css';
-            document.head.appendChild(link);
-            import('/js/lib/waline.js').then(function(m){
-                var _fetch=window.fetch;
-                window.fetch=function(){
-                    return _fetch.apply(this,arguments).then(function(r){
-                        if(r.url.indexOf('/api/comment')!==-1){
-                            return r.clone().json().then(function(d){
-                                if(d&&d.data){
-                                    var list=Array.isArray(d.data)?d.data:d.data.data||[];
-                                    list.forEach(function(c){if(!c.time&&c.insertedAt)c.time=c.insertedAt});
-                                }
-                                return new Response(JSON.stringify(d),{status:r.status,statusText:r.statusText,headers:r.headers});
-                            });
-                        }
-                        return r;
-                    });
-                };
-                m.init({
-                    el:'#waline-comment',
-                    serverURL:{{ $walineURL }},
-                    path:window.location.pathname.endsWith('.html')?window.location.pathname:window.location.pathname+'.html',
+            var s=document.createElement('script');
+            s.src='/js/lib/twikoo.all.min.js';
+            s.onload=function(){
+                twikoo.init({
+                    envId:{{ $twikooEnvId }},
+                    el:'#twikoo-comment',
                     lang:'zh-CN',
-                    dark:'auto',
-                    locale:{
-                        placeholder:'欢迎留言～',
-                        sofa:'还没有评论，快来抢沙发吧！',
-                    },
                 });
-            });
+            };
+            document.head.appendChild(s);
         }
     },{threshold:0.1});
-    obs.observe(document.getElementById('waline'));
+    obs.observe(document.getElementById('twikoo-wrap'));
 })();
 </script>
 {{ end }}

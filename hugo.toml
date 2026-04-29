@@ -18,9 +18,9 @@ capitalizeListTitles = false
   logo = '平哥偶记'
   builtYear = '2021'
 
-  # Waline 评论配置
-  [params.waline]
-  serverURL = 'https://waline.pgoj.top'
+  # Twikoo 评论配置
+  [params.twikoo]
+  envId = 'https://twikoo.pgoj.top'
 
 [permalinks]
   posts = '/archives/:slug.html'

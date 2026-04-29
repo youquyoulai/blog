@@ -159,6 +159,33 @@
     var pageContent = document.querySelector('.page-content');
     if (pageContent) initImageLightbox(pageContent);
 
+    // ---------- 暗色模式切换 ----------
+    var themeToggle = document.getElementById('themeToggle');
+    var iconSun = document.querySelector('.icon-sun');
+    var iconMoon = document.querySelector('.icon-moon');
+
+    function getTheme() {
+        var stored = localStorage.getItem('theme');
+        if (stored) return stored;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (iconSun) iconSun.style.display = theme === 'dark' ? 'none' : '';
+        if (iconMoon) iconMoon.style.display = theme === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', theme);
+    }
+
+    applyTheme(getTheme());
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function () {
+            var current = document.documentElement.getAttribute('data-theme');
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        });
+    }
+
     // 平滑滚动锚点
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
         anchor.addEventListener('click', function (e) {

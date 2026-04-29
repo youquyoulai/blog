@@ -14,7 +14,7 @@
     <link rel="icon" href="{{ .Site.Params.favicon }}">
     {{ end }}
 
-    {{ with .Site.Params.waline.serverURL }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
+    {{ with .Site.Params.twikoo.envId }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
     <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
     {{ $css := resources.Get "css/style.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">
@@ -76,6 +76,7 @@
     {{ with .Params.thumb }}<meta name="twitter:image" content="{{ . }}">{{ end }}
 
     {{ hugo.Generator }}
+<script>(function(){var t=localStorage.getItem('theme');if(!t)t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})()</script>
 </head>
 <body class="page-{{ if .IsHome }}index{{ else if .IsSection }}archive{{ else if .IsPage }}post{{ else }}archive{{ end }}">
 

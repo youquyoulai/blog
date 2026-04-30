@@ -1,0 +1,125 @@
+{{ define "main" }}
+{{/* 面包屑 */}}
+<nav class="breadcrumbs" aria-label="面包屑导航">
+    <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
+    <span class="separator"><i class="icon">›</i></span>
+    <span class="current">微语</span>
+</nav>
+
+<div class="weibo-feed">
+    {{ $paginator := .Paginator }}
+    {{ if eq $paginator.TotalPages 1 }}
+    {{/* 单页：显示全部，按日期倒序 */}}
+    <div class="feed-item" id="twikoo-comment" data-path="">
+        <div class="feed-avatar">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52'%3E%3Crect fill='%232c5faa' width='52' height='52' rx='26'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dy='.35em' fill='white' font-size='20' font-family='sans-serif'%3E%E5%B9%B3%3C/text%3E%3C/svg%3E" alt="平哥">
+        </div>
+        <div class="feed-content">
+            {{ range $paginator.Pages }}
+            <div class="feed-entry">
+                <div class="feed-info">
+                    <span class="feed-author">{{ $.Site.Params.author }}</span>
+                    <span class="feed-time">{{ .Date.Format "2006年01月02日" }}</span>
+                </div>
+                <div class="feed-text">{{ .Content }}</div>
+                {{ $imgs := .Resources.ByType "image" }}
+                {{ if gt (len $imgs) 0 }}
+                <div class="feed-images image-grid-{{ if le (len $imgs) 1 }}1{{ else if le (len $imgs) 2 }}2{{ else if le (len $imgs) 3 }}3{{ else }}4{{ end }}">
+                    {{ range $imgs }}
+                    <a class="feed-image-link" href="{{ .Permalink }}" data-lightbox="weibo" target="_blank" rel="noopener">
+                        <img src="{{ .Permalink }}" alt="" loading="lazy" decoding="async">
+                    </a>
+                    {{ end }}
+                </div>
+                {{ end }}
+            </div>
+            {{ end }}
+            <div class="feed-comments" id="feed-comments-all">
+                <div class="feed-comments-loading">加载评论中...</div>
+            </div>
+            {{ with $.Site.Params.twikoo.envId }}
+            <script>
+            (function(){
+                var loaded=false;
+                var obs=new IntersectionObserver(function(entries){
+                    if(entries[0].isIntersecting&&!loaded){
+                        loaded=true;
+                        obs.disconnect();
+                        var s=document.createElement('script');
+                        s.src='/js/lib/twikoo.all.min.js';
+                        s.onload=function(){
+                            twikoo.init({
+                                envId:{{ . }},
+                                el:'#feed-comments-all',
+                                lang:'zh-CN',
+                                path:'weibo-all',
+                            });
+                        };
+                        document.head.appendChild(s);
+                    }
+                },{threshold:0.1});
+                obs.observe(document.getElementById('feed-comments-all'));
+            })();
+            </script>
+            {{ end }}
+        </div>
+    </div>
+    {{ else }}
+    {{/* 多页：分页显示 */}}
+    {{ range $idx, $page := $paginator.Pages }}
+    <div class="feed-item">
+        <div class="feed-avatar">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52'%3E%3Crect fill='%232c5faa' width='52' height='52' rx='26'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dy='.35em' fill='white' font-size='20' font-family='sans-serif'%3E%E5%B9%B3%3C/text%3E%3C/svg%3E" alt="平哥">
+        </div>
+        <div class="feed-content">
+            <div class="feed-info">
+                <span class="feed-author">{{ $.Site.Params.author }}</span>
+                <span class="feed-time">{{ $page.Date.Format "2006年01月02日" }}</span>
+            </div>
+            <div class="feed-text">{{ $page.Content }}</div>
+            {{ $imgs := $page.Resources.ByType "image" }}
+            {{ if gt (len $imgs) 0 }}
+            <div class="feed-images image-grid-{{ if le (len $imgs) 1 }}1{{ else if le (len $imgs) 2 }}2{{ else if le (len $imgs) 3 }}3{{ else }}4{{ end }}">
+                {{ range $imgs }}
+                <a class="feed-image-link" href="{{ .Permalink }}" data-lightbox="weibo" target="_blank" rel="noopener">
+                    <img src="{{ .Permalink }}" alt="" loading="lazy" decoding="async">
+                </a>
+                {{ end }}
+            </div>
+            {{ end }}
+            {{ with $.Site.Params.twikoo.envId }}
+            <div class="feed-actions">
+                <a class="feed-reply-btn" href="{{ $page.Permalink }}#twikoo-wrap">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    评论
+                </a>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+
+    {{/* 分页导航 */}}
+    <div class="feed-pagination">
+        <ul class="pagination-list pager">
+            {{ if $paginator.HasPrev }}
+            <li class="prev"><a href="{{ $paginator.Prev.URL }}">&laquo;</a></li>
+            {{ end }}
+            {{ range $paginator.Pagers }}
+            {{ $pageNum := .PageNumber }}
+            {{ if eq $pageNum $paginator.PageNumber }}
+            <li class="active"><span>{{ $pageNum }}</span></li>
+            {{ else if or (le $pageNum 2) (ge $pageNum (sub $paginator.TotalPages 1)) (and (ge $pageNum (sub $paginator.PageNumber 2)) (le $pageNum (add $paginator.PageNumber 2))) }}
+            <li><a href="{{ .URL }}">{{ $pageNum }}</a></li>
+            {{ else if or (eq $pageNum (sub $paginator.PageNumber 3)) (eq $pageNum (add $paginator.PageNumber 3)) }}
+            <li><span>...</span></li>
+            {{ end }}
+            {{ end }}
+            {{ if $paginator.HasNext }}
+            <li class="next"><a href="{{ $paginator.Next.URL }}">&raquo;</a></li>
+            {{ end }}
+        </ul>
+    </div>
+    {{ end }}
+</div>
+{{ end }}

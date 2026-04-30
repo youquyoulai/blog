@@ -1,6 +1,14 @@
 ﻿{{ define "main" }}
 <h1 class="sr-only">{{ .Site.Title }}</h1>
-{{ $paginator := .Paginator }}
+{{- $allPosts := where .Site.RegularPages "Section" "posts" }}
+{{/* 过滤掉 categories 包含 weibo 的文章 */}}
+{{- $filtered := slice }}
+{{- range $allPosts }}
+  {{- if not (in .Params.categories "weibo") }}
+    {{- $filtered = $filtered | append . }}
+  {{- end }}
+{{- end }}
+{{ $paginator := .Paginate $filtered }}
 <div class="post-list">
     {{ range $idx, $page := $paginator.Pages }}
     {{ $isLazy := not (and (eq $paginator.PageNumber 1) (eq $idx 0)) }}

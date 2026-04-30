@@ -29,8 +29,9 @@
                     <a href="{{ .Site.BaseURL }}">首页</a>
                 </li>
                 {{/* 固定顺序分类导航 */}}
-                <li class="nav-item"><a href="/categories/guangan/">散言</a></li>
-                <li class="nav-item"><a href="/categories/weibo/">片语</a></li>
+                <li class="nav-item"><a href="/categories/guangan/">观感</a></li>
+                <li class="nav-item"><a href="/categories/jilu/">记录</a></li>
+                <li class="nav-item"><a href="/categories/weibo/">微语</a></li>
                 {{/* 固定顺序独立页面导航 */}}
                 {{ $archives := site.GetPage "/archives" }}
                 {{ if $archives }}

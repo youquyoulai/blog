@@ -5,7 +5,7 @@ title: "石一枫的小说《逍遥仙儿》"
 date: 2026-01-10
 lastmod: 2026-02-03
 slug: "xiaoyaoxianer"
-categories: ['guangan']
+categories: ['weibo']
 tags: ["阅读"]
 ---
 

@@ -15,6 +15,22 @@
     </button>
 </div>
 
+{{/* 微语 - 显示 weibo 分类最新一篇 */}}
+{{- $weiboPages := where .Site.RegularPages "Params.categories" "intersect" (slice "weibo") -}}
+{{- $latest := cond (gt (len $weiboPages) 0) (index (sort $weiboPages "Date" "desc") 0) nil -}}
+{{- with $latest }}
+<div class="widget widget-memos">
+    <h3 class="widget-title"><i class="icon">💬</i> 微语</h3>
+    <div class="weibo-latest">
+        <p class="weibo-content">{{ substr (plainify .RawContent) 0 120 }}{{ if gt (len (plainify .RawContent)) 120 }}...{{ end }}</p>
+        <div class="weibo-meta">
+            <span class="weibo-date">{{ .Date.Format "2006-01-02" }}</span>
+            <a href="/categories/weibo/" class="weibo-more">更多 →</a>
+        </div>
+    </div>
+</div>
+{{- end }}
+
 {{/* 热门标签 */}}
 {{ if .Site.Taxonomies.tags }}
 <div class="widget widget-tags">

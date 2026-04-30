@@ -55,7 +55,7 @@
 
     function openSidebar() {
         if (sidebarPanel) sidebarPanel.classList.add('open');
-        if (sidebarOverlay) sidebarOverlay.classList.add('open');
+        if (sidebarOverlay) sidebarPanel.classList.add('open');
         document.body.style.overflow = 'hidden';
         if (sidebarToggle) sidebarToggle.setAttribute('aria-expanded', 'true');
     }
@@ -198,6 +198,7 @@
             }
         });
     });
+
 
     // 窗口大小变化时重置菜单状态
     window.addEventListener('resize', function () {

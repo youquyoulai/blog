@@ -17,8 +17,4 @@ images:
 
 ![gaotiedushu.jpg][1]
 
-
-
-
-
   [1]: /img/uploads/2026/04/1966243681.jpg

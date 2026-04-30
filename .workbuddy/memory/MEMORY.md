@@ -16,12 +16,15 @@
 - path 逻辑兼容带/不带 .html: `pathname.endsWith('.html') ? pathname : pathname + '.html'`
 - 评论区使用 lazy load（滚动到评论区才加载）
 
-## Waline 评论
-- path 逻辑兼容带/不带 .html: `pathname.endsWith('.html') ? pathname : pathname + '.html'`
-- 评论区使用 lazy load（滚动到评论区才加载）
-- v3.13.0 客户端有 bug：API 返回的字段是 `insertedAt` 而非 `time`，导致时间显示 NaN-NaN-NaN
-  - 修复方案：在 Waline init 前拦截 fetch，给评论数据补上 `time = insertedAt`
-- 部分历史评论 path 存为 `.html/.html`（双重后缀），是旧代码 bug 产生的
+## 评论系统（已迁移至 Twikoo，2026-04-29）
+- 原 Waline v3.13.0 已替换为 Twikoo v1.6.44
+- Twikoo Worker 地址：https://twikoo.pgoj.top（Cloudflare Workers + D1 + R2）
+- 前端 JS：static/js/lib/twikoo.all.min.js
+- hugo.toml 配置：[params.twikoo] envId = 'https://twikoo.pgoj.top'
+- 117 条 Waline 历史评论已迁移到 Twikoo D1（数据库名 twikoo）
+- 评论区使用 lazy load（IntersectionObserver，滚动到评论区才加载）
+- 迁移脚本：e:\blog\_migrate_to_twikoo.js（可重复运行，用 INSERT OR IGNORE）
+- Waline 时间字段两种格式均兼容："2026-01-26 13:35:43" 和 "2026-04-25T07:46:42.484Z"
 
 ## 注意事项
 - 批量修改文章 frontmatter 时注意编码问题，建议用 Python 脚本而非 PowerShell

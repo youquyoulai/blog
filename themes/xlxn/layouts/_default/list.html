@@ -1,38 +1,16 @@
 ﻿{{ define "main" }}
 {{/* 面包屑 */}}
-{{/* 判断是否片语分类 */}}
-{{ $isWeibo := or (eq .Title "weibo") (eq .Title "片语") }}
+{{/* 分类名称映射 */}}
 {{ $termName := .Title }}
-{{ if eq .Title "guangan" }}{{ $termName = "散言" }}{{ end }}
-{{ if eq .Title "weibo" }}{{ $termName = "片语" }}{{ end }}
+{{ if eq .Title "guangan" }}{{ $termName = "观感" }}{{ end }}
+{{ if eq .Title "jilu" }}{{ $termName = "记录" }}{{ end }}
+{{ if eq .Title "weibo" }}{{ $termName = "微语" }}{{ end }}
 <nav class="breadcrumbs" aria-label="面包屑导航">
     <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
     <span class="separator"><i class="icon">›</i></span>
     <span class="current">{{ $termName }}</span>
 </nav>
 
-{{ if $isWeibo }}
-{{/* ========== 片语 - 朋友圈时间线风格 ========== */}}
-<div class="weibo-feed">
-    <div class="feed-header"><h1>📝 {{ $termName }}</h1><p>随手记录生活中的点滴感悟</p></div>
-    {{ range .Paginator.Pages }}
-    <div class="feed-item">
-        <div class="feed-avatar"><img src="/img/default-thumb.jpg" alt="{{ .Site.Params.author }}" loading="lazy"></div>
-        <div class="feed-content">
-            <div class="feed-info">
-                <span class="feed-author">{{ .Site.Params.author }}</span>
-                <span class="feed-time">{{ .Date.Format "2006-01-02 15:04" }}</span>
-            </div>
-            <div class="feed-text">
-                {{ .Content }}
-            </div>
-            <div class="feed-actions"><a href="{{ .Permalink }}#comment-form" class="feed-reply-btn">✏️ 写回复</a></div>
-        </div>
-    </div>
-    {{ end }}
-</div>
-{{ else }}
-{{/* ========== 散言 / 通用列表风格 ========== */}}
 <div class="post-list">
     {{ range $idx, $page := .Paginator.Pages }}
     {{ $isLazy := not (and (eq $.Paginator.PageNumber 1) (eq $idx 0)) }}
@@ -59,7 +37,6 @@
     </article>
     {{ end }}
 </div>
-{{ end }}
 
 <div class="pagination">
     <ul class="pagination-list">

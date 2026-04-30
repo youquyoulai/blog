@@ -1,5 +1,5 @@
 {{/* 输出分类名称，将英文分类名映射为中文显示名 */}}
-{{ $catNames := dict "guangan" "散言" "weibo" "片语" }}
+{{ $catNames := dict "guangan" "观感" "jilu" "记录" "weibo" "微语" }}
 {{ range $i, $cat := . }}
 {{ if $i }}, {{ end }}{{ $displayName := index $catNames $cat }}{{ if not $displayName }}{{ $displayName = $cat }}{{ end }}<a href="/categories/{{ $cat }}/">{{ $displayName }}</a>
 {{ end }}

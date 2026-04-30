@@ -17,7 +17,7 @@
 .container{max-width:var(--container-max);margin:0 auto;padding:0 15px}
 .content-wrap{display:flex;gap:25px;padding:30px 0;align-items:flex-start}
 .main-content{flex:1;min-width:0}
-.sidebar{width:var(--sidebar-width);flex-shrink:0;position:sticky;top:calc(var(--header-height) + 15px);max-height:calc(100vh - var(--header-height) - 30px);overflow-y:auto}
+.sidebar{width:var(--sidebar-width);flex-shrink:0}
 .site-header{background:var(--header-bg);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
 .header-inner{max-width:var(--container-max);margin:0 auto;padding:0 15px;display:flex;align-items:center;min-height:var(--header-height);gap:20px}
 .header-logo a{color:var(--text-white);font-size:1.467rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center}
@@ -72,7 +72,7 @@
 .sidebar-overlay.open{opacity:1;visibility:visible}
 .sidebar-panel{position:fixed;top:0;left:0;width:280px;max-width:85vw;height:100%;background:var(--sidebar-panel-bg);z-index:1001;transform:translateX(-100%);transition:transform 0.3s ease;will-change:transform;overflow-y:auto;display:flex;flex-direction:column}
 .sidebar-panel.open{transform:translateX(0)}
-.sidebar-panel-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #e0e0e0;flex-shrink:0}
+.sidebar-panel-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border-light);flex-shrink:0}
 .sidebar-panel-title{color:var(--text-dark);font-size:1rem;font-weight:600}
 .sidebar-panel-close{background:none;border:none;color:var(--text-muted);font-size:1.1rem;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:4px;transition:background 0.2s,color 0.2s;padding:0}
 .sidebar-panel-close:hover{background:var(--border-light);color:var(--text-dark)}
@@ -82,18 +82,18 @@
 .sidebar-panel .widget-title{color:var(--text-dark);border-bottom-color:var(--border-light);font-size:0.9rem}
 .sidebar-panel .widget-title i{color:var(--primary-light)}
 .sidebar-panel .hot-post-item{border-bottom-color:var(--border-soft)}
-.sidebar-panel .hot-post-title{color:#555555}
+.sidebar-panel .hot-post-title{color:var(--text-body)}
 .sidebar-panel .hot-post-title:hover{color:var(--primary-light)}
-.sidebar-panel .hot-post-comments{color:#999999}
+.sidebar-panel .hot-post-comments{color:var(--text-muted)}
 .sidebar-panel .hot-post-index{background:rgba(0,0,0,0.06);color:var(--primary-light)}
 .sidebar-panel .hot-post-item:first-child .hot-post-index{background:var(--primary-light);color:var(--text-white)}
-.sidebar-panel .tag-item{background:rgba(0,0,0,0.06);color:#666666;font-size:0.8rem;padding:4px 8px}
+.sidebar-panel .tag-item{background:rgba(0,0,0,0.06);color:var(--text-body);font-size:0.8rem;padding:4px 8px}
 .sidebar-panel .tag-item:hover{background:var(--primary-light);color:var(--text-white)}
 .sidebar-panel .archive-list li{border-bottom-color:var(--border-soft)}
-.sidebar-panel .archive-list a{color:#666666;font-size:0.867rem}
+.sidebar-panel .archive-list a{color:var(--text-body);font-size:0.867rem}
 .sidebar-panel .archive-list a:hover{color:var(--primary-light)}
-.sidebar-panel .archive-list span{color:#999999}
-.sidebar-panel .friend-link-item{background:rgba(0,0,0,0.04);color:#666666;font-size:0.8rem;padding:5px 8px}
+.sidebar-panel .archive-list span{color:var(--text-muted)}
+.sidebar-panel .friend-link-item{background:rgba(0,0,0,0.04);color:var(--text-body);font-size:0.8rem;padding:5px 8px}
 .sidebar-panel .friend-link-item:hover{background:var(--primary-light);color:var(--text-white)}
 }
 .post-list{display:flex;flex-direction:column;gap:0}
@@ -209,6 +209,24 @@
 .recent-post-title{display:block;font-size:0.867rem;color:var(--text-dark);line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-bottom:4px;font-weight:500}
 .recent-post-title:hover{color:var(--primary)}
 .recent-post-date{font-size:0.733rem;color:#bbbbbb}
+.widget-memos .memos-list{display:flex;flex-direction:column;gap:10px}
+.widget-memos .memo-item{padding:10px 12px;border-left:3px solid var(--primary-light);transition:all 0.2s}
+.widget-memos .memo-item:hover{border-left-color:var(--primary)}
+.widget-memos .memo-content{font-size:0.85rem;color:var(--text-body);line-height:1.6;word-break:break-word}
+.widget-memos .memo-content img{max-width:100%;border-radius:6px;margin:4px 0}
+.widget-memos .memo-time{font-size:0.75rem;color:var(--text-muted);margin-top:6px;display:flex;align-items:center;gap:4px}
+.widget-memos .memo-time::before{content:"";display:inline-block;width:4px;height:4px;background:var(--text-muted);border-radius:50%}
+.widget-memos .memos-loading,.widget-memos .memos-empty{font-size:0.85rem;color:var(--text-muted);text-align:center;padding:12px 0}
+.widget-memos .memos-more{display:block;text-align:center;font-size:0.8rem;color:var(--primary);margin-top:8px;padding:6px 0;transition:color 0.2s}
+.widget-memos .memos-more:hover{color:var(--primary-dark)}
+.sidebar-panel .widget-memos .memo-item{border-left-color:var(--primary-light)}
+.sidebar-panel .widget-memos .memo-item:hover{border-left-color:var(--primary)}
+.widget-memos .weibo-latest{padding:10px 12px;border-left:3px solid var(--primary-light)}
+.widget-memos .weibo-content{font-size:0.85rem;color:var(--text-body);line-height:1.6;word-break:break-word;margin:0 0 8px 0}
+.widget-memos .weibo-meta{display:flex;justify-content:space-between;align-items:center}
+.widget-memos .weibo-date{font-size:0.75rem;color:var(--text-muted)}
+.widget-memos .weibo-more{font-size:0.8rem;color:var(--primary);transition:color 0.2s}
+.widget-memos .weibo-more:hover{color:var(--primary-dark)}
 .tag-cloud{display:flex;flex-wrap:wrap;gap:6px;line-height:1}
 .tag-item{font-size:0.8rem;color:var(--tag-text);padding:4px 10px;background:var(--tag-bg);border-radius:6px;transition:all 0.2s;min-height:30px;display:inline-flex;align-items:center}
 .tag-item:hover{background:var(--primary);color:var(--text-white)}
@@ -359,8 +377,9 @@
 .feed-actions{margin-top:16px;display:flex;align-items:center;gap:16px}
 .feed-reply-btn{display:inline-flex;align-items:center;gap:4px;background:#f8fafc;color:#475569;padding:3px 10px;border-radius:14px;font-size:.75rem;font-weight:500;text-decoration:none;border:1px solid #e2e8f0}
 .feed-reply-btn:hover{background:#2c5faa;color:#fff;border-color:#2c5faa}
-.feed-comments{margin-top:12px;padding:10px 14px;background:#f8fafc;border-radius:10px;font-size:.8rem;min-height:0;transition:all .3s}
-.feed-comments:empty{display:none}
+.feed-comments{margin-top:12px;padding:10px 14px;background:#f8fafc;border-radius:10px;font-size:.8rem;min-height:0;transition:all .3s;display:none!important}
+.feed-comments.feed-comments-open{display:block!important}
+.feed-comments:empty{display:none!important}
 .feed-comments-loading{color:#94a3b8}
 .feed-comments-list{display:flex;flex-direction:column;gap:8px}
 .feed-comment-item{display:flex;gap:8px;align-items:flex-start}
@@ -429,3 +448,24 @@
 .link-latest-post a{color:#999;text-decoration:none}
 .link-latest-post a:hover{color:#2c5faa}
 @media(max-width:768px){.default-category .links-grid{grid-template-columns:1fr}}
+
+/* ========== 朋友圈暗色模式 ========== */
+[data-theme="dark"] .weibo-feed .feed-header,
+[data-theme="dark"] .weibo-feed .feed-item{background:var(--card-bg);border-color:var(--border-light)}
+[data-theme="dark"] .weibo-feed .feed-header h1{color:var(--text-title)}
+[data-theme="dark"] .weibo-feed .feed-header p{color:var(--text-muted)}
+[data-theme="dark"] .weibo-feed .feed-item{border-color:var(--border-light);box-shadow:var(--shadow-sm)}
+[data-theme="dark"] .weibo-feed .feed-item:hover{box-shadow:var(--shadow-hover)}
+[data-theme="dark"] .weibo-feed .feed-avatar img{border-color:var(--border-soft)}
+[data-theme="dark"] .weibo-feed .feed-author{color:var(--text-title)}
+[data-theme="dark"] .weibo-feed .feed-time{color:var(--text-muted)}
+[data-theme="dark"] .weibo-feed .feed-text{color:var(--text-body)}
+[data-theme="dark"] .weibo-feed .feed-readmore{color:var(--primary)}
+[data-theme="dark"] .weibo-feed .feed-images{background:var(--border-soft)}
+[data-theme="dark"] .weibo-feed .feed-reply-btn{background:var(--border-soft);color:var(--text-body);border-color:var(--border-input)}
+[data-theme="dark"] .weibo-feed .feed-reply-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+[data-theme="dark"] .weibo-feed .feed-comments{background:var(--border-soft)}
+[data-theme="dark"] .weibo-feed .feed-comment-nick{color:var(--text-title)}
+[data-theme="dark"] .weibo-feed .feed-comment-text{color:var(--text-body)}
+[data-theme="dark"] .weibo-feed .feed-empty{background:var(--card-bg)}
+[data-theme="dark"] .weibo-feed .feed-empty p{color:var(--text-muted)}

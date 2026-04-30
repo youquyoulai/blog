@@ -1,6 +1,7 @@
 ﻿{{ define "main" }}
-{{ $termName := cond (eq .Title "guangan") "散言" (cond (eq .Title "weibo") "片语" (cond (eq .Title "散言") "散言" (cond (eq .Title "片语") "片语" .Title))) }}
-{{ $isWeibo := or (eq .Title "weibo") (eq .Title "片语") }}
+{{/* 分类名称映射 */}}
+{{ $catMap := dict "guangan" "观感" "jilu" "记录" "weibo" "微语" }}
+{{ $termName := index $catMap .Title | default .Title }}
 
 <nav class="breadcrumbs" aria-label="面包屑导航">
     <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
@@ -8,107 +9,114 @@
     <span class="current">{{ $termName }}</span>
 </nav>
 
-{{ if $isWeibo }}
-{{/* ========== 片语 - 朋友圈时间线风格 ========== */}}
-
+{{ if eq .Title "weibo" }}
+{{/* ===== 微语：朋友圈样式，每条独立评论区 ===== */}}
 <div class="weibo-feed">
-    <div class="feed-header">
-        <h1>📝 {{ $termName }}</h1>
-        <p>随手记录生活中的点滴感悟</p>
+    {{ $paginator := .Paginator }}
+    {{ range $idx, $page := $paginator.Pages }}
+    <div class="feed-item">
+        <div class="feed-avatar">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52'%3E%3Crect fill='%232c5faa' width='52' height='52' rx='26'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dy='.35em' fill='white' font-size='20' font-family='sans-serif'%3E%E5%B9%B3%3C/text%3E%3C/svg%3E" alt="平哥">
+        </div>
+        <div class="feed-content">
+            <div class="feed-info">
+                <span class="feed-author">{{ $.Site.Params.author }}</span>
+                <span class="feed-time">{{ $page.Date.Format "2006年01月02日" }}</span>
+            </div>
+            <div class="feed-text">{{ $page.Content }}</div>
+            {{ $imgs := $page.Resources.ByType "image" }}
+            {{ if gt (len $imgs) 0 }}
+            <div class="feed-images image-grid-{{ if le (len $imgs) 1 }}1{{ else if le (len $imgs) 2 }}2{{ else if le (len $imgs) 3 }}3{{ else }}4{{ end }}">
+                {{ range $imgs }}
+                <a class="feed-image-link" href="{{ .Permalink }}" data-lightbox="weibo" target="_blank" rel="noopener">
+                    <img src="{{ .Permalink }}" alt="" loading="lazy" decoding="async">
+                </a>
+                {{ end }}
+            </div>
+            {{ end }}
+            {{ with $.Site.Params.twikoo.envId }}
+            {{/* 评论按钮：点击展开/收起评论区 */}}
+            <div class="feed-actions">
+                <button class="feed-reply-btn" data-target="feed-comments-{{ $idx }}">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <span class="feed-reply-count">评论</span>
+                </button>
+            </div>
+            <div class="feed-comments" id="feed-comments-{{ $idx }}" data-path="{{ $page.Permalink }}"></div>
+            {{ end }}
+        </div>
     </div>
+    {{ end }}
 
-    {{ if .Paginator.Pages }}
-        {{ range .Paginator.Pages }}
-        <div class="feed-item">
-            <div class="feed-avatar">
-                <img src="/img/default-thumb.jpg" alt="{{ .Site.Params.author }}" loading="lazy">
-            </div>
-
-            <div class="feed-content">
-                <div class="feed-info">
-                    <span class="feed-author">{{ .Site.Params.author }}</span>
-                    <span class="feed-time">{{ .Date.Format "2006-01-02 15:04" }}</span>
-                </div>
-
-                {{/* 提取文章中的图片 */}}
-                {{ $images := slice }}
-                {{ with .Params.images }}
-                    {{ $images = . }}
-                {{ else }}
-                    {{/* 从 content 中提取 img src */}}
-                    {{ $imgSrcs := findRE `<img[^>]+src="([^"]+)"` $.Content 9 }}
-                    {{ range $imgSrcs }}
-                        {{ $images = $images | append (replaceRE `<img[^>]+src="([^"]+)"` "$1" .) }}
-                    {{ end }}
-                {{ end }}
-                {{ $imageCount := len $images }}
-                {{ if gt $imageCount 0 }}
-                {{/* 有图片时，从 content 中去掉图片，只在网格中展示 */}}
-                {{ $cleanContent := replaceRE `<img[^>]*>` "" .Content }}
-                <div class="feed-text">
-                    {{ $cleanContent | safeHTML }}
-                </div>
-                <div class="feed-images image-grid-{{ if le $imageCount 1 }}1{{ else if le $imageCount 2 }}2{{ else if le $imageCount 3 }}3{{ else }}4{{ end }}">
-                    {{ range $i, $img := $images }}
-                        {{ if lt $i 9 }}
-                        <a href="{{ $img }}" class="feed-image-link" target="_blank" rel="noopener">
-                            <img src="{{ $img }}" alt="文章配图" loading="lazy">
-                        </a>
-                        {{ end }}
-                    {{ end }}
-                </div>
-                {{ end }}
-                {{ if not (gt $imageCount 0) }}
-                <div class="feed-text">
-                    {{ .Content }}
-                </div>
-                {{ end }}
-
-                <div class="feed-actions">
-                    <a href="{{ .Permalink }}#comment-form" class="feed-reply-btn">
-                        ✏️ 写回复
-                    </a>
-                </div>
-            </div>
-        </div>
-        {{ end }}
-
-        <div class="feed-pagination">
-            <ul class="pagination-list">
-                {{ if .Paginator.HasPrev }}
-                <li class="prev">
-                    <a href="{{ .Paginator.Prev.URL }}">&laquo;</a>
-                </li>
-                {{ end }}
-                {{ range .Paginator.Pagers }}
-                {{ $pageNum := .PageNumber }}
-                {{ if eq $pageNum $.Paginator.PageNumber }}
-                <li class="active"><span>{{ $pageNum }}</span></li>
-                {{ else if or (le $pageNum 2) (ge $pageNum (sub $.Paginator.TotalPages 1)) (and (ge $pageNum (sub $.Paginator.PageNumber 2)) (le $pageNum (add $.Paginator.PageNumber 2))) }}
-                <li><a href="{{ .URL }}">{{ $pageNum }}</a></li>
-                {{ else if eq $pageNum (sub $.Paginator.PageNumber 3) }}
-                <li><span>...</span></li>
-                {{ else if eq $pageNum (add $.Paginator.PageNumber 3) }}
-                <li><span>...</span></li>
-                {{ end }}
-                {{ end }}
-                {{ if .Paginator.HasNext }}
-                <li class="next">
-                    <a href="{{ .Paginator.Next.URL }}">&raquo;</a>
-                </li>
-                {{ end }}
-            </ul>
-        </div>
-
-    {{ else }}
-        <div class="feed-empty">
-            <p>📝 还没有片语，写一条吧～</p>
-        </div>
+    {{/* 分页导航 */}}
+    {{ if gt $paginator.TotalPages 1 }}
+    <div class="feed-pagination">
+        <ul class="pagination-list pager">
+            {{ if $paginator.HasPrev }}
+            <li class="prev"><a href="{{ $paginator.Prev.URL }}">&laquo;</a></li>
+            {{ end }}
+            {{ range $paginator.Pagers }}
+            {{ $pageNum := .PageNumber }}
+            {{ if eq $pageNum $paginator.PageNumber }}
+            <li class="active"><span>{{ $pageNum }}</span></li>
+            {{ else if or (le $pageNum 2) (ge $pageNum (sub $paginator.TotalPages 1)) (and (ge $pageNum (sub $paginator.PageNumber 2)) (le $pageNum (add $paginator.PageNumber 2))) }}
+            <li><a href="{{ .URL }}">{{ $pageNum }}</a></li>
+            {{ else if or (eq $pageNum (sub $paginator.PageNumber 3)) (eq $pageNum (add $paginator.PageNumber 3)) }}
+            <li><span>...</span></li>
+            {{ end }}
+            {{ end }}
+            {{ if $paginator.HasNext }}
+            <li class="next"><a href="{{ $paginator.Next.URL }}">&raquo;</a></li>
+            {{ end }}
+        </ul>
+    </div>
     {{ end }}
 </div>
 
+{{ with .Site.Params.twikoo.envId }}
+<script>
+(function(){
+    var envId = {{ . }};
+    var twikooLoaded = false;
+    function loadTwikoo(callback){
+        if(twikooLoaded && typeof twikoo !== 'undefined'){
+            callback(); return;
+        }
+        var s = document.createElement('script');
+        s.src = '/js/lib/twikoo.all.min.js';
+        s.onload = function(){ twikooLoaded = true; callback(); };
+        document.head.appendChild(s);
+    }
+    var inited = {};
+    document.querySelectorAll('.feed-reply-btn[data-target]').forEach(function(btn, i){
+        var target = document.getElementById(btn.getAttribute('data-target'));
+        btn.addEventListener('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            if(!target) return;
+            var isOpen = target.classList.contains('feed-comments-open');
+            if(isOpen){
+                target.classList.remove('feed-comments-open');
+                btn.querySelector('.feed-reply-count').textContent = '评论';
+            } else {
+                target.classList.add('feed-comments-open');
+                btn.querySelector('.feed-reply-count').textContent = '收起';
+                if(!inited[i]){
+                    inited[i] = true;
+                    var path = target.getAttribute('data-path');
+                    loadTwikoo(function(){
+                        twikoo.init({ envId: envId, el: target, lang: 'zh-CN', path: path });
+                    });
+                }
+            }
+        });
+    });
+})();
+</script>
+{{ end }}
+
 {{ else }}
-{{/* ========== 散言 - 默认卡片列表风格 ========== */}}
+{{/* ===== 普通分类：文章卡片样式 ===== */}}
 <div class="post-list">
     {{ range $idx, $page := .Paginator.Pages }}
     {{ $isLazy := not (and (eq $.Paginator.PageNumber 1) (eq $idx 0)) }}
@@ -168,9 +176,7 @@
         <li class="active"><span>{{ $pageNum }}</span></li>
         {{ else if or (le $pageNum 2) (ge $pageNum (sub $.Paginator.TotalPages 1)) (and (ge $pageNum (sub $.Paginator.PageNumber 2)) (le $pageNum (add $.Paginator.PageNumber 2))) }}
         <li><a href="{{ .URL }}">{{ $pageNum }}</a></li>
-        {{ else if eq $pageNum (sub $.Paginator.PageNumber 3) }}
-        <li><span>...</span></li>
-        {{ else if eq $pageNum (add $.Paginator.PageNumber 3) }}
+        {{ else if or (eq $pageNum (sub $.Paginator.PageNumber 3)) (eq $pageNum (add $.Paginator.PageNumber 3)) }}
         <li><span>...</span></li>
         {{ end }}
         {{ end }}

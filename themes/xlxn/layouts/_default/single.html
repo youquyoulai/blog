@@ -160,6 +160,8 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
 
 {{ if and .Site.Params.twikoo.envId (eq .Params.layout "guestbook") }}
 {{ $gbPath := .RelPermalink | strings.TrimSuffix "/" }}{{ partial "twikoo.html" (dict "envId" .Site.Params.twikoo.envId "path" $gbPath "title" "留言") }}
+{{ else if .Site.Params.twikoo.envId }}
+{{ $twPath := .RelPermalink | strings.TrimSuffix "/" }}{{ partial "twikoo.html" (dict "envId" .Site.Params.twikoo.envId "path" $twPath) }}
 {{ end }}
 {{ end }}
 {{ end }}

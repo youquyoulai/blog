@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
             s.src='/js/lib/twikoo.all.min.js';
             s.onload=function(){
                 twikoo.init({
-                    envId:{{ $twikooEnvId }},
+                    envId:'{{ $twikooEnvId }}',
                     el:'#twikoo-comment',
                     lang:'zh-CN',
                     path:'{{ .Permalink }}',

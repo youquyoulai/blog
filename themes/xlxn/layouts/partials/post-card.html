@@ -20,7 +20,7 @@
     <h2 class="post-card-title"><a href="{{ $page.Permalink }}">{{ $page.Title }}</a></h2>
     <div class="post-card-body">
         <a href="{{ $page.Permalink }}" class="post-card-thumb">
-            <img src="{{ $thumb }}" alt="{{ $page.Title }}"{{ if $isLazy }} loading="lazy"{{ end }} decoding="async">
+            <img src="{{ $thumb }}" alt="{{ $page.Title }}"{{ if $isLazy }} loading="lazy"{{ else }} fetchpriority="high"{{ end }} decoding="async">
         </a>
         <div class="post-card-excerpt">
             <p>{{ substr (plainify $page.RawContent) 0 150 }}{{ if gt (len (plainify $page.RawContent)) 150 }}...{{ end }}</p>

@@ -170,7 +170,7 @@ twikoo.init({
     envId: '{{ $twikooEnvId | safeJS }}',
     el: '#twikoo-comment',
     lang: 'zh-CN',
-    path: window.location.pathname.endsWith('.html') ? window.location.pathname : window.location.pathname + '.html',
+    path: (function(){var p=window.location.pathname;if(p.includes('.html'))return p.replace(/\/$/,'');return p+'.html'})(),
 });
 </script>
 {{ end }}

@@ -170,7 +170,7 @@ twikoo.init({
     envId: '{{ $twikooEnvId | safeJS }}',
     el: '#twikoo-comment',
     lang: 'zh-CN',
-    path: window.location.pathname,
+    path: window.location.pathname.replace(/\/$/, ''),
 });
 </script>
 {{ end }}

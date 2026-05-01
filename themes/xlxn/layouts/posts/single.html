@@ -68,7 +68,7 @@
             s.src='/js/lib/twikoo.all.min.js';
             s.onload=function(){
                 twikoo.init({
-                    envId:'{{ $twikooEnvId }}',
+                    envId: '{{ $twikooEnvId | safeJS }}',
                     el:'#twikoo-comment',
                     lang:'zh-CN',
                     path:window.location.pathname.endsWith('.html')?window.location.pathname:window.location.pathname+'.html',

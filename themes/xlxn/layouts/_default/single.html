@@ -158,10 +158,10 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
     {{ end }}
 </article>
 
-{{ if and .Site.Params.twikoo.envId (eq .Params.layout "guestbook") }}
+{{ if .Site.Params.twikoo.envId }}
 {{ $twikooEnvId := .Site.Params.twikoo.envId }}
 <div class="comments-section" id="twikoo-wrap">
-    <h3 class="section-title comments-count"><i class="icon">💬</i> 留言</h3>
+    <h3 class="section-title comments-count"><i class="icon">💬</i> {{ if eq .Params.layout "guestbook" }}留言{{ else }}评论{{ end }}</h3>
     <div id="twikoo-comment">加载评论中…</div>
 </div>
 <script>
@@ -175,10 +175,10 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
             s.src='/js/lib/twikoo.all.min.js';
             s.onload=function(){
                 twikoo.init({
-                    envId:'{{ $twikooEnvId }}',
+                    envId: '{{ $twikooEnvId | safeJS }}',
                     el:'#twikoo-comment',
                     lang:'zh-CN',
-                    path:'{{ .Permalink }}',
+                    path:window.location.pathname.endsWith('.html')?window.location.pathname:window.location.pathname+'.html',
                 });
             };
             document.head.appendChild(s);

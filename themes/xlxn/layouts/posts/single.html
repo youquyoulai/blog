@@ -63,7 +63,7 @@ twikoo.init({
     envId: '{{ $twikooEnvId | safeJS }}',
     el: '#twikoo-comment',
     lang: 'zh-CN',
-    path: (function(){var p=window.location.pathname;if(p.includes('.html'))return p.replace(/\/$/,'');return p+'.html'})(),
+    path: window.location.pathname,
 });
 </script>
 {{ end }}

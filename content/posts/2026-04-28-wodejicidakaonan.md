@@ -8,7 +8,7 @@ slug: "wodejicidakaonan"
 categories: ['guangan']
 tags: ["日常"]
 images:
-  - https://img.pgoj.top/taniangdetiancai.jpg
+  - https://img.pgoj.top/taniangdetiancai.webp
 ---
 
 路上听到两名高中生说，五一放假回来就要开始学考了，不禁让我想起自己几次大考中的难堪往事。
@@ -25,4 +25,4 @@ images:
 
 时光磨练人，岁月催人老。如今聊起这些，脑子里不由自主地浮现出李云龙的经典名句："你他娘的还真是个天才！"
 
-![天才](https://img.pgoj.top/taniangdetiancai.jpg)
+![天才](https://img.pgoj.top/taniangdetiancai.webp)

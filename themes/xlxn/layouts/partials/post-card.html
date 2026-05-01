@@ -12,7 +12,7 @@
 {{ if not $thumb }}{{ $thumb = $page.Resources.GetMatch "*thumb*" }}{{ end }}
 {{ if not $thumb }}{{ with $page.Params.images }}{{ $thumb = index . 0 }}{{ end }}{{ end }}
 {{ if not $thumb }}
-    {{ $imgs := slice "/img/thumbs/tu01.jpg" "/img/thumbs/tu02.jpg" "/img/thumbs/tu03.jpg" "/img/thumbs/tu04.jpg" "/img/thumbs/tu05.jpg" "/img/thumbs/tu06.jpg" "/img/thumbs/tu07.jpg" "/img/thumbs/tu08.jpg" "/img/thumbs/tu09.jpg" "/img/thumbs/tu10.jpg" "/img/thumbs/tu11.jpg" "/img/thumbs/tu12.jpg" "/img/thumbs/tu13.jpg" }}
+    {{ $imgs := slice "/img/webp/tu01.webp" "/img/webp/tu02.webp" "/img/webp/tu03.webp" "/img/webp/tu04.webp" "/img/webp/tu05.webp" "/img/webp/tu06.webp" "/img/webp/tu07.webp" "/img/webp/tu08.webp" "/img/webp/tu09.webp" "/img/webp/tu10.webp" "/img/webp/tu11.webp" "/img/webp/tu12.webp" "/img/webp/tu13.webp" }}
     {{ $thumb = index $imgs (mod $page.Date.Unix (len $imgs)) }}
 {{ end }}
 

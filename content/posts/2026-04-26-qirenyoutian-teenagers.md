@@ -4,7 +4,7 @@ date: 2026-04-26T08:30:00+08:00
 categories: ['guangan']
 tags: ['教育', '认知']
 url: /archives/qirenyoutian-teenagers.html
-thumb: https://img.pgoj.top/haizishuashouji.jpg
+thumb: https://img.pgoj.top/haizishuashouji.webp
 ---
 
 有人看到孩子玩手机时，注意力主要停留在三类内容上：刷那些无脑、狗血、毫无底线的网文爽剧，看充斥着暴力血腥的欧美电影解说，或者沉浸于游戏视频的教学攻略。于是便有人感慨，对青少年的未来深感悲观——种种糟粕的信息、低劣的价值观，无时无刻不在侵蚀着当代青年。
@@ -15,4 +15,4 @@ thumb: https://img.pgoj.top/haizishuashouji.jpg
 
 网上很多人翻看八九十年代的老照片、老视频时，忍不住感叹"那时的人真干净""那时候的人多淳朴"。可你若真去翻翻当年的报刊杂志，就会发现铺天盖地都是扼腕长叹"道德滑坡"的文章。可见，每一代人都在怀旧中放大过去的美好，又在焦虑中放大当下的问题。与其为孩子们接触的内容而绝望，不如相信他们自身的选择与分辨能力——就像当年的我们，并没有因为武侠小说而变成"古惑仔"，今天的孩子，也未必会在信息洪流中迷失方向。
 
-![孩子玩手机](https://img.pgoj.top/haizishuashouji.jpg)
+![孩子玩手机](https://img.pgoj.top/haizishuashouji.webp)

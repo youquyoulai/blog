@@ -1,3 +1,4 @@
+{{ define "main" }}
 <nav class="breadcrumbs" aria-label="面包屑导航">
     <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
     {{ if .IsPage }}
@@ -12,3 +13,4 @@
         <span class="current"><i class="icon">📁</i> {{ .Title }}</span>
     {{ end }}
 </nav>
+{{ end }}

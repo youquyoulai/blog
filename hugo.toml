@@ -17,7 +17,6 @@ capitalizeListTitles = false
   keywords = '博客,随笔,观感,教育,文艺,阅读'
   logo = '平哥偶记'
   builtYear = '2021'
-  imgCdn = 'https://img.pgoj.top'
 
   # Twikoo 评论配置
   [params.twikoo]

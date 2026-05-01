@@ -9,16 +9,13 @@
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
     <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default .Summary | plainify | truncate 150 }}{{ end }}">
     <meta name="keywords" content="{{ if .IsPage }}{{ with .Params.tags }}{{ delimit . "," }}{{ else }}{{ .Site.Params.keywords | default "" }}{{ end }}{{ else }}{{ .Site.Params.keywords | default "" }}{{ end }}">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="msapplication-TileColor" content="#2c5faa">
-    <meta name="msapplication-TileImage" content="/favicon-192.png">
+    {{ if .Site.Params.favicon }}
+    <link rel="shortcut icon" href="{{ .Site.Params.favicon }}" type="image/x-icon">
+    <link rel="icon" href="{{ .Site.Params.favicon }}">
+    {{ end }}
 
     {{ with .Site.Params.twikoo.envId }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
-    {{ with .Site.Params.imgCdn }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
+    <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
     {{ $css := resources.Get "css/style.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 
@@ -52,34 +49,6 @@
                 "name": "{{ .Title }}"
             }{{ end }}
         ]
-    }
-    </script>
-    {{ end }}
-
-    {{/* 结构化数据：文章 Article JSON-LD */}}
-    {{ if .IsPage }}
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "{{ .Title }}",
-        "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
-        "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
-        "author": {
-            "@type": "Person",
-            "name": "{{ .Site.Params.author | default .Site.Title }}"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "{{ .Site.Title }}",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "{{ .Site.BaseURL }}logo.png"
-            }
-        },
-        "description": "{{ .Params.description | default (substr (plainify .RawContent) 0 200) | replaceRE `\r?\n` " " }}",
-        "url": "{{ .Permalink }}"
-        {{ with .Params.thumb }}, "image": "{{ . }}"{{ end }}
     }
     </script>
     {{ end }}
@@ -155,6 +124,6 @@
 {{ end }}
 
 
-<script>if(document.querySelector('.post-content')){document.querySelectorAll('.post-content img:not([loading])').forEach(function(img){img.loading='lazy';img.decoding='async';if(img.naturalWidth){img.style.aspectRatio=img.naturalWidth+'/'+img.naturalHeight}})}</script>
+<script>document.querySelectorAll('.post-content img:not([loading])').forEach(function(img){img.loading='lazy';img.decoding='async';if(img.naturalWidth){img.style.aspectRatio=img.naturalWidth+'/'+img.naturalHeight}})</script>
 </body>
 </html>

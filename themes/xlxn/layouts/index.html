@@ -11,9 +11,74 @@
 {{ $paginator := .Paginate $filtered }}
 <div class="post-list">
     {{ range $idx, $page := $paginator.Pages }}
-    {{ partial "post-card.html" (dict "page" $page "idx" $idx "paginator" $paginator) }}
+    {{ $isLazy := not (and (eq $paginator.PageNumber 1) (eq $idx 0)) }}
+    <article class="post-card">
+        {{ $thumb := $page.Params.thumb }}
+        {{ if not $thumb }}
+            {{ $thumb = $page.Resources.GetMatch "*thumb*" }}
+        {{ end }}
+        {{ if not $thumb }}
+            {{ with $page.Params.images }}
+                {{ $thumb = index . 0 }}
+            {{ end }}
+        {{ end }}
+        {{ if not $thumb }}
+            {{ $imgs := slice "/img/thumbs/tu01.jpg" "/img/thumbs/tu02.jpg" "/img/thumbs/tu03.jpg" "/img/thumbs/tu04.jpg" "/img/thumbs/tu05.jpg" "/img/thumbs/tu06.jpg" "/img/thumbs/tu07.jpg" "/img/thumbs/tu08.jpg" "/img/thumbs/tu09.jpg" "/img/thumbs/tu10.jpg" "/img/thumbs/tu11.jpg" "/img/thumbs/tu12.jpg" "/img/thumbs/tu13.jpg" }}
+            {{ $thumbIdx := mod $page.Date.Unix (len $imgs) }}
+            {{ $thumb = index $imgs $thumbIdx }}
+        {{ end }}
+        <h2 class="post-card-title">
+            <a href="{{ $page.Permalink }}">{{ $page.Title }}</a>
+        </h2>
+        <div class="post-card-body">
+        <a href="{{ $page.Permalink }}" class="post-card-thumb">
+            <img src="{{ $thumb }}" alt="{{ $page.Title }}"{{ if $isLazy }} loading="lazy"{{ end }} decoding="async">
+        </a>
+        <div class="post-card-excerpt">
+            <p>{{ substr (plainify $page.RawContent) 0 150 }}{{ if gt (len (plainify $page.RawContent)) 150 }}...{{ end }}</p>
+        </div>
+        </div>
+        <div class="post-card-meta">
+            <span class="meta-date"><i class="icon">📅</i> {{ $page.Date.Format "2006-01-02" }}</span>
+            <span class="meta-category">
+                <i class="icon">📁</i>
+                {{ partial "cat-names.html" $page.Params.categories }}
+            </span>
+            {{ with $page.Params.tags }}
+            <span class="meta-tags">
+                <i class="icon">🏷️</i>
+                {{ range $i, $tag := . }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/tags/%s" $tag)).Permalink }}">{{ $tag }}</a>{{ end }}
+            </span>
+            {{ end }}
+        </div>
+    </article>
     {{ end }}
 </div>
 
-{{ partial "pagination.html" $paginator }}
+<div class="pagination">
+    <ul class="pagination-list">
+        {{ if $paginator.HasPrev }}
+        <li class="prev">
+            <a href="{{ $paginator.Prev.URL }}">&laquo;</a>
+        </li>
+        {{ end }}
+        {{ range $paginator.Pagers }}
+        {{ $pageNum := .PageNumber }}
+        {{ if eq $pageNum $paginator.PageNumber }}
+        <li class="active"><span>{{ $pageNum }}</span></li>
+        {{ else if or (le $pageNum 2) (ge $pageNum (sub $paginator.TotalPages 1)) (and (ge $pageNum (sub $paginator.PageNumber 2)) (le $pageNum (add $paginator.PageNumber 2))) }}
+        <li><a href="{{ .URL }}">{{ $pageNum }}</a></li>
+        {{ else if eq $pageNum (sub $paginator.PageNumber 3) }}
+        <li><span>...</span></li>
+        {{ else if eq $pageNum (add $paginator.PageNumber 3) }}
+        <li><span>...</span></li>
+        {{ end }}
+        {{ end }}
+        {{ if $paginator.HasNext }}
+        <li class="next">
+            <a href="{{ $paginator.Next.URL }}">&raquo;</a>
+        </li>
+        {{ end }}
+    </ul>
+</div>
 {{ end }}

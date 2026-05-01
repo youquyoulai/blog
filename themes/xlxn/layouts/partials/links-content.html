@@ -80,28 +80,13 @@ return{title:data.items[0].title,url:data.items[0].link};
 }
 return null;
 }
-// 并发队列：最多 3 个并发，避免触发频率限制
-var CONCURRENCY = 3;
-var queue = [];
-var running = 0;
-function enqueue(fn) {
-  queue.push(fn);
-  runNext();
-}
-function runNext() {
-  if (running >= CONCURRENCY || !queue.length) return;
-  running++;
-  var fn = queue.shift();
-  fn().finally(function() { running--; runNext(); });
-}
 var cards=document.querySelectorAll('.link-card[data-blog-url]');
 cards.forEach(function(card){
 var blogUrl=card.getAttribute('data-blog-url');
 var rssUrl=card.getAttribute('data-rss')||'';
 var el=card.querySelector('.link-latest-post');
 if(!el) return;
-enqueue(function(){
-return fetchLatestPost(blogUrl,rssUrl).then(function(post){
+fetchLatestPost(blogUrl,rssUrl).then(function(post){
 if(post){
 var title=post.title;
 if(title.length>30) title=title.substring(0,30)+'...';
@@ -111,7 +96,6 @@ a.textContent='最新：'+title;a.title=post.title;
 el.textContent='';el.appendChild(a);
 }else{el.textContent=''}
 }).catch(function(){el.textContent=''});
-});
 });
 })();
 </script>

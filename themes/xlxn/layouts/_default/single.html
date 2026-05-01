@@ -164,28 +164,14 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
     <h3 class="section-title comments-count"><i class="icon">💬</i> {{ if eq .Params.layout "guestbook" }}留言{{ else }}评论{{ end }}</h3>
     <div id="twikoo-comment">加载评论中…</div>
 </div>
+<script src="/js/lib/twikoo.all.min.js"></script>
 <script>
-(function(){
-    var loaded=false;
-    var obs=new IntersectionObserver(function(entries){
-        if(entries[0].isIntersecting&&!loaded){
-            loaded=true;
-            obs.disconnect();
-            var s=document.createElement('script');
-            s.src='/js/lib/twikoo.all.min.js';
-            s.onload=function(){
-                twikoo.init({
-                    envId: '{{ $twikooEnvId | safeJS }}',
-                    el:'#twikoo-comment',
-                    lang:'zh-CN',
-                    path:window.location.pathname.endsWith('.html')?window.location.pathname:window.location.pathname+'.html',
-                });
-            };
-            document.head.appendChild(s);
-        }
-    },{threshold:0.1});
-    obs.observe(document.getElementById('twikoo-wrap'));
-})();
+twikoo.init({
+    envId: '{{ $twikooEnvId | safeJS }}',
+    el: '#twikoo-comment',
+    lang: 'zh-CN',
+    path: window.location.pathname.endsWith('.html') ? window.location.pathname : window.location.pathname + '.html',
+});
 </script>
 {{ end }}
 {{ end }}

@@ -52,6 +52,6 @@
 </article>
 
 {{ with .Site.Params.twikoo.envId }}
-{{ partial "twikoo.html" (dict "envId" . "path" $.Permalink) }}
+{{ $twPath := $.RelPermalink | strings.TrimSuffix "/" }}{{ partial "twikoo.html" (dict "envId" . "path" $twPath) }}
 {{ end }}
 {{ end }}

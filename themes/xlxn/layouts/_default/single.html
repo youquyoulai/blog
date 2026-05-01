@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded',function(){var b=document.getElemen
 </article>
 
 {{ if and .Site.Params.twikoo.envId (eq .Params.layout "guestbook") }}
-{{ partial "twikoo.html" (dict "envId" .Site.Params.twikoo.envId "path" .Permalink "title" "留言") }}
+{{ $gbPath := .RelPermalink | strings.TrimSuffix "/" }}{{ partial "twikoo.html" (dict "envId" .Site.Params.twikoo.envId "path" $gbPath "title" "留言") }}
 {{ end }}
 {{ end }}
 {{ end }}

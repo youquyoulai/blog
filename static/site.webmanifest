@@ -1,0 +1,13 @@
+{
+  "name": "平哥偶记",
+  "short_name": "平哥偶记",
+  "description": "记录日常观感，分享生活随笔",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#2c5faa",
+  "background_color": "#ffffff"
+}

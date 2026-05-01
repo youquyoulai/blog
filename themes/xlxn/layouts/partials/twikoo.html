@@ -1,0 +1,39 @@
+{{/*
+  partial: twikoo.html
+  参数: dict "envId" $envId "el" "#twikoo-comment" "path" .Permalink "title" "评论"
+  用于文章页、页面、留言板统一加载 Twikoo 评论区
+*/}}
+{{ $envId := .envId }}
+{{ $el := .el | default "#twikoo-comment" }}
+{{ $path := .path }}
+{{ $title := .title | default "评论" }}
+{{ $wrapId := .wrapId | default "twikoo-wrap" }}
+{{ $commentId := .commentId | default "twikoo-comment" }}
+
+<div class="comments-section" id="{{ $wrapId }}">
+    <h3 class="section-title comments-count"><i class="icon">💬</i> {{ $title }}</h3>
+    <div id="{{ $commentId }}">加载评论中…</div>
+</div>
+<script>
+(function(){
+    var loaded=false;
+    var obs=new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting&&!loaded){
+            loaded=true;
+            obs.disconnect();
+            var s=document.createElement('script');
+            s.src='/js/lib/twikoo.all.min.js';
+            s.onload=function(){
+                twikoo.init({
+                    envId:{{ $envId }},
+                    el:'#{{ $commentId }}',
+                    lang:'zh-CN',
+                    path:'{{ $path }}',
+                });
+            };
+            document.head.appendChild(s);
+        }
+    },{threshold:0.1});
+    obs.observe(document.getElementById('{{ $wrapId }}'));
+})();
+</script>

@@ -1,0 +1,42 @@
+{{/*
+  partial: post-card.html
+  参数: dict "page" $page "idx" $idx "paginator" $paginator
+  用于首页、分类页、列表页渲染统一的文章卡片
+*/}}
+{{ $page := .page }}
+{{ $idx := .idx }}
+{{ $paginator := .paginator }}
+{{ $isLazy := not (and (eq $paginator.PageNumber 1) (eq $idx 0)) }}
+
+{{ $thumb := $page.Params.thumb }}
+{{ if not $thumb }}{{ $thumb = $page.Resources.GetMatch "*thumb*" }}{{ end }}
+{{ if not $thumb }}{{ with $page.Params.images }}{{ $thumb = index . 0 }}{{ end }}{{ end }}
+{{ if not $thumb }}
+    {{ $imgs := slice "/img/thumbs/tu01.jpg" "/img/thumbs/tu02.jpg" "/img/thumbs/tu03.jpg" "/img/thumbs/tu04.jpg" "/img/thumbs/tu05.jpg" "/img/thumbs/tu06.jpg" "/img/thumbs/tu07.jpg" "/img/thumbs/tu08.jpg" "/img/thumbs/tu09.jpg" "/img/thumbs/tu10.jpg" "/img/thumbs/tu11.jpg" "/img/thumbs/tu12.jpg" "/img/thumbs/tu13.jpg" }}
+    {{ $thumb = index $imgs (mod $page.Date.Unix (len $imgs)) }}
+{{ end }}
+
+<article class="post-card">
+    <h2 class="post-card-title"><a href="{{ $page.Permalink }}">{{ $page.Title }}</a></h2>
+    <div class="post-card-body">
+        <a href="{{ $page.Permalink }}" class="post-card-thumb">
+            <img src="{{ $thumb }}" alt="{{ $page.Title }}"{{ if $isLazy }} loading="lazy"{{ end }} decoding="async">
+        </a>
+        <div class="post-card-excerpt">
+            <p>{{ substr (plainify $page.RawContent) 0 150 }}{{ if gt (len (plainify $page.RawContent)) 150 }}...{{ end }}</p>
+        </div>
+    </div>
+    <div class="post-card-meta">
+        <span class="meta-date"><i class="icon">📅</i> {{ $page.Date.Format "2006-01-02" }}</span>
+        <span class="meta-category">
+            <i class="icon">📁</i>
+            {{ partial "cat-names.html" $page.Params.categories }}
+        </span>
+        {{ with $page.Params.tags }}
+        <span class="meta-tags">
+            <i class="icon">🏷️</i>
+            {{ range $i, $tag := . }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/tags/%s" $tag)).Permalink }}">{{ $tag }}</a>{{ end }}
+        </span>
+        {{ end }}
+    </div>
+</article>

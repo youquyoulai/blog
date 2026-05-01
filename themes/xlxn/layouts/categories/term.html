@@ -16,7 +16,7 @@
     {{ range $idx, $page := $paginator.Pages }}
     <div class="feed-item">
         <div class="feed-avatar">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52'%3E%3Crect fill='%232c5faa' width='52' height='52' rx='26'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dy='.35em' fill='white' font-size='20' font-family='sans-serif'%3E%E5%B9%B3%3C/text%3E%3C/svg%3E" alt="平哥">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52'%3E%3Crect fill='%232c5faa' width='52' height='52' rx='26'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dy='.35em' fill='white' font-size='20' font-family='sans-serif'%3E%E5%B9%B3%3C/text%3E%3C/svg%3E" alt="{{ $.Site.Params.author }}">
         </div>
         <div class="feed-content">
             <div class="feed-info">
@@ -35,7 +35,6 @@
             </div>
             {{ end }}
             {{ with $.Site.Params.twikoo.envId }}
-            {{/* 评论按钮：点击展开/收起评论区 */}}
             <div class="feed-actions">
                 <button class="feed-reply-btn" data-target="feed-comments-{{ $idx }}">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -119,73 +118,10 @@
 {{/* ===== 普通分类：文章卡片样式 ===== */}}
 <div class="post-list">
     {{ range $idx, $page := .Paginator.Pages }}
-    {{ $isLazy := not (and (eq $.Paginator.PageNumber 1) (eq $idx 0)) }}
-    <article class="post-card">
-        <h2 class="post-card-title">
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-        </h2>
-        <div class="post-card-body">
-            {{ $thumb := .Params.thumb }}
-            {{ if not $thumb }}
-                {{ $thumb = .Resources.GetMatch "*thumb*" }}
-            {{ end }}
-            {{ if not $thumb }}
-                {{ with .Params.images }}
-                    {{ $thumb = index . 0 }}
-                {{ end }}
-            {{ end }}
-            {{ if not $thumb }}
-                {{ $imgs := slice "/img/thumbs/tu01.jpg" "/img/thumbs/tu02.jpg" "/img/thumbs/tu03.jpg" "/img/thumbs/tu04.jpg" "/img/thumbs/tu05.jpg" "/img/thumbs/tu06.jpg" "/img/thumbs/tu07.jpg" "/img/thumbs/tu08.jpg" "/img/thumbs/tu09.jpg" "/img/thumbs/tu10.jpg" "/img/thumbs/tu11.jpg" "/img/thumbs/tu12.jpg" "/img/thumbs/tu13.jpg" }}
-                {{ $ti := mod .Date.Unix (len $imgs) }}
-                {{ $thumb = index $imgs $ti }}
-            {{ end }}
-            <a href="{{ .Permalink }}" class="post-card-thumb">
-                <img src="{{ $thumb }}" alt="{{ .Title }}"{{ if $isLazy }} loading="lazy"{{ end }} decoding="async">
-            </a>
-            <div class="post-card-excerpt">
-                <p>{{ substr (plainify .RawContent) 0 150 }}{{ if gt (len (plainify .RawContent)) 150 }}...{{ end }}</p>
-            </div>
-        </div>
-        <div class="post-card-meta">
-            <span class="meta-date"><i class="icon">📅</i> {{ .Date.Format "2006-01-02" }}</span>
-            <span class="meta-category">
-                <i class="icon">📁</i>
-                {{ partial "cat-names.html" .Params.categories }}
-            </span>
-            {{ with .Params.tags }}
-            <span class="meta-tags">
-                <i class="icon">🏷️</i>
-                {{ range $i, $tag := . }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/tags/%s" $tag)).Permalink }}">{{ $tag }}</a>{{ end }}
-            </span>
-            {{ end }}
-        </div>
-    </article>
+    {{ partial "post-card.html" (dict "page" $page "idx" $idx "paginator" $.Paginator) }}
     {{ end }}
 </div>
 
-<div class="pagination">
-    <ul class="pagination-list">
-        {{ if .Paginator.HasPrev }}
-        <li class="prev">
-            <a href="{{ .Paginator.Prev.URL }}">&laquo;</a>
-        </li>
-        {{ end }}
-        {{ range .Paginator.Pagers }}
-        {{ $pageNum := .PageNumber }}
-        {{ if eq $pageNum $.Paginator.PageNumber }}
-        <li class="active"><span>{{ $pageNum }}</span></li>
-        {{ else if or (le $pageNum 2) (ge $pageNum (sub $.Paginator.TotalPages 1)) (and (ge $pageNum (sub $.Paginator.PageNumber 2)) (le $pageNum (add $.Paginator.PageNumber 2))) }}
-        <li><a href="{{ .URL }}">{{ $pageNum }}</a></li>
-        {{ else if or (eq $pageNum (sub $.Paginator.PageNumber 3)) (eq $pageNum (add $.Paginator.PageNumber 3)) }}
-        <li><span>...</span></li>
-        {{ end }}
-        {{ end }}
-        {{ if .Paginator.HasNext }}
-        <li class="next">
-            <a href="{{ .Paginator.Next.URL }}">&raquo;</a>
-        </li>
-        {{ end }}
-    </ul>
-</div>
+{{ partial "pagination.html" .Paginator }}
 {{ end }}
 {{ end }}

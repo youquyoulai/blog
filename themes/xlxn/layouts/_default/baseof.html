@@ -15,7 +15,7 @@
     {{ end }}
 
     {{ with .Site.Params.twikoo.envId }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
-    <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
+    {{ with .Site.Params.imgCdn }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
     {{ $css := resources.Get "css/style.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 
@@ -124,6 +124,6 @@
 {{ end }}
 
 
-<script>document.querySelectorAll('.post-content img:not([loading])').forEach(function(img){img.loading='lazy';img.decoding='async';if(img.naturalWidth){img.style.aspectRatio=img.naturalWidth+'/'+img.naturalHeight}})</script>
+<script>if(document.querySelector('.post-content')){document.querySelectorAll('.post-content img:not([loading])').forEach(function(img){img.loading='lazy';img.decoding='async';if(img.naturalWidth){img.style.aspectRatio=img.naturalWidth+'/'+img.naturalHeight}})}</script>
 </body>
 </html>

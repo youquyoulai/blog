@@ -161,8 +161,6 @@
 
     // ---------- 暗色模式切换 ----------
     var themeToggle = document.getElementById('themeToggle');
-    var iconSun = document.querySelector('.icon-sun');
-    var iconMoon = document.querySelector('.icon-moon');
 
     function getTheme() {
         var stored = localStorage.getItem('theme');
@@ -172,8 +170,10 @@
 
     function applyTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
-        if (iconSun) iconSun.style.display = theme === 'dark' ? 'none' : '';
-        if (iconMoon) iconMoon.style.display = theme === 'dark' ? '' : 'none';
+        var suns = document.querySelectorAll('.icon-sun');
+        var moons = document.querySelectorAll('.icon-moon');
+        suns.forEach(function(el) { el.style.display = theme === 'dark' ? 'none' : ''; });
+        moons.forEach(function(el) { el.style.display = theme === 'dark' ? '' : 'none'; });
         localStorage.setItem('theme', theme);
     }
 

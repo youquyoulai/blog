@@ -362,11 +362,16 @@
 .feed-tag{display:inline-block;font-size:.75rem;color:var(--text-muted);background:var(--border-soft);padding:2px 10px;border-radius:12px}
 .feed-reply-btn{display:inline-flex;align-items:center;gap:4px;background:#f8fafc;color:#475569;padding:3px 10px;border-radius:14px;font-size:.75rem;font-weight:500;text-decoration:none;border:1px solid #e2e8f0;cursor:pointer}
 .feed-reply-btn:hover{background:#2c5faa;color:#fff;border-color:#2c5faa}
-.feed-comments{margin-top:12px;padding:10px 14px;background:#f8fafc;border-radius:10px;font-size:.8rem;min-height:0;transition:all .3s;display:none!important;max-width:100%;box-sizing:border-box;overflow:hidden}
+.feed-comments{margin-top:12px;padding:10px 14px;background:#f8fafc;border-radius:10px;font-size:.8rem;min-height:0;transition:all .3s;display:none!important;box-sizing:border-box;overflow:visible}
 .feed-comments.feed-comments-open{display:block!important}
 .feed-comments:empty{display:none!important}
-.feed-comments *{max-width:100%}
+.feed-comments *{max-width:100%;box-sizing:border-box;word-wrap:break-word;overflow-wrap:break-word}
 .feed-comments .wl-editor,.feed-comments .wl-input,.feed-comments .wl-textarea{max-width:100%!important;box-sizing:border-box}
+.feed-comments .wl-card .wl-comment{min-width:0}
+.feed-comments .wl-card .wl-comment .wl-content{min-width:0;overflow-wrap:break-word;word-break:break-word}
+.feed-comments .wl-card .wl-comment .wl-nick{white-space:nowrap}
+.feed-comments .wl-card .wl-comment .wl-meta{white-space:nowrap}
+.feed-comments .wl-card .wl-comment .wl-quote{min-width:0;overflow-wrap:break-word;word-break:break-word}
 .feed-comments-loading{color:#94a3b8}
 .feed-comments-list{display:flex;flex-direction:column;gap:8px}
 .feed-comment-item{display:flex;gap:8px;align-items:flex-start}
@@ -377,7 +382,7 @@
 .feed-comment-text{margin:2px 0 0;color:#475569;line-height:1.4;word-break:break-word}
 .feed-empty{text-align:center;padding:64px 24px;background:#fff;border-radius:24px}
 .feed-empty p{color:#64748b;font-size:1rem}
-@media(max-width:600px){.weibo-feed{padding:0 8px}.feed-item{padding:16px;border-radius:20px}.feed-text{font-size:1rem}.feed-author{font-size:1.05rem}.feed-time{font-size:.8rem}.feed-footer{flex-wrap:wrap;gap:8px}.feed-tags{flex:1;min-width:0}.image-grid-1 img{max-height:300px}}
+@media(max-width:600px){.weibo-feed{padding:0 8px}.feed-item{padding:16px;border-radius:20px}.feed-text{font-size:1rem}.feed-author{font-size:1.05rem}.feed-time{font-size:.8rem}.feed-footer{flex-wrap:wrap;gap:8px}.feed-tags{flex:1;min-width:0}.feed-comments{padding:8px 4px}.feed-comments .wl-card .wl-comment{min-width:0;flex:1}.feed-comments .wl-card .wl-comment .wl-content,.feed-comments .wl-card .wl-comment .wl-quote{overflow-wrap:break-word;word-break:break-word;min-width:0}.image-grid-1 img{max-height:300px}}
 
 /* ========== 归档页 ========== */
 .archive-stats{display:flex;justify-content:space-around;margin:20px 0;padding:20px;background:#f8f9fa;border-radius:12px}

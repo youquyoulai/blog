@@ -55,11 +55,9 @@
 
     function openSidebar() {
         if (sidebarPanel) sidebarPanel.classList.add('open');
-        if (sidebarOverlay) sidebarPanel.classList.add('open');
+        if (sidebarOverlay) sidebarOverlay.classList.add('open');
         document.body.style.overflow = 'hidden';
         if (sidebarToggle) sidebarToggle.setAttribute('aria-expanded', 'true');
-        // 侧边栏打开后加载微语
-        loadMemos();
     }
     function closeSidebar() {
         if (sidebarPanel) sidebarPanel.classList.remove('open');
@@ -201,86 +199,7 @@
         });
     });
 
-    // ---------- 微语模块 ----------
-    var _memosLoaded = false;
-    var MEMOS_LIMIT = 1;
-
-    function formatMemoTime(timeStr) {
-        var ts = Number(timeStr);
-        if (ts > 0 && ts < 10000000000) { ts = ts * 1000; }
-        var date = new Date(ts || timeStr);
-        var now = new Date();
-        var diff = now - date;
-        var minutes = Math.floor(diff / 60000);
-        var hours = Math.floor(diff / 3600000);
-        var days = Math.floor(diff / 86400000);
-        if (minutes < 1) return '刚刚';
-        if (minutes < 60) return minutes + ' 分钟前';
-        if (hours < 24) return hours + ' 小时前';
-        if (days < 30) return days + ' 天前';
-        return date.getFullYear() + '-' +
-            String(date.getMonth() + 1).padStart(2, '0') + '-' +
-            String(date.getDate()).padStart(2, '0');
-    }
-
-    function renderMemos(container, memos) {
-        if (!memos || memos.length === 0) {
-            container.innerHTML = '<div class="memos-empty">暂无微语</div>';
-            return;
-        }
-        var html = '<div class="memos-list">';
-        memos.slice(0, MEMOS_LIMIT).forEach(function (memo) {
-            var content = memo.content || '';
-            content = content.replace(/!\[.*?\]\(.*?\)/g, '');
-            content = content.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1');
-            content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            content = content.replace(/`(.*?)`/g, '<code>$1</code>');
-            content = content.replace(/\n/g, '<br>');
-
-            var timeDisplay = formatMemoTime(memo.createdTs);
-            html += '<div class="memo-item">';
-            html += '<div class="memo-content">' + content + '</div>';
-            if (timeDisplay) { html += '<div class="memo-time">' + timeDisplay + '</div>'; }
-            html += '</div>';
-        });
-        html += '</div>';
-        html += '<a href="https://memos.pgoj.top" class="memos-more" target="_blank" rel="noopener">查看更多 →</a>';
-        container.innerHTML = html;
-    }
-
-    function loadMemos() {
-        var container = document.getElementById('memos-container');
-        if (!container || _memosLoaded) return;
-        _memosLoaded = true;
-
-        container.innerHTML = '<div class="memos-loading">加载中...</div>';
-        var MEMOS_API = 'https://memos.pgoj.top/api/v1/memo';
-
-        var controller = new AbortController();
-        var timeout = setTimeout(function () { controller.abort(); }, 8000);
-
-        fetch(MEMOS_API + '?limit=' + MEMOS_LIMIT + '&creatorUsername=%E5%B9%B3%E5%93%A5', { signal: controller.signal })
-            .then(function (res) {
-                clearTimeout(timeout);
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                return res.json();
-            })
-            .then(function (json) {
-                var data = json.data || json;
-                renderMemos(container, data);
-            })
-            .catch(function (e) {
-                clearTimeout(timeout);
-                container.innerHTML = '<div class="memos-empty">加载失败</div>';
-            });
-    }
-
-    // 桌面端侧边栏可见，直接加载；移动端等打开时加载
-    var memosContainer = document.getElementById('memos-container');
-    if (memosContainer && window.innerWidth > 768) {
-        loadMemos();
-    }
-    // 移动端在 openSidebar() 中调用 loadMemos()
+    // ---------- 微语模块（已改为 Hugo 静态渲染，无需动态加载）----------
 
     // 窗口大小变化时重置菜单状态
     window.addEventListener('resize', function () {

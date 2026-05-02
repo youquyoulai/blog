@@ -14,6 +14,7 @@
     <link rel="icon" href="{{ .Site.Params.favicon }}">
     {{ end }}
 
+    {{ with .Site.Params.twikoo.envId }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
     {{ with .Site.Params.waline.serverURL }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
     <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
     {{ $css := resources.Get "css/style.css" | minify | fingerprint }}

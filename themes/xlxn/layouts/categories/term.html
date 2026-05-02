@@ -29,13 +29,12 @@
             <div class="feed-images image-grid-{{ if le (len $imgs) 1 }}1{{ else if le (len $imgs) 2 }}2{{ else if le (len $imgs) 3 }}3{{ else }}4{{ end }}">
                 {{ range $imgs }}
                 <a class="feed-image-link" href="{{ .Permalink }}" data-lightbox="weibo" target="_blank" rel="noopener">
-                    <img src="{{ .Permalink }}" alt="" loading="lazy" decoding="async">
+                    <img src="{{ .Permalink }}" alt="{{ $page.Title }}" loading="lazy" decoding="async">
                 </a>
                 {{ end }}
             </div>
             {{ end }}
             {{ with $.Site.Params.waline.serverURL }}
-            {{/* 评论按钮：点击展开/收起评论区 */}}
             <div class="feed-actions">
                 <button class="feed-reply-btn" data-target="feed-comments-{{ $idx }}">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -48,70 +47,29 @@
     </div>
     {{ end }}
 
-    {{/* 分页导航 */}}
-    {{ if gt $paginator.TotalPages 1 }}
-    <div class="feed-pagination">
-        <ul class="pagination-list pager">
-            {{ if $paginator.HasPrev }}
-            <li class="prev"><a href="{{ $paginator.Prev.URL }}">&laquo;</a></li>
-            {{ end }}
-            {{ range $paginator.Pagers }}
-            {{ $pageNum := .PageNumber }}
-            {{ if eq $pageNum $paginator.PageNumber }}
-            <li class="active"><span>{{ $pageNum }}</span></li>
-            {{ else if or (le $pageNum 2) (ge $pageNum (sub $paginator.TotalPages 1)) (and (ge $pageNum (sub $paginator.PageNumber 2)) (le $pageNum (add $paginator.PageNumber 2))) }}
-            <li><a href="{{ .URL }}">{{ $pageNum }}</a></li>
-            {{ else if or (eq $pageNum (sub $paginator.PageNumber 3)) (eq $pageNum (add $paginator.PageNumber 3)) }}
-            <li><span>...</span></li>
-            {{ end }}
-            {{ end }}
-            {{ if $paginator.HasNext }}
-            <li class="next"><a href="{{ $paginator.Next.URL }}">&raquo;</a></li>
-            {{ end }}
-        </ul>
-    </div>
-    {{ end }}
+    {{ partial "pagination.html" $paginator }}
 </div>
 
 {{ with $.Site.Params.waline.serverURL }}
 <script>
 (function(){
-    var serverURL = '{{ . }}';
-    var walineLoaded = false;
+    var serverURL='{{ . }}';
+    var walineLoaded=false;
     function loadWaline(callback){
-        if(walineLoaded && typeof Waline !== 'undefined'){
-            callback(); return;
-        }
-        var css = document.createElement('link');
-        css.rel = 'stylesheet';
-        css.href = 'https://unpkg.com/@waline/client@v2/dist/waline.css';
-        document.head.appendChild(css);
-        var s = document.createElement('script');
-        s.src = 'https://unpkg.com/@waline/client@v2/dist/waline.js';
-        s.onload = function(){ walineLoaded = true; callback(); };
-        document.head.appendChild(s);
+        if(walineLoaded&&typeof Waline!=='undefined'){callback();return;}
+        var css=document.createElement('link');css.rel='stylesheet';css.href='https://cdn.jsdelivr.net/npm/@waline/client@v2/dist/waline.css';document.head.appendChild(css);
+        var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@waline/client@v2/dist/waline.js';s.onload=function(){walineLoaded=true;callback();};document.head.appendChild(s);
     }
-    var inited = {};
-    document.querySelectorAll('.feed-reply-btn[data-target]').forEach(function(btn, i){
-        var target = document.getElementById(btn.getAttribute('data-target'));
-        btn.addEventListener('click', function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            if(!target) return;
-            var isOpen = target.classList.contains('feed-comments-open');
-            if(isOpen){
-                target.classList.remove('feed-comments-open');
-                btn.querySelector('.feed-reply-count').textContent = '评论';
-            } else {
-                target.classList.add('feed-comments-open');
-                btn.querySelector('.feed-reply-count').textContent = '收起';
-                if(!inited[i]){
-                    inited[i] = true;
-                    var path = target.getAttribute('data-path');
-                    loadWaline(function(){
-                        Waline.init({ serverURL: serverURL, el: target, lang: 'zh-CN', path: path });
-                    });
-                }
+    var inited={};
+    document.querySelectorAll('.feed-reply-btn[data-target]').forEach(function(btn,i){
+        var target=document.getElementById(btn.getAttribute('data-target'));
+        btn.addEventListener('click',function(e){
+            e.preventDefault();e.stopPropagation();
+            if(!target)return;
+            var isOpen=target.classList.contains('feed-comments-open');
+            if(isOpen){target.classList.remove('feed-comments-open');btn.querySelector('.feed-reply-count').textContent='评论';}
+            else{target.classList.add('feed-comments-open');btn.querySelector('.feed-reply-count').textContent='收起';
+                if(!inited[i]){inited[i]=true;loadWaline(function(){Waline.init({serverURL:serverURL,el:target,lang:'zh-CN',path:target.getAttribute('data-path')});});}
             }
         });
     });
@@ -123,73 +81,10 @@
 {{/* ===== 普通分类：文章卡片样式 ===== */}}
 <div class="post-list">
     {{ range $idx, $page := .Paginator.Pages }}
-    {{ $isLazy := not (and (eq $.Paginator.PageNumber 1) (eq $idx 0)) }}
-    <article class="post-card">
-        <h2 class="post-card-title">
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-        </h2>
-        <div class="post-card-body">
-            {{ $thumb := .Params.thumb }}
-            {{ if not $thumb }}
-                {{ $thumb = .Resources.GetMatch "*thumb*" }}
-            {{ end }}
-            {{ if not $thumb }}
-                {{ with .Params.images }}
-                    {{ $thumb = index . 0 }}
-                {{ end }}
-            {{ end }}
-            {{ if not $thumb }}
-                {{ $imgs := slice "/img/thumbs/tu01.jpg" "/img/thumbs/tu02.jpg" "/img/thumbs/tu03.jpg" "/img/thumbs/tu04.jpg" "/img/thumbs/tu05.jpg" "/img/thumbs/tu06.jpg" "/img/thumbs/tu07.jpg" "/img/thumbs/tu08.jpg" "/img/thumbs/tu09.jpg" "/img/thumbs/tu10.jpg" "/img/thumbs/tu11.jpg" "/img/thumbs/tu12.jpg" "/img/thumbs/tu13.jpg" }}
-                {{ $ti := mod .Date.Unix (len $imgs) }}
-                {{ $thumb = index $imgs $ti }}
-            {{ end }}
-            <a href="{{ .Permalink }}" class="post-card-thumb">
-                <img src="{{ $thumb }}" alt="{{ .Title }}"{{ if $isLazy }} loading="lazy"{{ end }} decoding="async">
-            </a>
-            <div class="post-card-excerpt">
-                <p>{{ substr (plainify .RawContent) 0 150 }}{{ if gt (len (plainify .RawContent)) 150 }}...{{ end }}</p>
-            </div>
-        </div>
-        <div class="post-card-meta">
-            <span class="meta-date"><i class="icon">📅</i> {{ .Date.Format "2006-01-02" }}</span>
-            <span class="meta-category">
-                <i class="icon">📁</i>
-                {{ partial "cat-names.html" .Params.categories }}
-            </span>
-            {{ with .Params.tags }}
-            <span class="meta-tags">
-                <i class="icon">🏷️</i>
-                {{ range $i, $tag := . }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/tags/%s" $tag)).Permalink }}">{{ $tag }}</a>{{ end }}
-            </span>
-            {{ end }}
-        </div>
-    </article>
+        {{ partial "post-card.html" (dict "page" $page "idx" $idx "paginator" $.Paginator) }}
     {{ end }}
 </div>
 
-<div class="pagination">
-    <ul class="pagination-list">
-        {{ if .Paginator.HasPrev }}
-        <li class="prev">
-            <a href="{{ .Paginator.Prev.URL }}">&laquo;</a>
-        </li>
-        {{ end }}
-        {{ range .Paginator.Pagers }}
-        {{ $pageNum := .PageNumber }}
-        {{ if eq $pageNum $.Paginator.PageNumber }}
-        <li class="active"><span>{{ $pageNum }}</span></li>
-        {{ else if or (le $pageNum 2) (ge $pageNum (sub $.Paginator.TotalPages 1)) (and (ge $pageNum (sub $.Paginator.PageNumber 2)) (le $pageNum (add $.Paginator.PageNumber 2))) }}
-        <li><a href="{{ .URL }}">{{ $pageNum }}</a></li>
-        {{ else if or (eq $pageNum (sub $.Paginator.PageNumber 3)) (eq $pageNum (add $.Paginator.PageNumber 3)) }}
-        <li><span>...</span></li>
-        {{ end }}
-        {{ end }}
-        {{ if .Paginator.HasNext }}
-        <li class="next">
-            <a href="{{ .Paginator.Next.URL }}">&raquo;</a>
-        </li>
-        {{ end }}
-    </ul>
-</div>
+{{ partial "pagination.html" .Paginator }}
 {{ end }}
 {{ end }}

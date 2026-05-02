@@ -1,0 +1,66 @@
+{{/* 文章详情 - 通用 partial
+   参数：$page (Page对象)
+   用法：{{ partial "post-single.html" . }}
+*/}}
+<nav class="breadcrumbs" aria-label="面包屑导航">
+    <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
+    {{ with .CurrentSection }}
+    <span class="separator"><i class="icon">›</i></span>
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ end }}
+    <span class="separator"><i class="icon">›</i></span>
+    <span class="current">{{ .Title }}</span>
+</nav>
+
+<article class="post-single" itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="url" content="{{ .Permalink }}">
+    <meta itemprop="datePublished" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+    <meta itemprop="dateModified" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+    <meta itemprop="author" content="{{ .Site.Title }}">
+    <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization" class="sr-only">
+        <meta itemprop="name" content="{{ .Site.Title }}">
+    </span>
+    {{ with .Params.thumb }}<meta itemprop="image" content="{{ . }}">{{ end }}
+
+    <h1 class="post-title" itemprop="headline">{{ .Title }}</h1>
+    <div class="post-meta">
+        <span class="meta-date"><i class="icon">📅</i> {{ .Date.Format "2006-01-02" }}</span>
+        <span class="meta-category">
+            <i class="icon">📁</i>
+            {{ partial "cat-names.html" .Params.categories }}
+        </span>
+    </div>
+
+    <div class="post-content" itemprop="articleBody">
+        {{ .Content }}
+    </div>
+
+    {{ with .Params.tags }}
+    <div class="post-tags">
+        <span><i class="icon">🏷️</i> 标签：</span>
+        {{ range . }}<a href="{{ (site.GetPage (printf "/tags/%s" .)).Permalink }}" class="post-tag" itemprop="keywords">{{ . }}</a> {{ end }}
+    </div>
+    {{ end }}
+
+    <div class="post-nav">
+        <div class="post-prev">
+            <span class="nav-label">↩ 上一篇</span>
+            {{ with .PrevInSection }}<a href="{{ .Permalink }}">{{ .Title }}</a>{{ else }}<span class="no-post">没有了</span>{{ end }}
+        </div>
+        <div class="post-next">
+            <span class="nav-label">↪ 下一篇</span>
+            {{ with .NextInSection }}<a href="{{ .Permalink }}">{{ .Title }}</a>{{ else }}<span class="no-post">没有了</span>{{ end }}
+        </div>
+    </div>
+
+
+</article>
+
+{{ if .Site.Params.waline.serverURL }}
+{{ $path := .RelPermalink }}
+{{ if eq .Params.layout "guestbook" }}
+    {{ partial "waline.html" (dict "ctx" . "serverURL" .Site.Params.waline.serverURL "el" "waline" "path" $path "label" "留言") }}
+{{ else }}
+    {{ partial "waline.html" (dict "ctx" . "serverURL" .Site.Params.waline.serverURL "el" "waline" "path" $path "label" "评论") }}
+{{ end }}
+{{ end }}

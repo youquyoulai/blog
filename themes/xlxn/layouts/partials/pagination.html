@@ -1,0 +1,32 @@
+{{/* 分页导航 - 通用 partial
+   参数：$paginator (Paginator对象)
+   用法：{{ partial "pagination.html" $ }}
+*/}}
+{{ if gt .TotalPages 1 }}
+<div class="pagination">
+    <ul class="pagination-list">
+        {{ if .HasPrev }}
+        <li class="prev">
+            <a href="{{ .Prev.URL }}">&laquo;</a>
+        </li>
+        {{ end }}
+        {{ range .Pagers }}
+        {{ $pageNum := .PageNumber }}
+        {{ if eq $pageNum $.TotalPages }}
+        {{/* skip - handled by HasNext */}}
+        {{ else if eq $pageNum $.PageNumber }}
+        <li class="active"><span>{{ $pageNum }}</span></li>
+        {{ else if or (le $pageNum 2) (ge $pageNum (sub $.TotalPages 1)) (and (ge $pageNum (sub $.PageNumber 2)) (le $pageNum (add $.PageNumber 2))) }}
+        <li><a href="{{ .URL }}">{{ $pageNum }}</a></li>
+        {{ else if or (eq $pageNum (sub $.PageNumber 3)) (eq $pageNum (add $.PageNumber 3)) }}
+        <li><span>...</span></li>
+        {{ end }}
+        {{ end }}
+        {{ if .HasNext }}
+        <li class="next">
+            <a href="{{ .Next.URL }}">&raquo;</a>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}

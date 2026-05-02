@@ -1,0 +1,40 @@
+{{/* Waline 评论加载 - 通用 partial
+   参数：$ctx (上下文), $serverURL (Waline 服务地址), $el (挂载元素ID), $path (评论路径), $label (显示标签)
+   用法：{{ partial "waline.html" (dict "ctx" $ "serverURL" "xxx" "el" "waline" "path" "xxx" "label" "评论") }}
+*/}}
+{{ $serverURL := .serverURL }}
+<div class="comments-section" id="{{ .el }}-wrap">
+    <h3 class="section-title"><i class="icon">💬</i> {{ .label | default "评论" }}</h3>
+    <div id="{{ .el }}"></div>
+</div>
+<script>
+(function(){
+    var loaded=false;
+    var serverURL='{{ $serverURL }}';
+    var elId='{{ .el }}';
+    var elWrap=document.getElementById(elId+'-wrap');
+    var commentPath='{{ .path }}';
+    var obs=new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting&&!loaded){
+            loaded=true;
+            obs.disconnect();
+            var css=document.createElement('link');
+            css.rel='stylesheet';
+            css.href='https://cdn.jsdelivr.net/npm/@waline/client@v2/dist/waline.css';
+            document.head.appendChild(css);
+            var s=document.createElement('script');
+            s.src='https://cdn.jsdelivr.net/npm/@waline/client@v2/dist/waline.js';
+            s.onload=function(){
+                Waline.init({
+                    el:'#'+elId,
+                    serverURL:serverURL,
+                    lang:'zh-CN',
+                    path:commentPath,
+                });
+            };
+            document.head.appendChild(s);
+        }
+    },{threshold:0.1});
+    obs.observe(elWrap);
+})();
+</script>

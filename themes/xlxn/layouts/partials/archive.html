@@ -1,0 +1,75 @@
+{{/* 归档页 partial */}}
+{{ $allPosts := where .Site.RegularPages "Section" "posts" }}
+{{ $totalPosts := len $allPosts }}
+{{ $years := 0 }}
+{{ range $allPosts.GroupByDate "2006" }}{{ $years = add $years 1 }}{{ end }}
+
+<div class="page-single archive-page">
+<nav class="breadcrumbs" aria-label="面包屑导航">
+    <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
+    <span class="separator"><i class="icon">›</i></span>
+    <span class="current">{{ .Title }}</span>
+</nav>
+<h1 class="page-title">{{ .Title }}</h1>
+
+<div class="page-content">
+    {{ if .Content }}
+    <div class="archive-intro">{{ .Content }}</div>
+    {{ end }}
+
+    <div class="archive-stats">
+        <div class="stat-item">
+            <span class="stat-number">{{ $totalPosts }}</span>
+            <span class="stat-label">篇文章</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">{{ $years }}</span>
+            <span class="stat-label">个年份</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">{{ .Site.Params.commentCount | default "0" }}</span>
+            <span class="stat-label">条评论</span>
+        </div>
+    </div>
+    <div class="archive-center-action">
+        <button class="expand-all-btn" id="expandAllBtn">展开全部</button>
+    </div>
+    <div class="archive-container">
+        {{ range $allPosts.GroupByDate "2006" }}
+        {{ $yearTotal := len .Pages }}
+        <div class="archive-year collapsed">
+            <div class="year-header">
+                <span class="year-text">{{ .Key }} 年</span>
+                <span class="year-count">{{ $yearTotal }} 篇</span>
+            </div>
+            <div class="year-months">
+                {{ range .Pages.GroupByDate "2006-01" }}
+                {{ $raw := substr .Key 5 2 }}{{ $mn := strings.TrimLeft $raw "0" }}{{ if eq $mn "" }}{{ $mn = "0" }}{{ end }}
+                <div class="archive-month collapsed">
+                    <div class="month-header">
+                        <span class="month-text">{{ $mn }} 月</span>
+                        <span class="month-count">{{ len .Pages }} 篇</span>
+                    </div>
+                    <ul class="month-posts">
+                        {{ range .Pages }}
+                        <li class="post-item">
+                            <a href="{{ .Permalink }}" class="post-link">
+                                <span class="post-title">{{ .Title }}</span>
+                                <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+                            </a>
+                        </li>
+                        {{ end }}
+                    </ul>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+        {{ else }}
+        <p class="archive-empty-tip">暂无文章</p>
+        {{ end }}
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){var b=document.getElementById('expandAllBtn'),ys=document.querySelectorAll('.archive-year'),ex=false;if(b)b.addEventListener('click',function(){if(ex){ys.forEach(function(y){y.classList.remove('expanded');y.classList.add('collapsed');y.querySelectorAll('.archive-month').forEach(function(m){m.classList.remove('expanded');m.classList.add('collapsed')})});b.textContent='展开全部';ex=false}else{ys.forEach(function(y){y.classList.remove('collapsed');y.classList.add('expanded');y.querySelectorAll('.archive-month').forEach(function(m){m.classList.remove('collapsed');m.classList.add('expanded')})});b.textContent='折叠全部';ex=true}});ys.forEach(function(y){var h=y.querySelector('.year-header');if(h)h.addEventListener('click',function(e){e.stopPropagation();y.classList.toggle('expanded');y.classList.toggle('collapsed')})});document.querySelectorAll('.archive-month').forEach(function(m){var h=m.querySelector('.month-header');if(h)h.addEventListener('click',function(e){e.stopPropagation();m.classList.toggle('expanded');m.classList.toggle('collapsed')})})});
+</script>
+</div>

@@ -66,31 +66,18 @@
     }
     var inited={};
 
-    // 获取评论数
-    document.querySelectorAll('.feed-comments').forEach(function(el){
-        var path=el.getAttribute('data-path');
-        if(!path)return;
-        var btn=document.querySelector('[data-target="'+el.id+'"]');
-        var xhr=new XMLHttpRequest();
-        xhr.open('GET', serverURL + '/api/comment?type=count&path=' + encodeURIComponent(path));
-        xhr.onload=function(){
-            if(xhr.status===200){
-                var count=JSON.parse(xhr.responseText);
-                el.setAttribute('data-comment-count', count);
-                if(count>0&&btn){btn.querySelector('.feed-reply-count').textContent='评论 (' + count + ')';}
-            }
-        };
-        try{xhr.send();}catch(e){}
-    });
-
     document.querySelectorAll('.feed-reply-btn[data-target]').forEach(function(btn,i){
         var target=document.getElementById(btn.getAttribute('data-target'));
         btn.addEventListener('click',function(e){
             e.preventDefault();e.stopPropagation();
             if(!target)return;
             var isOpen=target.classList.contains('feed-comments-open');
-            if(isOpen){target.classList.remove('feed-comments-open');var c=target.getAttribute('data-comment-count');btn.querySelector('.feed-reply-count').textContent=c!==null?'评论 ('+c+')':'评论';}
-            else{target.classList.add('feed-comments-open');btn.querySelector('.feed-reply-count').textContent='收起';
+            if(isOpen){
+                target.classList.remove('feed-comments-open');
+                btn.querySelector('.feed-reply-count').textContent='评论';
+            }else{
+                target.classList.add('feed-comments-open');
+                btn.querySelector('.feed-reply-count').textContent='收起';
                 if(!inited[i]){inited[i]=true;loadWaline(function(){Waline.init({serverURL:serverURL,el:target,lang:'zh-CN',path:target.getAttribute('data-path')});});}
             }
         });

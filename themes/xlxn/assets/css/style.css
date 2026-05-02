@@ -210,7 +210,7 @@
 .widget-memos .memos-more:hover{color:var(--primary-dark)}
 .sidebar-panel .widget-memos .memo-item{border-left-color:var(--primary-light)}
 .sidebar-panel .widget-memos .memo-item:hover{border-left-color:var(--primary)}
-.widget-memos .weibo-latest{padding:10px 12px;border-left:3px solid var(--primary-light)}
+.widget-memos .weibo-latest{padding:10px 12px}
 .widget-memos .weibo-content{font-size:0.85rem;color:var(--text-body);line-height:1.6;word-break:break-word;margin:0 0 8px 0}
 .widget-memos .weibo-meta{display:flex;justify-content:space-between;align-items:center}
 .widget-memos .weibo-date{font-size:0.75rem;color:var(--text-muted)}
@@ -335,11 +335,7 @@
 .feed-header p{color:#8a8f99;font-size:.9rem;margin:0}
 .feed-item{background:#fff;border-radius:24px;margin-bottom:20px;padding:20px;box-shadow:0 4px 12px rgba(0,0,0,.04);transition:box-shadow .25s,transform .2s;border:1px solid rgba(0,0,0,.02)}
 .feed-item:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
-.feed-avatar{float:left;width:52px;margin-right:14px}
-.feed-avatar img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #f0f2f5}
-.feed-item:hover .feed-avatar img{border-color:#2c5faa}
-.feed-content{margin-left:66px}
-.feed-info{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.feed-info{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:12px}
 .feed-author{font-weight:700;font-size:1rem;color:#1e293b}
 .feed-time{font-size:.75rem;color:#94a3b8}
 .feed-text{font-size:.95rem;line-height:1.68;color:#334155;word-break:break-word;margin-bottom:16px}
@@ -361,12 +357,16 @@
 .feed-image-link{display:block;overflow:hidden;cursor:zoom-in}
 .feed-image-link img{width:100%;height:100%;transition:transform .3s ease}
 .feed-image-link:hover img{transform:scale(1.03)}
-.feed-actions{margin-top:16px;display:flex;align-items:center;gap:16px}
-.feed-reply-btn{display:inline-flex;align-items:center;gap:4px;background:#f8fafc;color:#475569;padding:3px 10px;border-radius:14px;font-size:.75rem;font-weight:500;text-decoration:none;border:1px solid #e2e8f0}
+.feed-footer{margin-top:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.feed-tags{display:flex;flex-wrap:wrap;gap:6px}
+.feed-tag{display:inline-block;font-size:.75rem;color:var(--text-muted);background:var(--border-soft);padding:2px 10px;border-radius:12px}
+.feed-reply-btn{display:inline-flex;align-items:center;gap:4px;background:#f8fafc;color:#475569;padding:3px 10px;border-radius:14px;font-size:.75rem;font-weight:500;text-decoration:none;border:1px solid #e2e8f0;cursor:pointer}
 .feed-reply-btn:hover{background:#2c5faa;color:#fff;border-color:#2c5faa}
-.feed-comments{margin-top:12px;padding:10px 14px;background:#f8fafc;border-radius:10px;font-size:.8rem;min-height:0;transition:all .3s;display:none!important}
+.feed-comments{margin-top:12px;padding:10px 14px;background:#f8fafc;border-radius:10px;font-size:.8rem;min-height:0;transition:all .3s;display:none!important;max-width:100%;box-sizing:border-box;overflow:hidden}
 .feed-comments.feed-comments-open{display:block!important}
 .feed-comments:empty{display:none!important}
+.feed-comments *{max-width:100%}
+.feed-comments .wl-editor,.feed-comments .wl-input,.feed-comments .wl-textarea{max-width:100%!important;box-sizing:border-box}
 .feed-comments-loading{color:#94a3b8}
 .feed-comments-list{display:flex;flex-direction:column;gap:8px}
 .feed-comment-item{display:flex;gap:8px;align-items:flex-start}
@@ -377,7 +377,7 @@
 .feed-comment-text{margin:2px 0 0;color:#475569;line-height:1.4;word-break:break-word}
 .feed-empty{text-align:center;padding:64px 24px;background:#fff;border-radius:24px}
 .feed-empty p{color:#64748b;font-size:1rem}
-@media(max-width:600px){.weibo-feed{padding:0 8px}.feed-item{padding:16px;border-radius:20px}.feed-avatar{width:48px;margin-right:12px}.feed-avatar img{width:48px;height:48px}.feed-content{margin-left:60px}.feed-text{font-size:1rem}.feed-author{font-size:1.05rem}.feed-time{font-size:.8rem}.image-grid-1 img{max-height:300px}}
+@media(max-width:600px){.weibo-feed{padding:0 8px}.feed-item{padding:16px;border-radius:20px}.feed-text{font-size:1rem}.feed-author{font-size:1.05rem}.feed-time{font-size:.8rem}.feed-footer{flex-direction:column;align-items:flex-start}.image-grid-1 img{max-height:300px}}
 
 /* ========== 归档页 ========== */
 .archive-stats{display:flex;justify-content:space-around;margin:20px 0;padding:20px;background:#f8f9fa;border-radius:12px}
@@ -443,13 +443,13 @@
 [data-theme="dark"] .weibo-feed .feed-header p{color:var(--text-muted)}
 [data-theme="dark"] .weibo-feed .feed-item{border-color:var(--border-light);box-shadow:var(--shadow-sm)}
 [data-theme="dark"] .weibo-feed .feed-item:hover{box-shadow:var(--shadow-hover)}
-[data-theme="dark"] .weibo-feed .feed-avatar img{border-color:var(--border-soft)}
 [data-theme="dark"] .weibo-feed .feed-author{color:var(--text-title)}
 [data-theme="dark"] .weibo-feed .feed-time{color:var(--text-muted)}
 [data-theme="dark"] .weibo-feed .feed-text{color:var(--text-body)}
 [data-theme="dark"] .weibo-feed .feed-readmore{color:var(--primary)}
 [data-theme="dark"] .weibo-feed .feed-images{background:var(--border-soft)}
 [data-theme="dark"] .weibo-feed .feed-reply-btn{background:var(--border-soft);color:var(--text-body);border-color:var(--border-input)}
+[data-theme="dark"] .weibo-feed .feed-tag{background:var(--border-soft);color:var(--text-muted)}
 [data-theme="dark"] .weibo-feed .feed-reply-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
 [data-theme="dark"] .weibo-feed .feed-comments{background:var(--border-soft)}
 [data-theme="dark"] .weibo-feed .feed-comment-nick{color:var(--text-title)}

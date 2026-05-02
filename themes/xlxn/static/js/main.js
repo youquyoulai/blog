@@ -172,8 +172,8 @@
 
     function applyTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
-        if (iconSun) iconSun.style.display = theme === 'dark' ? 'none' : '';
-        if (iconMoon) iconMoon.style.display = theme === 'dark' ? '' : 'none';
+        if (iconSun) iconSun.hidden = theme === 'dark';
+        if (iconMoon) iconMoon.hidden = theme !== 'dark';
         localStorage.setItem('theme', theme);
     }
 

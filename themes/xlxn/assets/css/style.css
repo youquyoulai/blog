@@ -377,7 +377,7 @@
 .feed-comment-text{margin:2px 0 0;color:#475569;line-height:1.4;word-break:break-word}
 .feed-empty{text-align:center;padding:64px 24px;background:#fff;border-radius:24px}
 .feed-empty p{color:#64748b;font-size:1rem}
-@media(max-width:600px){.weibo-feed{padding:0 8px}.feed-item{padding:16px;border-radius:20px}.feed-text{font-size:1rem}.feed-author{font-size:1.05rem}.feed-time{font-size:.8rem}.feed-footer{flex-direction:column;align-items:flex-start}.image-grid-1 img{max-height:300px}}
+@media(max-width:600px){.weibo-feed{padding:0 8px}.feed-item{padding:16px;border-radius:20px}.feed-text{font-size:1rem}.feed-author{font-size:1.05rem}.feed-time{font-size:.8rem}.feed-footer{flex-wrap:wrap;gap:8px}.feed-tags{flex:1;min-width:0}.image-grid-1 img{max-height:300px}}
 
 /* ========== 归档页 ========== */
 .archive-stats{display:flex;justify-content:space-around;margin:20px 0;padding:20px;background:#f8f9fa;border-radius:12px}

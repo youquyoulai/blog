@@ -34,7 +34,7 @@
                 {{ end }}
             </div>
             {{ end }}
-            {{ with $.Site.Params.twikoo.envId }}
+            {{ with $.Site.Params.waline.serverURL }}
             {{/* 评论按钮：点击展开/收起评论区 */}}
             <div class="feed-actions">
                 <button class="feed-reply-btn" data-target="feed-comments-{{ $idx }}">
@@ -42,7 +42,7 @@
                     <span class="feed-reply-count">评论</span>
                 </button>
             </div>
-            <div class="feed-comments" id="feed-comments-{{ $idx }}" data-path="{{ $page.Permalink }}"></div>
+            <div class="feed-comments" id="feed-comments-{{ $idx }}" data-path="{{ $page.RelPermalink }}"></div>
             {{ end }}
         </div>
     </div>
@@ -73,18 +73,22 @@
     {{ end }}
 </div>
 
-{{ with .Site.Params.twikoo.envId }}
+{{ with $.Site.Params.waline.serverURL }}
 <script>
 (function(){
-    var envId = {{ . }};
-    var twikooLoaded = false;
-    function loadTwikoo(callback){
-        if(twikooLoaded && typeof twikoo !== 'undefined'){
+    var serverURL = '{{ . }}';
+    var walineLoaded = false;
+    function loadWaline(callback){
+        if(walineLoaded && typeof Waline !== 'undefined'){
             callback(); return;
         }
+        var css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.href = 'https://unpkg.com/@waline/client@v2/dist/waline.css';
+        document.head.appendChild(css);
         var s = document.createElement('script');
-        s.src = '/js/lib/twikoo.all.min.js';
-        s.onload = function(){ twikooLoaded = true; callback(); };
+        s.src = 'https://unpkg.com/@waline/client@v2/dist/waline.js';
+        s.onload = function(){ walineLoaded = true; callback(); };
         document.head.appendChild(s);
     }
     var inited = {};
@@ -104,8 +108,8 @@
                 if(!inited[i]){
                     inited[i] = true;
                     var path = target.getAttribute('data-path');
-                    loadTwikoo(function(){
-                        twikoo.init({ envId: envId, el: target, lang: 'zh-CN', path: path });
+                    loadWaline(function(){
+                        Waline.init({ serverURL: serverURL, el: target, lang: 'zh-CN', path: path });
                     });
                 }
             }

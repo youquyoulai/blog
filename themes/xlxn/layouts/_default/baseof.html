@@ -14,7 +14,7 @@
     <link rel="icon" href="{{ .Site.Params.favicon }}">
     {{ end }}
 
-    {{ with .Site.Params.twikoo.envId }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
+    {{ with .Site.Params.waline.serverURL }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
     <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
     {{ $css := resources.Get "css/style.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">
@@ -31,7 +31,7 @@
                 "position": 1,
                 "name": "首页",
                 "item": "{{ .Site.BaseURL }}"
-            }{{ if .IsPage }},
+            }{{/* */}}{{ if .IsPage }},
             {
                 "@type": "ListItem",
                 "position": 2{{ with .CurrentSection }},
@@ -42,12 +42,12 @@
                 "@type": "ListItem",
                 "position": 3,
                 "name": "{{ .Title }}"
-            }{{ else if .IsSection }},
+            }{{/* */}}{{ else if .IsSection }},
             {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "{{ .Title }}"
-            }{{ end }}
+            }{{/* */}}{{ end }}
         ]
     }
     </script>

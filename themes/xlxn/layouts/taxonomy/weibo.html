@@ -10,7 +10,7 @@
     {{ $paginator := .Paginator }}
     {{ if eq $paginator.TotalPages 1 }}
     {{/* 单页：显示全部，按日期倒序 */}}
-    <div class="feed-item" id="twikoo-comment" data-path="">
+    <div class="feed-item" id="waline">
         <div class="feed-avatar">
             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52'%3E%3Crect fill='%232c5faa' width='52' height='52' rx='26'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dy='.35em' fill='white' font-size='20' font-family='sans-serif'%3E%E5%B9%B3%3C/text%3E%3C/svg%3E" alt="平哥">
         </div>
@@ -37,7 +37,7 @@
             <div class="feed-comments" id="feed-comments-all">
                 <div class="feed-comments-loading">加载评论中...</div>
             </div>
-            {{ with $.Site.Params.twikoo.envId }}
+            {{ with $.Site.Params.waline.serverURL }}
             <script>
             (function(){
                 var loaded=false;
@@ -45,11 +45,15 @@
                     if(entries[0].isIntersecting&&!loaded){
                         loaded=true;
                         obs.disconnect();
+                        var css=document.createElement('link');
+                        css.rel='stylesheet';
+                        css.href='https://unpkg.com/@waline/client@v2/dist/waline.css';
+                        document.head.appendChild(css);
                         var s=document.createElement('script');
-                        s.src='/js/lib/twikoo.all.min.js';
+                        s.src='https://unpkg.com/@waline/client@v2/dist/waline.js';
                         s.onload=function(){
-                            twikoo.init({
-                                envId:{{ . }},
+                            Waline.init({
+                                serverURL:'{{ . }}',
                                 el:'#feed-comments-all',
                                 lang:'zh-CN',
                                 path:'weibo-all',
@@ -87,13 +91,15 @@
                 {{ end }}
             </div>
             {{ end }}
-            {{ with $.Site.Params.twikoo.envId }}
+            {{ with $.Site.Params.waline.serverURL }}
+            {{/* 评论按钮：点击展开/收起评论区 */}}
             <div class="feed-actions">
-                <a class="feed-reply-btn" href="{{ $page.Permalink }}#twikoo-wrap">
+                <a class="feed-reply-btn" href="javascript:void(0)" onclick="toggleWeiboComment(this, '{{ $page.RelPermalink }}', '{{ . }}')">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     评论
                 </a>
             </div>
+            <div class="feed-comments" style="display:none;"></div>
             {{ end }}
         </div>
     </div>
@@ -122,4 +128,46 @@
     </div>
     {{ end }}
 </div>
+
+{{ with .Site.Params.waline.serverURL }}
+<script>
+(function(){
+    var walineLoading=false;
+    window.toggleWeiboComment=function(btn,path,serverURL){
+        var feedItem=btn.closest('.feed-item');
+        var container=feedItem?feedItem.querySelector('.feed-comments'):null;
+        if(!container)return;
+        if(container.style.display==='none'){
+            container.style.display='block';
+            if(!container.getAttribute('data-inited')){
+                if(window.Waline){
+                    initWaline(container,path,serverURL);
+                }else if(!walineLoading){
+                    walineLoading=true;
+                    // 先加载 Waline CSS
+                    var css=document.createElement('link');
+                    css.rel='stylesheet';
+                    css.href='https://unpkg.com/@waline/client@v2/dist/waline.css';
+                    document.head.appendChild(css);
+                    // 再加载 Waline JS
+                    var s=document.createElement('script');
+                    s.src='https://unpkg.com/@waline/client@v2/dist/waline.js';
+                    s.onload=function(){
+                        walineLoading=false;
+                        initWaline(container,path,serverURL);
+                    };
+                    document.head.appendChild(s);
+                }
+            }
+        }else{
+            container.style.display='none';
+        }
+    };
+    function initWaline(container,path,serverURL){
+        Waline.init({serverURL:serverURL,el:container,lang:'zh-CN',path:path});
+        container.setAttribute('data-inited','true');
+    }
+})();
+</script>
+{{ end }}
 {{ end }}

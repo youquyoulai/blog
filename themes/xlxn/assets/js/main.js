@@ -1,5 +1,5 @@
 /**
- * Typecho-Five-Theme - Main JavaScript
+ * Hugo xlxn Theme - Main JavaScript
  * Version: 1.6.2 (Lightbox optimized)
  */
 
@@ -158,6 +158,8 @@
     if (postContent) initImageLightbox(postContent);
     var pageContent = document.querySelector('.page-content');
     if (pageContent) initImageLightbox(pageContent);
+    var feedItems = document.querySelectorAll('.feed-item');
+    feedItems.forEach(function(item) { initImageLightbox(item); });
 
     // ---------- 暗色模式切换 ----------
     var themeToggle = document.getElementById('themeToggle');

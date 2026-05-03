@@ -52,7 +52,7 @@
     <h3 class="widget-title"><i class="icon">🔗</i> {{ .category }}</h3>
     <div class="friend-links-grid">
         {{ range .links }}
-        <a href="{{ .url }}" class="friend-link-item" target="_blank" rel="noopener" title="{{ .name }}">
+        <a href="{{ .url | safeURL }}" class="friend-link-item" target="_blank" rel="noopener" title="{{ .name }}">
             {{ .name }}
         </a>
         {{ end }}

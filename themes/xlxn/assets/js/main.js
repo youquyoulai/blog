@@ -47,6 +47,13 @@
         });
     });
 
+    // 移动端侧边栏：克隆桌面端内容（避免 HTML 重复渲染）
+    var desktopSidebar = document.getElementById('desktopSidebar');
+    var sidebarPanelBody = document.getElementById('sidebarPanelBody');
+    if (desktopSidebar && sidebarPanelBody && !sidebarPanelBody.hasChildNodes()) {
+        sidebarPanelBody.innerHTML = desktopSidebar.innerHTML;
+    }
+
     // 侧边栏滑出
     var sidebarToggle = document.getElementById('sidebarToggle');
     var sidebarPanel = document.getElementById('sidebarPanel');

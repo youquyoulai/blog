@@ -13,7 +13,7 @@
                 {{ $logo := .Site.Params.logo }}
                 {{ if $logo }}
                     {{ if strings.HasPrefix $logo "http" }}
-                        <img src="{{ $logo }}" alt="{{ .Site.Title }}" class="logo-img">
+                        <img src="{{ $logo }}" alt="{{ .Site.Title }}" class="logo-img" width="160" height="36">
                     {{ else }}
                         <span class="logo-text">{{ $logo }}</span>
                     {{ end }}

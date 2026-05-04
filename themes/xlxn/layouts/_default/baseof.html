@@ -142,14 +142,14 @@
                 {{ block "main" . }}{{ end }}
             </div>
 
-            <aside class="sidebar{{ if .IsHome }} is-index-sidebar{{ end }}">
+            <aside class="sidebar{{ if .IsHome }} is-index-sidebar{{ end }}" id="desktopSidebar">
                 {{ partial "sidebar.html" . }}
             </aside>
         </div>
     </div>
 </div>
 
-<!-- 移动端滑出侧边栏 -->
+<!-- 移动端滑出侧边栏（内容由 JS 从桌面端侧边栏克隆，避免重复渲染） -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <div class="sidebar-panel" id="sidebarPanel">
     <div class="sidebar-panel-header">
@@ -157,9 +157,7 @@
             <i class="icon" aria-hidden="true">✕</i>
         </button>
     </div>
-    <div class="sidebar-panel-body">
-        {{ partial "sidebar.html" . }}
-    </div>
+    <div class="sidebar-panel-body" id="sidebarPanelBody"></div>
 </div>
 
 {{ partial "footer.html" . }}

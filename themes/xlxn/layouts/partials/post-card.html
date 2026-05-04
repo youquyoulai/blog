@@ -27,7 +27,7 @@
         {{ $thumb = index $imgs $thumbIdx }}
     {{ end }}
     <a href="{{ $page.Permalink }}" class="post-card-thumb">
-        <img src="{{ $thumb }}" alt="{{ $page.Title }}"{{ if $isLazy }} loading="lazy"{{ end }} decoding="async">
+        <img src="{{ $thumb }}" alt="{{ $page.Title }}" width="280" height="210"{{ if $isLazy }} loading="lazy"{{ end }} decoding="async">
     </a>
     <div class="post-card-excerpt">
         {{ $plain := plainify $page.RawContent }}

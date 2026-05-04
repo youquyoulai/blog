@@ -44,7 +44,7 @@
 .header-search button:hover{background:rgba(255,255,255,0.3);color:var(--text-white)}
 .nav-search-wrap{display:none}
 /* 平板/手机横屏：导航折叠为汉堡菜单 */
-@media(max-width:900px){
+@media(max-width:1024px){
 .mobile-menu-toggle,.sidebar-toggle{display:flex;width:38px;height:38px;font-size:1.2rem}
 .header-logo{flex:1;min-width:0;text-align:center;order:2}
 .header-logo a{justify-content:center}

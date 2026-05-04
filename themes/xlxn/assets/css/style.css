@@ -46,6 +46,8 @@
 /* 平板/手机横屏：导航折叠为汉堡菜单 */
 @media(max-width:1024px){
 .mobile-menu-toggle,.sidebar-toggle{display:flex;width:38px;height:38px;font-size:1.2rem}
+.mobile-menu-toggle{order:1}
+.sidebar-toggle{order:3}
 .header-logo{flex:1;min-width:0;text-align:center;order:2}
 .header-logo a{justify-content:center}
 .header-logo .logo-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

@@ -97,7 +97,7 @@
 .sidebar-panel .friend-link-item:hover{background:var(--primary-light);color:var(--text-white)}
 }
 .post-list{display:flex;flex-direction:column;gap:0}
-.post-card{background:var(--card-bg);padding:20px 25px;margin-bottom:15px;border-radius:12px;box-shadow:var(--shadow-sm);transition:box-shadow 0.2s;opacity:0;transform:translateY(12px);animation:fadeInUp 0.4s ease forwards;display:flex;flex-direction:column;gap:12px;align-items:stretch}
+.post-card{background:var(--card-bg);padding:20px 25px;margin-bottom:15px;border-radius:12px;box-shadow:var(--shadow-sm);transition:box-shadow 0.2s;opacity:0;transform:translateY(12px);animation:fadeInUp 0.4s ease forwards;display:flex;flex-direction:column;gap:6px;align-items:stretch}
 .post-list .post-card:nth-child(1){animation-delay:0s}
 .post-list .post-card:nth-child(2){animation-delay:0.06s}
 .post-list .post-card:nth-child(3){animation-delay:0.12s}
@@ -107,10 +107,10 @@
 @media (prefers-reduced-motion:reduce){.post-card{opacity:1;transform:none;animation:none}}
 .post-card:hover{box-shadow:var(--shadow-md)}
 .post-card-content{flex:1;min-width:0;display:flex;flex-direction:column;gap:0}
-.post-card-title{font-size:clamp(1rem,1.8vw,1.15rem);font-weight:600;margin-bottom:8px;line-height:1.5}
+.post-card-title{font-size:clamp(1rem,1.8vw,1.15rem);font-weight:600;margin-bottom:4px;line-height:1.5}
 .post-card-title a{color:var(--text-dark)}
 .post-card-title a:hover{color:var(--primary)}
-.post-card-meta{font-size:0.867rem;color:var(--text-muted);margin-top:8px;display:flex;flex-wrap:wrap;gap:12px}
+.post-card-meta{font-size:0.867rem;color:var(--text-muted);margin-top:4px;display:flex;flex-wrap:wrap;gap:12px}
 .post-card-meta span{display:inline-flex;align-items:center;gap:4px}
 .post-card-body{display:flex;gap:18px;align-items:center}
 .post-card-thumb{flex-shrink:0;width:140px;aspect-ratio:4/3;overflow:hidden;border-radius:6px;display:block;background:linear-gradient(135deg,#e8edf5 0%,#d0dce8 50%,#c5d5e6 100%)}
@@ -297,10 +297,11 @@
 .post-card{padding:12px}
 .post-title{font-size:1.3rem}
 .post-card-title{font-size:1.1rem}
-.post-card{flex-direction:column;align-items:stretch}
+.post-card{flex-direction:column;align-items:stretch;gap:6px}
+.post-card-title{margin-bottom:4px}
 .post-card-body{flex-direction:row;gap:10px;align-items:center}
 .post-card-thumb{width:80px;aspect-ratio:4/3;order:0;margin-bottom:0}
-.post-card-meta{font-size:0.85rem;gap:8px}
+.post-card-meta{margin-top:4px;font-size:0.85rem;gap:8px}
 .post-single,.page-single,.comments-section{padding:10px;border-radius:6px}
 .comment-avatar{width:36px;height:36px}
 .comment-list .comment-list{margin-left:20px}

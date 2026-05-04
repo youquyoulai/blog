@@ -55,7 +55,7 @@
 
     function openSidebar() {
         if (sidebarPanel) sidebarPanel.classList.add('open');
-        if (sidebarOverlay) sidebarPanel.classList.add('open');
+        if (sidebarOverlay) sidebarOverlay.classList.add('open');
         document.body.style.overflow = 'hidden';
         if (sidebarToggle) sidebarToggle.setAttribute('aria-expanded', 'true');
     }
@@ -162,7 +162,9 @@
     feedItems.forEach(function(item) { initImageLightbox(item); });
 
     // ---------- 暗色模式切换 ----------
-    var themeToggle = document.getElementById('themeToggle');
+    // sidebar.html 被引用两次（桌面端 + 移动端面板），导致重复 ID，
+    // 改用 querySelectorAll 给所有按钮绑定事件
+    var themeToggles = document.querySelectorAll('#themeToggle');
 
     function getTheme() {
         var stored = localStorage.getItem('theme');
@@ -181,12 +183,48 @@
 
     applyTheme(getTheme());
 
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function () {
+    themeToggles.forEach(function(btn) {
+        btn.addEventListener('click', function () {
             var current = document.documentElement.getAttribute('data-theme');
             applyTheme(current === 'dark' ? 'light' : 'dark');
         });
+    });
+
+    // 字号切换
+    var fontToggles = document.querySelectorAll('#fontToggle');
+    var fontSizes = ['normal', 'large', 'small'];
+    var fontLabels = { normal: '标准', large: '大', small: '小' };
+    var fontMultipliers = { normal: 1, large: 1.15, small: 0.9 };
+
+    function getFontMode() {
+        var stored = localStorage.getItem('font-mode');
+        if (stored && fontSizes.indexOf(stored) !== -1) return stored;
+        return 'normal';
     }
+
+    function applyFontMode(mode) {
+        var html = document.documentElement;
+        html.removeAttribute('data-font-small');
+        html.removeAttribute('data-font-large');
+        if (mode !== 'normal') {
+            html.setAttribute('data-font-' + mode, '');
+        }
+        fontToggles.forEach(function(btn) {
+            btn.title = '字号：' + fontLabels[mode] + '（点击切换）';
+            btn.setAttribute('aria-label', '切换字号，当前：' + fontLabels[mode]);
+        });
+        localStorage.setItem('font-mode', mode);
+    }
+
+    applyFontMode(getFontMode());
+
+    fontToggles.forEach(function(btn) {
+        btn.addEventListener('click', function () {
+            var current = getFontMode();
+            var nextIndex = (fontSizes.indexOf(current) + 1) % fontSizes.length;
+            applyFontMode(fontSizes[nextIndex]);
+        });
+    });
 
     // 平滑滚动锚点
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {

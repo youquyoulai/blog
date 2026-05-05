@@ -27,7 +27,7 @@
         {{ $thumb = index $imgs $thumbIdx }}
     {{ end }}
     <a href="{{ $page.Permalink }}" class="post-card-thumb">
-        <img src="{{ $thumb }}" alt="{{ $page.Title }}" width="280" height="210"{{ if $isLazy }} loading="lazy"{{ end }} decoding="async">
+        <img src="{{ $thumb }}" alt="{{ $page.Title }} - {{ site.Title }}" width="280" height="210"{{ if $isLazy }} loading="lazy"{{ else }} fetchpriority="high"{{ end }} decoding="async">
     </a>
     <div class="post-card-excerpt">
         {{ $plain := plainify $page.RawContent }}
@@ -35,14 +35,14 @@
     </div>
     </div>
     <div class="post-card-meta">
-        <span class="meta-date"><i class="icon">📅</i> {{ $page.Date.Format "2006-01-02" }}</span>
+        <span class="meta-date"><i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg></i> {{ $page.Date.Format "2006-01-02" }}</span>
         <span class="meta-category">
-            <i class="icon">📁</i>
+            <i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></i>
             {{ partial "cat-names.html" $page.Params.categories }}
         </span>
         {{ with $page.Params.tags }}
         <span class="meta-tags">
-            <i class="icon">🏷️</i>
+            <i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg></i>
             {{ range $i, $tag := . }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/tags/%s" $tag)).Permalink }}">{{ $tag }}</a>{{ end }}
         </span>
         {{ end }}

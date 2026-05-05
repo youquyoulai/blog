@@ -4,7 +4,7 @@
 {{ $termName := index $catMap .Title | default .Title }}
 
 <nav class="breadcrumbs" aria-label="面包屑导航">
-    <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
+    <a href="{{ .Site.BaseURL }}"><i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></i> 首页</a>
     <span class="separator"><i class="icon">›</i></span>
     <span class="current">{{ $termName }}</span>
 </nav>

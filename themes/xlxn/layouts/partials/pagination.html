@@ -3,11 +3,11 @@
    用法：{{ partial "pagination.html" $ }}
 */}}
 {{ if gt .TotalPages 1 }}
-<div class="pagination">
+<nav class="pagination" aria-label="分页导航">
     <ul class="pagination-list">
         {{ if .HasPrev }}
         <li class="prev">
-            <a href="{{ .Prev.URL }}">&laquo;</a>
+            <a href="{{ .Prev.URL }}" aria-label="上一页">&laquo;</a>
         </li>
         {{ end }}
         {{ range .Pagers }}
@@ -15,18 +15,18 @@
         {{ if eq $pageNum $.TotalPages }}
         {{/* skip - handled by HasNext */}}
         {{ else if eq $pageNum $.PageNumber }}
-        <li class="active"><span>{{ $pageNum }}</span></li>
+        <li class="active"><span aria-current="page">{{ $pageNum }}</span></li>
         {{ else if or (le $pageNum 2) (ge $pageNum (sub $.TotalPages 1)) (and (ge $pageNum (sub $.PageNumber 2)) (le $pageNum (add $.PageNumber 2))) }}
-        <li><a href="{{ .URL }}">{{ $pageNum }}</a></li>
+        <li><a href="{{ .URL }}" aria-label="第 {{ $pageNum }} 页">{{ $pageNum }}</a></li>
         {{ else if or (eq $pageNum (sub $.PageNumber 3)) (eq $pageNum (add $.PageNumber 3)) }}
-        <li><span>...</span></li>
+        <li><span aria-hidden="true">...</span></li>
         {{ end }}
         {{ end }}
         {{ if .HasNext }}
         <li class="next">
-            <a href="{{ .Next.URL }}">&raquo;</a>
+            <a href="{{ .Next.URL }}" aria-label="下一页">&raquo;</a>
         </li>
         {{ end }}
     </ul>
-</div>
+</nav>
 {{ end }}

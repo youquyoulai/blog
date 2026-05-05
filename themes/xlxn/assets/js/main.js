@@ -104,15 +104,8 @@
         var closeBtn = document.createElement('button');
         closeBtn.innerHTML = '✕';
         closeBtn.setAttribute('aria-label', '关闭灯箱');
-        closeBtn.style.cssText = 'position:absolute;top:-10px;right:-10px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.7);color:#fff;font-size:24px;border:2px solid rgba(255,255,255,0.5);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s, border-color 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.3);';
-        closeBtn.addEventListener('mouseenter', function() {
-            this.style.background = '#2c5faa';
-            this.style.borderColor = '#fff';
-        });
-        closeBtn.addEventListener('mouseleave', function() {
-            this.style.background = 'rgba(0,0,0,0.7)';
-            this.style.borderColor = 'rgba(255,255,255,0.5)';
-        });
+        closeBtn.style.cssText = 'position:absolute;top:-10px;right:-10px;width:40px;height:40px;border-radius:50%;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.3);';
+
 
         imgContainer.appendChild(bigImg);
         imgContainer.appendChild(closeBtn);

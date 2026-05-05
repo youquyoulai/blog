@@ -1,16 +1,16 @@
-{{ define "main" }}
 <nav class="breadcrumbs" aria-label="面包屑导航">
-    <a href="{{ .Site.BaseURL }}"><i class="icon">🏠</i> 首页</a>
+    <a href="{{ .Site.BaseURL }}"><i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></i> 首页</a>
     {{ if .IsPage }}
         {{ with .CurrentSection }}
-        <span class="separator"><i class="icon">›</i></span>
+        <span class="separator">›</span>
         <a href="{{ .Permalink }}">{{ .Title }}</a>
         {{ end }}
-        <span class="separator"><i class="icon">›</i></span>
+        <span class="separator">›</span>
         <span class="current">{{ .Title }}</span>
     {{ else if .IsSection }}
-        <span class="separator"><i class="icon">›</i></span>
-        <span class="current"><i class="icon">📁</i> {{ .Title }}</span>
+        <span class="separator">›</span>
+        <span class="current">{{ .Title }}</span>
     {{ end }}
 </nav>
-{{ end }}
+
+

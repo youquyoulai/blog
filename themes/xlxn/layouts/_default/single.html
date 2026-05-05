@@ -1,11 +1,11 @@
 ﻿{{ define "main" }}
 
 {{/* ====== 归档页 ====== */}}
-{{ if eq .Title "归档" }}
+{{ if eq .Params._pagetype "archive" }}
 {{ partial "archive.html" . }}
 
 {{/* ====== 友链页 ====== */}}
-{{ else if or (eq .Title "友链") (eq .Title "友情链接") }}
+{{ else if eq .Params._pagetype "links" }}
 {{ partial "links-content.html" . }}
 
 {{/* ====== 普通文章/页面 ====== */}}
@@ -14,3 +14,4 @@
 {{ end }}
 
 {{ end }}
+

@@ -4,7 +4,7 @@
 */}}
 {{ $serverURL := .serverURL }}
 <div class="comments-section" id="{{ .el }}-wrap">
-    <h3 class="section-title"><i class="icon">💬</i> {{ .label | default "评论" }}</h3>
+    <h3 class="section-title"><i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></i> {{ .label | default "评论" }}</h3>
     <div id="{{ .el }}"></div>
 </div>
 <script>

@@ -1,20 +1,14 @@
-<<<<<<< Updated upstream
-{{- $cats := . -}}
-{{- if $cats -}}
-  {{- if reflect.IsSlice $cats -}}
-    {{- range $cats -}}
-      <span class="cat-badge">{{- . -}}</span>
-    {{- end -}}
-  {{- else -}}
-    <span class="cat-badge">{{- $cats -}}</span>
-  {{- end -}}
-{{- end -}}
-=======
 {{/* 输出分类名称，将英文分类名映射为中文显示名。兼容 categories 为字符串或数组两种格式。*/}}
-{{ $catNames := dict "guangan" "观感" "jilu" "记录" "weibo" "微语" }}
-{{ $cats := . }}
-{{ if not (reflect.IsSlice .) }}{{ $cats = (slice .) }}{{ end }}
-{{ range $i, $cat := $cats }}
-{{ if $i }}, {{ end }}{{ $displayName := index $catNames $cat }}{{ if not $displayName }}{{ $displayName = $cat }}{{ end }}<a href="/categories/{{ $cat }}/">{{ $displayName }}</a>
+{{ if . }}
+  {{ $catNames := dict "guangan" "观感" "jilu" "记录" "weibo" "微语" }}
+  {{ $cats := . }}
+  {{ if not (reflect.IsSlice .) }}{{ $cats = (slice .) }}{{ end }}
+  {{ range $i, $cat := $cats }}
+    {{ if $cat }}
+      {{ if $i }}, {{ end }}
+      {{ $displayName := index $catNames $cat }}
+      {{ if not $displayName }}{{ $displayName = $cat }}{{ end }}
+      <a href="/categories/{{ $cat }}/">{{ $displayName }}</a>
+    {{ end }}
+  {{ end }}
 {{ end }}
->>>>>>> Stashed changes

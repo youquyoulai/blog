@@ -572,6 +572,8 @@ async function loadPosts() {
   try {
     var data = await api('/api/posts');
     var posts = Array.isArray(data) ? data : (data.posts || []);
+    // 按文件名降序排列（最新发布的在前面）
+    posts.sort(function(a, b) { return b.name.localeCompare(a.name); });
     if (posts.length === 0) {
       el.innerHTML = '<div class="empty-state"><p>还没有文章</p></div>';
       return;

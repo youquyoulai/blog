@@ -187,7 +187,6 @@
       <div class="header-tabs">
         <button class="tab-btn active" data-tab="images" onclick="switchTab('images')">图库</button>
         <button class="tab-btn" data-tab="posts" onclick="switchTab('posts')">文章</button>
-        <button class="tab-btn" data-tab="comments" onclick="switchTab('comments')">评论</button>
         <button class="tab-btn" data-tab="editor" onclick="switchTab('editor')" style="display:none" id="tabEditorBtn">编辑</button>
       </div>
       <div class="header-actions">
@@ -265,16 +264,7 @@
       </div>
     </div>
 
-    <!-- 评论管理 -->
-    <div id="tab-comments" class="tab-content">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
-        <h2 style="font-size:1rem;color:var(--accent2);">评论管理</h2>
-        <button class="btn" onclick="window.open('https://waline.pgoj.top/manage', '_blank')">↗️ 打开 Waline 后台</button>
-      </div>
-      <div class="iframe-container">
-        <iframe id="walineFrame" src="https://waline.pgoj.top/manage" style="width:100%; min-height:75vh; border:1px solid var(--border); border-radius:8px;" loading="lazy"></iframe>
-      </div>
-    </div>
+
 
     <!-- 设置 -->
     <div id="tab-settings" class="tab-content">
@@ -303,8 +293,8 @@
         <p style="font-size:0.85rem;color:var(--muted);line-height:1.8;">
           1. 图库：上传图片自动到 R2，点击图片可复制链接<br>
           2. 文章：用 @image:图片名.png 语法插入图片<br>
-          3. 评论：审核、删除、标记垃圾评论<br>
-          4. 发布：点击"发布"按钮触发博客重新构建
+          3. 发布：点击"发布"按钮触发博客重新构建<br>
+          4. 评论：前往 <a href="https://waline.pgoj.top/manage" target="_blank" style="color:var(--accent);">Waline 后台</a> 管理评论
         </p>
       </div>
     </div>
@@ -320,10 +310,6 @@
       <button class="nav-item" data-tab="posts" onclick="switchTab('posts')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         <span>文章</span>
-      </button>
-      <button class="nav-item" data-tab="comments" onclick="switchTab('comments')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <span>评论</span>
       </button>
       <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
@@ -432,7 +418,6 @@ function switchTab(name) {
 
   if (name === 'images') loadImages();
   if (name === 'posts') loadPosts();
-  if (name === 'comments') loadComments();
   if (name === 'settings') checkApi();
 }
 
@@ -800,6 +785,5 @@ function showSettings() { switchTab('settings'); }
 init();
 
 </script>
-<script src="comments.js?v=20260506-2"></script>
 </body>
 </html>

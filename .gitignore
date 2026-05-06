@@ -5,3 +5,11 @@ resources/
 metrics*.txt
 template-metrics.txt
 check_posts.py
+
+# 本地备份/临时文件
+backup_*.html
+*backup*
+*fix*
+*wrangler*
+test_*.js
+twikoo-cloudflare/

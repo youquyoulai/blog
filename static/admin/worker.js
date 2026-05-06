@@ -1,12 +1,12 @@
 /**
  * 博客管理后台 - Cloudflare Worker API
- * 功能：R2图片上传/列表/删除、GitHub文章管理、Waline评论管理
+ * 功能：R2图片上传/列表/删除、GitHub文章管理
  * 部署：wrangler deploy admin/worker.js --name blog-admin-api
  */
 
-// ══════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════
 // CORS 配置
-// ══════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -40,151 +40,12 @@ function checkAuth(request, env) {
   }
 }
 
-// ══════════════════════════════════════════════════════════════════
-// Waline 评论管理 API 代理
-// ══════════════════════════════════════════════════════════════════
-const WALINE_API = 'https://waline.pgoj.top';
-const WALINE_TOKEN = 'wgp@369852';
-
-async function walineFetch(path, method, body) {
-  const url = WALINE_API + path;
-  console.log('Waline API 请求:', method, url);
-
-  // 尝试多种认证方式
-  const authHeadersList = [
-    { 'Authorization': 'Bearer ' + WALINE_TOKEN },
-    { 'Cookie': 'token=' + WALINE_TOKEN },
-  ];
-
-  let lastError = null;
-
-  for (const authHeaders of authHeadersList) {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-    Object.assign(headers, authHeaders);
-
-    try {
-      console.log('尝试认证方式:', Object.keys(authHeaders)[0]);
-      const res = await fetch(url, {
-        method,
-        headers,
-        body: body ? JSON.stringify(body) : undefined,
-      });
-
-      const text = await res.text();
-      console.log('响应状态:', res.status);
-      console.log('响应内容（前200字符）:', text.substring(0, 200));
-
-      if (res.ok) {
-        return JSON.parse(text);
-      }
-
-      lastError = 'Waline API ' + res.status + ': ' + text.substring(0, 200);
-    } catch (e) {
-      console.log('请求失败:', e.message);
-      lastError = e.message;
-    }
-  }
-
-  throw new Error(lastError || '所有认证方式都失败了');
-}
-
-// ══════════════════════════════════════════════════════════════════
-// 评论管理函数
-// ══════════════════════════════════════════════════════════════════
-async function listComments(request, env) {
-  const url = new URL(request.url);
-  const status = url.searchParams.get('status') || 'all';
-  const page = url.searchParams.get('page') || '1';
-  const pageSize = url.searchParams.get('pageSize') || '15';
-
-  try {
-    // 获取各状态评论数量（用于统计）
-    const allData = await walineFetch('/comment?type=list&page=1&pageSize=1&status=all', 'GET').catch(e => {
-      console.log('获取全部评论统计失败:', e.message);
-      return { result: 'ok', total: 0, data: [] };
-    });
-    const waitingData = await walineFetch('/comment?type=list&page=1&pageSize=1&status=waiting', 'GET').catch(e => {
-      console.log('获取待审核评论统计失败:', e.message);
-      return { result: 'ok', total: 0, data: [] };
-    });
-    const approvedData = await walineFetch('/comment?type=list&page=1&pageSize=1&status=approved', 'GET').catch(e => {
-      console.log('获取已通过评论统计失败:', e.message);
-      return { result: 'ok', total: 0, data: [] };
-    });
-    const spamData = await walineFetch('/comment?type=list&page=1&pageSize=1&status=spam', 'GET').catch(e => {
-      console.log('获取垃圾评论统计失败:', e.message);
-      return { result: 'ok', total: 0, data: [] };
-    });
-
-    // 获取当前状态的评论列表
-    const listData = await walineFetch(
-      '/comment?type=list&page=' + page + '&pageSize=' + pageSize + '&status=' + status,
-      'GET'
-    );
-
-    // 正确解析Waline API返回格式
-    const comments = (listData.data || []).map(function(item) {
-      return {
-        id: item.objectId || item._id || item.id,
-        nick: item.nick || item.author || '匿名',
-        avatar: item.avatar || '',
-        link: item.link || '',
-        comment: item.comment || item.content || '',
-        url: item.url || item.page || '',
-        time: item.time || item.createdAt || Date.now(),
-        status: item.status || 'approved',
-      };
-    });
-
-    return corsResponse(JSON.stringify({
-      comments: comments,
-      total: listData.total || 0,
-      page: parseInt(page),
-      pageSize: parseInt(pageSize),
-      stats: {
-        all: allData.total || 0,
-        waiting: waitingData.total || 0,
-        approved: approvedData.total || 0,
-        spam: spamData.total || 0,
-      },
-    }));
-  } catch (e) {
-    console.error('listComments 错误:', e.message);
-    throw e;
-  }
-}
-
-async function approveComment(request, env) {
-  const body = await request.json();
-  const id = body.id;
-  if (!id) return corsResponse(JSON.stringify({ error: 'Missing id' }), 400);
-
-  await walineFetch('/comment?type=approve', 'POST', { ids: [id] });
-  return corsResponse(JSON.stringify({ ok: true }));
-}
-
-async function deleteComment(request, env) {
-  const body = await request.json();
-  const id = body.id;
-  const spam = body.spam;
-  if (!id) return corsResponse(JSON.stringify({ error: 'Missing id' }), 400);
-
-  if (spam) {
-    await walineFetch('/comment?type=spam', 'POST', { ids: [id] });
-  } else {
-    await walineFetch('/comment?type=delete', 'POST', { ids: [id] });
-  }
-  return corsResponse(JSON.stringify({ ok: true }));
-}
-
-// ══════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════
 // R2 图片操作
-// ══════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════
 async function listImages(request, env) {
   const { objects } = await env.R2_BUCKET.list();
-  const baseUrl = env.R2_PUBLIC_URL || '';
+  const baseUrl = (env.R2_PUBLIC_URL || '').replace(/\/+$/, '');
   const list = objects.map(function(obj) {
     return {
       key: obj.key,
@@ -207,7 +68,7 @@ async function uploadImage(request, env) {
     httpMetadata: { contentType: file.type },
   });
 
-  const url = (env.R2_PUBLIC_URL || '') + '/' + key;
+  const url = (env.R2_PUBLIC_URL || '').replace(/\/+$/, '') + '/' + key;
   return corsResponse(JSON.stringify({ ok: true, key, url }));
 }
 
@@ -216,9 +77,35 @@ async function deleteImage(key, env) {
   return corsResponse(JSON.stringify({ ok: true }));
 }
 
-// ══════════════════════════════════════════════════════════════════
+// 替换 @image:xxx 为 Markdown 图片语法
+async function replaceImageRefs(content, env) {
+  const matches = content.match(/@image:([^\s\)]+)/g);
+  if (!matches) return content;
+
+  const listed = await env.R2_BUCKET.list({ limit: 1000 });
+  const imageMap = {};
+  listed.objects.forEach(o => {
+    if (/\.(jpg|jpeg|png|gif|webp|svg|avif|heic)$/i.test(o.key)) {
+      const filename = o.key.split('/').pop().toLowerCase();
+      const url = (env.R2_PUBLIC_URL || '') + '/' + o.key;
+      imageMap[filename] = url;
+      imageMap[o.key.toLowerCase()] = url;
+    }
+  });
+
+  let result = content;
+  for (const match of matches) {
+    const filename = match.replace('@image:', '').toLowerCase();
+    if (imageMap[filename]) {
+      result = result.replace(match, '![](' + imageMap[filename] + ')');
+    }
+  }
+  return result;
+}
+
+// ═════════════════════════════════════════════════════════════════
 // GitHub 文章管理
-// ══════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════
 const GITHUB_API = 'https://api.github.com';
 const GITHUB_REPO = 'youquyoulai/blog';
 const POSTS_DIR = 'content/posts';
@@ -265,11 +152,12 @@ async function githubFetch(path, method, token, body) {
 }
 
 async function listPosts(request, env) {
-  const token = request.headers.get('X-Admin-Token') || env.ADMIN_TOKEN;
+  const authToken = request.headers.get('X-Admin-Token');
+  if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
   const data = await githubFetch(
     '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR,
     'GET',
-    token
+    env.GITHUB_TOKEN
   );
   const posts = data
     .filter(function(f) { return f.name.endsWith('.md'); })
@@ -282,7 +170,7 @@ async function listPosts(request, env) {
 }
 
 async function getPost(filename, env) {
-  const token = env.ADMIN_TOKEN;
+  const token = env.GITHUB_TOKEN;
   const data = await githubFetch(
     '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR + '/' + filename,
     'GET',
@@ -293,40 +181,47 @@ async function getPost(filename, env) {
 }
 
 async function createPost(request, env) {
-  const token = request.headers.get('X-Admin-Token') || env.ADMIN_TOKEN;
+  const authToken = request.headers.get('X-Admin-Token');
+  if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
   const body = await request.json();
   const { filename, content } = body;
   if (!filename || !content) return corsResponse(JSON.stringify({ error: 'Missing fields' }), 400);
 
-  const encoded = utf8ToBase64(content);
+  // 替换 @image:xxx 为 Markdown 图片语法
+  const processedContent = await replaceImageRefs(content, env);
+  const encoded = utf8ToBase64(processedContent);
   const data = await githubFetch(
     '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR + '/' + filename,
     'PUT',
-    token,
+    env.GITHUB_TOKEN,
     { message: 'Create ' + filename, content: encoded }
   );
   return corsResponse(JSON.stringify({ ok: true, commit: data.commit }));
 }
 
 async function updatePost(slug, request, env) {
-  const token = request.headers.get('X-Admin-Token') || env.ADMIN_TOKEN;
+  const authToken = request.headers.get('X-Admin-Token');
+  if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
   const body = await request.json();
   const { content, sha } = body;
   if (!content || !sha) return corsResponse(JSON.stringify({ error: 'Missing fields' }), 400);
 
-  const encoded = utf8ToBase64(content);
+  // 替换 @image:xxx 为 Markdown 图片语法
+  const processedContent = await replaceImageRefs(content, env);
+  const encoded = utf8ToBase64(processedContent);
   const filename = slug.endsWith('.md') ? slug : slug + '.md';
   const data = await githubFetch(
     '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR + '/' + filename,
     'PUT',
-    token,
+    env.GITHUB_TOKEN,
     { message: 'Update ' + filename, content: encoded, sha: sha }
   );
   return corsResponse(JSON.stringify({ ok: true, commit: data.commit }));
 }
 
 async function deletePost(slug, request, env) {
-  const token = request.headers.get('X-Admin-Token') || env.ADMIN_TOKEN;
+  const authToken = request.headers.get('X-Admin-Token');
+  if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
   const sha = request.headers.get('X-File-Sha');
   if (!sha) return corsResponse(JSON.stringify({ error: 'Missing sha' }), 400);
 
@@ -334,18 +229,18 @@ async function deletePost(slug, request, env) {
   await githubFetch(
     '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR + '/' + filename,
     'DELETE',
-    token,
+    env.GITHUB_TOKEN,
     { message: 'Delete ' + filename, sha: sha }
   );
   return corsResponse(JSON.stringify({ ok: true }));
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════
 // 构建触发
-// ══════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════
 async function triggerDeploy(env) {
   // 通过请求 GitHub 仓库的 dispatch event 触发 Pages 重建
-  const token = env.ADMIN_TOKEN;
+  const token = env.GITHUB_TOKEN;
   await githubFetch(
     '/repos/' + GITHUB_REPO + '/dispatches',
     'POST',
@@ -355,9 +250,9 @@ async function triggerDeploy(env) {
   return corsResponse(JSON.stringify({ ok: true }));
 }
 
-// ══════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════
 // 主请求处理器
-// ══════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════
 export default {
   async fetch(request, env, ctx) {
     if (request.method === 'OPTIONS') {
@@ -377,7 +272,7 @@ export default {
     const path = url.pathname;
 
     try {
-      // ─── R2 图片 API ───────────────────────────────────────────────
+      // ─── R2 图片 API ─────────────────────────────────────────────
       if (path === '/api/images' && request.method === 'GET') {
         return await listImages(request, env);
       }
@@ -412,17 +307,6 @@ export default {
       // ─── 构建触发 ─────────────────────────────────────────────────
       if (path === '/api/deploy' && request.method === 'POST') {
         return await triggerDeploy(env);
-      }
-
-      // ─── Waline 评论管理 API ─────────────────────────────────────
-      if (path === '/api/comments' && request.method === 'GET') {
-        return await listComments(request, env);
-      }
-      if (path === '/api/comments/approve' && request.method === 'POST') {
-        return await approveComment(request, env);
-      }
-      if (path === '/api/comments/delete' && request.method === 'POST') {
-        return await deleteComment(request, env);
       }
 
       return corsResponse(JSON.stringify({ error: 'Not Found' }), 404);

@@ -1,0 +1,16 @@
+{
+  "name": "博客管理后台",
+  "short_name": "博客管理",
+  "description": "平哥偶记博客管理后台",
+  "start_url": "/admin/",
+  "display": "standalone",
+  "background_color": "#0f0f1a",
+  "theme_color": "#1a1a2e",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231a1a2e' width='100' height='100' rx='20'/><text y='70' x='50' text-anchor='middle' font-size='60'>📝</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -3,7 +3,8 @@
 // ══════════════════════════════════════════════════════════
 
 let currentCommentPage = 1;
-// 注意：COMMENT_PAGE_SIZE 已在 index.html 中声明，此处不再重复
+const COMMENT_PAGE_SIZE = 15;
+// 注意：每个JS文件需要独立声明常量
 
 // 加载评论列表
 async function loadComments(page = 1) {

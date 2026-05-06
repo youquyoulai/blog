@@ -363,8 +363,8 @@
 </div>
 
 <!-- 隐藏的input -->
-<input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)">
-<input type="file" id="folderInput" webkitdirectory onchange="handleFiles(this.files)">
+<input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)" style="display:none">
+<input type="file" id="folderInput" webkitdirectory onchange="handleFiles(this.files)" style="display:none">
 <div class="toast" id="toast"></div>
 
 <script>

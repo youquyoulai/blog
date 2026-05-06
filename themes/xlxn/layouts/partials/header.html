@@ -37,13 +37,7 @@
                 <li class="nav-item"><a href="/categories/jilu/">记录</a></li>
                 <li class="nav-item"><a href="/categories/weibo/">微语</a></li>
                 {{/* 固定顺序独立页面导航 */}}
-                {{ $archives := site.GetPage "/archives" }}
-                {{ if $archives }}
-                <li class="{{ if eq $.Permalink $archives.Permalink }}active{{ end }}">
-                    <a href="{{ $archives.Permalink }}">归档</a>
-                </li>
-                {{ end }}
-                {{ $navPages := slice (dict "name" "links" "label" "友链") (dict "name" "guestbook" "label" "留言") (dict "name" "about" "label" "关于") }}
+                {{ $navPages := slice (dict "name" "links" "label" "友链") (dict "name" "guestbook" "label" "留言") }}
                 {{ range $navPages }}
                     {{ $page := site.GetPage (printf "/pages/%s" .name) }}
                     {{ if $page }}

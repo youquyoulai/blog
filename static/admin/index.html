@@ -78,6 +78,9 @@
     .upload-zone p { color: var(--muted); font-size: 0.9rem; }
     .upload-zone .hint { font-size: 0.8rem; margin-top: 6px; }
 
+    /* iframe 容器 */
+    .iframe-container { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
     /* 图片预览模态框 */
     .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
     .modal.open { display: flex; }
@@ -266,18 +269,11 @@
     <div id="tab-comments" class="tab-content">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
         <h2 style="font-size:1rem;color:var(--accent2);">评论管理</h2>
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-          <select id="commentStatus" onchange="commentPage=1;loadComments();" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-size:0.85rem;">
-            <option value="all">全部评论</option>
-            <option value="approved">已通过</option>
-            <option value="waiting">待审核</option>
-            <option value="spam">垃圾评论</option>
-          </select>
-          <button class="btn btn-sm" onclick="loadComments()">刷新</button>
-        </div>
+        <button class="btn" onclick="window.open('https://waline.pgoj.top/manage', '_blank')">↗️ 打开 Waline 后台</button>
       </div>
-      <div id="commentStats" style="display:flex;gap:16px;margin-bottom:16px;font-size:0.85rem;color:var(--muted);flex-wrap:wrap;"></div>
-      <div id="commentList"></div>
+      <div class="iframe-container">
+        <iframe id="walineFrame" src="https://waline.pgoj.top/manage" style="width:100%; min-height:75vh; border:1px solid var(--border); border-radius:8px;" loading="lazy"></iframe>
+      </div>
     </div>
 
     <!-- 设置 -->
@@ -590,7 +586,7 @@ async function loadPosts() {
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
     var data = await api('/api/posts');
-    var posts = data.posts || [];
+    var posts = Array.isArray(data) ? data : (data.posts || []);
     if (posts.length === 0) {
       el.innerHTML = '<div class="empty-state"><p>还没有文章</p></div>';
       return;

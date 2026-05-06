@@ -13,18 +13,31 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Admin-Token',
 };
 
-function corsResponse(body, status = 200, extraHeaders = {}) {
-  const headers = new Headers(CORS_HEADERS);
-  headers.set('Content-Type', 'application/json');
-  for (const [key, value] of Object.entries(extraHeaders)) {
-    headers.set(key, value);
+function corsResponse(body, status = 200, extraHeaders) {
+  const headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Admin-Token',
+  };
+  if (extraHeaders) {
+    for (const [key, value] of Object.entries(extraHeaders)) {
+      headers[key] = value;
+    }
   }
   return new Response(body, { status, headers });
 }
 
 function checkAuth(request, env) {
-  const token = request.headers.get('X-Admin-Token');
-  return token === env.ADMIN_TOKEN;
+  try {
+    const token = request.headers.get('X-Admin-Token');
+    const expectedToken = env.ADMIN_TOKEN;
+    console.log('checkAuth: token=' + token + ', expected=' + (expectedToken ? 'exists' : 'undefined'));
+    return token && expectedToken && token === expectedToken;
+  } catch (e) {
+    console.error('checkAuth error:', e.message);
+    return false;
+  }
 }
 
 // ══════════════════════════════════════════════════════════════════

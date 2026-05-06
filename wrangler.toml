@@ -1,2 +1,10 @@
-[assets]
-html_handling = "none"
+name = "blog-admin-api" 
+main = "public/admin/worker.js" 
+compatibility_date = "2024-01-01" 
+ 
+[[r2_buckets]] 
+binding = "R2_BUCKET" 
+bucket_name = "imgpg" 
+ 
+[vars] 
+R2_PUBLIC_URL = "https://img.pgoj.top" 

@@ -19,7 +19,7 @@
             <span class="feed-author">{{ $.Site.Params.author }}</span>
             <span class="feed-time">{{ $page.Date.Format "2006年01月02日" }}</span>
         </div>
-        <div class="feed-text">{{ $page.Content }}</div>
+        <div class="feed-text">{{ $page.Content | safeHTML }}</div>
         {{ $imgs := $page.Resources.ByType "image" }}
         {{ if gt (len $imgs) 0 }}
         <div class="feed-images image-grid-{{ if le (len $imgs) 1 }}1{{ else if le (len $imgs) 2 }}2{{ else if le (len $imgs) 3 }}3{{ else }}4{{ end }}">
@@ -52,6 +52,13 @@
     {{ end }}
 
     {{ partial "pagination.html" $paginator }}
+
+{{/* 兜底：将 feed-text 内残留的 markdown 图片转成 HTML */}}
+<script>
+document.querySelectorAll('.feed-text').forEach(function(el){
+    el.innerHTML = el.innerHTML.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;border-radius:8px;margin:8px 0;">');
+});
+</script>
 </div>
 
 {{ with $.Site.Params.waline.serverURL }}

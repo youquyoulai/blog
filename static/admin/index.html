@@ -188,6 +188,7 @@
         <button class="tab-btn" data-tab="editor" onclick="switchTab('editor')" style="display:none" id="tabEditorBtn">编辑</button>
       </div>
       <div class="header-actions">
+        <span id="currentTokenDisplay" style="font-size:0.75rem;color:var(--muted);margin-right:8px;"></span>
         <button class="btn btn-primary" onclick="triggerDeploy()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
           <span>发布</span>
@@ -374,9 +375,6 @@ let currentImages = [];
 let selectedImages = new Set();
 let editingFile = null;
 let pickerMode = false;
-let currentComments = [];
-let commentPage = 1;
-const COMMENT_PAGE_SIZE = 15;
 
 /* ===== 初始化 ===== */
 function init() {
@@ -797,117 +795,7 @@ function formatCommentTime(ts) {
   return new Date(ms).toLocaleString('zh-CN', {month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
 }
 
-async function loadComments() {
-  var el = document.getElementById('commentList');
-  el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
-  var status = document.getElementById('commentStatus').value;
-  try {
-    var data = await api('/comments?status=' + status + '&page=' + commentPage + '&pageSize=' + COMMENT_PAGE_SIZE, 'GET');
-    currentComments = data.comments || [];
-    renderComments();
-    var s = data.stats || {};
-    document.getElementById('commentStats').innerHTML =
-      '<span>全部: <strong>' + (s.all||0) + '</strong></span>' +
-      '<span style="color:var(--orange);">待审: <strong>' + (s.waiting||0) + '</strong></span>' +
-      '<span style="color:var(--green);">已通过: <strong>' + (s.approved||0) + '</strong></span>' +
-      '<span style="color:var(--red);">垃圾: <strong>' + (s.spam||0) + '</strong></span>';
-    renderCommentPagination(data.total || 0);
-  } catch (e) {
-    el.innerHTML = '<div class="empty-state"><p>加载失败: ' + escHtml(e.message) + '</p></div>';
-  }
-}
 
-function renderComments() {
-  var el = document.getElementById('commentList');
-  if (currentComments.length === 0) {
-    el.innerHTML = '<div class="empty-state"><p>暂无评论</p></div>';
-    return;
-  }
-  var html = '<div style="display:flex;flex-direction:column;gap:10px;">';
-  for (var i = 0; i < currentComments.length; i++) {
-    var c = currentComments[i];
-    var isWaiting = c.status === 'waiting' || c.isApproved === false;
-    var isSpam = c.status === 'spam';
-    var nick = escHtml(c.nick || c.author || '匿名');
-    var mail = c.mail ? '<span style="font-size:0.75rem;color:var(--muted);margin-left:8px;">' + escHtml(c.mail) + '</span>' : '';
-    var time = formatCommentTime(c.time || c.created || c.insertedAt);
-    var text = (c.comment || c.content || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-    var pageUrl = c.url ? '<div style="font-size:0.75rem;color:var(--muted);margin-top:4px;">页面: <a href="' + escHtml(c.url) + '" target="_blank" style="color:var(--accent);">' + escHtml(c.url) + '</a></div>' : '';
-    var badges = '';
-    if (isSpam) badges += '<span style="font-size:0.7rem;background:rgba(220,38,38,0.15);color:var(--red);padding:1px 6px;border-radius:4px;margin-left:6px;">垃圾</span>';
-    if (isWaiting) badges += '<span style="font-size:0.7rem;background:rgba(244,114,182,0.15);color:var(--orange);padding:1px 6px;border-radius:4px;margin-left:6px;">待审核</span>';
-    var actions = '';
-    if (isWaiting) actions += '<button class="btn btn-sm" style="color:var(--green);border-color:var(--green);font-size:0.75rem;padding:3px 8px;" onclick="approveComment(' + i + ')">通过</button>';
-    actions += '<button class="btn btn-sm" style="color:var(--orange);border-color:var(--orange);font-size:0.75rem;padding:3px 8px;" onclick="spamComment(' + i + ')">垃圾</button>';
-    actions += '<button class="btn btn-sm btn-danger" style="font-size:0.75rem;padding:3px 8px;" onclick="deleteComment(' + i + ')">删除</button>';
-    html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;' + (isSpam?'opacity:0.6;':'') + '">' +
-      '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">' +
-        '<div style="flex:1;min-width:0;">' +
-          '<div style="display:flex;align-items:center;flex-wrap:wrap;margin-bottom:6px;">' +
-            '<strong style="font-size:0.9rem;">' + nick + '</strong>' + mail +
-            '<span style="font-size:0.75rem;color:var(--muted);margin-left:8px;">' + time + '</span>' + badges +
-          '</div>' +
-          '<div style="font-size:0.85rem;line-height:1.6;word-break:break-word;">' + text + '</div>' + pageUrl +
-        '</div>' +
-        '<div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">' + actions + '</div>' +
-      '</div></div>';
-  }
-  html += '</div>';
-  el.innerHTML = html;
-}
-
-function renderCommentPagination(total) {
-  var totalPages = Math.ceil(total / COMMENT_PAGE_SIZE);
-  if (totalPages <= 1) return;
-  var el = document.getElementById('commentList');
-  var div = document.createElement('div');
-  div.style.cssText = 'display:flex;justify-content:center;gap:8px;margin-top:12px;';
-  div.innerHTML =
-    '<button class="btn btn-sm" onclick="commentPage=Math.max(1,commentPage-1);loadComments();"' + (commentPage<=1?' disabled':'') + '>上一页</button>' +
-    '<span style="font-size:0.85rem;color:var(--muted);align-self:center;">' + commentPage + '/' + totalPages + '</span>' +
-    '<button class="btn btn-sm" onclick="commentPage=Math.min(' + totalPages + ',commentPage+1);loadComments();"' + (commentPage>=totalPages?' disabled':'') + '>下一页</button>';
-  el.appendChild(div);
-}
-
-async function approveComment(index) {
-  var c = currentComments[index];
-  if (!c) return;
-  var id = c.objectId || c._id || c.id;
-  try {
-    await api('/comments/approve', 'POST', { id: id });
-    toast('已通过', 'success');
-    loadComments();
-  } catch (e) {
-    toast('操作失败: ' + e.message, 'error');
-  }
-}
-
-async function spamComment(index) {
-  var c = currentComments[index];
-  if (!c) return;
-  var id = c.objectId || c._id || c.id;
-  try {
-    await api('/comments/delete', 'POST', { id: id, spam: true });
-    toast('已标记垃圾', 'success');
-    loadComments();
-  } catch (e) {
-    toast('操作失败: ' + e.message, 'error');
-  }
-}
-
-async function deleteComment(index) {
-  var c = currentComments[index];
-  if (!c) return;
-  if (!confirm('确定删除这条评论？')) return;
-  var id = c.objectId || c._id || c.id;
-  try {
-    await api('/comments/delete', 'POST', { id: id });
-    toast('已删除', 'success');
-    loadComments();
-  } catch (e) {
-    toast('删除失败: ' + e.message, 'error');
-  }
-}
 
 /* ===== 设置 ===== */
 function showSettings() { switchTab('settings'); }

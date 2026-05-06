@@ -1,5 +1,5 @@
-name = "blog-admin-api" 
-main = "public/admin/worker.js" 
+name = "blog-admin-api"
+main = "static/admin/worker.js"
 compatibility_date = "2024-01-01" 
  
 [[r2_buckets]] 

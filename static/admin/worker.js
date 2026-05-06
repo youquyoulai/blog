@@ -54,7 +54,7 @@ async function listImages(request, env) {
       uploaded: obj.uploaded,
     };
   });
-  return corsResponse(JSON.stringify(list));
+  return corsResponse(JSON.stringify({ images: list }));
 }
 
 async function uploadImage(request, env) {

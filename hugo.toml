@@ -5,6 +5,7 @@ title = '平哥偶记'
 theme = 'xlxn'
 
 hasCJKLanguage = true
+buildFuture = true
 mainSections = ['posts']
 capitalizeListTitles = false
 

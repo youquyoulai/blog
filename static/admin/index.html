@@ -370,18 +370,7 @@
       <span style="font-weight:500;" id="pickerTitle">选择图片插入</span>
       <button class="btn btn-sm" onclick="closePicker()">关闭</button>
     </div>
-    <div id="sizeSelector" style="padding:10px 16px;background:var(--sidebar-panel);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-      <span style="font-size:0.85rem;color:var(--muted);">插入尺寸：</span>
-      <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.85rem;">
-        <input type="radio" name="imgSize" value="-300" checked style="accent-color:var(--primary);"> 缩略图 (-300)
-      </label>
-      <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.85rem;">
-        <input type="radio" name="imgSize" value="-800" style="accent-color:var(--primary);"> 文章配图 (-800)
-      </label>
-      <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.85rem;">
-        <input type="radio" name="imgSize" value="-orig" style="accent-color:var(--primary);"> 原图 (-orig)
-      </label>
-    </div>
+    <div id="sizeSelector" style="display:none;"></div>
     <div id="pickerGrid" style="flex:1;overflow-y:auto;padding:12px;"></div>
     <div style="padding:12px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;">
       <button class="btn" onclick="closePicker()">取消</button>
@@ -897,18 +886,18 @@ function confirmPicker() {
     return;
   }
   
-  // 普通模式：插入到正文
-  var size = document.querySelector('input[name="imgSize"]:checked').value;
+  // 普通模式：插入到正文（markdown 格式）
   var tags = [];
   selectedImages.forEach(function(key) {
     var name = decodeURIComponent(key).split('/').pop();
     var base = name.replace(/\.[^.]+$/, '');
     var ext = name.match(/\.[^.]+$/)[0];
-    tags.push('@image:' + base + size + ext);
+    var url = 'https://img.pgoj.top/' + base + '-800' + ext;
+    tags.push('![' + base + '](' + url + ')');
   });
   insertAtLine('\n' + tags.join('\n') + '\n');
   closePicker();
-  toast('已插入 ' + selectedImages.size + ' 个图片（' + (size === '-300' ? '缩略图' : size === '-800' ? '文章配图' : '原图') + '）', 'success');
+  toast('已插入 ' + selectedImages.size + ' 张图片（文章配图）', 'success');
 }
 
 function closePicker() {

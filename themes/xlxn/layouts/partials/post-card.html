@@ -21,6 +21,18 @@
             {{ $thumb = index . 0 }}
         {{ end }}
     {{ end }}
+    {{/* 封面图：支持 @image:xxx-300.webp 格式，转换为完整 URL */}}
+    {{ if not $thumb }}
+        {{ with $page.Params.cover }}
+            {{ $coverVal := . }}
+            {{ if (findRE "^@image:" $coverVal) }}
+                {{ $imgName := (replace $coverVal "@image:" "") }}
+                {{ $thumb = printf "https://img.pgoj.top/%s" $imgName }}
+            {{ else }}
+                {{ $thumb = $coverVal }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
     {{ if not $thumb }}
         {{ $imgs := slice "/img/thumbs/tu01.jpg" "/img/thumbs/tu02.jpg" "/img/thumbs/tu03.jpg" "/img/thumbs/tu04.jpg" "/img/thumbs/tu05.jpg" "/img/thumbs/tu06.jpg" "/img/thumbs/tu07.jpg" "/img/thumbs/tu08.jpg" "/img/thumbs/tu09.jpg" "/img/thumbs/tu10.jpg" "/img/thumbs/tu11.jpg" "/img/thumbs/tu12.jpg" "/img/thumbs/tu13.jpg" }}
         {{ $thumbIdx := mod $page.Date.Unix (len $imgs) }}

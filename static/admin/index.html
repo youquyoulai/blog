@@ -165,6 +165,7 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
   </style>
+  <script src="image-processor.js"></script>
 </head>
 <body>
 
@@ -210,6 +211,11 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         <p>点击或拖拽上传图片到 R2</p>
         <p class="hint">支持 jpg/png/gif/webp，单张不超过 10MB</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;padding:8px 12px;background:rgba(108,92,231,0.08);border:1px solid rgba(108,92,231,0.2);border-radius:8px;font-size:0.82rem;color:var(--accent2);">
+        <input type="checkbox" id="autoCompress" checked style="accent-color:var(--accent);width:15px;height:15px;cursor:pointer;">
+        <label for="autoCompress" style="cursor:pointer;flex:1;">自动压缩并转为 WebP（最大 1920px，质量 85%，节省约 60-80% 体积）</label>
+        <span id="uploadProgress" style="color:var(--muted);white-space:nowrap;"></span>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
         <h2 style="font-size:1rem;color:var(--accent2);">图库</h2>
@@ -292,10 +298,34 @@
         <h3>使用说明</h3>
         <p style="font-size:0.85rem;color:var(--muted);line-height:1.8;">
           1. 图库：上传图片自动到 R2，点击图片可复制链接<br>
-          2. 文章：用 @image:图片名.png 语法插入图片<br>
-          3. 发布：点击"发布"按钮触发博客重新构建<br>
-          4. 评论：前往 <a href="https://waline.pgoj.top/manage" target="_blank" style="color:var(--accent);">Waline 后台</a> 管理评论
+          2. 图片上传：默认自动压缩为 WebP（最大 1920px，质量 85%），节省 60-80% 体积；可取消勾选"自动压缩"上传原图<br>
+          3. 文章：用 @image:图片名.png 语法插入图片<br>
+          4. 发布：点击"发布"按钮触发博客重新构建<br>
+          5. 评论：前往 <a href="https://waline.pgoj.top/manage" target="_blank" style="color:var(--accent);">Waline 后台</a> 管理评论
         </p>
+      </div>
+      <div class="settings-group">
+        <h3>图片处理说明</h3>
+        <div class="setting-row">
+          <span class="setting-label">压缩</span>
+          <span class="setting-value">Canvas API 前端压缩</span>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">格式</span>
+          <span class="setting-value">自动转为 WebP（现代浏览器），回退 JPEG</span>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">最大尺寸</span>
+          <span class="setting-value">1920 x 1920 px</span>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">质量</span>
+          <span class="setting-value">85%</span>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">Resize 端点</span>
+          <span class="setting-value" style="font-size:0.75rem;">GET /api/images/resize?key=xxx&amp;width=800&amp;format=webp</span>
+        </div>
       </div>
     </div>
   </main>
@@ -547,21 +577,70 @@ uploadZone.addEventListener('drop', function(e) { e.preventDefault(); uploadZone
 
 async function handleFiles(files) {
   if (!files || files.length === 0) return;
+  var autoCompress = document.getElementById('autoCompress').checked;
+  var total = files.length;
+  var idx = 0;
   var ok = 0, fail = 0;
+  var totalSaved = 0;
+
+  function setProgress(msg) {
+    document.getElementById('uploadProgress').textContent = msg;
+  }
+
+  setProgress(idx + '/' + total);
+
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
-    if (!file.type.startsWith('image/')) { fail++; continue; }
+    if (!file.type.startsWith('image/')) { fail++; idx++; setProgress(idx + '/' + total); continue; }
     try {
+      var originalSize = file.size;
+      var processed = null;
+      var finalFile = file;
+
+      // 压缩处理
+      if (autoCompress && typeof ImageProcessor !== 'undefined') {
+        processed = await ImageProcessor.processImage(file, {
+          maxWidth: 1920,
+          maxHeight: 1920,
+          quality: 0.85,
+          toWebP: true,
+        });
+        finalFile = new File([processed.blob], processed.newName, { type: processed.mimeType });
+        setProgress('压缩 ' + (i + 1) + '/' + total);
+      }
+
+      // 上传
       var fd = new FormData();
-      fd.append('file', file);
+      fd.append('file', finalFile);
+      setProgress('上传 ' + (i + 1) + '/' + total);
       var res = await fetch(API_BASE + '/api/images/upload', {
         method: 'POST', headers: { 'X-Admin-Token': token }, body: fd,
       });
       var data = await res.json();
-      if (data.url) ok++; else fail++;
-    } catch (e) { fail++; }
+
+      if (data.url) {
+        ok++;
+        if (processed) {
+          totalSaved += processed.originalSize - processed.newSize;
+        }
+      } else {
+        fail++;
+      }
+    } catch (e) {
+      console.error('Upload error:', e);
+      fail++;
+    }
+    idx++;
+    setProgress(idx + '/' + total);
   }
-  toast('上传完成：成功 ' + ok + '，失败 ' + fail, ok > 0 && fail === 0 ? 'success' : 'error');
+
+  setProgress('');
+  var msg = '成功 ' + ok + '，失败 ' + fail;
+  if (totalSaved > 0) {
+    var savedMB = (totalSaved / 1024 / 1024).toFixed(2);
+    msg += '（节省 ' + savedMB + ' MB）';
+  }
+  toast(msg, ok > 0 && fail === 0 ? 'success' : 'error');
   loadImages();
 }
 

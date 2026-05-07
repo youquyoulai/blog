@@ -1,8 +1,13 @@
 /**
  * 博客管理后台 - Cloudflare Worker API
- * 功能：R2图片上传/列表/删除、GitHub文章管理
+ * 功能：R2图片上传/列表/删除/Resize、GitHub文章管理
  * 部署：wrangler deploy admin/worker.js --name blog-admin-api
  */
+
+// ═════════════════════════════════════════════════════════════════
+// 图片 resize 配置（可选功能，需要开启 Cloudflare Image Resizing）
+// R2 公开访问 URL，作为 Image Resizing 的 origin
+const R2_ORIGIN = 'https://img.pgoj.top';
 
 // ═════════════════════════════════════════════════════════════════
 // CORS 配置
@@ -75,6 +80,62 @@ async function uploadImage(request, env) {
 async function deleteImage(key, env) {
   await env.R2_BUCKET.delete(key);
   return corsResponse(JSON.stringify({ ok: true }));
+}
+
+// ═════════════════════════════════════════════════════════════════
+// 图片 resize（利用 Cloudflare Image Resizing）
+// 用法：GET /api/images/resize?key=xxx&width=800&format=webp&quality=85
+// 需要 Cloudflare Zone 开启 Image Resizing 功能（付费功能）
+// ═════════════════════════════════════════════════════════════════
+async function resizeImage(request, env) {
+  const url = new URL(request.url);
+  const key = url.searchParams.get('key');
+  const width = parseInt(url.searchParams.get('width') || '0', 10);
+  const height = parseInt(url.searchParams.get('height') || '0', 10);
+  const format = url.searchParams.get('format') || 'webp';
+  const quality = parseInt(url.searchParams.get('quality') || '85', 10);
+
+  if (!key) {
+    return corsResponse(JSON.stringify({ error: 'Missing key param' }), 400);
+  }
+
+  const imageUrl = R2_ORIGIN + '/' + key;
+
+  try {
+    // 通过 fetch + cf.image 调用 Cloudflare Image Resizing
+    const resized = await fetch(imageUrl, {
+      cf: {
+        image: {
+          width: width || undefined,
+          height: height || undefined,
+          format: ['webp', 'avif', 'json'].includes(format) ? format : 'webp',
+          quality: Math.min(Math.max(quality, 1), 100),
+          fit: 'cover',
+        },
+      },
+    });
+
+    if (!resized.ok) {
+      // Image Resizing 未开通或不可用
+      return corsResponse(JSON.stringify({
+        error: 'Image Resizing unavailable',
+        hint: 'Please enable Cloudflare Image Resizing on your zone, or use client-side resize.',
+        status: resized.status,
+      }), 501);
+    }
+
+    const contentType = resized.headers.get('Content-Type') || 'image/webp';
+    return new Response(resized.body, {
+      status: 200,
+      headers: {
+        'Content-Type': contentType,
+        'Cache-Control': 'public, max-age=31536000, immutable',
+        'Access-Control-Allow-Origin': '*',
+      },
+    });
+  } catch (e) {
+    return corsResponse(JSON.stringify({ error: e.message }), 500);
+  }
 }
 
 // 替换 @image:xxx 为 Markdown 图片语法
@@ -282,6 +343,9 @@ export default {
       if (path.startsWith('/api/images/') && request.method === 'DELETE') {
         const key = decodeURIComponent(path.replace('/api/images/', ''));
         return await deleteImage(key, env);
+      }
+      if (path === '/api/images/resize' && request.method === 'GET') {
+        return await resizeImage(request, env);
       }
 
       // ─── GitHub 文章 API ──────────────────────────────────────────

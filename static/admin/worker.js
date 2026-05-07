@@ -67,7 +67,8 @@ async function uploadImage(request, env) {
   const file = formData.get('file');
   if (!file) return corsResponse(JSON.stringify({ error: 'No file' }), 400);
 
-  const key = Date.now() + '_' + file.name;
+  // 直接使用前端传来的文件名（已包含尺寸后缀如 -orig, -800, -300）
+  const key = file.name;
   const arrayBuffer = await file.arrayBuffer();
   await env.R2_BUCKET.put(key, arrayBuffer, {
     httpMetadata: { contentType: file.type },

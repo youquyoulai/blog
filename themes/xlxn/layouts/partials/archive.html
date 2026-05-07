@@ -44,10 +44,10 @@
             </div>
             <div class="year-months">
                 {{ range .Pages.GroupByDate "2006-01" }}
-                {{ $raw := substr .Key 5 2 }}{{ $mn := strings.TrimLeft $raw "0" }}{{ if eq $mn "" }}{{ $mn = "0" }}{{ end }}
+                {{ $raw := substr .Key 5 2 }}
                 <div class="archive-month collapsed">
                     <div class="month-header">
-                        <span class="month-text">{{ $mn }} 月</span>
+                        <span class="month-text">{{ $raw }} 月</span>
                         <span class="month-count">{{ len .Pages }} 篇</span>
                     </div>
                     <ul class="month-posts">

@@ -1,7 +1,7 @@
 ---
 title: "热门事件上的谨言慎行"
 date: 2026-05-07
-cover: "@image:tu06-300.jpg"
+cover: "@image:tu05-300.jpg"
 categories: [guangan]
 tags: ["认知"]
 slug: "re-men-chen-mo"
@@ -16,4 +16,4 @@ slug: "re-men-chen-mo"
 
 我等虽然普通平庸、微不足道，但上有老要赡养，下有小要抚育。万一因为某一句话、某一次举动，被推上舆论的浪尖，遭千人踩万人唾，不但自己声名狼藉，就连家里的老人和孩子也会备受连累。所以，每当我看到网络上惊涛拍岸、群情汹涌，心里常常会生出两方面的想法：一方面，忍不住要寻思此人此事是否真的到了“破鼓万人捶”的地步；另一方面，又忍不住为那些事件背后无辜连累者感到一丝悲悯。
 
-![buhuo-800](https://img.pgoj.top/buhuo-800-800.webp)
+![buhuo](https://img.pgoj.top/buhuo-800.webp)

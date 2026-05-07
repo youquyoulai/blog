@@ -249,6 +249,8 @@
           <input type="text" class="meta-input" id="postCategory" placeholder="分类 guanwu/jilu">
           <input type="text" class="meta-input" id="postTags" placeholder="标签 用逗号分隔">
           <input type="text" class="meta-input" id="postSlug" placeholder="slug">
+          <input type="text" class="meta-input" id="postCover" placeholder="封面图" style="flex:1;min-width:200px;">
+          <button class="btn btn-sm" onclick="showCoverPicker()">选封面</button>
         </div>
       </div>
       <div class="editor-toolbar">
@@ -365,10 +367,10 @@
 <div class="modal" id="pickerModal" onclick="if(event.target===this)closePicker()">
   <div style="background:var(--card);border-radius:12px;width:90%;max-width:800px;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;">
     <div style="padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);">
-      <span style="font-weight:500;">选择图片插入</span>
+      <span style="font-weight:500;" id="pickerTitle">选择图片插入</span>
       <button class="btn btn-sm" onclick="closePicker()">关闭</button>
     </div>
-    <div style="padding:10px 16px;background:var(--sidebar-panel);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+    <div id="sizeSelector" style="padding:10px 16px;background:var(--sidebar-panel);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
       <span style="font-size:0.85rem;color:var(--muted);">插入尺寸：</span>
       <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.85rem;">
         <input type="radio" name="imgSize" value="-300" checked style="accent-color:var(--primary);"> 缩略图 (-300)
@@ -383,7 +385,7 @@
     <div id="pickerGrid" style="flex:1;overflow-y:auto;padding:12px;"></div>
     <div style="padding:12px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;">
       <button class="btn" onclick="closePicker()">取消</button>
-      <button class="btn btn-primary" onclick="confirmPicker()">插入选中</button>
+      <button class="btn btn-primary" onclick="confirmPicker()" id="confirmBtn">插入选中</button>
     </div>
   </div>
 </div>
@@ -400,6 +402,7 @@ let currentImages = [];
 let selectedImages = new Set();
 let editingFile = null;
 let pickerMode = false;
+let coverPickerMode = false;
 
 /* ===== 初始化 ===== */
 function init() {
@@ -708,6 +711,7 @@ function newPost() {
   document.getElementById('postCategory').value = 'jilu';
   document.getElementById('postTags').value = '';
   document.getElementById('postSlug').value = '';
+  document.getElementById('postCover').value = '';
   document.getElementById('postContent').value = '';
   document.getElementById('deletePostBtn').style.display = 'none';
   switchTab('editor');
@@ -724,6 +728,7 @@ async function editPost(filename) {
     document.getElementById('postCategory').value = extractFM(content, 'categories') || '';
     document.getElementById('postTags').value = extractFM(content, 'tags') || '';
     document.getElementById('postSlug').value = extractFM(content, 'slug') || filename.replace('.md','').replace(/^\d{4}-\d{2}-\d{2}-/,'');
+    document.getElementById('postCover').value = extractFM(content, 'cover') || '';
     document.getElementById('postContent').value = extractBody(content);
     document.getElementById('deletePostBtn').style.display = 'inline-flex';
     switchTab('editor');
@@ -747,12 +752,13 @@ function extractBody(content) {
   return idx >= 0 ? content.slice(idx + 3).trim() : content;
 }
 
-function buildFM(title, date, category, tags, slug) {
+function buildFM(title, date, category, tags, slug, cover) {
   var cats = category ? category : 'jilu';
   var tagArr = tags ? tags.split(',').map(function(t){return t.trim();}).filter(Boolean) : [];
   var fm = '---\n';
   fm += 'title: "' + title + '"\n';
   fm += 'date: ' + date + '\n';
+  if (cover) fm += 'cover: "' + cover + '"\n';
   fm += 'categories: [' + cats + ']\n';
   if (tagArr.length > 0) fm += 'tags: [' + tagArr.map(function(t){return '"' + t + '"';}).join(', ') + ']\n';
   if (slug) fm += 'slug: "' + slug + '"\n';
@@ -766,9 +772,10 @@ async function savePost(silent) {
   var category = document.getElementById('postCategory').value.trim();
   var tags = document.getElementById('postTags').value.trim();
   var slug = document.getElementById('postSlug').value.trim();
+  var cover = document.getElementById('postCover').value.trim();
   var body = document.getElementById('postContent').value;
   if (!title || !date) { toast('标题和日期不能为空', 'error'); return; }
-  var frontmatter = buildFM(title, date, category, tags, slug);
+  var frontmatter = buildFM(title, date, category, tags, slug, cover);
   var content = frontmatter + body;
   var filename = editingFile ? editingFile.filename : date + '-' + (slug || title.replace(/[^\w\u4e00-\u9fa5-]/g,'-').toLowerCase()) + '.md';
   try {
@@ -815,7 +822,23 @@ function insertAtLine(text) {
 
 function showImagePicker() {
   pickerMode = true;
+  coverPickerMode = false;
   selectedImages.clear();
+  document.getElementById('pickerTitle').textContent = '选择图片插入';
+  document.getElementById('confirmBtn').textContent = '插入选中';
+  document.getElementById('sizeSelector').style.display = 'flex';
+  document.getElementById('pickerGrid').innerHTML = '<div class="loading"><div class="spinner"></div>加载图库...</div>';
+  document.getElementById('pickerModal').classList.add('open');
+  loadPickerImages();
+}
+
+function showCoverPicker() {
+  pickerMode = true;
+  coverPickerMode = true;
+  selectedImages.clear();
+  document.getElementById('pickerTitle').textContent = '选择封面图';
+  document.getElementById('confirmBtn').textContent = '设为封面';
+  document.getElementById('sizeSelector').style.display = 'none';
   document.getElementById('pickerGrid').innerHTML = '<div class="loading"><div class="spinner"></div>加载图库...</div>';
   document.getElementById('pickerModal').classList.add('open');
   loadPickerImages();
@@ -856,6 +879,21 @@ function selectPickerImg(key, event) {
 
 function confirmPicker() {
   if (selectedImages.size === 0) { toast('请先选择图片'); return; }
+  
+  // 封面图模式：单选，直接填入封面输入框
+  if (coverPickerMode) {
+    var firstKey = [...selectedImages][0];
+    var name = decodeURIComponent(firstKey).split('/').pop();
+    var base = name.replace(/\.[^.]+$/, '');
+    var ext = name.match(/\.[^.]+$/)[0];
+    // 封面用 -800 尺寸
+    document.getElementById('postCover').value = '@image:' + base + '-800' + ext;
+    closePicker();
+    toast('封面图已设置', 'success');
+    return;
+  }
+  
+  // 普通模式：插入到正文
   var size = document.querySelector('input[name="imgSize"]:checked').value;
   var tags = [];
   selectedImages.forEach(function(key) {
@@ -872,6 +910,7 @@ function confirmPicker() {
 function closePicker() {
   document.getElementById('pickerModal').classList.remove('open');
   pickerMode = false;
+  coverPickerMode = false;
 }
 
 /* ===== 发布 ===== */

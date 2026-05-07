@@ -700,7 +700,10 @@ async function loadPosts() {
 function newPost() {
   editingFile = null;
   document.getElementById('postTitle').value = '';
-  document.getElementById('postDate').value = new Date().toISOString().split('T')[0];
+  var now = new Date();
+  var offset = now.getTimezoneOffset();
+  var localTime = new Date(now.getTime() - offset * 60000);
+  document.getElementById('postDate').value = localTime.toISOString().slice(0,16);
   document.getElementById('postCategory').value = 'jilu';
   document.getElementById('postTags').value = '';
   document.getElementById('postSlug').value = '';
@@ -717,7 +720,18 @@ async function editPost(filename) {
     editingFile = { filename: filename, sha: data.sha };
     var content = data.content;
     document.getElementById('postTitle').value = extractFM(content, 'title') || filename.replace('.md','');
-    document.getElementById('postDate').value = extractFM(content, 'date') || '';
+    var rawDate = extractFM(content, 'date') || '';
+  // 支持 YYYY-MM-DD 和 YYYY-MM-DDTHH:mm:ss+08:00 两种格式
+  rawDate = rawDate.replace(/["']/g, '').trim();
+  if (rawDate && rawDate.indexOf('T') === -1) {
+    // 只有日期，补全为 ISO 格式
+    document.getElementById('postDate').value = rawDate + 'T08:00';
+  } else if (rawDate) {
+    // 已有时间，截断到分钟
+    document.getElementById('postDate').value = rawDate.slice(0, 16);
+  } else {
+    document.getElementById('postDate').value = '';
+  }
     document.getElementById('postCategory').value = extractFM(content, 'categories') || '';
     document.getElementById('postTags').value = extractFM(content, 'tags') || '';
     document.getElementById('postSlug').value = extractFM(content, 'slug') || filename.replace('.md','').replace(/^\d{4}-\d{2}-\d{2}-/,'');
@@ -748,9 +762,16 @@ function extractBody(content) {
 function buildFM(title, date, category, tags, slug, cover) {
   var cats = category ? category : 'jilu';
   var tagArr = tags ? tags.split(',').map(function(t){return t.trim();}).filter(Boolean) : [];
+  // 确保 date 是 ISO 8601 格式，不带引号
+  var dateStr = date;
+  if (dateStr && dateStr.indexOf('T') === -1) {
+    dateStr = dateStr + 'T08:00:00+08:00';
+  } else if (dateStr && dateStr.indexOf('+') === -1 && dateStr.indexOf('Z') === -1) {
+    dateStr = dateStr + ':00+08:00';
+  }
   var fm = '---\n';
   fm += 'title: "' + title + '"\n';
-  fm += 'date: ' + date + '\n';
+  fm += 'date: ' + dateStr + '\n';
   if (cover) fm += 'cover: "' + cover + '"\n';
   fm += 'categories: [' + cats + ']\n';
   if (tagArr.length > 0) fm += 'tags: [' + tagArr.map(function(t){return '"' + t + '"';}).join(', ') + ']\n';

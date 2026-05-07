@@ -214,7 +214,7 @@
       </div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;padding:8px 12px;background:rgba(108,92,231,0.08);border:1px solid rgba(108,92,231,0.2);border-radius:8px;font-size:0.82rem;color:var(--accent2);">
         <input type="checkbox" id="autoCompress" checked style="accent-color:var(--accent);width:15px;height:15px;cursor:pointer;">
-        <label for="autoCompress" style="cursor:pointer;flex:1;">自动压缩并转为 WebP（最大 1920px，质量 85%，节省约 60-80% 体积）</label>
+        <label for="autoCompress" style="cursor:pointer;flex:1;">自动处理：生成 orig + 800 + 300 三种尺寸 WebP（免费，无 Cloudflare 计费）</label>
         <span id="uploadProgress" style="color:var(--muted);white-space:nowrap;"></span>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
@@ -298,7 +298,7 @@
         <h3>使用说明</h3>
         <p style="font-size:0.85rem;color:var(--muted);line-height:1.8;">
           1. 图库：上传图片自动到 R2，点击图片可复制链接<br>
-          2. 图片上传：默认自动压缩为 WebP（最大 1920px，质量 85%），节省 60-80% 体积；可取消勾选"自动压缩"上传原图<br>
+          2. 图片上传：自动生成 orig / 800 / 300 三种尺寸的 WebP 版本，全部免费无额外费用；插入时用 <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-size:0.8rem;">-800.webp</code> 是文章配图，<code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-size:0.8rem;">-300.webp</code> 是缩略图；可取消勾选"自动压缩"上传原图<br>
           3. 文章：用 @image:图片名.png 语法插入图片<br>
           4. 发布：点击"发布"按钮触发博客重新构建<br>
           5. 评论：前往 <a href="https://waline.pgoj.top/manage" target="_blank" style="color:var(--accent);">Waline 后台</a> 管理评论
@@ -307,24 +307,24 @@
       <div class="settings-group">
         <h3>图片处理说明</h3>
         <div class="setting-row">
-          <span class="setting-label">压缩</span>
-          <span class="setting-value">Canvas API 前端压缩</span>
+          <span class="setting-label">处理方式</span>
+          <span class="setting-value">前端 Canvas 多尺寸生成</span>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">生成版本</span>
+          <span class="setting-value">orig (最大1920) / 800 (文章配图) / 300 (缩略图)</span>
         </div>
         <div class="setting-row">
           <span class="setting-label">格式</span>
-          <span class="setting-value">自动转为 WebP（现代浏览器），回退 JPEG</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label">最大尺寸</span>
-          <span class="setting-value">1920 x 1920 px</span>
+          <span class="setting-value">全部转为 WebP</span>
         </div>
         <div class="setting-row">
           <span class="setting-label">质量</span>
           <span class="setting-value">85%</span>
         </div>
         <div class="setting-row">
-          <span class="setting-label">Resize 端点</span>
-          <span class="setting-value" style="font-size:0.75rem;">GET /api/images/resize?key=xxx&amp;width=800&amp;format=webp</span>
+          <span class="setting-label">费用</span>
+          <span class="setting-value" style="color:var(--green);">完全免费，无 Cloudflare 计费</span>
         </div>
       </div>
     </div>
@@ -354,7 +354,8 @@
   <img id="modalImg" src="" alt="">
   <div class="modal-info" id="modalInfo"></div>
   <div class="modal-actions">
-    <button class="btn" onclick="copyUrl(event)">复制链接</button>
+    <button class="btn btn-sm" onclick="copyUrl300(event)">缩略图</button>
+    <button class="btn" onclick="copyUrl(event)">原图</button>
     <button class="btn" onclick="copyMarkdown(event)">复制MD</button>
     <button class="btn btn-danger" onclick="deleteImg(event)">删除</button>
   </div>
@@ -539,6 +540,24 @@ function copyMarkdown(event) {
   toast('已复制: ' + md, 'success');
 }
 
+function copyUrl800(event) {
+  event.stopPropagation();
+  var key = document.getElementById('modalInfo').textContent;
+  var base = key.replace(/\.[^.]+$/, '');
+  var url800 = 'https://img.pgoj.top/' + base + '-800.webp';
+  navigator.clipboard.writeText(url800);
+  toast('800尺寸链接已复制', 'success');
+}
+
+function copyUrl300(event) {
+  event.stopPropagation();
+  var key = document.getElementById('modalInfo').textContent;
+  var base = key.replace(/\.[^.]+$/, '');
+  var url300 = 'https://img.pgoj.top/' + base + '-300.webp';
+  navigator.clipboard.writeText(url300);
+  toast('300尺寸链接已复制', 'success');
+}
+
 async function deleteImg(event) {
   event.stopPropagation();
   var key = document.getElementById('modalInfo').textContent;
@@ -594,37 +613,35 @@ async function handleFiles(files) {
     if (!file.type.startsWith('image/')) { fail++; idx++; setProgress(idx + '/' + total); continue; }
     try {
       var originalSize = file.size;
-      var processed = null;
-      var finalFile = file;
+      var finalFiles = [];
 
-      // 压缩处理
+      // 多尺寸处理：生成 orig + 800 + 300 三个版本
       if (autoCompress && typeof ImageProcessor !== 'undefined') {
-        processed = await ImageProcessor.processImage(file, {
-          maxWidth: 1920,
-          maxHeight: 1920,
-          quality: 0.85,
-          toWebP: true,
-        });
-        finalFile = new File([processed.blob], processed.newName, { type: processed.mimeType });
-        setProgress('压缩 ' + (i + 1) + '/' + total);
+        setProgress('处理 ' + (i + 1) + '/' + total);
+        var sizes = await ImageProcessor.processMultipleSizes(file, { quality: 0.85 });
+        finalFiles = sizes;
+        setProgress('上传 ' + (i + 1) + '/' + total);
+      } else {
+        finalFiles = [{ blob: file, name: file.name }];
       }
 
-      // 上传
-      var fd = new FormData();
-      fd.append('file', finalFile);
-      setProgress('上传 ' + (i + 1) + '/' + total);
-      var res = await fetch(API_BASE + '/api/images/upload', {
-        method: 'POST', headers: { 'X-Admin-Token': token }, body: fd,
-      });
-      var data = await res.json();
-
-      if (data.url) {
-        ok++;
-        if (processed) {
-          totalSaved += processed.originalSize - processed.newSize;
+      // 上传所有尺寸版本
+      for (var j = 0; j < finalFiles.length; j++) {
+        var item = finalFiles[j];
+        var fd = new FormData();
+        fd.append('file', new File([item.blob], item.name, { type: 'image/webp' }));
+        var res = await fetch(API_BASE + '/api/images/upload', {
+          method: 'POST', headers: { 'X-Admin-Token': token }, body: fd,
+        });
+        var data = await res.json();
+        if (!data.url) {
+          fail++;
         }
-      } else {
-        fail++;
+      }
+
+      ok++;
+      if (finalFiles.length > 0) {
+        totalSaved += finalFiles[0].savedBytes || 0;
       }
     } catch (e) {
       console.error('Upload error:', e);

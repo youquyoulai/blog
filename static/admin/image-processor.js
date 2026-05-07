@@ -1,6 +1,6 @@
 /**
  * image-processor.js - 前端图片处理工具
- * 功能：压缩图片、转换格式、按尺寸裁剪
+ * 功能：压缩图片、转换格式、按尺寸裁剪、生成多尺寸版本
  * 依赖：纯原生 API，无外部库
  */
 
@@ -219,25 +219,75 @@ const ImageProcessor = {
   },
 
   /**
-   * 生成缩略图 URL（利用 Cloudflare Image Resizing）
-   * @param {string} imageUrl - 原图 URL
-   * @param {number} width - 目标宽度
-   * @param {number} height - 目标高度
-   * @param {string} format - 格式：webp, avif, auto
+   * 生成多尺寸版本（上传时生成 orig + 800 + 300 三种尺寸）
+   * @param {File|Blob} file - 原始文件
+   * @param {Object} options - 处理选项
+   * @param {number} options.quality - JPEG/WebP 质量 0-1，默认 0.85
+   * @returns {Promise<Array>} 多尺寸结果数组
    */
-  thumbnailUrl(imageUrl, width = 200, height = 200, format = 'webp') {
-    const separator = imageUrl.includes('?') ? '&' : '?';
-    return `${imageUrl}${separator}width=${width}&height=${height}&format=${format}&quality=80`;
-  },
+  async processMultipleSizes(file, options = {}) {
+    const { quality = 0.85 } = options;
 
-  /**
-   * 生成不同尺寸的 srcset（用于响应式图片）
-   */
-  buildSrcSet(imageUrl, sizes = [400, 800, 1200, 1600], format = 'webp') {
-    return sizes.map(w => {
-      const separator = imageUrl.includes('?') ? '&' : '?';
-      return `${imageUrl}${separator}width=${w}&format=${format}&quality=80 ${w}w`;
-    }).join(', ');
+    const originalSize = file.size;
+    const img = await this.loadImage(file);
+    const baseName = file.name.replace(/\.[^.]+$/, '');
+
+    // 三种尺寸配置
+    const sizes = [
+      { name: 'orig', maxWidth: 1920, maxHeight: 1920, label: '原图（最大1920px）' },
+      { name: '800',  maxWidth: 800,  maxHeight: 800,  label: '文章配图（800px）' },
+      { name: '300',  maxWidth: 300,  maxHeight: 300,  label: '缩略图（300px）' },
+    ];
+
+    const results = await Promise.all(
+      sizes.map(async (size) => {
+        // 计算缩放后的尺寸
+        let width = img.width;
+        let height = img.height;
+
+        if (width > size.maxWidth) {
+          height = Math.round((height * size.maxWidth) / width);
+          width = size.maxWidth;
+        }
+        if (height > size.maxHeight) {
+          width = Math.round((width * size.maxHeight) / height);
+          height = size.maxHeight;
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // 转为 WebP
+        const blob = await new Promise((resolve) => {
+          canvas.toBlob(resolve, 'image/webp', quality);
+        });
+
+        const newName = `${baseName}-${size.name}.webp`;
+
+        return {
+          blob,
+          name: newName,
+          sizeName: size.name,
+          label: size.label,
+          width,
+          height,
+          size: blob.size,
+          savedBytes: originalSize - blob.size,
+          savedPercent: Math.round((1 - blob.size / originalSize) * 100),
+        };
+      })
+    );
+
+    URL.revokeObjectURL(img.src);
+    return results;
   },
 };
 

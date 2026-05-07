@@ -1,0 +1,2 @@
+# RSS 重定向：/feed → /feed.xml
+/feed  /feed.xml  301

@@ -20,7 +20,16 @@
     <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization" class="sr-only">
         <meta itemprop="name" content="{{ .Site.Title }}">
     </span>
-    {{ $ogImg := .Params.thumb }}{{ if not $ogImg }}{{ $ogImg = .Params.cover }}{{ end }}{{ with $ogImg }}{{ if (findRE "^@image:" . }}{{ $imgName := (replace . "@image:" "") }}<meta itemprop="image" content="https://img.pgoj.top/{{ $imgName }}">{{ else }}<meta itemprop="image" content="{{ . }}">{{ end }}{{ end }}
+    {{ $ogImg := .Params.thumb }}
+    {{ if not $ogImg }}{{ $ogImg = .Params.cover }}{{ end }}
+    {{ if $ogImg }}
+        {{ if (findRE "^@image:" $ogImg) }}
+            {{ $imgName := (replace $ogImg "@image:" "") }}
+            <meta itemprop="image" content="https://img.pgoj.top/{{ $imgName }}">
+        {{ else }}
+            <meta itemprop="image" content="{{ $ogImg }}">
+        {{ end }}
+    {{ end }}
 
     <h1 class="post-title" itemprop="headline">{{ .Title }}</h1>
     <div class="post-meta">

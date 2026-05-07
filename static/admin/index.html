@@ -632,11 +632,14 @@ async function handleFiles(files) {
 
       // 多尺寸处理：生成 orig + 800 + 300 三个版本
       if (autoCompress && typeof ImageProcessor !== 'undefined') {
+        console.log('使用 ImageProcessor 处理');
         setProgress('处理 ' + (i + 1) + '/' + total);
         var sizes = await ImageProcessor.processMultipleSizes(file, { quality: 0.85 });
+        console.log('处理完成:', sizes);
         finalFiles = sizes;
         setProgress('上传 ' + (i + 1) + '/' + total);
       } else {
+        console.log('不使用压缩，直接上传');
         finalFiles = [{ blob: file, name: file.name }];
       }
 
@@ -660,6 +663,7 @@ async function handleFiles(files) {
       }
     } catch (e) {
       console.error('Upload error:', e);
+      toast('上传失败: ' + e.message, 'error');
       fail++;
     }
     idx++;

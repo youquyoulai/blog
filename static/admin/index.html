@@ -877,7 +877,8 @@ function confirmPicker() {
   if (coverPickerMode) {
     var firstKey = [...selectedImages][0];
     var name = decodeURIComponent(firstKey).split('/').pop();
-    var base = name.replace(/\.[^.]+$/, '');
+    // 移除已有的 -300/-800/-orig 后缀
+    var base = name.replace(/-(300|800|orig)(\.[^.]+)$/, '$2').replace(/\.[^.]+$/, '');
     var ext = name.match(/\.[^.]+$/)[0];
     // 封面图用于文章列表缩略图，用 -300
     document.getElementById('postCover').value = '@image:' + base + '-300' + ext;
@@ -890,7 +891,8 @@ function confirmPicker() {
   var tags = [];
   selectedImages.forEach(function(key) {
     var name = decodeURIComponent(key).split('/').pop();
-    var base = name.replace(/\.[^.]+$/, '');
+    // 移除已有的 -300/-800/-orig 后缀，再加 -800
+    var base = name.replace(/-(300|800|orig)(\.[^.]+)$/, '$2').replace(/\.[^.]+$/, '');
     var ext = name.match(/\.[^.]+$/)[0];
     var url = 'https://img.pgoj.top/' + base + '-800' + ext;
     tags.push('![' + base + '](' + url + ')');

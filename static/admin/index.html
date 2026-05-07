@@ -886,8 +886,8 @@ function confirmPicker() {
     var name = decodeURIComponent(firstKey).split('/').pop();
     var base = name.replace(/\.[^.]+$/, '');
     var ext = name.match(/\.[^.]+$/)[0];
-    // 封面用 -800 尺寸
-    document.getElementById('postCover').value = '@image:' + base + '-800' + ext;
+    // 封面图用于文章列表缩略图，用 -300
+    document.getElementById('postCover').value = '@image:' + base + '-300' + ext;
     closePicker();
     toast('封面图已设置', 'success');
     return;

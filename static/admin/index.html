@@ -240,7 +240,7 @@
     <div id="tab-editor" class="tab-content">
       <button class="btn" onclick="backToList()" style="margin-bottom:12px;">← 返回列表</button>
       <div style="background:rgba(108,92,231,0.1);border:1px solid rgba(108,92,231,0.3);border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:0.85rem;color:var(--accent2);">
-        插入图片：直接在正文中写 <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-size:0.8rem;">@image:图片名称.png</code>，发布时会自动替换为 R2 链接
+        插入图片：点击工具栏「图库选图」选择尺寸插入，或直接写 <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-size:0.8rem;">@image:图片名称-300.webp</code>
       </div>
       <div class="editor-header">
         <input type="text" class="editor-title-input" id="postTitle" placeholder="文章标题">
@@ -367,6 +367,18 @@
     <div style="padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);">
       <span style="font-weight:500;">选择图片插入</span>
       <button class="btn btn-sm" onclick="closePicker()">关闭</button>
+    </div>
+    <div style="padding:10px 16px;background:var(--sidebar-panel);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <span style="font-size:0.85rem;color:var(--muted);">插入尺寸：</span>
+      <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.85rem;">
+        <input type="radio" name="imgSize" value="-300" checked style="accent-color:var(--primary);"> 缩略图 (-300)
+      </label>
+      <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.85rem;">
+        <input type="radio" name="imgSize" value="-800" style="accent-color:var(--primary);"> 文章配图 (-800)
+      </label>
+      <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.85rem;">
+        <input type="radio" name="imgSize" value="-orig" style="accent-color:var(--primary);"> 原图 (-orig)
+      </label>
     </div>
     <div id="pickerGrid" style="flex:1;overflow-y:auto;padding:12px;"></div>
     <div style="padding:12px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;">
@@ -844,11 +856,17 @@ function selectPickerImg(key, event) {
 
 function confirmPicker() {
   if (selectedImages.size === 0) { toast('请先选择图片'); return; }
+  var size = document.querySelector('input[name="imgSize"]:checked').value;
   var tags = [];
-  selectedImages.forEach(function(key) { tags.push('@image:' + decodeURIComponent(key).split('/').pop()); });
+  selectedImages.forEach(function(key) {
+    var name = decodeURIComponent(key).split('/').pop();
+    var base = name.replace(/\.[^.]+$/, '');
+    var ext = name.match(/\.[^.]+$/)[0];
+    tags.push('@image:' + base + size + ext);
+  });
   insertAtLine('\n' + tags.join('\n') + '\n');
   closePicker();
-  toast('已插入 ' + selectedImages.size + ' 个图片标签', 'success');
+  toast('已插入 ' + selectedImages.size + ' 个图片（' + (size === '-300' ? '缩略图' : size === '-800' ? '文章配图' : '原图') + '）', 'success');
 }
 
 function closePicker() {

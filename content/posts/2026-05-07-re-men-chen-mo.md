@@ -1,6 +1,6 @@
 ---
 title: "热门事件上的谨言慎行"
-date: 2026-05-07
+date: 2026-05-07T09:00:00+08:00
 cover: "@image:tu05.jpg"
 categories: [guangan]
 tags: ["认知"]

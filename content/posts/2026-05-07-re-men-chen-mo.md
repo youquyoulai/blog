@@ -1,6 +1,7 @@
 ---
 title: "热门事件上的谨言慎行"
 date: 2026-05-07
+cover: "@image:tu06-800.jpg"
 categories: [guangan]
 tags: ["认知"]
 slug: "re-men-chen-mo"

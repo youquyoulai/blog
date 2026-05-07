@@ -1,6 +1,6 @@
 ---
 title: "完成了Hugo博客的图片和文章管理后台"
-date: 2026-05-07
+date: 2026-05-07T21:05:00+08:00
 cover: "@image:houtaibianjiqi-300.webp"
 categories: [jilu]
 tags: ["博客"]

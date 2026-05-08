@@ -2,6 +2,9 @@
 var WALINE_API = 'https://waline.pgoj.top';
 var currentComments = [];
 var replyTarget = null;
+var commentMeta = {};
+var currentPage = 1;
+var pageSize = 50;
 
 function stripTags(s) {
   return String(s).replace(/<[^>]*>/g, '');
@@ -12,14 +15,13 @@ async function loadComments() {
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
     var filter = document.getElementById('commentFilter').value;
-    var url = WALINE_API + '/comment?type=list';
+    var url = WALINE_API + '/comment?type=list&pageSize=' + pageSize + '&page=' + currentPage;
     if (filter) url += '&status=' + filter;
     var res = await fetch(url, {
       headers: { 'Authorization': 'Bearer ' + token }
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
-    // Waline API 返回: { errno:0, data: { data: [...], total, page, ... } }
     var raw = data && data.data;
     if (raw && Array.isArray(raw.data)) {
       currentComments = raw.data;
@@ -28,11 +30,11 @@ async function loadComments() {
     } else {
       currentComments = [];
     }
-    // 统一字段: id 兼容 objectId
     currentComments = currentComments.map(function(c) {
       if (!c.id && c.objectId) c.id = c.objectId;
       return c;
     });
+    commentMeta = { total: raw && raw.total ? raw.total : currentComments.length };
     renderComments();
   } catch (e) {
     el.innerHTML = '<div class="empty-state"><p>加载失败：' + escHtml(e.message) + '</p></div>';
@@ -54,7 +56,27 @@ function renderComments() {
     html += renderCommentCard(topLevel[i], 0);
   }
   html += '</div>';
+  // 分页
+  var total = commentMeta.total || 0;
+  var totalPages = Math.ceil(total / pageSize);
+  if (totalPages > 1) {
+    html += '<div style="display:flex;justify-content:center;align-items:center;gap:8px;padding:16px;flex-wrap:wrap;">';
+    html += '<button class="btn btn-sm" onclick="commentPrevPage()" ' + (currentPage <= 1 ? 'disabled' : '') + '>上一页</button>';
+    html += '<span style="font-size:0.85rem;color:var(--muted);">第 ' + currentPage + ' / ' + totalPages + ' 页，共 ' + total + ' 条</span>';
+    html += '<button class="btn btn-sm" onclick="commentNextPage()" ' + (currentPage >= totalPages ? 'disabled' : '') + '>下一页</button>';
+    html += '</div>';
+  }
   el.innerHTML = html;
+}
+
+function commentPrevPage() {
+  if (currentPage > 1) { currentPage--; loadComments(); }
+}
+
+function commentNextPage() {
+  var total = commentMeta.total || 0;
+  var totalPages = Math.ceil(total / pageSize);
+  if (currentPage < totalPages) { currentPage++; loadComments(); }
 }
 
 function renderCommentCard(comment, depth) {

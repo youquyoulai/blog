@@ -188,6 +188,7 @@
       <div class="header-tabs">
         <button class="tab-btn active" data-tab="images" onclick="switchTab('images')">图库</button>
         <button class="tab-btn" data-tab="posts" onclick="switchTab('posts')">文章</button>
+        <button class="tab-btn" data-tab="comments" onclick="switchTab('comments')">评论</button>
         <button class="tab-btn" data-tab="editor" onclick="switchTab('editor')" style="display:none" id="tabEditorBtn">编辑</button>
       </div>
       <div class="header-actions">
@@ -234,6 +235,44 @@
         <button class="btn btn-primary" onclick="newPost()">+ 新建文章</button>
       </div>
       <div id="postList"></div>
+    </div>
+
+    <!-- 评论管理 -->
+    <div id="tab-comments" class="tab-content">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h2 style="font-size:1rem;color:var(--accent2);">评论管理</h2>
+        <div style="display:flex;gap:8px;">
+          <select id="commentFilter" onchange="loadComments()" style="padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;">
+            <option value="">全部</option>
+            <option value="approved">已批准</option>
+            <option value="waiting">待审核</option>
+          </select>
+          <button class="btn btn-sm" onclick="loadComments()">刷新</button>
+        </div>
+      </div>
+      <div id="commentList"></div>
+    </div>
+
+    <!-- 回复模态框 -->
+    <div class="modal" id="replyModal" onclick="if(event.target===this)closeReplyModal()">
+      <div style="background:var(--card);border-radius:12px;width:90%;max-width:600px;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);">
+          <span style="font-weight:500;">回复评论</span>
+          <button class="btn btn-sm" onclick="closeReplyModal()">关闭</button>
+        </div>
+        <div style="padding:16px;overflow-y:auto;flex:1;">
+          <div id="replyToInfo" style="background:var(--bg);padding:12px;border-radius:8px;margin-bottom:16px;font-size:0.85rem;color:var(--muted);"></div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <input type="text" id="replyNick" placeholder="昵称" value="平哥" style="flex:1;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;">
+            <input type="email" id="replyMail" placeholder="邮箱" value="admin@pgoj.top" style="flex:1;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;">
+          </div>
+          <textarea id="replyContent" placeholder="回复内容..." style="width:100%;min-height:120px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;line-height:1.6;resize:vertical;outline:none;"></textarea>
+        </div>
+        <div style="padding:12px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;">
+          <button class="btn" onclick="closeReplyModal()">取消</button>
+          <button class="btn btn-primary" onclick="submitReply()">发送回复</button>
+        </div>
+      </div>
     </div>
 
     <!-- 编辑器 -->
@@ -342,6 +381,10 @@
       <button class="nav-item" data-tab="posts" onclick="switchTab('posts')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         <span>文章</span>
+      </button>
+      <button class="nav-item" data-tab="comments" onclick="switchTab('comments')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>评论</span>
       </button>
       <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
@@ -453,6 +496,7 @@ function switchTab(name) {
 
   if (name === 'images') loadImages();
   if (name === 'posts') loadPosts();
+  if (name === 'comments') loadComments();
   if (name === 'settings') checkApi();
 }
 
@@ -948,6 +992,166 @@ function formatCommentTime(ts) {
 }
 
 
+
+/* ===== 评论管理 ===== */
+var WALINE_API = 'https://waline.pgoj.top';
+var currentComments = [];
+var replyTarget = null;
+
+async function loadComments() {
+  var el = document.getElementById('commentList');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
+  try {
+    var filter = document.getElementById('commentFilter').value;
+    var url = WALINE_API + '/comment?type=all&token=' + encodeURIComponent(token);
+    if (filter) url += '&status=' + filter;
+    var res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var data = await res.json();
+    currentComments = data.data || data.comments || data || [];
+    renderComments();
+  } catch (e) {
+    el.innerHTML = '<div class="empty-state"><p>加载失败：' + escHtml(e.message) + '</p></div>';
+  }
+}
+
+function renderComments() {
+  var el = document.getElementById('commentList');
+  if (!currentComments || currentComments.length === 0) {
+    el.innerHTML = '<div class="empty-state"><p>暂无评论</p></div>';
+    return;
+  }
+  // 构建嵌套结构
+  var map = {};
+  currentComments.forEach(function(c) { map[c.id] = c; });
+  var topLevel = currentComments.filter(function(c) { return !c.pid; });
+  topLevel.sort(function(a, b) { return (b.time || 0) - (a.time || 0); });
+
+  var html = '<div class="post-list">';
+  for (var i = 0; i < topLevel.length; i++) {
+    html += renderCommentCard(topLevel[i], map, 0);
+  }
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function renderCommentCard(comment, map, depth) {
+  var indent = depth > 0 ? ' margin-left:' + (depth * 20) + 'px;' : '';
+  var statusColor = comment.status === 'waiting' ? 'var(--orange)' : 'var(--green)';
+  var time = formatCommentTime(comment.time);
+  var pageUrl = comment.url || '';
+  var children = currentComments.filter(function(c) { return c.pid == comment.id; });
+  children.sort(function(a, b) { return (a.time || 0) - (b.time || 0); });
+
+  var html = '<div class="post-item comment-card" style="border-left:3px solid ' + (depth > 0 ? 'var(--accent)' : 'transparent') + ';" + indent + '">' +
+    '<div style="display:flex;justify-content:space-between;align-items:flex-start;">' +
+      '<div style="flex:1;min-width:0;">' +
+        '<div style="font-weight:500;font-size:0.9rem;">' + escHtml(comment.nick) +
+          ' <span style="font-size:0.75rem;color:' + statusColor + ';">● ' + (comment.status || 'approved') + '</span>' +
+        '</div>' +
+        '<div style="font-size:0.8rem;color:var(--muted);margin-top:4px;">' + time +
+          (pageUrl ? ' · <a href="' + escHtml(pageUrl) + '" target="_blank" style="color:var(--accent2);">' + escHtml(pageUrl) + '</a>' : '') +
+        '</div>' +
+        '<div style="margin-top:8px;font-size:0.85rem;line-height:1.6;color:var(--text);word-break:break-word;">' + (comment.comment || '').replace(/</?[^>]+>/g, '').substring(0, 200) + '</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:4px;flex-shrink:0;flex-direction:column;align-items:flex-end;">' +
+        (comment.status === 'waiting' ? '<button class="btn btn-sm" onclick="approveComment(' + comment.id + ')" style="color:var(--green);border-color:var(--green);font-size:0.75rem;padding:4px 8px;">批准</button>' : '') +
+        '<button class="btn btn-sm" onclick="replyComment(' + comment.id + ')" style="color:var(--accent);border-color:var(--accent);font-size:0.75rem;padding:4px 8px;">回复</button>' +
+        '<button class="btn btn-sm btn-danger" onclick="deleteComment(' + comment.id + ')" style="font-size:0.75rem;padding:4px 8px;">删除</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+  for (var i = 0; i < children.length; i++) {
+    html += renderCommentCard(children[i], map, depth + 1);
+  }
+  return html;
+}
+
+function formatCommentTime(ts) {
+  if (!ts) return '';
+  var ms = ts;
+  if (typeof ts === 'number' && ts < 1e12) ms = ts * 1000;
+  return new Date(ms).toLocaleString('zh-CN', {month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+}
+
+function replyComment(id) {
+  var comment = currentComments.find(function(c) { return c.id == id; });
+  if (!comment) return;
+  // 关键：正确设置 rid
+  var rid = comment.rid || comment.id;
+  replyTarget = { id: comment.id, rid: rid, nick: comment.nick };
+  document.getElementById('replyToInfo').innerHTML = '回复 <strong>' + escHtml(comment.nick) + '</strong>：' + (comment.comment || '').replace(/<[^>]+>/g, '').substring(0, 50) + '...';
+  document.getElementById('replyContent').value = '';
+  document.getElementById('replyModal').classList.add('open');
+}
+
+async function submitReply() {
+  if (!replyTarget) return;
+  var nick = document.getElementById('replyNick').value.trim() || '平哥';
+  var mail = document.getElementById('replyMail').value.trim() || 'admin@pgoj.top';
+  var content = document.getElementById('replyContent').value.trim();
+  if (!content) { toast('请输入回复内容', 'error'); return; }
+  try {
+    var res = await fetch(WALINE_API + '/comment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({
+        nick: nick,
+        mail: mail,
+        comment: content,
+        pid: replyTarget.id,
+        rid: replyTarget.rid,
+        status: 'approved'
+      })
+    });
+    if (!res.ok) {
+      var err = await res.json().catch(function() { return { errno: -1 }; });
+      throw new Error(err.errmsg || 'HTTP ' + res.status);
+    }
+    toast('回复已发送', 'success');
+    closeReplyModal();
+    loadComments();
+  } catch (e) {
+    toast('回复失败：' + e.message, 'error');
+  }
+}
+
+function closeReplyModal() {
+  document.getElementById('replyModal').classList.remove('open');
+  replyTarget = null;
+}
+
+async function approveComment(id) {
+  if (!confirm('批准这条评论？')) return;
+  try {
+    var res = await fetch(WALINE_API + '/comment?type=approve', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ id: id })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    toast('已批准', 'success');
+    loadComments();
+  } catch (e) {
+    toast('操作失败：' + e.message, 'error');
+  }
+}
+
+async function deleteComment(id) {
+  if (!confirm('确定删除这条评论？')) return;
+  try {
+    var res = await fetch(WALINE_API + '/comment?type=delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ id: id })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    toast('已删除', 'success');
+    loadComments();
+  } catch (e) {
+    toast('删除失败：' + e.message, 'error');
+  }
+}
 
 /* ===== 设置 ===== */
 function showSettings() { switchTab('settings'); }

@@ -61,6 +61,22 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
+    /* 加载/空状态 */
+    .loading { display: flex; align-items: center; justify-content: center; padding: 40px; color: var(--muted); gap: 8px; }
+    .spinner { width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty-state { text-align: center; padding: 40px; color: var(--muted); }
+
+    /* 模态框 */
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal.open { display: flex; }
+
+    /* Toast */
+    #toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: #333; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 0.9rem; opacity: 0; transition: all 0.3s; z-index: 9999; pointer-events: none; }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    #toast.success { background: var(--green); }
+    #toast.error { background: var(--red); }
+
     /* 图库网格 */
     .img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
     .img-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: 0.2s; position: relative; }
@@ -1043,7 +1059,7 @@ function renderCommentCard(comment, map, depth) {
   var children = currentComments.filter(function(c) { return c.pid == comment.id; });
   children.sort(function(a, b) { return (a.time || 0) - (b.time || 0); });
 
-  var html = '<div class="post-item comment-card" style="border-left:3px solid ' + (depth > 0 ? 'var(--accent)' : 'transparent') + ';" + indent + '">' +
+  var html = '<div class="post-item comment-card" style="border-left:3px solid ' + (depth > 0 ? 'var(--accent)' : 'transparent') + ';' + indent + '">' +
     '<div style="display:flex;justify-content:space-between;align-items:flex-start;">' +
       '<div style="flex:1;min-width:0;">' +
         '<div style="font-weight:500;font-size:0.9rem;">' + escHtml(comment.nick) +

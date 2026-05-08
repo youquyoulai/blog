@@ -137,8 +137,11 @@ document.addEventListener('DOMContentLoaded', function() {
 (function(){
 var apiUrl=(document.querySelector('.archive-container')||{}).getAttribute('data-waline-api');
 if(!apiUrl)return;
-fetch(apiUrl+'/api/comment?type=recent&count=9999').then(function(r){return r.json()}).then(function(d){
-if(d&&d.data){var paths={},total=0;d.data.forEach(function(c){if(c.path&&!paths[c.path]){paths[c.path]=1;total++}});var el=document.getElementById('commentTotalCount');if(el&&total>0)el.textContent=total}
+var links=document.querySelectorAll('.post-link'),paths=[];
+links.forEach(function(a){var p=new URL(a.href).pathname;paths.push(p)});
+if(!paths.length)return;
+fetch(apiUrl+'/api/comment?type=count&path='+paths.map(function(p){return encodeURIComponent(p)}).join('&path=')).then(function(r){return r.json()}).then(function(d){
+if(d&&d.data&&Array.isArray(d.data)){var total=d.data.reduce(function(a,b){return a+(b||0)},0);var el=document.getElementById('commentTotalCount');if(el)el.textContent=total}
 }).catch(function(){});
 })();
 </script>

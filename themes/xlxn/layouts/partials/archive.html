@@ -70,17 +70,18 @@
     </div>
 </div>
 <script>
-})});
+document.addEventListener('DOMContentLoaded',function(){var b=document.getElementById('expandAllBtn'),ys=document.querySelectorAll('.archive-year'),ex=false;if(b)b.addEventListener('click',function(){if(ex){ys.forEach(function(y){y.classList.remove('expanded');y.classList.add('collapsed');y.querySelectorAll('.archive-month').forEach(function(m){m.classList.remove('expanded');m.classList.add('collapsed')})});b.textContent='展开全部';ex=false}else{ys.forEach(function(y){y.classList.remove('collapsed');y.classList.add('expanded');y.querySelectorAll('.archive-month').forEach(function(m){m.classList.remove('collapsed');m.classList.add('expanded')})});b.textContent='折叠全部';ex=true}});ys.forEach(function(y){var h=y.querySelector('.year-header');if(h)h.addEventListener('click',function(e){e.stopPropagation();y.classList.toggle('expanded');y.classList.toggle('collapsed')})});document.querySelectorAll('.archive-month').forEach(function(m){var h=m.querySelector('.month-header');if(h)h.addEventListener('click',function(e){e.stopPropagation();m.classList.toggle('expanded');m.classList.toggle('collapsed')})})});
 </script>
 <script>
 (function(){
 var apiUrl=(document.querySelector('.archive-container')||{}).getAttribute('data-waline-api');
 if(!apiUrl)return;
-fetch(apiUrl+'/api/comment?type=recent&count=9999').then(function(r){return r.json()}).then(function(d){
-if(d&&d.data){var paths={},total=0;d.data.forEach(function(c){if(c.path&&!paths[c.path]){paths[c.path]=1;total++}});var el=document.getElementById('commentTotalCount');if(el&&total>0)el.textContent=total}
+var links=document.querySelectorAll('.post-link'),paths=[];
+links.forEach(function(a){var p=new URL(a.href).pathname;paths.push(p)});
+if(!paths.length)return;
+fetch(apiUrl+'/api/comment?type=count&path='+paths.map(function(p){return encodeURIComponent(p)}).join('&path=')).then(function(r){return r.json()}).then(function(d){
+if(d&&d.data&&Array.isArray(d.data)){var total=d.data.reduce(function(a,b){return a+(b||0)},0);var el=document.getElementById('commentTotalCount');if(el)el.textContent=total}
 }).catch(function(){});
 })();
-</script>
-</div>
 </script>
 </div>

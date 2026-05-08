@@ -855,7 +855,9 @@ async function savePost(silent) {
   if (!title || !date) { toast('标题和日期不能为空', 'error'); return; }
   var frontmatter = buildFM(title, date, category, tags, slug, cover);
   var content = frontmatter + body;
-  var filename = editingFile ? editingFile.filename : date + '-' + (slug || title.replace(/[^\w\u4e00-\u9fa5-]/g,'-').toLowerCase()) + '.md';
+  // 文件名只用日期部分，避免冒号等特殊字符
+  var dateOnly = date.split('T')[0];
+  var filename = editingFile ? editingFile.filename : dateOnly + '-' + (slug || title.replace(/[^\w\u4e00-\u9fa5-]/g,'-').toLowerCase()) + '.md';
   try {
     if (editingFile) {
       await api('/api/posts/' + encodeURIComponent(filename), 'PUT', { content: content, sha: editingFile.sha });

@@ -12,9 +12,11 @@ async function loadComments() {
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
     var filter = document.getElementById('commentFilter').value;
-    var url = WALINE_API + '/comment?type=all&token=' + encodeURIComponent(token);
+    var url = WALINE_API + '/comment?type=all';
     if (filter) url += '&status=' + filter;
-    var res = await fetch(url);
+    var res = await fetch(url, {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
     currentComments = data.data || data.comments || data || [];
@@ -100,7 +102,10 @@ async function submitReply() {
   try {
     var res = await fetch(WALINE_API + '/comment', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
       body: JSON.stringify({
         nick: nick,
         mail: mail,
@@ -130,10 +135,13 @@ function closeReplyModal() {
 async function approveComment(id) {
   if (!confirm('批准这条评论？')) return;
   try {
-    var res = await fetch(WALINE_API + '/comment?type=approve', {
+    var res = await fetch(WALINE_API + '/comment', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-      body: JSON.stringify({ id: id })
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ id: id, type: 'approve' })
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     toast('已批准', 'success');
@@ -146,10 +154,13 @@ async function approveComment(id) {
 async function deleteComment(id) {
   if (!confirm('确定删除这条评论？')) return;
   try {
-    var res = await fetch(WALINE_API + '/comment?type=delete', {
+    var res = await fetch(WALINE_API + '/comment', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-      body: JSON.stringify({ id: id })
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ id: id, type: 'delete' })
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     toast('已删除', 'success');

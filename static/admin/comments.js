@@ -19,7 +19,13 @@ async function loadComments() {
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
-    currentComments = data.data || data.comments || data || [];
+    // 调试：查看实际返回结构
+    console.log('API返回:', JSON.stringify(data).substring(0, 500));
+    // Waline 2.x 返回 { data: [...], total: number }
+    var arr = Array.isArray(data) ? data : 
+              (Array.isArray(data.data) ? data.data : 
+              (Array.isArray(data.comments) ? data.comments : []));
+    currentComments = arr;
     renderComments();
   } catch (e) {
     el.innerHTML = '<div class="empty-state"><p>加载失败：' + escHtml(e.message) + '</p></div>';
@@ -28,11 +34,12 @@ async function loadComments() {
 
 function renderComments() {
   var el = document.getElementById('commentList');
-  if (!currentComments || currentComments.length === 0) {
+  var list = Array.isArray(currentComments) ? currentComments : [];
+  if (list.length === 0) {
     el.innerHTML = '<div class="empty-state"><p>暂无评论</p></div>';
     return;
   }
-  var topLevel = currentComments.filter(function(c) { return !c.pid; });
+  var topLevel = list.filter(function(c) { return !c.pid; });
   topLevel.sort(function(a, b) { return (b.time || 0) - (a.time || 0); });
 
   var html = '<div class="post-list">';
@@ -49,7 +56,7 @@ function renderCommentCard(comment, depth) {
   var statusColor = comment.status === 'waiting' ? 'var(--orange)' : 'var(--green)';
   var time = formatCommentTime(comment.time);
   var pageUrl = comment.url || '';
-  var children = currentComments.filter(function(c) { return c.pid == comment.id; });
+  var children = (Array.isArray(currentComments) ? currentComments : []).filter(function(c) { return c.pid == comment.id; });
   children.sort(function(a, b) { return (a.time || 0) - (b.time || 0); });
 
   var html = '<div class="post-item comment-card" style="border-left:3px solid ' + borderColor + ';' + indentStyle + '">' +
@@ -84,7 +91,7 @@ function formatCommentTime(ts) {
 }
 
 function replyComment(id) {
-  var comment = currentComments.find(function(c) { return c.id == id; });
+  var comment = (Array.isArray(currentComments) ? currentComments : []).find(function(c) { return c.id == id; });
   if (!comment) return;
   var rid = comment.rid || comment.id;
   replyTarget = { id: comment.id, rid: rid, nick: comment.nick };
@@ -100,7 +107,7 @@ async function submitReply() {
   var content = document.getElementById('replyContent').value.trim();
   if (!content) { toast('请输入回复内容', 'error'); return; }
   // 获取被回复评论的 URL
-  var parentComment = currentComments.find(function(c) { return c.id == replyTarget.id; });
+  var parentComment = (Array.isArray(currentComments) ? currentComments : []).find(function(c) { return c.id == replyTarget.id; });
   var commentUrl = parentComment && parentComment.url ? parentComment.url : '';
   try {
     var res = await fetch(WALINE_API + '/comment', {

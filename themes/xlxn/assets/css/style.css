@@ -166,6 +166,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .page-content p{margin-bottom:1em}
 .page-content img{max-width:100%;border-radius:6px;margin:1em 0}
 .comments-section{background:var(--card-bg);padding:25px 30px;border-radius:12px;box-shadow:var(--shadow-sm);margin-top:15px;--waline-avatar-size:32px;--waline-m-avatar-size:28px}
+/* 隐藏 Waline 评论框底部操作按钮（表情/GIF/预览图标） */
+.wl-action{display:none!important}
 .comments-section .wl-cards .wl-user{--avatar-size:32px!important;width:32px!important;height:32px!important;flex-shrink:0}
 .comments-section .wl-cards .wl-user img{width:32px!important;height:32px!important;border-radius:50%!important;object-fit:cover;max-width:none!important;max-height:none!important}
 .comments-count{margin-bottom:20px}

@@ -132,7 +132,7 @@ function replyComment(id) {
 async function submitReply() {
   if (!replyTarget) return;
   var nick = document.getElementById('replyNick').value.trim() || '平哥';
-  var mail = document.getElementById('replyMail').value.trim() || 'admin@pgoj.top';
+  var mail = document.getElementById('replyMail').value.trim() || 'wuliwuju@126.com';
   var content = document.getElementById('replyContent').value.trim();
   if (!content) { toast('请输入回复内容', 'error'); return; }
   // 获取被回复评论的 URL
@@ -177,5 +177,16 @@ async function approveComment(id) {
 }
 
 async function deleteComment(id) {
-  toast('delete 功能开发中', 'error');
+  if (!confirm('确定删除这条评论？')) return;
+  try {
+    var res = await fetch(WALINE_API + '/comment/' + id, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    toast('已删除', 'success');
+    loadComments();
+  } catch (e) {
+    toast('删除失败：' + e.message, 'error');
+  }
 }

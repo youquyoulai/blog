@@ -19,13 +19,20 @@ async function loadComments() {
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
-    // 调试：查看实际返回结构
-    console.log('API返回:', JSON.stringify(data).substring(0, 500));
-    // Waline 2.x 返回 { data: [...], total: number }
-    var arr = Array.isArray(data) ? data : 
-              (Array.isArray(data.data) ? data.data : 
-              (Array.isArray(data.comments) ? data.comments : []));
-    currentComments = arr;
+    // Waline API 返回: { errno:0, data: { data: [...], total, page, ... } }
+    var raw = data && data.data;
+    if (raw && Array.isArray(raw.data)) {
+      currentComments = raw.data;
+    } else if (Array.isArray(raw)) {
+      currentComments = raw;
+    } else {
+      currentComments = [];
+    }
+    // 统一字段: id 兼容 objectId
+    currentComments = currentComments.map(function(c) {
+      if (!c.id && c.objectId) c.id = c.objectId;
+      return c;
+    });
     renderComments();
   } catch (e) {
     el.innerHTML = '<div class="empty-state"><p>加载失败：' + escHtml(e.message) + '</p></div>';
@@ -56,7 +63,7 @@ function renderCommentCard(comment, depth) {
   var statusColor = comment.status === 'waiting' ? 'var(--orange)' : 'var(--green)';
   var time = formatCommentTime(comment.time);
   var pageUrl = comment.url || '';
-  var children = (Array.isArray(currentComments) ? currentComments : []).filter(function(c) { return c.pid == comment.id; });
+  var children = (Array.isArray(currentComments) ? currentComments : []).filter(function(c) { return c.pid == comment.id || c.pid == comment.objectId; });
   children.sort(function(a, b) { return (a.time || 0) - (b.time || 0); });
 
   var html = '<div class="post-item comment-card" style="border-left:3px solid ' + borderColor + ';' + indentStyle + '">' +
@@ -91,7 +98,7 @@ function formatCommentTime(ts) {
 }
 
 function replyComment(id) {
-  var comment = (Array.isArray(currentComments) ? currentComments : []).find(function(c) { return c.id == id; });
+  var comment = (Array.isArray(currentComments) ? currentComments : []).find(function(c) { return c.id == id || c.objectId == id; });
   if (!comment) return;
   var rid = comment.rid || comment.id;
   replyTarget = { id: comment.id, rid: rid, nick: comment.nick };
@@ -144,39 +151,9 @@ function closeReplyModal() {
 }
 
 async function approveComment(id) {
-  if (!confirm('批准这条评论？')) return;
-  try {
-    var res = await fetch(WALINE_API + '/comment', {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      },
-      body: JSON.stringify({ id: id, type: 'approve' })
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    toast('已批准', 'success');
-    loadComments();
-  } catch (e) {
-    toast('操作失败：' + e.message, 'error');
-  }
+  toast('approve 功能开发中', 'error');
 }
 
 async function deleteComment(id) {
-  if (!confirm('确定删除这条评论？')) return;
-  try {
-    var res = await fetch(WALINE_API + '/comment', {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      },
-      body: JSON.stringify({ id: id, type: 'delete' })
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    toast('已删除', 'success');
-    loadComments();
-  } catch (e) {
-    toast('删除失败：' + e.message, 'error');
-  }
+  toast('delete 功能开发中', 'error');
 }

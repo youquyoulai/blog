@@ -140,9 +140,17 @@ if(!apiUrl)return;
 var links=document.querySelectorAll('.post-link'),paths=[];
 links.forEach(function(a){var p=new URL(a.href).pathname;paths.push(p)});
 if(!paths.length)return;
-fetch(apiUrl+'/api/comment?type=count&path='+paths.map(function(p){return encodeURIComponent(p)}).join('&path=')).then(function(r){return r.json()}).then(function(d){
-if(d&&d.data&&Array.isArray(d.data)){var total=d.data.reduce(function(a,b){return a+(b||0)},0);var el=document.getElementById('commentTotalCount');if(el)el.textContent=total}
-}).catch(function(){});
+var total=0,chunkSize=30,chunks=[];
+for(var i=0;i<paths.length;i+=chunkSize)chunks.push(paths.slice(i,i+chunkSize));
+function fetchChunk(idx){
+if(idx>=chunks.length){var el=document.getElementById('commentTotalCount');if(el)el.textContent=total;return}
+var c=chunks[idx];
+fetch(apiUrl+'/api/comment?type=count&path='+c.map(function(p){return encodeURIComponent(p)}).join('&path=')).then(function(r){return r.json()}).then(function(d){
+if(d&&d.data&&Array.isArray(d.data))total+=d.data.reduce(function(a,b){return a+(b||0)},0);
+fetchChunk(idx+1)
+}).catch(function(){fetchChunk(idx+1)});
+}
+fetchChunk(0);
 })();
 </script>
 {{ end }}

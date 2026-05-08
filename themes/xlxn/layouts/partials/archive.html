@@ -27,14 +27,14 @@
             <span class="stat-label">个年份</span>
         </div>
         <div class="stat-item">
-            <span class="stat-number">{{ .Site.Params.commentCount | default "0" }}</span>
+            <span class="stat-number" id="commentTotalCount">{{ .Site.Params.commentCount | default "0" }}</span>
             <span class="stat-label">条评论</span>
         </div>
     </div>
     <div class="archive-center-action">
         <button class="expand-all-btn" id="expandAllBtn">展开全部</button>
     </div>
-    <div class="archive-container">
+    <div class="archive-container" data-waline-api="https://waline.pgoj.top">
         {{ range $allPosts.GroupByDate "2006" }}
         {{ $yearTotal := len .Pages }}
         <div class="archive-year collapsed">
@@ -70,6 +70,17 @@
     </div>
 </div>
 <script>
-document.addEventListener('DOMContentLoaded',function(){var b=document.getElementById('expandAllBtn'),ys=document.querySelectorAll('.archive-year'),ex=false;if(b)b.addEventListener('click',function(){if(ex){ys.forEach(function(y){y.classList.remove('expanded');y.classList.add('collapsed');y.querySelectorAll('.archive-month').forEach(function(m){m.classList.remove('expanded');m.classList.add('collapsed')})});b.textContent='展开全部';ex=false}else{ys.forEach(function(y){y.classList.remove('collapsed');y.classList.add('expanded');y.querySelectorAll('.archive-month').forEach(function(m){m.classList.remove('collapsed');m.classList.add('expanded')})});b.textContent='折叠全部';ex=true}});ys.forEach(function(y){var h=y.querySelector('.year-header');if(h)h.addEventListener('click',function(e){e.stopPropagation();y.classList.toggle('expanded');y.classList.toggle('collapsed')})});document.querySelectorAll('.archive-month').forEach(function(m){var h=m.querySelector('.month-header');if(h)h.addEventListener('click',function(e){e.stopPropagation();m.classList.toggle('expanded');m.classList.toggle('collapsed')})})});
+})});
+</script>
+<script>
+(function(){
+var apiUrl=(document.querySelector('.archive-container')||{}).getAttribute('data-waline-api');
+if(!apiUrl)return;
+fetch(apiUrl+'/api/comment?type=recent&count=9999').then(function(r){return r.json()}).then(function(d){
+if(d&&d.data){var paths={},total=0;d.data.forEach(function(c){if(c.path&&!paths[c.path]){paths[c.path]=1;total++}});var el=document.getElementById('commentTotalCount');if(el&&total>0)el.textContent=total}
+}).catch(function(){});
+})();
+</script>
+</div>
 </script>
 </div>

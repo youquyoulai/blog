@@ -101,6 +101,7 @@ function renderCommentCard(comment, depth) {
       '</div>' +
       '<div style="display:flex;gap:4px;flex-shrink:0;flex-direction:column;align-items:flex-end;">' +
         (comment.status === 'waiting' ? '<button class="btn btn-sm" onclick="approveComment(' + comment.id + ')" style="color:var(--green);border-color:var(--green);font-size:0.75rem;padding:4px 8px;">批准</button>' : '') +
+        (comment.status !== 'spam' ? '<button class="btn btn-sm" onclick="spamComment(' + comment.id + ')" style="color:var(--orange);border-color:var(--orange);font-size:0.75rem;padding:4px 8px;">垃圾</button>' : '') +
         '<button class="btn btn-sm" onclick="replyComment(' + comment.id + ')" style="color:var(--accent);border-color:var(--accent);font-size:0.75rem;padding:4px 8px;">回复</button>' +
         '<button class="btn btn-sm btn-danger" onclick="deleteComment(' + comment.id + ')" style="font-size:0.75rem;padding:4px 8px;">删除</button>' +
       '</div>' +
@@ -173,7 +174,44 @@ function closeReplyModal() {
 }
 
 async function approveComment(id) {
-  toast('approve 功能开发中', 'error');
+  try {
+    var res = await fetch(WALINE_API + '/comment/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ status: 'approved' })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var result = await res.json();
+    if (result.errno !== 0) throw new Error(result.errmsg || '操作失败');
+    toast('已批准', 'success');
+    loadComments();
+  } catch (e) {
+    toast('批准失败：' + e.message, 'error');
+  }
+}
+
+async function spamComment(id) {
+  if (!confirm('确定标记为垃圾评论？')) return;
+  try {
+    var res = await fetch(WALINE_API + '/comment/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ status: 'spam' })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var result = await res.json();
+    if (result.errno !== 0) throw new Error(result.errmsg || '操作失败');
+    toast('已标记为垃圾', 'success');
+    loadComments();
+  } catch (e) {
+    toast('操作失败：' + e.message, 'error');
+  }
 }
 
 async function deleteComment(id) {

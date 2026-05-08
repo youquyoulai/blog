@@ -1052,14 +1052,15 @@ function renderComments() {
 }
 
 function renderCommentCard(comment, map, depth) {
-  var indent = depth > 0 ? ' margin-left:' + (depth * 20) + 'px;' : '';
+  var borderColor = depth > 0 ? 'var(--accent)' : 'transparent';
+  var indentStyle = depth > 0 ? 'margin-left:' + (depth * 20) + 'px;' : '';
   var statusColor = comment.status === 'waiting' ? 'var(--orange)' : 'var(--green)';
   var time = formatCommentTime(comment.time);
   var pageUrl = comment.url || '';
   var children = currentComments.filter(function(c) { return c.pid == comment.id; });
   children.sort(function(a, b) { return (a.time || 0) - (b.time || 0); });
 
-  var html = '<div class="post-item comment-card" style="border-left:3px solid ' + (depth > 0 ? 'var(--accent)' : 'transparent') + ';' + indent + '">' +
+  var html = '<div class="post-item comment-card" style="border-left:3px solid ' + borderColor + ';' + indentStyle + '">' +
     '<div style="display:flex;justify-content:space-between;align-items:flex-start;">' +
       '<div style="flex:1;min-width:0;">' +
         '<div style="font-weight:500;font-size:0.9rem;">' + escHtml(comment.nick) +

@@ -12,7 +12,7 @@ async function loadComments() {
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
     var filter = document.getElementById('commentFilter').value;
-    var url = WALINE_API + '/comment?type=all';
+    var url = WALINE_API + '/comment?type=list';
     if (filter) url += '&status=' + filter;
     var res = await fetch(url, {
       headers: { 'Authorization': 'Bearer ' + token }
@@ -99,6 +99,9 @@ async function submitReply() {
   var mail = document.getElementById('replyMail').value.trim() || 'admin@pgoj.top';
   var content = document.getElementById('replyContent').value.trim();
   if (!content) { toast('请输入回复内容', 'error'); return; }
+  // 获取被回复评论的 URL
+  var parentComment = currentComments.find(function(c) { return c.id == replyTarget.id; });
+  var commentUrl = parentComment && parentComment.url ? parentComment.url : '';
   try {
     var res = await fetch(WALINE_API + '/comment', {
       method: 'POST',
@@ -110,6 +113,7 @@ async function submitReply() {
         nick: nick,
         mail: mail,
         comment: content,
+        url: commentUrl,
         pid: replyTarget.id,
         rid: replyTarget.rid,
         status: 'approved'

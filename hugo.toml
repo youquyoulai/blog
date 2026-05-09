@@ -19,7 +19,7 @@ capitalizeListTitles = false
   logo = '平哥偶记'
   builtYear = '2021'
   email = 'wuliwuju@126.com'
-  favicon = '/img/favicon.ico'
+  favicon = '/favicon.ico'
 
   # Twikoo 评论配置 (已停用)
   #[params.twikoo]

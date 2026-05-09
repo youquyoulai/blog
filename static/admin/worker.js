@@ -313,6 +313,165 @@ async function triggerDeploy(env) {
 }
 
 // ═════════════════════════════════════════════════════════════════
+// 通用 GitHub 文件读取
+// ═════════════════════════════════════════════════════════════════
+async function readGitHubFile(filePath, env) {
+  try {
+    const data = await githubFetch(
+      '/repos/' + GITHUB_REPO + '/contents/' + filePath,
+      'GET',
+      env.GITHUB_TOKEN
+    );
+    return { content: base64ToUtf8(data.content), sha: data.sha };
+  } catch (e) {
+    // 文件不存在时返回 null
+    if (e.message.includes('404')) return null;
+    throw e;
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════
+// 通用 GitHub 文件写入
+// ═════════════════════════════════════════════════════════════════
+async function writeGitHubFile(filePath, content, sha, message, env) {
+  const body = {
+    message: message,
+    content: utf8ToBase64(content),
+  };
+  if (sha) body.sha = sha;
+  const data = await githubFetch(
+    '/repos/' + GITHUB_REPO + '/contents/' + filePath,
+    'PUT',
+    env.GITHUB_TOKEN,
+    body
+  );
+  return data;
+}
+
+// ═════════════════════════════════════════════════════════════════
+// 分类/标签统计
+// ═════════════════════════════════════════════════════════════════
+async function getTaxonomies(env) {
+  const data = await githubFetch(
+    '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR,
+    'GET',
+    env.GITHUB_TOKEN
+  );
+  const files = data.filter(function(f) { return f.name.endsWith('.md'); });
+
+  const categories = {};
+  const tags = {};
+  const totalPosts = files.length;
+
+  for (const f of files) {
+    const fileData = await githubFetch(
+      '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR + '/' + f.name,
+      'GET',
+      env.GITHUB_TOKEN
+    );
+    const content = base64ToUtf8(fileData.content);
+    const frontmatter = content.split('---')[1] || '';
+
+    // 提取 categories
+    const catMatch = frontmatter.match(/categories:\s*\[([^\]]+)\]/);
+    if (catMatch) {
+      const cats = catMatch[1].split(',').map(s => s.trim().replace(/["']/g, ''));
+      cats.forEach(c => { if (c) categories[c] = (categories[c] || 0) + 1; });
+    }
+
+    // 提取 tags
+    const tagMatch = frontmatter.match(/tags:\s*\[([^\]]+)\]/);
+    if (tagMatch) {
+      const tgs = tagMatch[1].split(',').map(s => s.trim().replace(/["']/g, ''));
+      tgs.forEach(t => { if (t) tags[t] = (tags[t] || 0) + 1; });
+    }
+  }
+
+  return corsResponse(JSON.stringify({
+    totalPosts,
+    categories: Object.entries(categories).sort((a,b) => b[1]-a[1]).map(([name,count]) => ({name,count})),
+    tags: Object.entries(tags).sort((a,b) => b[1]-a[1]).map(([name,count]) => ({name,count})),
+  }));
+}
+
+// ═════════════════════════════════════════════════════════════════
+// 友链管理
+// ═════════════════════════════════════════════════════════════════
+const LINKS_PATH = 'themes/xlxn/data/links.yaml';
+
+async function getLinks(env) {
+  const file = await readGitHubFile(LINKS_PATH, env);
+  if (!file) return corsResponse(JSON.stringify({ content: '', sha: null }));
+  return corsResponse(JSON.stringify({ content: file.content, sha: file.sha }));
+}
+
+async function updateLinks(request, env) {
+  const body = await request.json();
+  const { content, sha } = body;
+  if (content === undefined) return corsResponse(JSON.stringify({ error: 'Missing content' }), 400);
+  const result = await writeGitHubFile(LINKS_PATH, content, sha, 'Update links', env);
+  return corsResponse(JSON.stringify({ ok: true, sha: result.content.sha }));
+}
+
+// ═════════════════════════════════════════════════════════════════
+// 页面管理
+// ═════════════════════════════════════════════════════════════════
+const PAGES_DIR = 'content/pages';
+
+async function listPages(env) {
+  const data = await githubFetch(
+    '/repos/' + GITHUB_REPO + '/contents/' + PAGES_DIR,
+    'GET',
+    env.GITHUB_TOKEN
+  );
+  const pages = data
+    .filter(function(f) { return f.name.endsWith('.md'); })
+    .map(function(f) { return { name: f.name, slug: f.name.replace(/\.md$/, ''), sha: f.sha, path: f.path }; });
+  return corsResponse(JSON.stringify(pages));
+}
+
+async function getPage(filename, env) {
+  const data = await githubFetch(
+    '/repos/' + GITHUB_REPO + '/contents/' + PAGES_DIR + '/' + filename,
+    'GET',
+    env.GITHUB_TOKEN
+  );
+  return corsResponse(JSON.stringify({ content: base64ToUtf8(data.content), sha: data.sha }));
+}
+
+async function createPage(request, env) {
+  const body = await request.json();
+  const { filename, content } = body;
+  if (!filename || !content) return corsResponse(JSON.stringify({ error: 'Missing fields' }), 400);
+  const processedContent = await replaceImageRefs(content, env);
+  const result = await writeGitHubFile(PAGES_DIR + '/' + filename, processedContent, null, 'Create ' + filename, env);
+  return corsResponse(JSON.stringify({ ok: true, sha: result.content.sha }));
+}
+
+async function updatePage(filename, request, env) {
+  const body = await request.json();
+  const { content, sha } = body;
+  if (!content || !sha) return corsResponse(JSON.stringify({ error: 'Missing fields' }), 400);
+  const processedContent = await replaceImageRefs(content, env);
+  const fname = filename.endsWith('.md') ? filename : filename + '.md';
+  const result = await writeGitHubFile(PAGES_DIR + '/' + fname, processedContent, sha, 'Update ' + fname, env);
+  return corsResponse(JSON.stringify({ ok: true, sha: result.content.sha }));
+}
+
+async function deletePage(filename, request, env) {
+  const body = await request.json();
+  if (!body.sha) return corsResponse(JSON.stringify({ error: 'Missing sha' }), 400);
+  const fname = filename.endsWith('.md') ? filename : filename + '.md';
+  await githubFetch(
+    '/repos/' + GITHUB_REPO + '/contents/' + PAGES_DIR + '/' + fname,
+    'DELETE',
+    env.GITHUB_TOKEN,
+    { message: 'Delete ' + fname, sha: body.sha }
+  );
+  return corsResponse(JSON.stringify({ ok: true }));
+}
+
+// ═════════════════════════════════════════════════════════════════
 // 主请求处理器
 // ═════════════════════════════════════════════════════════════════
 export default {
@@ -367,6 +526,39 @@ export default {
       if (path.startsWith('/api/post/') && request.method === 'GET') {
         const filename = decodeURIComponent(path.replace('/api/post/', ''));
         return await getPost(filename, env);
+      }
+
+      // ─── 分类/标签 API ──────────────────────────────────────────
+      if (path === '/api/taxonomies' && request.method === 'GET') {
+        return await getTaxonomies(env);
+      }
+
+      // ─── 友链 API ───────────────────────────────────────────────
+      if (path === '/api/links' && request.method === 'GET') {
+        return await getLinks(env);
+      }
+      if (path === '/api/links' && request.method === 'PUT') {
+        return await updateLinks(request, env);
+      }
+
+      // ─── 页面管理 API ────────────────────────────────────────────
+      if (path === '/api/pages' && request.method === 'GET') {
+        return await listPages(env);
+      }
+      if (path === '/api/pages' && request.method === 'POST') {
+        return await createPage(request, env);
+      }
+      if (path.startsWith('/api/pages/') && request.method === 'PUT') {
+        const slug = decodeURIComponent(path.replace('/api/pages/', ''));
+        return await updatePage(slug, request, env);
+      }
+      if (path.startsWith('/api/pages/') && request.method === 'DELETE') {
+        const slug = decodeURIComponent(path.replace('/api/pages/', ''));
+        return await deletePage(slug, request, env);
+      }
+      if (path.startsWith('/api/page/') && request.method === 'GET') {
+        const filename = decodeURIComponent(path.replace('/api/page/', ''));
+        return await getPage(filename, env);
       }
 
       // ─── 构建触发 ─────────────────────────────────────────────────

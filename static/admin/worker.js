@@ -358,33 +358,31 @@ async function getTaxonomies(env) {
     env.GITHUB_TOKEN
   );
   const files = data.filter(function(f) { return f.name.endsWith('.md'); });
-
-  const categories = {};
-  const tags = {};
   const totalPosts = files.length;
 
-  for (const f of files) {
-    const fileData = await githubFetch(
-      '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR + '/' + f.name,
-      'GET',
-      env.GITHUB_TOKEN
-    );
-    const content = base64ToUtf8(fileData.content);
-    const frontmatter = content.split('---')[1] || '';
-
-    // 提取 categories
-    const catMatch = frontmatter.match(/categories:\s*\[([^\]]+)\]/);
+  // 并发从 raw.githubusercontent.com 拉取所有文件内容（每次最多50篇）
+  const CHUNK = 50;
+  const categories = {};
+  const tags = {};
+  const parseFM = function(content) {
+    const fm = content.split('---')[1] || '';
+    const catMatch = fm.match(/categories:\s*\[([^\]]+)\]/);
     if (catMatch) {
-      const cats = catMatch[1].split(',').map(s => s.trim().replace(/["']/g, ''));
-      cats.forEach(c => { if (c) categories[c] = (categories[c] || 0) + 1; });
+      catMatch[1].split(',').map(s => s.trim().replace(/["']/g, '')).forEach(c => { if (c) categories[c] = (categories[c] || 0) + 1; });
     }
-
-    // 提取 tags
-    const tagMatch = frontmatter.match(/tags:\s*\[([^\]]+)\]/);
+    const tagMatch = fm.match(/tags:\s*\[([^\]]+)\]/);
     if (tagMatch) {
-      const tgs = tagMatch[1].split(',').map(s => s.trim().replace(/["']/g, ''));
-      tgs.forEach(t => { if (t) tags[t] = (tags[t] || 0) + 1; });
+      tagMatch[1].split(',').map(s => s.trim().replace(/["']/g, '')).forEach(t => { if (t) tags[t] = (tags[t] || 0) + 1; });
     }
+  };
+
+  for (let i = 0; i < files.length; i += CHUNK) {
+    const chunk = files.slice(i, i + CHUNK);
+    const rawUrl = 'https://raw.githubusercontent.com/' + GITHUB_REPO + '/main/' + POSTS_DIR + '/';
+    const results = await Promise.allSettled(
+      chunk.map(f => fetch(rawUrl + encodeURIComponent(f.name)).then(r => r.text()))
+    );
+    results.forEach(r => { if (r.status === 'fulfilled' && r.value) parseFM(r.value); });
   }
 
   return corsResponse(JSON.stringify({

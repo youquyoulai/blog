@@ -7,7 +7,7 @@ lastmod: 2026-03-25
 slug: "kuaishou-zero-yuan-shopping"
 categories: ['guangan']
 tags: ["购物"]
-thumb: "/img/thumbs/tu02.jpg"
+thumb: "/img/webp/tu02.webp"
 ---
 
 早上，收到了快手退款。我有些懵逼，因为这段时间没在快手消费过。

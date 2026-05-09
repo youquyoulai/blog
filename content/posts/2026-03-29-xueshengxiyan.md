@@ -7,7 +7,7 @@ lastmod: 2026-03-29
 slug: "xueshengxiyan"
 categories: ['guangan']
 tags: ["教育"]
-thumb: "/img/thumbs/tu11.jpg"
+thumb: "/img/webp/tu11.webp"
 ---
 
 在某社区，禁烟成了一个热门话题。反对者认为，吸烟者迫使他人吸入二手烟，有违公德；支持者则说，法无禁止皆可为，别人管不着。

@@ -7,7 +7,7 @@ lastmod: 2026-03-25
 slug: "indifferent-to-surroundings"
 categories: ['guangan']
 tags: ["认知"]
-thumb: "/img/thumbs/tu07.jpg"
+thumb: "/img/webp/tu07.webp"
 ---
 
 因为近期的某个事情，无数的人在那里带节奏或者被别人的节奏带着走。或许有人只是为了宣泄情绪，或许有人习惯性地偏听与偏看，或许有人就是充满恶意要浑水摸鱼。总之，无数群魔乱舞，各种丑态毕现。

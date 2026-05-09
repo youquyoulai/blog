@@ -7,7 +7,7 @@ lastmod: 2026-03-29
 slug: "laojiagaizao"
 categories: ['guangan']
 tags: ["日常"]
-thumb: "/img/thumbs/tu12.jpg"
+thumb: "/img/webp/tu12.webp"
 ---
 
 前些天终于和父母商定了老家的改造：四间房只装修最东边那间，其余地方不动。

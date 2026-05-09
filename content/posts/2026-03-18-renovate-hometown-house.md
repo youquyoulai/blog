@@ -7,7 +7,7 @@ lastmod: 2026-03-25
 slug: "renovate-hometown-house"
 categories: ['guangan']
 tags: ["阅读", "日常"]
-thumb: "/img/thumbs/tu05.jpg"
+thumb: "/img/webp/tu05.webp"
 ---
 
 在微信读书上看了轻纪实《纠结16年，我要在农村老家盖房子了》，让我想起我老家的房子也盖了好些年了。我一直有翻盖的想法，即便不翻盖，起码也得好好修缮修缮，比如屋顶要换，门窗要换，墙壁要刷新，院子、厕所、水暖也要改造……

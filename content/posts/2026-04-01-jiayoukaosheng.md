@@ -6,7 +6,7 @@ date: 2026-04-01
 slug: "jiayoukaosheng"
 categories: ['guangan']
 tags: ["阅读"]
-thumb: "/img/thumbs/tu09.jpg"
+thumb: "/img/webp/tu09.webp"
 ---
 
 周瑄璞的《一颗扣子》写出了学生中考前的焦虑，会让所有有过或者有着中考生或高考生的父母（尤其是女儿）觉得心有戚戚焉。

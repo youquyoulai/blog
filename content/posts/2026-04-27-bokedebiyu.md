@@ -8,7 +8,7 @@ categories:
  - weibo
 tags:
  - 博客
-image: "/img/thumbs/tu01.jpg"
+image: "/img/webp/tu01.webp"
 ---
 
 html时代，博客对我来说就是辆自行车，它的构造、性能我一清二楚。哪里不行修哪里，哪里不行换哪里。

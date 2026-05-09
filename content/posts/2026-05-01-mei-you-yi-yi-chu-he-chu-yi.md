@@ -4,6 +4,7 @@ title: "没有意义的‘除’和‘除以’的区别"
 draft: false
 date: "2026-05-01T06:33:57+08:00"
 slug: "mei-you-yi-yi-chu-he-chu-yi"
+cover: "@image:chuhechuyi.webp"
 categories:
  - guangan
 tags:

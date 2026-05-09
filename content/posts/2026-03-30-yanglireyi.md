@@ -7,7 +7,7 @@ lastmod: 2026-03-30
 slug: "yanglireyi"
 categories: ['guangan']
 tags: ["认知"]
-thumb: "/img/thumbs/tu10.jpg"
+thumb: "/img/webp/tu10.webp"
 ---
 
 似乎每隔一段时间，只要涉及到杨笠的事情，总会引发争议。

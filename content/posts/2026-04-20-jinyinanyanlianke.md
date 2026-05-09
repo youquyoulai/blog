@@ -6,7 +6,7 @@ date: 2026-04-20
 slug: "jinyinanyanlianke"
 categories: ['guangan']
 tags: ["阅读"]
-thumb: "/img/thumbs/tu02.jpg"
+thumb: "/img/webp/tu02.webp"
 ---
 
 在金一南将军的《为什么是中国》里，读到一个与日本人和糖有关的故事：

@@ -7,7 +7,7 @@ lastmod: 2026-03-25
 slug: "jieyu2-wang-xiaobo"
 categories: ['guangan']
 tags: ["阅读", "王小波"]
-thumb: "/img/thumbs/tu10.jpg"
+thumb: "/img/webp/tu10.webp"
 ---
 
 孑与2的《唐人的餐桌》前言中有段文字：

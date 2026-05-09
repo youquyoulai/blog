@@ -7,7 +7,7 @@ lastmod: 2026-03-25
 slug: "chuanyuexiaoshuo"
 categories: ['guangan']
 tags: ["阅读"]
-thumb: "/img/thumbs/tu01.jpg"
+thumb: "/img/webp/tu01.webp"
 ---
 
 像我这样的人，即使穿越到古代，最多也就是勉强混口饭吃罢了。倘若一时没忍住多说了几句不合时宜的话，以“怪力乱神”之罪招来灭顶之灾，也不足为奇。

@@ -6,7 +6,7 @@ date: 2026-04-22
 slug: "shuashipinlahei"
 categories: ['guangan']
 tags: ["认知", "软件"]
-thumb: "/img/thumbs/tu12.jpg"
+thumb: "/img/webp/tu12.webp"
 ---
 
 我偶尔会刷刷视频，但从来不发评论。遇到不喜欢的就划过，实在不喜欢的就点“不感兴趣”；也会拉黑在某些方面与自己认知相左的博主或评论者，比如冷嘲热讽华为的，比如动不动就代表某个群体的，比如动不动就辱骂某个群体的，比如明显的恨国党……

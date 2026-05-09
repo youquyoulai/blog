@@ -7,7 +7,7 @@ lastmod: 2026-04-10
 slug: "jiaoyulaoguo"
 categories: ['guangan']
 tags: ["教育"]
-thumb: "/img/thumbs/tu03.jpg"
+thumb: "/img/webp/tu03.webp"
 ---
 
 说实话，我现在越来越厌烦看到与教育有关的新闻，因为这些新闻只能让我想起郭德纲的一句话：“这些年，我就是个裤衩，什么屁都得接着。”

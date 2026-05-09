@@ -7,7 +7,7 @@ lastmod: 2026-04-20
 slug: "laotaitaisongkua"
 categories: ['weibo']
 tags: ["认知"]
-thumb: "/img/thumbs/tu03.jpg"
+thumb: "/img/webp/tu03.webp"
 ---
 
 台上的讲话是慷慨激昂的，群里的工作是热火朝天的，美篇中的发展是蒸蒸日上的。

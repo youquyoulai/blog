@@ -7,7 +7,7 @@ lastmod: 2026-03-25
 slug: "learn-from-suffering"
 categories: ['guangan']
 tags: ["认知"]
-thumb: "/img/thumbs/tu06.jpg"
+thumb: "/img/webp/tu06.webp"
 ---
 
 在某处看到一段话：“人生总有不可把握的现在、无法预知的未来，没有大起大落的动荡，也难以获得大彻大悟的成长，如悬崖上的树，那些动态的不安，构成了生活中的绝美。”

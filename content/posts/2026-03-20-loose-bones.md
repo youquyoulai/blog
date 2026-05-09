@@ -7,7 +7,7 @@ lastmod: 2026-03-25
 slug: "loose-bones"
 categories: ['guangan']
 tags: ["日常"]
-thumb: "/img/thumbs/tu04.jpg"
+thumb: "/img/webp/tu04.webp"
 ---
 
 小孩儿的乳牙早就坏得不成样子，却一直坚挺在牙床上。昨天发现新牙长了出来，在其侧面委委屈屈的。

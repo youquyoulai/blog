@@ -7,7 +7,7 @@ lastmod: 2026-04-13
 slug: "wulihuashiyan"
 categories: ['guangan']
 tags: ["教育"]
-thumb: "/img/thumbs/wulihuaxueshengwushiyan.png"
+thumb: "/img/webp/tu02.webp"
 ---
 
 我印象中，物理、化学和生物实验课经历了这样一个变迁过程：

@@ -6,25 +6,6 @@
 (function () {
     'use strict';
 
-    // 返回顶部（节流）
-    var backToTop = document.getElementById('backToTop');
-    if (backToTop) {
-        var scrollTicking = false;
-        window.addEventListener('scroll', function () {
-            if (!scrollTicking) {
-                scrollTicking = true;
-                requestAnimationFrame(function () {
-                    backToTop.classList.toggle('show', window.scrollY > 300);
-                    scrollTicking = false;
-                });
-            }
-        });
-        backToTop.addEventListener('click', function (e) {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-
     // 移动端菜单
     var toggleBtn = document.getElementById('mobileMenuToggle');
     var navMenu = document.getElementById('headerNav');

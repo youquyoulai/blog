@@ -327,9 +327,10 @@
         </div>
         <div style="padding:16px;overflow-y:auto;flex:1;">
           <div id="replyToInfo" style="background:var(--bg);padding:12px;border-radius:8px;margin-bottom:16px;font-size:0.85rem;color:var(--muted);"></div>
-          <div style="display:flex;gap:8px;margin-bottom:12px;">
-            <input type="text" id="replyNick" placeholder="昵称" value="平哥" style="flex:1;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;">
-            <input type="email" id="replyMail" placeholder="邮箱" value="wuliwuju@126.com" style="flex:1;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;">
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+            <input type="text" id="replyNick" placeholder="昵称" value="平哥" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;">
+            <input type="email" id="replyMail" placeholder="邮箱" value="wuliwuju@126.com" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;">
+            <input type="url" id="replyLink" placeholder="网址" value="https://www.pgoj.top" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;">
           </div>
           <textarea id="replyContent" placeholder="回复内容..." style="width:100%;min-height:120px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;line-height:1.6;resize:vertical;outline:none;"></textarea>
         </div>

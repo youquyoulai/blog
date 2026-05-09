@@ -1074,22 +1074,27 @@ async function loadTaxonomies() {
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
     var data = await api('/api/taxonomies');
-    var html = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">';
-    // 分类
-    html += '<div class="settings-group"><h3>分类 (' + (data.categories||[]).length + ' 个)</h3>';
-    (data.categories||[]).forEach(function(c) {
+    var cats = data.categories || [];
+    var tgs = data.tags || [];
+    var html = '<div style="margin-bottom:12px;color:var(--muted);font-size:0.85rem;">共 ' + data.totalPosts + ' 篇文章，' + cats.length + ' 个分类，' + tgs.length + ' 个标签</div>';
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">';
+    // 分类（可滚动）
+    html += '<div class="settings-group" style="max-height:55vh;overflow-y:auto;"><h3>分类 (' + cats.length + ' 个)</h3>';
+    cats.forEach(function(c) {
       html += '<div class="setting-row"><span class="setting-label">' + escHtml(c.name) + '</span><span class="setting-value">' + c.count + ' 篇</span></div>';
     });
     html += '</div>';
-    // 标签
-    html += '<div class="settings-group"><h3>标签 (' + (data.tags||[]).length + ' 个)</h3>';
+    // 标签（可滚动）
+    html += '<div class="settings-group" style="max-height:55vh;overflow-y:auto;"><h3>标签 (' + tgs.length + ' 个)</h3>';
     html += '<div style="display:flex;flex-wrap:wrap;gap:6px;padding:8px 0;">';
-    (data.tags||[]).forEach(function(t) {
+    tgs.forEach(function(t) {
       html += '<span class="tag" style="font-size:0.8rem;padding:4px 10px;">' + escHtml(t.name) + ' (' + t.count + ')</span>';
     });
     html += '</div></div>';
     html += '</div>';
-    html += '<div style="margin-top:12px;font-size:0.85rem;color:var(--muted);">共 ' + data.totalPosts + ' 篇文章</div>';
+    html += '<div style="margin-top:12px;padding:10px;background:rgba(108,92,231,0.08);border-radius:8px;font-size:0.82rem;color:var(--muted);line-height:1.8;">';
+    html += '📝 分类和标签来源于每篇文章 frontmatter，<strong>无法直接编辑</strong>。如需修改或新增，请在文章编辑器中设置「分类」和「标签」字段。';
+    html += '</div>';
     el.innerHTML = html;
   } catch (e) {
     el.innerHTML = '<div class="empty-state"><p>加载失败: ' + escHtml(e.message) + '</p></div>';

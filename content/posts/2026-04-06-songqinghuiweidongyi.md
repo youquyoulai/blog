@@ -7,7 +7,7 @@ slug: "songqinghuiweidongyi"
 categories: ['guangan']
 tags: ["认知"]
 images:
-  - /img/uploads/2026/04/3990960081.png
+  - /img/uploads/2026/04/3990960081.webp
 ---
 
 在观察者网的风闻社区，有两个人发的帖子我基本不会点开：一个人总在文末附上自己的大头照，让人极不舒服；另一个就是宋清辉。
@@ -22,4 +22,4 @@ images:
 
 时光荏苒，岁月如梭，宋清辉还是原来那副不知所谓的样子。
 
-  [1]: /img/uploads/2026/04/3990960081.png
+  [1]: /img/uploads/2026/04/3990960081.webp

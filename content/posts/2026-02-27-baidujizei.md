@@ -8,7 +8,7 @@ slug: "baidujizei"
 categories: ['guangan']
 tags: ["软件"]
 images:
-  - /img/uploads/2026/03/3064020482.png
+  - /img/uploads/2026/03/3064020482.webp
 ---
 
 移动每月会赠送我一些定向流量，主要用于抖音、百度、快手这几个应用。
@@ -21,4 +21,4 @@ images:
 
 ![baidujizei.png][1]
 
-  [1]: /img/uploads/2026/03/3064020482.png
+  [1]: /img/uploads/2026/03/3064020482.webp

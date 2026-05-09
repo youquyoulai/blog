@@ -8,7 +8,7 @@ slug: "dulibokeAI"
 categories: ['guangan']
 tags: ["博客", "认知"]
 images:
-  - /img/uploads/2026/04/1550736496.jpg
+  - /img/uploads/2026/04/1550736496.webp
 ---
 
 这段时间刷视频，发现越来越多的内容都是AI生成的。AI生成的东西，除了页面会标注相应提示之外，画面过于清晰精致也是识别的办法之一——就像年画上的娃娃，漂亮是漂亮，可总让人觉得一眼假。
@@ -23,4 +23,4 @@ images:
 
 ![AIshengcheng.jpg][1]
 
-  [1]: /img/uploads/2026/04/1550736496.jpg
+  [1]: /img/uploads/2026/04/1550736496.webp

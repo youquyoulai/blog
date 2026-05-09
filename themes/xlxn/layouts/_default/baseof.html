@@ -8,6 +8,9 @@
     <meta name="theme-color" content="#1a1a2e">
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
     <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default .Summary | plainify | truncate 150 }}{{ end }}">
+    {{ if or .IsSection (eq .Kind "taxonomy") }}
+    <meta name="robots" content="noindex, follow">
+    {{ end }}
     <meta name="keywords" content="{{ if .IsPage }}{{ with .Params.tags }}{{ delimit . "," }}{{ else }}{{ $.Site.Params.keywords | default "" }}{{ end }}{{ else }}{{ .Site.Params.keywords | default "" }}{{ end }}">
     {{ if .Site.Params.favicon }}
     <link rel="shortcut icon" href="{{ .Site.Params.favicon }}" type="image/x-icon">
@@ -119,12 +122,34 @@
     <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}">
     <meta property="og:description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 200) }}{{ end }}">
     <meta property="og:site_name" content="{{ .Site.Title }}">
-    {{ with .Params.thumb }}<meta property="og:image" content="{{ . | absURL }}">
-    <meta property="og:image:alt" content="{{ $.Title | default "文章配图" }}">{{ end }}
-    <meta name="twitter:card" content="{{ if .Params.thumb }}summary_large_image{{ else }}summary{{ end }}">
+    {{ $ogImg := "" }}
+    {{ if .Params.thumb }}
+        {{ $ogImg = .Params.thumb }}
+    {{ else if .Params.cover }}
+        {{ $ogImg = .Params.cover }}
+    {{ end }}
+    {{ if $ogImg }}
+    {{ if (findRE "^@image:" $ogImg) }}
+    <meta property="og:image" content="{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}">
+    {{ else if (findRE "^/" $ogImg) }}
+    <meta property="og:image" content="{{ $ogImg | absURL }}">
+    {{ else }}
+    <meta property="og:image" content="{{ $ogImg }}">
+    {{ end }}
+    <meta property="og:image:alt" content="{{ .Title | default "文章配图" }}">
+    {{ end }}
+    <meta name="twitter:card" content="{{ if $ogImg }}summary_large_image{{ else }}summary{{ end }}">
     <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}">
     <meta name="twitter:description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 200) }}{{ end }}">
-    {{ with .Params.thumb }}<meta name="twitter:image" content="{{ . | absURL }}">{{ end }}
+    {{ if $ogImg }}
+    {{ if (findRE "^@image:" $ogImg) }}
+    <meta name="twitter:image" content="{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}">
+    {{ else if (findRE "^/" $ogImg) }}
+    <meta name="twitter:image" content="{{ $ogImg | absURL }}">
+    {{ else }}
+    <meta name="twitter:image" content="{{ $ogImg }}">
+    {{ end }}
+    {{ end }}
 
     {{ hugo.Generator }}
 <script>(function(){var t=localStorage.getItem('theme');if(!t)t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})()</script>

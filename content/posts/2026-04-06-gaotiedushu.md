@@ -8,7 +8,7 @@ slug: "gaotiedushu"
 categories: ['weibo']
 tags: ["认知"]
 images:
-  - /img/uploads/2026/04/1966243681.jpg
+  - /img/uploads/2026/04/1966243681.webp
 ---
 
 坐高铁读书是发达，那我先前比他们阔多了
@@ -17,4 +17,4 @@ images:
 
 ![gaotiedushu.jpg][1]
 
-  [1]: /img/uploads/2026/04/1966243681.jpg
+  [1]: /img/uploads/2026/04/1966243681.webp

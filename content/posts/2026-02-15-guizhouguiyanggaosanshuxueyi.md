@@ -14,4 +14,4 @@ thumb: "/img/thumbs/sxtj.jpg"
 
 ![guiyangshuxue01.png][1]
 
-  [1]: /img/uploads/2026/03/1742559164.png
+  [1]: /img/uploads/2026/03/1742559164.webp

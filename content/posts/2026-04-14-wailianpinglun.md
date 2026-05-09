@@ -7,7 +7,7 @@ slug: "wailianpinglun"
 categories: ['jilu']
 tags: ["博客"]
 images:
-  - /img/uploads/2026/04/709271874.png
+  - /img/uploads/2026/04/709271874.webp
 ---
 
 以前申请的免费php主机不给用了，再找新的还得注册、实名，有些麻烦，于是昨天用小皮面板搭建了网站环境，安装了typecho，准备就在本地调试主题了。
@@ -18,4 +18,4 @@ images:
 
 ![image_1776154590914.png][1]
 
-  [1]: /img/uploads/2026/04/709271874.png
+  [1]: /img/uploads/2026/04/709271874.webp

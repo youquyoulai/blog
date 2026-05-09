@@ -7,7 +7,7 @@ slug: "shuxuelaoshisxs"
 categories: ['guangan']
 tags: ["教育"]
 images:
-  - /img/uploads/2026/04/2778215688.jpg
+  - /img/uploads/2026/04/2778215688.webp
 ---
 
 有人说数学老师不讲勾股定理能解决什么实际问题，不讲无理数，有理数是在什么情况下提出的，不讲√2（根号）发现的重大意义，不是因为他们懒是因为他们自己都不懂。
@@ -22,4 +22,4 @@ images:
 
 ![shuxue1jia1.jpg][1]
 
-  [1]: /img/uploads/2026/04/2778215688.jpg
+  [1]: /img/uploads/2026/04/2778215688.webp

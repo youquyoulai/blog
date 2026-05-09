@@ -3,7 +3,7 @@
    用法：{{ partial "post-single.html" . }}
 */}}
 <nav class="breadcrumbs" aria-label="面包屑导航">
-    <a href="{{ .Site.BaseURL }}"><i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></i> 首页</a>
+    <a href="{{ .Site.BaseURL }}"><i class="icon" aria-hidden="true">{{ partial "icons.html" (dict "name" "home" "width" 14 "height" 14) }}</i> 首页</a>
     {{ with .CurrentSection }}
     <span class="separator"><i class="icon">›</i></span>
     <a href="{{ .Permalink }}">{{ .Title }}</a>
@@ -33,9 +33,9 @@
 
     <h1 class="post-title" itemprop="headline">{{ .Title }}</h1>
     <div class="post-meta">
-        <span class="meta-date"><i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg></i> {{ .Date.Format "2006-01-02" }}</span>
+        <span class="meta-date"><i class="icon" aria-hidden="true">{{ partial "icons.html" (dict "name" "calendar" "width" 14 "height" 14) }}</i> {{ .Date.Format "2006-01-02" }}</span>
         <span class="meta-category">
-            <i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></i>
+            <i class="icon" aria-hidden="true">{{ partial "icons.html" (dict "name" "folder" "width" 14 "height" 14) }}</i>
             {{ partial "cat-names.html" .Params.categories }}
         </span>
     </div>
@@ -46,7 +46,7 @@
 
     {{ with .Params.tags }}
     <div class="post-tags">
-        <span><i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg></i> 标签：</span>
+        <span><i class="icon" aria-hidden="true">{{ partial "icons.html" (dict "name" "tag" "width" 14 "height" 14) }}</i> 标签：</span>
         {{ range . }}<a href="{{ (site.GetPage (printf "/tags/%s" .)).Permalink }}" class="post-tag" itemprop="keywords">{{ . }}</a> {{ end }}
     </div>
     {{ end }}

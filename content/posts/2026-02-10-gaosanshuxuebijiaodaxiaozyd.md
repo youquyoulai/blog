@@ -14,4 +14,4 @@ thumb: "/img/thumbs/sxtj.jpg"
 
 ![IMG_1931_550x701_compressed.png][1]
 
-  [1]: /img/uploads/2026/03/1486730620.png
+  [1]: /img/uploads/2026/03/1486730620.webp

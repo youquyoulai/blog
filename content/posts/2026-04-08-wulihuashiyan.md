@@ -24,4 +24,4 @@ thumb: "/img/thumbs/wulihuaxueshengwushiyan.png"
 
 ![wulihuaxueshengwushiyan.png][1]
 
-  [1]: /img/uploads/2026/04/2461112193.png
+  [1]: /img/uploads/2026/04/2461112193.webp

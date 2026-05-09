@@ -8,7 +8,7 @@ slug: "jiaqianqianshanshida"
 categories: ['guangan']
 tags: ["阅读"]
 images:
-  - /img/uploads/2026/04/1619370691.png
+  - /img/uploads/2026/04/1619370691.webp
 ---
 
 一直在公众号不遗余力地对贾平凹父女抄袭进行批评揭露的唐小林又发了文章《一问陕西师大：为何对贾浅浅抄袭置若罔闻？》，文中说‘为贾浅浅抄袭论文大开绿灯的陕西师范大学，才是贾浅浅学术造假，最终彻底翻车的第一现场’。看这架势，陕西师范大学要是还当缩头乌龟的话，唐还会抛出二问三问，进行持续炮轰。
@@ -19,4 +19,4 @@ images:
 
 ![jiaqianqianlunwenchaoxi.png][1]
 
-  [1]: /img/uploads/2026/04/1619370691.png
+  [1]: /img/uploads/2026/04/1619370691.webp

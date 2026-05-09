@@ -8,7 +8,7 @@ slug: "weixindushushubi"
 categories: ['weibo']
 tags: ["软件"]
 images:
-  - /img/uploads/2026/04/1336191206.jpg
+  - /img/uploads/2026/04/1336191206.webp
 ---
 
 说实话，要不是微信读书的提醒，我都不知道今天是世界读书日。
@@ -17,4 +17,4 @@ images:
 
 ![screenshot_20260423_054416_com.tencent.weread.hmos.jpg][1]
 
-  [1]: /img/uploads/2026/04/1336191206.jpg
+  [1]: /img/uploads/2026/04/1336191206.webp

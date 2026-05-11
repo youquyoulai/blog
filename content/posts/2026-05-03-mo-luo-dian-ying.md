@@ -1,7 +1,7 @@
 ---
 title: "走不进去的影院与读不下去的书"
 date: 2026-05-03T20:02:00+08:00
-cover: "@image:/images/dianyingyuan.webp"
+cover: "@image:images/dianyingyuan.webp"
 categories: [- guangan]
 tags: ["- 文艺"]
 slug: "mo-luo-dian-ying"

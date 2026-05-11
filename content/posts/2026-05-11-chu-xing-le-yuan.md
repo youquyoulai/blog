@@ -16,4 +16,4 @@ slug: "chu-xing-le-yuan"
 
 我现在挺希望这种乐园越来越多的，一方面家门口玩儿真的方便，另一方面逼迫那些在公园里摆游乐设施的退出来，还给公园安静和干净。
 
-![qinzileyuan](https://img.pgoj.top/qinzileyuan.webp)
+![qinzileyuan](https://img.pgoj.top/2026slt/qinzileyuan.webp)

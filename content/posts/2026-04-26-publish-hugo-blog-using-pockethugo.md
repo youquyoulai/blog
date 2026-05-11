@@ -4,7 +4,7 @@ description: "上午继续折腾静态博客：由于我用的是简化版的 Wa
 date: 2026-04-26T08:54:23+08:00
 categories: ['guangan']
 tags: ['博客']
-thumb: https://img.pgoj.top/pokethugo.png
+thumb: https://img.pgoj.top/2026slt/pokethugo.png
 url: /archives/publish-hugo-blog-using-pockethugo.html
 draft: false
 ---
@@ -23,4 +23,4 @@ draft: false
 
 其三，搭建一个网页版发布后台。具体做法是利用 Cloudflare 的免费服务 Workers 设计一个专门的发布后台，发布时使用在线编辑器 PocketHugo。显然，这个方法既靠谱又合我心意。于是再次交给 AI，不到一个小时就搞定了。试了一下，体验真的很棒。要是早知道有 PocketHugo，我早就转向静态博客了。
 
-![pockethugo](https://img.pgoj.top/pokethugo.png)
+![pockethugo](https://img.pgoj.top/2026slt/pokethugo.png)

@@ -49,22 +49,30 @@ function checkAuth(request, env) {
 // R2 图片操作
 // ═════════════════════════════════════════════════════════════════
 async function listImages(request, env) {
-  // 获取 R2 所有对象（自动处理分页）
-  const allObjects = [];
-  let cursor;
-  do {
-    const page = await env.R2_BUCKET.list({ cursor, limit: 1000 });
-    allObjects.push(...page.objects);
-    cursor = page.truncated ? page.cursor : undefined;
-  } while (cursor);
-
-  const objects = allObjects;
+  const url = new URL(request.url);
+  const prefix = url.searchParams.get('prefix') || ''; // 文件夹前缀，如 "2026-05/"
   const baseUrl = (env.R2_PUBLIC_URL || '').replace(/\/+$/, '');
 
-  // 提取文件所属目录（不含文件名本身）
-  function getDir(key) {
-    const lastSlash = key.lastIndexOf('/');
-    return lastSlash >= 0 ? key.slice(0, lastSlash + 1) : '';
+  // 根据是否传了 prefix，决定是「文件夹视图」还是「文件列表视图」
+  let folders = [];
+  let objects = [];
+
+  if (!prefix) {
+    // 根视图：列出所有「文件夹」（用 delimiter 模拟）
+    const listed = await env.R2_BUCKET.list({ delimiter: '/', limit: 1000 });
+    // common prefixes = 文件夹
+    folders = (listed.delimitedPrefixes || []).map(function(p) {
+      return { name: p.replace(/\/$/, ''), prefix: p };
+    });
+    // 根目录下的零散文件（不含 / 的 key）
+    objects = (listed.objects || []);
+  } else {
+    // 文件夹视图：列出该前缀下的对象和子文件夹
+    const listed = await env.R2_BUCKET.list({ prefix: prefix, delimiter: '/', limit: 1000 });
+    folders = (listed.delimitedPrefixes || []).map(function(p) {
+      return { name: p.replace(prefix, '').replace(/\/$/, ''), prefix: p };
+    });
+    objects = (listed.objects || []);
   }
 
   // 提取文件名（不含目录）
@@ -90,18 +98,16 @@ async function listImages(request, env) {
     return m ? m[0] : '';
   }
 
-  // 分组：同一目录下、基础名相同的文件归为一组
+  // 分组：同一基础名的文件归为一组
   const groups = {};
   for (const obj of objects) {
-    const dir = getDir(obj.key);
     const baseName = getBaseName(obj.key);
     const ext = getExt(obj.key);
-    // 组 key = 目录 + 基础名（不含尺寸后缀）
-    const groupKey = dir + baseName;
+    const groupKey = baseName; // 同一文件夹内按 baseName 分组
 
     if (!groups[groupKey]) {
       groups[groupKey] = {
-        dir: dir,
+        dir: prefix,
         base: baseName,
         ext: ext,
         files: [],
@@ -128,13 +134,11 @@ async function listImages(request, env) {
   const sizeOrder = { orig: 0, '800': 1, '300': 2 };
   for (const g of Object.values(groups)) {
     g.files.sort((a, b) => (sizeOrder[a.sizeLabel] ?? 9) - (sizeOrder[b.sizeLabel] ?? 9));
-    // representative 优先用 300（缩略图），没有就用 orig
     const thumb = g.files.find(f => f.sizeLabel === '300') || g.files[0];
     g.thumbUrl = thumb.url;
     g.thumbKey = thumb.key;
   }
 
-  // 按最新上传时间降序
   const sortedGroups = Object.values(groups).sort((a, b) =>
     (b.latestUpload || 0) - (a.latestUpload || 0)
   );
@@ -148,28 +152,46 @@ async function listImages(request, env) {
     };
   });
 
+  // 文件夹按名称降序（最新的月份在前）
+  folders.sort(function(a, b) { return b.name.localeCompare(a.name); });
+
   return corsResponse(JSON.stringify({
+    folders: folders,
     images: flatList,
     groups: sortedGroups,
     totalGroups: sortedGroups.length,
     totalFiles: objects.length,
+    currentPrefix: prefix,
   }));
 }
 
 async function uploadImage(request, env) {
+  const url = new URL(request.url);
+  const prefix = url.searchParams.get('prefix') || ''; // 允许前端指定目标文件夹
   const formData = await request.formData();
   const file = formData.get('file');
   if (!file) return corsResponse(JSON.stringify({ error: 'No file' }), 400);
 
-  // 直接使用前端传来的文件名（已包含尺寸后缀如 -orig, -800, -300）
-  const key = file.name;
+  // 自动加月份前缀：优先级 prefix 参数 > 自动当月 > 空（根目录）
+  let folder = prefix;
+  if (!folder) {
+    const now = new Date();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    folder = now.getFullYear() + '-' + mm + '/';
+  }
+  // 确保以 / 结尾
+  if (folder && !folder.endsWith('/')) folder += '/';
+
+  const baseName = file.name.replace(/^.*[\\\/]/, ''); // 去掉路径，只留文件名
+  const key = folder + baseName;
+
   const arrayBuffer = await file.arrayBuffer();
   await env.R2_BUCKET.put(key, arrayBuffer, {
     httpMetadata: { contentType: file.type },
   });
 
-  const url = (env.R2_PUBLIC_URL || '').replace(/\/+$/, '') + '/' + key;
-  return corsResponse(JSON.stringify({ ok: true, key, url }));
+  const publicUrl = (env.R2_PUBLIC_URL || '').replace(/\/+$/, '') + '/' + key;
+  return corsResponse(JSON.stringify({ ok: true, key, url: publicUrl }));
 }
 
 async function deleteImage(key, env) {

@@ -275,6 +275,11 @@
       <div style="margin-bottom:12px;">
         <input type="text" id="imgSearch" placeholder="搜索图片名称..." oninput="renderImages()" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--input-bg);color:var(--text);font-size:0.875rem;box-sizing:border-box;">
       </div>
+      <!-- 文件夹导航 -->
+      <div id="folderNav" style="display:none;margin-bottom:14px;">
+        <div id="folderBreadcrumb" style="font-size:0.82rem;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;"></div>
+        <div id="folderList" style="display:flex;flex-wrap:wrap;gap:10px;"></div>
+      </div>
       <div id="imgList"></div>
     </div>
 
@@ -544,6 +549,8 @@ let selectedImages = new Set();
 let editingFile = null;
 let pickerMode = false;
 let coverPickerMode = false;
+let currentPrefix = '';
+let currentFolderName = '';
 
 /* ===== 初始化 ===== */
 function init() {
@@ -631,17 +638,77 @@ function toast(msg, type) {
 }
 
 /* ===== 图库管理 ===== */
-async function loadImages() {
+async function loadImages(prefix) {
+  // prefix: 文件夹前缀，如 "2026-05/"；传 null/undefined 则回到根目录
+  if (prefix !== undefined) {
+    currentPrefix = prefix || '';
+  }
   var el = document.getElementById('imgList');
+  var folderNav = document.getElementById('folderNav');
+  var folderBreadcrumb = document.getElementById('folderBreadcrumb');
+  var folderList = document.getElementById('folderList');
+
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
+
   try {
-    var data = await api('/api/images');
+    var url = '/api/images';
+    if (currentPrefix) url += '?prefix=' + encodeURIComponent(currentPrefix);
+    var data = await api(url);
     currentImages = data.images || [];
     currentImageGroups = data.groups || [];
+
+    // 渲染文件夹导航
+    var folders = data.folders || [];
+    if (currentPrefix || folders.length > 0) {
+      folderNav.style.display = 'block';
+      renderFolderBreadcrumb(folderBreadcrumb);
+      renderFolders(folderList, folders);
+    } else {
+      folderNav.style.display = 'none';
+    }
+
     renderImages();
   } catch (e) {
     el.innerHTML = '<div class="empty-state"><p>加载失败: ' + escHtml(e.message) + '</p></div>';
+    folderNav.style.display = 'none';
   }
+}
+
+function renderFolderBreadcrumb(el) {
+  if (!currentPrefix) {
+    el.innerHTML = '<span style="color:var(--accent2);font-weight:600;">📁 根目录（所有月份）</span>';
+    return;
+  }
+  var parts = currentPrefix.replace(/\/$/, '').split('/').filter(Boolean);
+  var html = '<span style="cursor:pointer;color:var(--accent);" onclick="loadImages(\'\')">📁 根目录</span>';
+  var built = '';
+  for (var i = 0; i < parts.length; i++) {
+    built += parts[i] + '/';
+    (function(pfx, name) {
+      html += ' / <span style="cursor:pointer;color:var(--accent);" onclick="loadImages(\'' + escAttr(pfx) + '\')">' + escHtml(name) + '</span>';
+    })(built, parts[i]);
+  }
+  el.innerHTML = html;
+}
+
+function renderFolders(el, folders) {
+  if (!folders || folders.length === 0) { el.innerHTML = ''; return; }
+  var html = '';
+  for (var i = 0; i < folders.length; i++) {
+    var f = folders[i];
+    html += '<div style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:0.85rem;hover:border-color:var(--accent);" onclick="loadImages(\'' + escAttr(f.prefix) + '\')">📁 ' + escHtml(f.name) + '</div>';
+  }
+  el.innerHTML = html;
+}
+
+function escAttr(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+}
+
+// 上传：获取当前目标前缀
+function getUploadPrefix() {
+  // 如果有当前文件夹，用当前文件夹；否则自动按月
+  return currentPrefix || '';
 }
 
 function renderImages() {
@@ -899,7 +966,10 @@ async function handleFiles(files) {
         var item = finalFiles[j];
         var fd = new FormData();
         fd.append('file', new File([item.blob], item.name, { type: 'image/webp' }));
-        var res = await fetch(API_BASE + '/api/images/upload', {
+        var uploadUrl = API_BASE + '/api/images/upload';
+        var px = getUploadPrefix();
+        if (px) uploadUrl += '?prefix=' + encodeURIComponent(px);
+        var res = await fetch(uploadUrl, {
           method: 'POST', headers: { 'X-Admin-Token': token }, body: fd,
         });
         var data = await res.json();

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // migrate-to-2026slt.js
 // 将 R2 根目录图片迁移到 2026slt/，并更新文章中的引用
-// 用法: node migrate-to-2026slt.js <ADMIN_TOKEN>
+// 用法: node migrate-to-2026slt.js <ADMIN_TOKEN> <GITHUB_TOKEN>
 
 const API_BASE = 'https://api.pgoj.top';
 const GITHUB_REPO = 'youquyoulai/blog';
@@ -11,9 +11,9 @@ const TARGET_FOLDER = '2026slt/';
 const OLD_BASE = 'https://img.pgoj.top/';
 const NEW_BASE = 'https://img.pgoj.top/' + TARGET_FOLDER;
 
-const token = process.argv[2];
-if (!token) {
-  console.error('用法: node migrate-to-2026slt.js <ADMIN_TOKEN>');
+const [,, adminToken, githubToken] = process.argv;
+if (!adminToken || !githubToken) {
+  console.error('用法: node migrate-to-2026slt.js <ADMIN_TOKEN> <GITHUB_TOKEN>');
   process.exit(1);
 }
 
@@ -22,18 +22,23 @@ async function api(path, method = 'GET', body = null) {
     method,
     headers: {
       'Content-Type': 'application/json',
-      'X-Admin-Token': token,
+      'X-Admin-Token': adminToken,
     },
     ...(body ? { body: JSON.stringify(body) } : {})
   });
   return res.json();
 }
 
+async function githubRaw(path) {
+  const res = await fetch(GITHUB_RAW + '/' + path);
+  return res.text();
+}
+
 async function githubApi(path, method = 'GET', body = null) {
   const res = await fetch('https://api.github.com' + path, {
     method,
     headers: {
-      'Authorization': 'token ' + token,
+      'Authorization': 'token ' + githubToken,
       'Accept': 'application/vnd.github.v3+json',
       'User-Agent': 'blog-admin-migrate'
     },
@@ -43,16 +48,17 @@ async function githubApi(path, method = 'GET', body = null) {
 }
 
 async function main() {
+  // 第 1 步：获取 R2 根目录图片
   console.log('=== 第 1 步：获取 R2 根目录图片 ===');
   const list = await api('/api/images');
-  const rootImages = (list.objects || []).filter(obj => obj.key.indexOf('/') === -1);
+  const rootImages = (list.images || []).filter(img => !img.key.includes('/'));
 
   if (rootImages.length === 0) {
     console.log('根目录没有图片，无需迁移');
     return;
   }
 
-  console.log(`找到 ${rootImages.length} 个根目录图片：`);
+  console.log(`找到 ${rootImages.length} 个根目录图片`);
   rootImages.forEach(img => console.log('  ' + img.key));
 
   // 第 2 步：批量移动到 2026slt/
@@ -72,8 +78,13 @@ async function main() {
     failedFiles.forEach(f => console.log('  ' + f.from + ' - ' + f.error));
   }
 
-  // 第 3 步：获取所有文章
-  console.log('\n=== 第 3 步：扫描文章中的图片引用 ===');
+  if (movedFiles.length === 0) {
+    console.log('没有图片移动成功，跳过文章更新');
+    return;
+  }
+
+  // 第 3 步：更新文章引用
+  console.log('\n=== 第 3 步：扫描并更新文章中的图片引用 ===');
   const posts = await githubApi('/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR);
   const mdFiles = (Array.isArray(posts) ? posts : []).filter(f => f.name.endsWith('.md'));
 
@@ -83,15 +94,13 @@ async function main() {
   let imageUpdates = {};
 
   for (const file of mdFiles) {
-    const raw = await fetch(GITHUB_RAW + '/' + POSTS_DIR + '/' + encodeURIComponent(file.name));
-    const content = await raw.text();
+    const content = await githubRaw(POSTS_DIR + '/' + encodeURIComponent(file.name));
 
-    // 替换图片引用
     let newContent = content;
     for (const from of movedFiles) {
       const oldUrl = OLD_BASE + from;
       const newUrl = NEW_BASE + from;
-      if (content.includes(oldUrl)) {
+      if (newContent.includes(oldUrl)) {
         newContent = newContent.split(oldUrl).join(newUrl);
         imageUpdates[from] = imageUpdates[from] || [];
         imageUpdates[from].push(file.name);
@@ -99,7 +108,6 @@ async function main() {
     }
 
     if (newContent !== content) {
-      // 获取 SHA
       const fileData = await githubApi('/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR + '/' + file.name);
       const encoded = Buffer.from(newContent).toString('base64');
 

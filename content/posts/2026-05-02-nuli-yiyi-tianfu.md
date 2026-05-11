@@ -1,18 +1,11 @@
 ---
-description: ""
 title: "持续不懈地努力有意义也是一种天赋"
-draft: false
-date: "2026-05-02T18:05:30+08:00"
+date: 2026-05-02T18:05:00+08:00
+cover: "@image:nulideyiyi.webp"
+categories: [- guangan]
+tags: ["- 认知"]
 slug: "nuli-yiyi-tianfu"
-categories:
- - guangan
-tags:
- - 认知
-image: ""
-images:
- - https://img.pgoj.top/2026slt/nulideyiyi.webp
 ---
-
 努力在天赋面前一文不值这种话，他姑妄言之，你姑妄听之，当不得真。
 
 有好些年，我们一直坚信爱迪生的“天才是百分之一的灵感加百分之九十九的汗水”，坚信勤奋、刻苦的价值与意义。

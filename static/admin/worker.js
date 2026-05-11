@@ -63,10 +63,8 @@ async function listImages(request, env) {
     const allObjects = listed.objects || [];
     const allPrefixes = listed.delimitedPrefixes || [];
 
-    // 月份文件夹（如 2026-05/）
-    folders = allPrefixes
-      .filter(function(p) { return /^\d{4}-\d{2}\/$/.test(p); })
-      .map(function(p) { return { name: p.replace(/\/$/, ''), prefix: p }; });
+    // 所有真实文件夹（202605/、images/ 等）
+    folders = allPrefixes.map(function(p) { return { name: p.replace(/\/$/, ''), prefix: p }; });
 
     // 根目录虚拟文件夹：无前缀的旧图片
     const rootObjects = allObjects.filter(function(obj) { return obj.key.indexOf('/') === -1; });
@@ -187,7 +185,7 @@ async function uploadImage(request, env) {
   if (!folder) {
     const now = new Date();
     const mm = String(now.getMonth() + 1).padStart(2, '0');
-    folder = now.getFullYear() + '-' + mm + '/';
+    folder = now.getFullYear() + mm + '/';
   }
   // 确保以 / 结尾
   if (folder && !folder.endsWith('/')) folder += '/';

@@ -14,4 +14,4 @@ slug: "shu-xue-zi-ran-shu"
 
 我觉得在网上发布讲解数学题目的视频，起码应该将涉及到的知识、公式、定理、方法等讲解清楚，让学生知其然还要知其所以然，不能蝎子教徒弟—就这么蜇（着）。
 
-![shuxuetiziranshupingfang](https://img.pgoj.top/shuxuetiziranshupingfang-800.webp)
+![shuxuetiziranshupingfang](https://img.pgoj.top/2026slt/shuxuetiziranshupingfang-800.webp)

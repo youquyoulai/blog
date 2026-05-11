@@ -207,6 +207,56 @@ async function deleteImage(key, env) {
   return corsResponse(JSON.stringify({ ok: true }));
 }
 
+// 移动（复制+删除）文件
+async function moveImages(request, env) {
+  const authToken = request.headers.get('X-Admin-Token');
+  if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
+
+  const body = await request.json();
+  const { from, to } = body; // from: "xxx.webp", to: "2026slt/xxx.webp"
+  if (!from || !to) return corsResponse(JSON.stringify({ error: 'Missing from or to' }), 400);
+
+  // 读取原文件
+  const src = await env.R2_BUCKET.get(from);
+  if (!src) return corsResponse(JSON.stringify({ error: 'Source file not found: ' + from }), 404);
+
+  // 写入新位置（复制）
+  await env.R2_BUCKET.put(to, src.body, {
+    httpMetadata: src.httpMetadata,
+    customMetadata: src.customMetadata,
+  });
+
+  // 删除原文件
+  await env.R2_BUCKET.delete(from);
+
+  return corsResponse(JSON.stringify({ ok: true, from, to }));
+}
+
+// 批量移动文件
+async function batchMoveImages(request, env) {
+  const authToken = request.headers.get('X-Admin-Token');
+  if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
+
+  const body = await request.json();
+  const { files } = body; // [{ from: "xxx.webp", to: "2026slt/xxx.webp" }, ...]
+  if (!files || !Array.isArray(files)) return corsResponse(JSON.stringify({ error: 'Missing files array' }), 400);
+
+  const results = [];
+  for (const { from, to } of files) {
+    try {
+      const src = await env.R2_BUCKET.get(from);
+      if (!src) { results.push({ from, to, ok: false, error: 'not found' }); continue; }
+      await env.R2_BUCKET.put(to, src.body, { httpMetadata: src.httpMetadata, customMetadata: src.customMetadata });
+      await env.R2_BUCKET.delete(from);
+      results.push({ from, to, ok: true });
+    } catch (e) {
+      results.push({ from, to, ok: false, error: e.message });
+    }
+  }
+
+  return corsResponse(JSON.stringify({ ok: true, results }));
+}
+
 // ═════════════════════════════════════════════════════════════════
 // 图片 resize（利用 Cloudflare Image Resizing）
 // 用法：GET /api/images/resize?key=xxx&width=800&format=webp&quality=85
@@ -625,6 +675,12 @@ export default {
       if (path.startsWith('/api/images/') && request.method === 'DELETE') {
         const key = decodeURIComponent(path.replace('/api/images/', ''));
         return await deleteImage(key, env);
+      }
+      if (path === '/api/images/move' && request.method === 'POST') {
+        return await moveImages(request, env);
+      }
+      if (path === '/api/images/batch-move' && request.method === 'POST') {
+        return await batchMoveImages(request, env);
       }
       if (path === '/api/images/resize' && request.method === 'GET') {
         return await resizeImage(request, env);

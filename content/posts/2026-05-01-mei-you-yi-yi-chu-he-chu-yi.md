@@ -12,7 +12,7 @@ tags:
  - 数学
 image: ""
 images:
- - https://img.pgoj.top/images/chuhechuyi.png
+ - https://img.pgoj.top/2026slt/chuhechuyi.png
 ---
 
 刷视频时看到一位初中老师发的图文，讲的是教学过程中遇到的一个实际问题：学生读“√a ÷ √b = √(a÷b)”时，把式子读成了“根号a除根号b”。老师纠正说，这里只能读作“除以”，不能读作“除”。学生却反驳说，小学老师就是这么教的，还说“除以”和“除”是一样的，并让老师不懂小学数学就不要乱讲。

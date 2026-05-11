@@ -10,7 +10,7 @@ tags:
  - 博客
 image: ""
 images:
- - https://img.pgoj.top/memos.png
+ - https://img.pgoj.top/2026slt/memos.png
 ---
 
 昨晚在cloudfare部署了Memos，预备记录平时的三言两语。我的想法是导航栏菜单加上Memos链接，侧边栏调用一两条最新微语内容就行。
@@ -19,7 +19,7 @@ Memos搭建比较简单，使用了cloudfare的很多服务：后端APICloudflar
 
 实际使用起来，我发现Memos发布内容真的很方便。后台登录进去后，写文字、上传图片、添加链接、加标签🏷、保存，就行了。比用typecho、wordpress要省事得多。
 
-![Memos的使用](https://img.pgoj.top/memos.png)
+![Memos的使用](https://img.pgoj.top/2026slt/memos.png)
 
 但是我也发现了Memos的不足：
 

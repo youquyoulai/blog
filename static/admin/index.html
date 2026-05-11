@@ -679,11 +679,11 @@ function renderImages() {
     var totalMB = totalKB >= 1024 ? (totalKB / 1024).toFixed(1) + ' MB' : totalKB + ' KB';
     var uploadedDate = g.latestUpload ? new Date(g.latestUpload).toLocaleDateString('zh-CN') : '-';
     var filesJson = JSON.stringify(g.files).replace(/'/g, '&#39;');
-    html += '<div class="img-group-card" onclick="toggleGroup(this, event)" data-files=\'' + filesJson + '\' data-base=\'' + escHtml(g.base) + '\'>' +
+    html += '<div class="img-group-card" onclick="toggleGroup(this, event)" data-files=\'' + filesJson + '\' data-base=\'' + escHtml(g.base) + '\' data-dir=\'' + escHtml(g.dir) + '\'>' +
       '<div class="img-group-header">' +
         '<img class="img-group-thumb" src="' + escHtml(g.thumbUrl) + '" alt="' + escHtml(g.base) + '" loading="lazy" onerror="this.style.display=\'none\'">' +
         '<div class="img-group-info">' +
-          '<div class="img-group-name">' + escHtml(g.base) + '</div>' +
+          '<div class="img-group-name">' + escHtml(g.base) + (g.dir ? ' <span style="opacity:0.5;font-size:0.8em">(' + escHtml(g.dir) + ')</span>' : '') + '</div>' +
           '<div class="img-group-meta">' +
             '<span class="img-group-badge">' + g.count + ' 张</span>' +
             '<span>' + totalMB + '</span>' +
@@ -1133,7 +1133,7 @@ async function loadPickerImages() {
       var g = groups[i];
       html += '<div class="img-card" onclick="selectPickerGroup(\'' + encodeURIComponent(g.base) + '\',event)" data-base="' + escHtml(g.base) + '">' +
         '<img src="' + escHtml(g.thumbUrl) + '" alt="' + escHtml(g.base) + '" loading="lazy">' +
-        '<div class="img-name">' + escHtml(g.base) + '</div>' +
+        '<div class="img-name">' + escHtml(g.base) + (g.dir ? ' <span style="opacity:0.5;font-size:0.8em">(' + escHtml(g.dir) + ')</span>' : '') + '</div>' +
         '<div class="img-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20,6 9,17 4,12"/></svg></div>' +
         '</div>';
     }
@@ -1176,10 +1176,18 @@ function confirmPicker() {
   // 封面图模式：单选，直接填入封面输入框（用 -300）
   if (coverPickerMode) {
     var firstBase = [...selectedPickerGroups][0];
+    var firstDir = null;
+    var cards = document.querySelectorAll('#pickerGrid .img-card');
+    for (var ci = 0; ci < cards.length; ci++) {
+      if (decodeURIComponent(cards[ci].dataset.base || '') === firstBase) {
+        firstDir = cards[ci].dataset.dir || '';
+        break;
+      }
+    }
     var g = groups.find(function(x) { return x.base === firstBase; });
     var f300 = g ? g.files.find(function(f) { return f.sizeLabel === '300'; }) : null;
-    var name = (f300 || (g ? g.files[0] : null) || {}).key || firstBase;
-    var filename = name.split('/').pop();
+    var srcFile = f300 || (g ? g.files[0] : null) || {};
+    var filename = (srcFile.key || firstBase).split('/').pop();
     document.getElementById('postCover').value = '@image:' + filename;
     closePicker();
     toast('封面图已设置', 'success');
@@ -1188,13 +1196,17 @@ function confirmPicker() {
 
   // 普通模式：插入到正文（每个组用 -800 版本）
   var tags = [];
+  var cards = document.querySelectorAll('#pickerGrid .img-card');
   selectedPickerGroups.forEach(function(base) {
     var g = groups.find(function(x) { return x.base === base; });
-    var f800 = g ? g.files.find(function(f) { return f.sizeLabel === '800'; }) : null;
-    var srcFile = f800 || (g ? g.files[0] : null);
+    if (!g) return;
+    var f800 = g.files.find(function(f) { return f.sizeLabel === '800'; });
+    var srcFile = f800 || g.files[0];
     if (!srcFile) return;
     var filename = srcFile.key.split('/').pop();
-    tags.push('![' + filename + '](https://img.pgoj.top/' + filename + ')');
+    // 保留完整路径（目录 + 文件名）
+    var fullKey = srcFile.key;
+    tags.push('![' + filename + '](https://img.pgoj.top/' + fullKey + ')');
   });
   insertAtLine('\n' + tags.join('\n') + '\n');
   closePicker();

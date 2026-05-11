@@ -49,44 +49,78 @@ function checkAuth(request, env) {
 // R2 图片操作
 // ═════════════════════════════════════════════════════════════════
 async function listImages(request, env) {
-  const { objects } = await env.R2_BUCKET.list();
+  // 获取 R2 所有对象（自动处理分页）
+  const allObjects = [];
+  let cursor;
+  do {
+    const page = await env.R2_BUCKET.list({ cursor, limit: 1000 });
+    allObjects.push(...page.objects);
+    cursor = page.truncated ? page.cursor : undefined;
+  } while (cursor);
+
+  const objects = allObjects;
   const baseUrl = (env.R2_PUBLIC_URL || '').replace(/\/+$/, '');
 
-  // 提取文件名基础名（去掉 -orig / -800 / -300 等尺寸后缀）
+  // 提取文件所属目录（不含文件名本身）
+  function getDir(key) {
+    const lastSlash = key.lastIndexOf('/');
+    return lastSlash >= 0 ? key.slice(0, lastSlash + 1) : '';
+  }
+
+  // 提取文件名（不含目录）
+  function getFileName(key) {
+    const lastSlash = key.lastIndexOf('/');
+    return lastSlash >= 0 ? key.slice(lastSlash + 1) : key;
+  }
+
+  // 提取基础名（去掉 -orig / -800 / -300 等尺寸后缀）
   function getBaseName(key) {
-    return key.replace(/-(?:orig|800|300)\.webp$/, '.webp');
+    return getFileName(key).replace(/-(?:orig|800|300)\.webp$/, '.webp');
   }
 
   // 提取尺寸标签
   function getSizeLabel(key) {
-    const m = key.match(/-((?:orig|800|300))\.webp$/);
+    const m = getFileName(key).match(/-((?:orig|800|300))\.(webp|png|jpg|jpeg|gif)$/i);
     return m ? m[1] : 'orig';
   }
 
-  // 分组
+  // 提取原始扩展名
+  function getExt(key) {
+    const m = getFileName(key).match(/\.(webp|png|jpg|jpeg|gif|avif|heic)$/i);
+    return m ? m[0] : '';
+  }
+
+  // 分组：同一目录下、基础名相同的文件归为一组
   const groups = {};
   for (const obj of objects) {
-    const base = getBaseName(obj.key);
-    if (!groups[base]) {
-      groups[base] = {
-        base: base,
+    const dir = getDir(obj.key);
+    const baseName = getBaseName(obj.key);
+    const ext = getExt(obj.key);
+    // 组 key = 目录 + 基础名（不含尺寸后缀）
+    const groupKey = dir + baseName;
+
+    if (!groups[groupKey]) {
+      groups[groupKey] = {
+        dir: dir,
+        base: baseName,
+        ext: ext,
         files: [],
         totalSize: 0,
         latestUpload: null,
         count: 0,
       };
     }
-    groups[base].files.push({
+    groups[groupKey].files.push({
       key: obj.key,
       url: baseUrl + '/' + obj.key,
       size: obj.size,
       uploaded: obj.uploaded,
       sizeLabel: getSizeLabel(obj.key),
     });
-    groups[base].totalSize += obj.size;
-    groups[base].count += 1;
-    if (!groups[base].latestUpload || obj.uploaded > groups[base].latestUpload) {
-      groups[base].latestUpload = obj.uploaded;
+    groups[groupKey].totalSize += obj.size;
+    groups[groupKey].count += 1;
+    if (!groups[groupKey].latestUpload || obj.uploaded > groups[groupKey].latestUpload) {
+      groups[groupKey].latestUpload = obj.uploaded;
     }
   }
 
@@ -98,7 +132,6 @@ async function listImages(request, env) {
     const thumb = g.files.find(f => f.sizeLabel === '300') || g.files[0];
     g.thumbUrl = thumb.url;
     g.thumbKey = thumb.key;
-    // 按最新上传时间降序排列各组
   }
 
   // 按最新上传时间降序

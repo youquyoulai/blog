@@ -87,6 +87,32 @@
     .img-card.selected .img-check { opacity: 1; background: var(--accent); }
     .img-card .img-check svg { width: 12px; height: 12px; color: white; }
 
+    /* 图库分组卡片 */
+    .img-group-list { display: flex; flex-direction: column; gap: 8px; }
+    .img-group-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: 0.2s; }
+    .img-group-card:hover { border-color: var(--accent); }
+    .img-group-header { display: flex; align-items: center; gap: 12px; padding: 10px 12px; }
+    .img-group-thumb { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: var(--muted); }
+    .img-group-info { flex: 1; min-width: 0; }
+    .img-group-name { font-size: 0.875rem; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .img-group-meta { font-size: 0.75rem; color: var(--muted); margin-top: 3px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .img-group-badge { background: var(--accent2); color: white; font-size: 0.7rem; padding: 1px 6px; border-radius: 10px; font-weight: 500; }
+    .img-group-expand { color: var(--muted); font-size: 0.7rem; padding: 0 10px; flex-shrink: 0; transition: 0.2s; }
+    .img-group-card.expanded .img-group-expand { transform: rotate(180deg); }
+    .img-group-files { display: none; padding: 0 12px 12px; border-top: 1px solid var(--border); }
+    .img-group-card.expanded .img-group-files { display: block; }
+    .img-group-file { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .img-group-file:last-child { border-bottom: none; }
+    .img-group-file-thumb { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; }
+    .img-group-file-info { flex: 1; min-width: 0; }
+    .img-group-file-name { font-size: 0.8rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .img-group-file-size { font-size: 0.7rem; color: var(--muted); }
+    .img-group-file-label { font-size: 0.7rem; background: rgba(108,92,231,0.15); color: var(--accent2); padding: 1px 6px; border-radius: 4px; }
+    .img-group-file-actions { display: flex; gap: 6px; }
+    .img-group-file-btn { font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; cursor: pointer; border: 1px solid var(--border); background: var(--card); color: var(--muted); transition: 0.15s; }
+    .img-group-file-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .img-group-file-btn.copy { border-color: var(--green); color: var(--green); }
+
     /* 上传区 */
     .upload-zone { border: 2px dashed var(--border); border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; transition: 0.2s; margin-bottom: 20px; }
     .upload-zone:hover, .upload-zone.dragover { border-color: var(--accent); background: rgba(108,92,231,0.1); }
@@ -244,6 +270,10 @@
           <button class="btn btn-sm" onclick="loadImages()">刷新</button>
           <button class="btn btn-sm" id="batchDelBtn" style="display:none;" onclick="batchDelete()">删除选中</button>
         </div>
+      </div>
+      <div id="imgStats" style="font-size:0.8rem;color:var(--muted);margin-bottom:10px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;"></div>
+      <div style="margin-bottom:12px;">
+        <input type="text" id="imgSearch" placeholder="搜索图片名称..." oninput="renderImages()" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--input-bg);color:var(--text);font-size:0.875rem;box-sizing:border-box;">
       </div>
       <div id="imgList"></div>
     </div>
@@ -509,6 +539,7 @@
 const API_BASE = 'https://api.pgoj.top';
 let token = localStorage.getItem('admin_token') || '';
 let currentImages = [];
+let currentImageGroups = [];
 let selectedImages = new Set();
 let editingFile = null;
 let pickerMode = false;
@@ -606,6 +637,7 @@ async function loadImages() {
   try {
     var data = await api('/api/images');
     currentImages = data.images || [];
+    currentImageGroups = data.groups || [];
     renderImages();
   } catch (e) {
     el.innerHTML = '<div class="empty-state"><p>加载失败: ' + escHtml(e.message) + '</p></div>';
@@ -614,27 +646,129 @@ async function loadImages() {
 
 function renderImages() {
   var el = document.getElementById('imgList');
+  var statsEl = document.getElementById('imgStats');
   var btn = document.getElementById('batchDelBtn');
-  if (currentImages.length === 0) {
+  var searchKeyword = (document.getElementById('imgSearch') && document.getElementById('imgSearch').value || '').trim().toLowerCase();
+
+  if (!currentImageGroups || currentImageGroups.length === 0) {
     el.innerHTML = '<div class="empty-state"><p>还没有图片</p></div>';
+    statsEl.innerHTML = '';
     btn.style.display = 'none';
     return;
   }
-  var html = '<div class="img-grid">';
-  for (var i = 0; i < currentImages.length; i++) {
-    var img = currentImages[i];
-    var key = encodeURIComponent(img.key);
-    var selected = selectedImages.has(img.key) ? ' selected' : '';
-    html += '<div class="img-card' + selected + '" onclick="selectImage(\'' + key + '\',event)" ondblclick="previewImage(\'' + key + '\')">' +
-      '<img src="' + img.url + '" alt="' + img.key + '" loading="lazy">' +
-      '<div class="img-name">' + img.key.split('/').pop() + '</div>' +
-      '<div class="img-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20,6 9,17 4,12"/></svg></div>' +
-      '</div>';
+
+  // 过滤
+  var filtered = currentImageGroups.filter(function(g) {
+    return g.base.toLowerCase().includes(searchKeyword);
+  });
+
+  // 统计栏
+  var totalGroups = currentImageGroups.length;
+  var totalFiles = currentImageGroups.reduce(function(s, g) { return s + g.count; }, 0);
+  statsEl.innerHTML = '<span>共 <strong style="color:var(--accent2)">' + totalGroups + '</strong> 组</span><span><strong style="color:var(--accent2)">' + totalFiles + '</strong> 张文件</span><span>显示 <strong>' + filtered.length + '</strong> 组</span>';
+
+  if (filtered.length === 0) {
+    el.innerHTML = '<div class="empty-state"><p>没有匹配的图片</p></div>';
+    return;
+  }
+
+  var html = '<div class="img-group-list">';
+  for (var i = 0; i < filtered.length; i++) {
+    var g = filtered[i];
+    var totalKB = Math.round(g.totalSize / 1024);
+    var totalMB = totalKB >= 1024 ? (totalKB / 1024).toFixed(1) + ' MB' : totalKB + ' KB';
+    var uploadedDate = g.latestUpload ? new Date(g.latestUpload).toLocaleDateString('zh-CN') : '-';
+    var filesJson = JSON.stringify(g.files).replace(/'/g, '&#39;');
+    html += '<div class="img-group-card" onclick="toggleGroup(this, event)" data-files=\'' + filesJson + '\' data-base=\'' + escHtml(g.base) + '\'>' +
+      '<div class="img-group-header">' +
+        '<img class="img-group-thumb" src="' + escHtml(g.thumbUrl) + '" alt="' + escHtml(g.base) + '" loading="lazy" onerror="this.style.display=\'none\'">' +
+        '<div class="img-group-info">' +
+          '<div class="img-group-name">' + escHtml(g.base) + '</div>' +
+          '<div class="img-group-meta">' +
+            '<span class="img-group-badge">' + g.count + ' 张</span>' +
+            '<span>' + totalMB + '</span>' +
+            '<span>' + uploadedDate + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="img-group-expand">▼</div>' +
+      '</div>' +
+      '<div class="img-group-files"></div>' +
+    '</div>';
   }
   html += '</div>';
   el.innerHTML = html;
-  btn.style.display = selectedImages.size > 0 ? 'inline-flex' : 'none';
+  btn.style.display = 'none';
 }
+
+function toggleGroup(card, event) {
+  event.stopPropagation();
+  var files = JSON.parse(card.getAttribute('data-files'));
+  var isExpanded = card.classList.contains('expanded');
+
+  if (isExpanded) {
+    card.classList.remove('expanded');
+    card.querySelector('.img-group-files').innerHTML = '';
+    return;
+  }
+
+  // 收起其他展开的
+  document.querySelectorAll('.img-group-card.expanded').forEach(function(c) {
+    c.classList.remove('expanded');
+    c.querySelector('.img-group-files').innerHTML = '';
+  });
+
+  card.classList.add('expanded');
+  var filesEl = card.querySelector('.img-group-files');
+
+  var labelMap = { orig: '原图', '800': '正文', '300': '封面' };
+  var sizeHtml = '';
+  for (var i = 0; i < files.length; i++) {
+    var f = files[i];
+    var kb = Math.round(f.size / 1024);
+    var label = labelMap[f.sizeLabel] || f.sizeLabel;
+    sizeHtml += '<div class="img-group-file">' +
+      '<img class="img-group-file-thumb" src="' + escHtml(f.url) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' +
+      '<div class="img-group-file-info">' +
+        '<div class="img-group-file-name">' + escHtml(f.key.split('/').pop()) + '</div>' +
+        '<div class="img-group-file-size">' + kb + ' KB</div>' +
+      '</div>' +
+      '<span class="img-group-file-label">' + label + '</span>' +
+      '<div class="img-group-file-actions">' +
+        '<button class="img-group-file-btn copy" onclick="copyImgUrl(\'' + encodeURIComponent(f.key) + '\')">链接</button>' +
+        '<button class="img-group-file-btn" onclick="copyImgMd(\'' + encodeURIComponent(f.key) + '\')">MD</button>' +
+      '</div>' +
+    '</div>';
+  }
+  filesEl.innerHTML = sizeHtml;
+}
+
+// 复制链接
+function copyImgUrl(key) {
+  var k = decodeURIComponent(key);
+  var img = findImageByKey(k);
+  if (img) { navigator.clipboard.writeText(img.url); toast('链接已复制', 'success'); }
+}
+// 复制 Markdown
+function copyImgMd(key) {
+  var k = decodeURIComponent(key);
+  var filename = k.split('/').pop();
+  navigator.clipboard.writeText('@image:' + filename);
+  toast('已复制: @image:' + filename, 'success');
+}
+// 根据 key 查找图片
+function findImageByKey(key) {
+  for (var i = 0; i < (window.currentImageGroups || []).length; i++) {
+    var g = window.currentImageGroups[i];
+    for (var j = 0; j < g.files.length; j++) {
+      if (g.files[j].key === key) return g.files[j];
+    }
+  }
+  return null;
+}
+
+// 兼容旧代码
+function selectImage(key, event) {}
+function previewImage(key) {}
 
 function selectImage(key, event) {
   event.stopPropagation();
@@ -991,15 +1125,15 @@ function showCoverPicker() {
 async function loadPickerImages() {
   try {
     var data = await api('/api/images');
-    var imgs = data.images || [];
+    var groups = data.groups || [];
     var grid = document.getElementById('pickerGrid');
-    if (imgs.length === 0) { grid.innerHTML = '<div class="empty-state"><p>图库为空</p></div>'; return; }
+    if (groups.length === 0) { grid.innerHTML = '<div class="empty-state"><p>图库为空</p></div>'; return; }
     var html = '<div class="img-grid">';
-    for (var i = 0; i < imgs.length; i++) {
-      var img = imgs[i];
-      html += '<div class="img-card" onclick="selectPickerImg(\'' + encodeURIComponent(img.key) + '\',event)">' +
-        '<img src="' + img.url + '" alt="' + img.key + '" loading="lazy">' +
-        '<div class="img-name">' + img.key.split('/').pop() + '</div>' +
+    for (var i = 0; i < groups.length; i++) {
+      var g = groups[i];
+      html += '<div class="img-card" onclick="selectPickerGroup(\'' + encodeURIComponent(g.base) + '\',event)" data-base="' + escHtml(g.base) + '">' +
+        '<img src="' + escHtml(g.thumbUrl) + '" alt="' + escHtml(g.base) + '" loading="lazy">' +
+        '<div class="img-name">' + escHtml(g.base) + '</div>' +
         '<div class="img-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20,6 9,17 4,12"/></svg></div>' +
         '</div>';
     }
@@ -1007,6 +1141,20 @@ async function loadPickerImages() {
     grid.innerHTML = html;
   } catch (e) {
     document.getElementById('pickerGrid').innerHTML = '<div class="empty-state"><p>加载失败</p></div>';
+  }
+}
+
+var selectedPickerGroups = new Set();
+
+function selectPickerGroup(base, event) {
+  event.stopPropagation();
+  var key = decodeURIComponent(base);
+  if (selectedPickerGroups.has(key)) selectedPickerGroups.delete(key); else selectedPickerGroups.add(key);
+  // 更新选中状态
+  var cards = document.querySelectorAll('#pickerGrid .img-card');
+  for (var i = 0; i < cards.length; i++) {
+    var k = decodeURIComponent(cards[i].dataset.base || '');
+    cards[i].classList.toggle('selected', selectedPickerGroups.has(k));
   }
 }
 
@@ -1022,41 +1170,42 @@ function selectPickerImg(key, event) {
 }
 
 function confirmPicker() {
-  if (selectedImages.size === 0) { toast('请先选择图片'); return; }
-  
-  // 封面图模式：单选，直接填入封面输入框
+  if (selectedPickerGroups.size === 0) { toast('请先选择图片'); return; }
+  var groups = currentImageGroups || [];
+
+  // 封面图模式：单选，直接填入封面输入框（用 -300）
   if (coverPickerMode) {
-    var firstKey = [...selectedImages][0];
-    var name = decodeURIComponent(firstKey).split('/').pop();
-    // 移除已有的 -300/-800/-orig 后缀
-    var base = name.replace(/-(300|800|orig)(\.[^.]+)$/, '$2').replace(/\.[^.]+$/, '');
-    var ext = name.match(/\.[^.]+$/)[0];
-    // 封面图用于文章列表缩略图，用 -300
-    document.getElementById('postCover').value = '@image:' + base + '-300' + ext;
+    var firstBase = [...selectedPickerGroups][0];
+    var g = groups.find(function(x) { return x.base === firstBase; });
+    var f300 = g ? g.files.find(function(f) { return f.sizeLabel === '300'; }) : null;
+    var name = (f300 || (g ? g.files[0] : null) || {}).key || firstBase;
+    var filename = name.split('/').pop();
+    document.getElementById('postCover').value = '@image:' + filename;
     closePicker();
     toast('封面图已设置', 'success');
     return;
   }
-  
-  // 普通模式：插入到正文（markdown 格式）
+
+  // 普通模式：插入到正文（每个组用 -800 版本）
   var tags = [];
-  selectedImages.forEach(function(key) {
-    var name = decodeURIComponent(key).split('/').pop();
-    // 移除已有的 -300/-800/-orig 后缀，再加 -800
-    var base = name.replace(/-(300|800|orig)(\.[^.]+)$/, '$2').replace(/\.[^.]+$/, '');
-    var ext = name.match(/\.[^.]+$/)[0];
-    var url = 'https://img.pgoj.top/' + base + '-800' + ext;
-    tags.push('![' + base + '](' + url + ')');
+  selectedPickerGroups.forEach(function(base) {
+    var g = groups.find(function(x) { return x.base === base; });
+    var f800 = g ? g.files.find(function(f) { return f.sizeLabel === '800'; }) : null;
+    var srcFile = f800 || (g ? g.files[0] : null);
+    if (!srcFile) return;
+    var filename = srcFile.key.split('/').pop();
+    tags.push('![' + filename + '](https://img.pgoj.top/' + filename + ')');
   });
   insertAtLine('\n' + tags.join('\n') + '\n');
   closePicker();
-  toast('已插入 ' + selectedImages.size + ' 张图片（文章配图）', 'success');
+  toast('已插入 ' + selectedPickerGroups.size + ' 张图片（文章配图）', 'success');
 }
 
 function closePicker() {
   document.getElementById('pickerModal').classList.remove('open');
   pickerMode = false;
   coverPickerMode = false;
+  selectedPickerGroups.clear();
 }
 
 /* ===== 发布 ===== */

@@ -51,7 +51,62 @@ function checkAuth(request, env) {
 async function listImages(request, env) {
   const { objects } = await env.R2_BUCKET.list();
   const baseUrl = (env.R2_PUBLIC_URL || '').replace(/\/+$/, '');
-  const list = objects.map(function(obj) {
+
+  // 提取文件名基础名（去掉 -orig / -800 / -300 等尺寸后缀）
+  function getBaseName(key) {
+    return key.replace(/-(?:orig|800|300)\.webp$/, '.webp');
+  }
+
+  // 提取尺寸标签
+  function getSizeLabel(key) {
+    const m = key.match(/-((?:orig|800|300))\.webp$/);
+    return m ? m[1] : 'orig';
+  }
+
+  // 分组
+  const groups = {};
+  for (const obj of objects) {
+    const base = getBaseName(obj.key);
+    if (!groups[base]) {
+      groups[base] = {
+        base: base,
+        files: [],
+        totalSize: 0,
+        latestUpload: null,
+        count: 0,
+      };
+    }
+    groups[base].files.push({
+      key: obj.key,
+      url: baseUrl + '/' + obj.key,
+      size: obj.size,
+      uploaded: obj.uploaded,
+      sizeLabel: getSizeLabel(obj.key),
+    });
+    groups[base].totalSize += obj.size;
+    groups[base].count += 1;
+    if (!groups[base].latestUpload || obj.uploaded > groups[base].latestUpload) {
+      groups[base].latestUpload = obj.uploaded;
+    }
+  }
+
+  // 每组按尺寸优先级排序（orig > 800 > 300）
+  const sizeOrder = { orig: 0, '800': 1, '300': 2 };
+  for (const g of Object.values(groups)) {
+    g.files.sort((a, b) => (sizeOrder[a.sizeLabel] ?? 9) - (sizeOrder[b.sizeLabel] ?? 9));
+    // representative 优先用 300（缩略图），没有就用 orig
+    const thumb = g.files.find(f => f.sizeLabel === '300') || g.files[0];
+    g.thumbUrl = thumb.url;
+    g.thumbKey = thumb.key;
+    // 按最新上传时间降序排列各组
+  }
+
+  // 按最新上传时间降序
+  const sortedGroups = Object.values(groups).sort((a, b) =>
+    (b.latestUpload || 0) - (a.latestUpload || 0)
+  );
+
+  const flatList = objects.map(function(obj) {
     return {
       key: obj.key,
       url: baseUrl + '/' + obj.key,
@@ -59,7 +114,13 @@ async function listImages(request, env) {
       uploaded: obj.uploaded,
     };
   });
-  return corsResponse(JSON.stringify({ images: list }));
+
+  return corsResponse(JSON.stringify({
+    images: flatList,
+    groups: sortedGroups,
+    totalGroups: sortedGroups.length,
+    totalFiles: objects.length,
+  }));
 }
 
 async function uploadImage(request, env) {

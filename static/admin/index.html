@@ -285,10 +285,11 @@
 
     <!-- 文章 -->
     <div id="tab-posts" class="tab-content">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
         <h2 style="font-size:1rem;color:var(--accent2);">文章列表</h2>
         <button class="btn btn-primary" onclick="newPost()">+ 新建文章</button>
       </div>
+      <div id="postFolderNav" style="margin-bottom:12px;"></div>
       <div id="postList"></div>
     </div>
 
@@ -551,6 +552,7 @@ let pickerMode = false;
 let coverPickerMode = false;
 let currentPrefix = '';
 let currentFolderName = '';
+let currentPostPrefix = '';
 
 /* ===== 初始化 ===== */
 function init() {
@@ -1002,28 +1004,69 @@ async function handleFiles(files) {
 }
 
 /* ===== 文章管理 ===== */
-async function loadPosts() {
+async function loadPosts(prefix) {
+  if (prefix === undefined) prefix = currentPostPrefix;
+  currentPostPrefix = prefix;
   var el = document.getElementById('postList');
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
     var data = await api('/api/posts');
-    var posts = Array.isArray(data) ? data : (data.posts || []);
-    // 按文件名降序排列（最新发布的在前面）
-    posts.sort(function(a, b) { return b.name.localeCompare(a.name); });
-    if (posts.length === 0) {
-      el.innerHTML = '<div class="empty-state"><p>还没有文章</p></div>';
-      return;
-    }
-    var html = '<div class="post-list">';
-    for (var i = 0; i < posts.length; i++) {
-      var p = posts[i];
-      html += '<div class="post-item" onclick="editPost(\'' + encodeURIComponent(p.name) + '\')">' +
-        '<div class="post-item-title">' + escHtml(p.name.replace('.md','')) + '</div>' +
-        '<div class="post-item-meta"><span>' + escHtml(p.path) + '</span></div>' +
+    var allPosts = Array.isArray(data) ? data : (data.posts || []);
+
+    // 按年月分组（文件名格式: YYYY-MM-DD-slug.md）
+    var groups = {};
+    allPosts.forEach(function(p) {
+      var m = p.name.match(/^(\d{4})-(\d{2})-/);
+      if (!m) return;
+      var key = m[1] + '-' + m[2];
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(p);
+    });
+
+    // 按年月降序排序
+    var sortedKeys = Object.keys(groups).sort().reverse();
+    var totalPosts = allPosts.length;
+
+    // 渲染文件夹导航
+    var navEl = document.getElementById('postFolderNav');
+    if (!prefix) {
+      // 根目录：显示年月文件夹
+      var navHtml = '<div style="margin-bottom:12px;">' +
+        '<span style="color:var(--muted);font-size:0.85rem;">共 ' + totalPosts + ' 篇</span>';
+      if (sortedKeys.length > 0) {
+        navHtml += ' <span style="color:var(--muted);font-size:0.85rem;">·</span> ';
+        sortedKeys.forEach(function(key) {
+          navHtml += '<button class="btn btn-sm" style="margin-right:6px;margin-bottom:6px;" onclick="loadPosts(\'' + key + '/\')">📁 ' + key + ' (' + groups[key].length + ')</button>';
+        });
+      }
+      navHtml += '</div>';
+      navEl.innerHTML = navHtml;
+      el.innerHTML = '';
+    } else {
+      // 文件夹内：显示面包屑 + 该月文章
+      var parts = prefix.replace(/\/$/, '').split('-');
+      var year = parts[0], month = parts[1];
+      var navHtml = '<div style="margin-bottom:12px;">' +
+        '<span style="cursor:pointer;color:var(--accent);" onclick="loadPosts(\'\')">📁 根目录</span>' +
+        ' <span style="color:var(--muted);">›</span> ' +
+        '<span style="color:var(--accent2);font-weight:500;">' + year + '年 ' + month + '月</span>' +
+        ' <span style="color:var(--muted);font-size:0.85rem;">(' + groups[prefix.replace(/\/$/,'')]?.length + ' 篇)</span>' +
         '</div>';
+      navEl.innerHTML = navHtml;
+
+      // 渲染该月文章
+      var posts = groups[prefix.replace(/\/$/, '')] || [];
+      posts.sort(function(a, b) { return b.name.localeCompare(a.name); });
+      var html = '<div class="post-list">';
+      posts.forEach(function(p) {
+        html += '<div class="post-item" onclick="editPost(\'' + encodeURIComponent(p.name) + '\')">' +
+          '<div class="post-item-title">' + escHtml(p.name.replace('.md','')) + '</div>' +
+          '<div class="post-item-meta"><span>' + escHtml(p.path) + '</span></div>' +
+          '</div>';
+      });
+      html += '</div>';
+      el.innerHTML = html;
     }
-    html += '</div>';
-    el.innerHTML = html;
   } catch (e) {
     el.innerHTML = '<div class="empty-state"><p>加载失败: ' + escHtml(e.message) + '</p></div>';
   }
@@ -1042,6 +1085,8 @@ function newPost() {
   document.getElementById('postCover').value = '';
   document.getElementById('postContent').value = '';
   document.getElementById('deletePostBtn').style.display = 'none';
+  // 记录当前所在月份，新建文章自动放入该月
+  window._newPostPrefix = currentPostPrefix;
   switchTab('editor');
 }
 

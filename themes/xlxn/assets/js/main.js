@@ -32,7 +32,9 @@
     var desktopSidebar = document.getElementById('desktopSidebar');
     var sidebarPanelBody = document.getElementById('sidebarPanelBody');
     if (desktopSidebar && sidebarPanelBody && !sidebarPanelBody.hasChildNodes()) {
-        sidebarPanelBody.innerHTML = desktopSidebar.innerHTML;
+        Array.from(desktopSidebar.childNodes).forEach(function(child) {
+            sidebarPanelBody.appendChild(child.cloneNode(true));
+        });
     }
 
     // 侧边栏滑出

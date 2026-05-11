@@ -85,12 +85,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .sidebar-panel .widget-toolbar{padding:0.8em 1em;gap:0.8em}
 .sidebar-panel .widget-title{color:var(--text-dark);border-bottom-color:var(--border-light);font-size:0.9rem}
 .sidebar-panel .widget-title i{color:var(--primary-light)}
-.sidebar-panel .hot-post-item{border-bottom-color:var(--border-soft)}
-.sidebar-panel .hot-post-title{color:var(--text-body)}
-.sidebar-panel .hot-post-title:hover{color:var(--primary-light)}
-.sidebar-panel .hot-post-comments{color:var(--text-muted)}
-.sidebar-panel .hot-post-index{background:rgba(0,0,0,0.06);color:var(--primary-light)}
-.sidebar-panel .hot-post-item:first-child .hot-post-index{background:var(--primary-light);color:var(--text-white)}
 .sidebar-panel .tag-item{background:rgba(0,0,0,0.06);color:var(--text-body);font-size:0.8rem;padding:4px 8px}
 .sidebar-panel .tag-item:hover{background:var(--primary-light);color:var(--text-white)}
 .sidebar-panel .archive-list li{border-bottom-color:var(--border-soft)}
@@ -107,6 +101,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .post-list .post-card:nth-child(3){animation-delay:0.12s}
 .post-list .post-card:nth-child(4){animation-delay:0.18s}
 .post-list .post-card:nth-child(5){animation-delay:0.24s}
+.post-list .post-card:nth-child(6){animation-delay:0.30s}
+.post-list .post-card:nth-child(7){animation-delay:0.36s}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media (prefers-reduced-motion:reduce){.post-card{opacity:1;transform:none;animation:none}}
 .post-card:hover{box-shadow:var(--shadow-md)}
@@ -188,23 +184,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .widget{background:var(--card-bg);border-radius:12px;box-shadow:var(--shadow-sm);padding:18px;margin-bottom:18px}
 .widget-title{font-size:clamp(1rem,2vw,1.2rem);font-weight:700;color:var(--text-title);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--primary);display:flex;align-items:center;gap:6px}
 .widget-title i{color:var(--primary)}
-.hot-posts-list{display:flex;flex-direction:column;gap:12px}
-.hot-post-item{display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid var(--border-soft)}
-.hot-post-item:last-child{border-bottom:none;padding-bottom:0}
-.hot-post-index{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--primary-bg-soft);color:var(--primary);border-radius:6px;font-size:0.7rem;font-weight:600;flex-shrink:0}
-.hot-post-item:first-child .hot-post-index{background:var(--primary);color:var(--text-white)}
-.hot-post-title{flex:1;font-size:0.867rem;color:var(--text-dark);line-height:1.5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hot-post-title:hover{color:var(--primary)}
-.hot-post-comments{font-size:0.733rem;color:var(--text-muted);white-space:nowrap;flex-shrink:0}
-.recent-posts-list{display:flex;flex-direction:column;gap:12px}
-.recent-post-item{display:flex;gap:10px;align-items:flex-start}
-.recent-post-thumb{flex-shrink:0;width:70px;aspect-ratio:4/3;overflow:hidden;border-radius:6px;display:block;background:var(--thumb-placeholder-bg)}
-.recent-post-thumb img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
-.recent-post-thumb:hover img{transform:scale(1.08)}
-.recent-post-info{flex:1;min-width:0}
-.recent-post-title{display:block;font-size:0.867rem;color:var(--text-dark);line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-bottom:4px;font-weight:500}
-.recent-post-title:hover{color:var(--primary)}
-.recent-post-date{font-size:0.733rem;color:var(--text-muted)}
 .widget-memos .memos-list{display:flex;flex-direction:column;gap:10px}
 .widget-memos .memo-item{padding:10px 12px;border-left:3px solid var(--primary-light);transition:all 0.2s}
 .widget-memos .memo-item:hover{border-left-color:var(--primary)}
@@ -294,8 +273,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .post-card-title{font-size:1.1rem}
 .post-card{flex-direction:column;align-items:stretch;gap:6px}
 .post-card-title{margin-bottom:4px}
-.post-card-body{flex-direction:row;gap:10px;align-items:center}
-.post-card-thumb{width:80px;aspect-ratio:4/3;order:0;margin-bottom:0}
+.post-card-body{flex-direction:row;gap:12px;align-items:center}
+.post-card-thumb{width:100px;aspect-ratio:4/3;order:0;margin-bottom:0}
 .post-card-meta{margin-top:4px;font-size:0.85rem;gap:8px}
 .post-single,.page-single,.comments-section{padding:10px;border-radius:6px}
 .pagination{padding:8px 10px}

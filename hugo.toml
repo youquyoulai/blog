@@ -60,6 +60,18 @@ capitalizeListTitles = false
   priority = 0.5
   filename = 'sitemap.xml'
 
+[minify]
+  minifyOutput = true
+  [minify.tdewolff]
+    [minify.tdewolff.html]
+      keepComments = false
+      keepWhitespace = false
+
+[imaging]
+  resampleFilter = "Lanczos"
+  quality = 82
+  anchor = "Smart"
+
 [markup]
   [markup.highlight]
     noClasses = false

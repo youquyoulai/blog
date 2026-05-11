@@ -58,14 +58,24 @@ async function listImages(request, env) {
   let objects = [];
 
   if (!prefix) {
-    // 根视图：列出所有「文件夹」（用 delimiter 模拟）
+    // 根视图：月份文件夹 + 根目录（虚拟文件夹显示无前缀的旧图片）
     const listed = await env.R2_BUCKET.list({ delimiter: '/', limit: 1000 });
-    // common prefixes = 文件夹
-    folders = (listed.delimitedPrefixes || []).map(function(p) {
-      return { name: p.replace(/\/$/, ''), prefix: p };
-    });
-    // 根目录下的零散文件（不含 / 的 key）
-    objects = (listed.objects || []);
+    const allObjects = listed.objects || [];
+    const allPrefixes = listed.delimitedPrefixes || [];
+
+    // 月份文件夹（如 2026-05/）
+    folders = allPrefixes
+      .filter(function(p) { return /^\d{4}-\d{2}\/$/.test(p); })
+      .map(function(p) { return { name: p.replace(/\/$/, ''), prefix: p }; });
+
+    // 根目录虚拟文件夹：无前缀的旧图片
+    const rootObjects = allObjects.filter(function(obj) { return obj.key.indexOf('/') === -1; });
+    if (rootObjects.length > 0) {
+      folders.unshift({ name: '根目录', prefix: '' });
+    }
+
+    // 文件列表只显示当前文件夹的内容（根视图 = 无前缀文件）
+    objects = rootObjects;
   } else {
     // 文件夹视图：列出该前缀下的对象和子文件夹
     const listed = await env.R2_BUCKET.list({ prefix: prefix, delimiter: '/', limit: 1000 });

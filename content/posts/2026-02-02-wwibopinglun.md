@@ -6,7 +6,7 @@ date: 2026-02-02
 lastmod: 2026-04-08
 slug: "wwibopinglun"
 categories: ['weibo']
-tags: ["博客", "AI"]
+tags: ["blog", "AI"]
 ---
 
 这几天还是一直在尝试用typecho分类页做微博说说页面，因为用评论页做的有很多不足的地方，比如没法用标签，微博没有独自的url。可用分类页做也有很大的困难：

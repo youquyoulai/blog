@@ -6,7 +6,7 @@ date: 2026-01-09
 lastmod: 2026-01-16
 slug: "xiaoyuanbaling"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 catalog: "0"
 ---
 

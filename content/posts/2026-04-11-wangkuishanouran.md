@@ -5,7 +5,7 @@ title: "偶然之下的必然，必然之下的偶然"
 date: 2026-04-11
 slug: "wangkuishanouran"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 thumb: "/img/webp/tu06.webp"
 ---
 

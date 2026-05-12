@@ -6,7 +6,7 @@ date: 2021-11-18
 lastmod: 2026-03-24
 slug: "wangxiaoboteliduxing"
 categories: ['guangan']
-tags: ["王小波", "认知"]
+tags: ["wangxiaobo", "cognition"]
 ---
 
 有人发状态说想做王小波笔下的那只特立独行的猪，我才意识到自己好长时间未曾想起那个桀骜不驯的家伙了，也没见过类似的敢于抗争的生物。

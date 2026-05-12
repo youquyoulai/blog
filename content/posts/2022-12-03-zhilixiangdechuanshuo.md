@@ -6,7 +6,7 @@ date: 2022-12-03
 lastmod: 2026-04-01
 slug: "zhilixiangdechuanshuo"
 categories: ['guangan']
-tags: ["文艺"]
+tags: ["literature"]
 ---
 
 今天看了两部电影。

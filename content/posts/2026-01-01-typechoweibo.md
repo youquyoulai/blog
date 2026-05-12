@@ -6,7 +6,7 @@ date: 2026-01-01
 lastmod: 2026-04-08
 slug: "typechoweibo"
 categories: ['weibo']
-tags: ["博客"]
+tags: ["blog"]
 ---
 
 用typecho实现微博功说说能有两个思路：用评论系统或分类页面。

@@ -6,7 +6,7 @@ date: 2021-12-21
 lastmod: 2026-03-31
 slug: "haojiefenghaodemeng"
 categories: ['guangan']
-tags: ["文艺"]
+tags: ["literature"]
 ---
 
 导演郝杰的《冯海的梦》让我想起很久以前看过的某些先锋性的小说。它的每一处断裂都像一个谜，诱使你去问为什么？它的每一个细节也都像一个谜，诱使你去想怎么会这样？

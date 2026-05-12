@@ -6,7 +6,7 @@ date: 2026-01-05
 lastmod: 2026-01-29
 slug: "aiduliboke"
 categories: ['guangan']
-tags: ["博客", "AI"]
+tags: ["blog", "AI"]
 catalog: "0"
 ---
 

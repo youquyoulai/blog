@@ -6,7 +6,7 @@ date: 2022-02-27
 lastmod: 2026-03-24
 slug: "sanshinianqiandelaoshi"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 ---
 
 我记得：因为个子矮，老师让班里的三名学生留级了。

@@ -6,7 +6,7 @@ date: 2024-06-13
 lastmod: 2026-03-25
 slug: "hanweiquanli"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 假如我是柏拉图洞穴前那个挣脱了束缚的人，我会选择继续看石壁上的影子。因为，那些晃动的影子与洞外的树同样是真实地存在。

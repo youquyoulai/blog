@@ -6,7 +6,7 @@ date: 2025-02-01
 lastmod: 2026-04-04
 slug: "duanpianxiaoshuoyiwei"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 邓力 小说《钓》

@@ -6,7 +6,7 @@ date: 2025-12-30
 lastmod: 2026-02-01
 slug: "wuyongdejiqing"
 categories: ['guangan']
-tags: ["博客", "认知"]
+tags: ["blog", "cognition"]
 catalog: "0"
 ---
 

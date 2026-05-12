@@ -6,7 +6,7 @@ date: 2026-04-12
 lastmod: 2026-04-15
 slug: "dulibokeAI"
 categories: ['guangan']
-tags: ["博客", "认知"]
+tags: ["blog", "cognition"]
 images:
   - /img/uploads/2026/04/1550736496.webp
 ---

@@ -6,7 +6,7 @@ date: 2026-01-08
 lastmod: 2026-04-08
 slug: "haoranzhengqi"
 categories: ['weibo']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 如我之辈偶尔对某些事情一本正经地说三道四时，内心中却未必像表现得那么底气十足。

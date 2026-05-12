@@ -6,7 +6,7 @@ date: 2022-11-23
 lastmod: 2026-04-01
 slug: "shuxuejiachenxingshen"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 ---
 
 对有的人来说，数学就是玩儿，玩着玩着就成大家了。对多数人来说，数学就是苦读，读着读着就成学渣了。

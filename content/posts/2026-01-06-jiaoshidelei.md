@@ -6,7 +6,7 @@ date: 2026-01-06
 lastmod: 2026-01-16
 slug: "jiaoshidelei"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 catalog: "0"
 ---
 

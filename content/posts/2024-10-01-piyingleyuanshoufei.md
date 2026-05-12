@@ -6,7 +6,7 @@ date: 2024-10-01
 lastmod: 2026-03-25
 slug: "piyingleyuanshoufei"
 categories: ['guangan']
-tags: ["出行"]
+tags: ["travel"]
 ---
 
 唐山皮影主题乐园收门票的时候去过几次，好像是九十多。那时候游客不是太多，停车方便，里面的项目基本是免费的，孩子们可以在里面疯玩一天。

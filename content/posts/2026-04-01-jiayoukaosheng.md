@@ -5,7 +5,7 @@ title: "或许家有考生的日子都差不多"
 date: 2026-04-01
 slug: "jiayoukaosheng"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 thumb: "/img/webp/tu09.webp"
 ---
 

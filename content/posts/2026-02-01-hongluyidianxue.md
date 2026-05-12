@@ -5,7 +5,7 @@ title: "红炉一点雪，笑意越千年"
 date: 2026-02-01
 slug: "hongluyidianxue"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 《红炉一点雪》出自宋朝张方平的《禅斋》，诗句如同“狐欲渡河，其奈尾何”一样很有画面感。

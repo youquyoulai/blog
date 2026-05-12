@@ -3,7 +3,7 @@ title: "关于hugo的Waline评论和转换教程"
 date: 2026-04-25T15:31:00+08:00
 url: "/archives/hugo-waline-tutorial.html"
 categories: ["jilu"]
-tags: ["博客"]
+tags: ["blog"]
 thumbnail: "/img/webp/tu05.webp"
 ---
 

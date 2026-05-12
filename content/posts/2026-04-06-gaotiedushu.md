@@ -6,7 +6,7 @@ date: 2026-04-06
 lastmod: 2026-04-08
 slug: "gaotiedushu"
 categories: ['weibo']
-tags: ["认知"]
+tags: ["cognition"]
 images:
   - /img/uploads/2026/04/1966243681.webp
 ---

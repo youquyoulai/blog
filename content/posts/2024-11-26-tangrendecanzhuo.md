@@ -6,7 +6,7 @@ date: 2024-11-26
 lastmod: 2026-03-25
 slug: "tangrendecanzhuo"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 孑与2的小说《唐人的餐桌》开笔后，我就在起点读书和QQ阅读上追了很长时间，大概有七八百章。后来想换换其他口味，就安装了番茄免费小说。这段时间，又在喜马拉雅上听有声版的《唐餐》了。

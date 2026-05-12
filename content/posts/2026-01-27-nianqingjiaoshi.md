@@ -5,7 +5,7 @@ title: "两难的学生和教师"
 date: 2026-01-27
 slug: "nianqingjiaoshi"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 ---
 
 小区里闲聊时，有人提到孩子班上的英语老师——一位刚上岗的年轻教师——被全班投票换掉了，接着说起这位老师教学如何不行。这让我想起了自己的一段经历。

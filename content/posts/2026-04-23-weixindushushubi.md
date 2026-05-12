@@ -6,7 +6,7 @@ date: 2026-04-23
 lastmod: 2026-04-23
 slug: "weixindushushubi"
 categories: ['weibo']
-tags: ["软件"]
+tags: ["software"]
 images:
   - /img/uploads/2026/04/1336191206.webp
 ---

@@ -6,7 +6,7 @@ date: 2026-01-07
 lastmod: 2026-04-08
 slug: "banyinzhe"
 categories: ['weibo']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 若干年前，如我之辈酷爱呼朋引伴喝酒聚餐，喜觥筹交错中称兄道弟，好烟雾缭绕时侃天说地。

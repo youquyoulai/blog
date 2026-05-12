@@ -6,7 +6,7 @@ date: 2021-07-16
 lastmod: 2026-04-01
 slug: "yunchudeaoman"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 有人晒出了被某人文科技学院录取的帖子，评论中有祝福的也有指出此学院乃三本民办院校的，更有人说钱多、分低、学渣。

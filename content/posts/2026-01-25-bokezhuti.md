@@ -6,7 +6,7 @@ date: 2026-01-25
 lastmod: 2026-01-29
 slug: "bokezhuti"
 categories: ['guangan']
-tags: ["博客", "AI"]
+tags: ["blog", "AI"]
 ---
 
 一个多星期来，大部分闲暇时间都在与AI沟通，对主题进行各种调试，有时候是重构，有时候是增加功能、精简和优化代码……

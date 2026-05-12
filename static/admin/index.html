@@ -387,12 +387,18 @@
         <input type="text" class="editor-title-input" id="postTitle" placeholder="文章标题">
         <div class="editor-meta">
           <input type="text" class="meta-input" id="postDate" placeholder="日期 2026-05-06">
-          <input type="text" class="meta-input" id="postCategory" placeholder="分类 guanwu/jilu">
-          <input type="text" class="meta-input" id="postTags" placeholder="标签 用逗号分隔">
+          <input type="text" class="meta-input" id="postCategory" placeholder="分类 guanwu/jilu" list="catDatalist">
+          <input type="text" class="meta-input" id="postTags" placeholder="标签 用逗号分隔" list="tagDatalist">
           <input type="text" class="meta-input" id="postSlug" placeholder="slug">
           <input type="text" class="meta-input" id="postCover" placeholder="封面图" style="flex:1;min-width:200px;">
           <button class="btn btn-sm" onclick="showCoverPicker()">选封面</button>
         </div>
+        <!-- 分类/标签提示框 -->
+        <datalist id="catDatalist">
+          <option value="guanwu">
+          <option value="jilu">
+        </datalist>
+        <datalist id="tagDatalist"></datalist>
       </div>
       <div class="editor-toolbar">
         <button class="toolbar-btn" onclick="insertAtLine('---')" title="分割线">分割线</button>
@@ -606,6 +612,33 @@ function api(path, method, body) {
 }
 
 /* ===== Tab 切换 ===== */
+// 缓存已加载的分类/标签，用于输入框下拉提示
+var _taxonomyHintsLoaded = false;
+
+async function loadTaxonomyHints() {
+  if (_taxonomyHintsLoaded) return;
+  try {
+    var data = await api('/api/taxonomies');
+    // 填充分类提示
+    var catList = document.getElementById('catDatalist');
+    catList.innerHTML = '';
+    (data.categories || []).forEach(function(c) {
+      var opt = document.createElement('option');
+      opt.value = c.name;
+      catList.appendChild(opt);
+    });
+    // 填充标签提示
+    var tagList = document.getElementById('tagDatalist');
+    tagList.innerHTML = '';
+    (data.tags || []).forEach(function(t) {
+      var opt = document.createElement('option');
+      opt.value = t.name;
+      tagList.appendChild(opt);
+    });
+    _taxonomyHintsLoaded = true;
+  } catch(e) {}
+}
+
 function switchTab(name) {
   document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
   document.getElementById('tab-' + name).classList.add('active');
@@ -620,6 +653,7 @@ function switchTab(name) {
   if (name === 'links') loadLinks();
   if (name === 'pages') loadPages();
   if (name === 'settings') checkApi();
+  if (name === 'editor') loadTaxonomyHints();
 }
 
 /* ===== 工具函数 ===== */
@@ -1087,6 +1121,7 @@ function newPost() {
   // 记录当前所在月份，新建文章自动放入该月
   window._newPostPrefix = currentPostPrefix;
   switchTab('editor');
+  loadTaxonomyHints();
 }
 
 async function editPost(filename) {

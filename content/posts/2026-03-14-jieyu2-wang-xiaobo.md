@@ -6,7 +6,7 @@ date: 2026-03-14
 lastmod: 2026-03-25
 slug: "jieyu2-wang-xiaobo"
 categories: ['guangan']
-tags: ["阅读", "王小波"]
+tags: ["reading", "wangxiaobo"]
 thumb: "/img/webp/tu10.webp"
 ---
 

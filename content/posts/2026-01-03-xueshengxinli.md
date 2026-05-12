@@ -6,7 +6,7 @@ date: 2026-01-03
 lastmod: 2026-04-08
 slug: "xueshengxinli"
 categories: ['jilu']
-tags: ["教育"]
+tags: ["education"]
 ---
 
 多数时候，学校的采取何教育管理种模式取决于社会的需求。

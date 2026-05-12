@@ -6,7 +6,7 @@ date: 2026-03-05
 lastmod: 2026-03-05
 slug: "xitonghunluan"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 读了一本书后想到的——

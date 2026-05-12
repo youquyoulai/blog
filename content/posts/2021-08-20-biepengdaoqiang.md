@@ -6,7 +6,7 @@ date: 2021-08-20
 lastmod: 2026-03-31
 slug: "biepengdaoqiang"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 翻阅杂志，偶然看到一个小故事：

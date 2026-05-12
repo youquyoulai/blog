@@ -6,7 +6,7 @@ date: 2026-02-05
 lastmod: 2026-02-05
 slug: "jiatingbeijing"
 categories: ['guangan']
-tags: ["阅读", "情感"]
+tags: ["reading", "emotion"]
 ---
 
 读了杨碧薇2021年发表在《诗刊》上的《家庭背景》：

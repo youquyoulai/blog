@@ -5,7 +5,7 @@ title: "手机铃声依然是《新长征路上的摇滚》"
 date: 2026-04-05
 slug: "cuijianyaogunxinchangzheng"
 categories: ['guangan']
-tags: ["摇滚"]
+tags: ["rock"]
 images:
   - /img/uploads/2026/04/2417059226.webp
 ---

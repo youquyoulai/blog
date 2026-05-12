@@ -5,7 +5,7 @@ title: "张三的一天，许三观的猪肝"
 date: 2026-02-28
 slug: "chencunyitian"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 陈村的小说《一天》分为四个小节：

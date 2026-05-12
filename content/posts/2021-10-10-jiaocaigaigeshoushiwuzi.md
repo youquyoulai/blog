@@ -6,7 +6,7 @@ date: 2021-10-10
 lastmod: 2026-03-31
 slug: "jiaocaigaigeshoushiwuzi"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 ---
 
 我们的教材改革专家有时候就像爱收拾屋子的家庭妇女：

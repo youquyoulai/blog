@@ -6,7 +6,7 @@ date: 2026-01-14
 lastmod: 2026-02-04
 slug: "wusuoweiyouyiyo"
 categories: ['guangan']
-tags: ["阅读", "认知"]
+tags: ["reading", "cognition"]
 ---
 
 一个人游遍了世界各国，一个人蜗居县城多年，你说哪种生活更有意义？

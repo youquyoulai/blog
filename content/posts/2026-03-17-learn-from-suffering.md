@@ -6,7 +6,7 @@ date: 2026-03-17
 lastmod: 2026-03-25
 slug: "learn-from-suffering"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 thumb: "/img/webp/tu06.webp"
 ---
 

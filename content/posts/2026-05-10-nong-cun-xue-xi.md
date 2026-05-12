@@ -3,7 +3,7 @@ title: "手机不是孩子不愿意学习的主因"
 date: 2026-05-10T19:12:00+08:00
 cover: "@image:haizishuashouji.webp"
 categories: [guangan]
-tags: ["教育"]
+tags: ["education"]
 slug: "nong-cun-xue-xi"
 ---
 有人说，农村学校现在愿意学习的孩子不足五分之一，绝大多数孩子都沉迷手机无法自拔。

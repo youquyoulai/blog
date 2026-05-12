@@ -6,7 +6,7 @@ date: 2024-10-24
 lastmod: 2026-03-25
 slug: "daolanghuigui"
 categories: ['guangan']
-tags: ["文艺"]
+tags: ["literature"]
 ---
 
 看了篇帖子《刀郎回归，打了谁的脸?》，主旨是说对歌手刀郎复出不要吹捧过度，还是要评事客观，论事理智。

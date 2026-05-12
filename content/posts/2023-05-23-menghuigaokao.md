@@ -6,7 +6,7 @@ date: 2023-05-23
 lastmod: 2026-03-25
 slug: "menghuigaokao"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 ---
 
 即便毕业很多年，我依然偶尔会梦见高中课堂、高三考试和高考。比如：

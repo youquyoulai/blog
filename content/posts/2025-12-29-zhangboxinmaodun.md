@@ -6,7 +6,7 @@ date: 2025-12-29
 lastmod: 2026-01-30
 slug: "zhangboxinmaodun"
 categories: ['guangan']
-tags: ["文艺", "认知"]
+tags: ["literature", "cognition"]
 catalog: "0"
 ---
 

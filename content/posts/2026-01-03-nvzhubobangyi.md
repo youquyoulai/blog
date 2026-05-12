@@ -6,7 +6,7 @@ date: 2026-01-03
 lastmod: 2026-01-29
 slug: "nvzhubobangyi"
 categories: ['guangan']
-tags: ["阅读", "情感"]
+tags: ["reading", "emotion"]
 catalog: "0"
 ---
 

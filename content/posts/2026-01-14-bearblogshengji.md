@@ -6,7 +6,7 @@ date: 2026-01-14
 lastmod: 2026-01-16
 slug: "bearblogshengji"
 categories: ['guangan']
-tags: ["博客"]
+tags: ["blog"]
 catalog: "0"
 ---
 

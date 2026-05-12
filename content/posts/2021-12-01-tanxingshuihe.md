@@ -6,7 +6,7 @@ date: 2021-12-01
 lastmod: 2026-03-31
 slug: "tanxingshuihe"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 在王国华的文章《文学点滴录》中看到：

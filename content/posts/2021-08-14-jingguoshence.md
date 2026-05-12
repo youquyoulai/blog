@@ -6,7 +6,7 @@ date: 2021-08-14
 lastmod: 2026-03-31
 slug: "jingguoshence"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 靖国神社是啥玩意儿，有人说真的不知道。我对这种不知道感到颇为费解，就像看到有人在厕所门前犹豫迷茫。

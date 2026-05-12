@@ -6,7 +6,7 @@ date: 2025-12-31
 lastmod: 2026-01-30
 slug: "geyouxiai"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 catalog: "0"
 ---
 

@@ -6,7 +6,7 @@ date: 2021-06-05
 lastmod: 2026-03-24
 slug: "sugeladilaopo"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 下面这两则丈夫被老婆当面兜头泼水的轶闻出自余世存《非常道》:

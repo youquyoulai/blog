@@ -6,7 +6,7 @@ date: 2026-01-16
 lastmod: 2026-01-29
 slug: "deepseekditu"
 categories: ['guangan']
-tags: ["博客", "AI"]
+tags: ["blog", "AI"]
 catalog: "0"
 ---
 

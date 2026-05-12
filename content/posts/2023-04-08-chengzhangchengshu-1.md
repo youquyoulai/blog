@@ -6,7 +6,7 @@ date: 2023-04-08
 lastmod: 2026-03-25
 slug: "chengzhangchengshu-1"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 每个人在每个阶段都自以为长大了成熟了。

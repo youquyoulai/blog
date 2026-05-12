@@ -6,7 +6,7 @@ date: 2025-12-22
 lastmod: 2026-01-16
 slug: "yangyibingdian"
 categories: ['guangan']
-tags: ["文艺"]
+tags: ["literature"]
 catalog: "0"
 ---
 

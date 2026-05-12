@@ -6,7 +6,7 @@ date: 2026-03-16
 lastmod: 2026-03-25
 slug: "indifferent-to-surroundings"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 thumb: "/img/webp/tu07.webp"
 ---
 

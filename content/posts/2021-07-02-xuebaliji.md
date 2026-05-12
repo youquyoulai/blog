@@ -6,7 +6,7 @@ date: 2021-07-02
 lastmod: 2026-03-24
 slug: "xuebaliji"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 网络上，不时有人会抱怨说如今当老师的都是上学时班里学习成绩一般甚至很渣的学生，并借此表示对自己孩子的将来担忧。这不，刚刚又看到有人吐槽了：

@@ -6,7 +6,7 @@ date: 2026-02-10
 lastmod: 2026-02-24
 slug: "baoyuanyuwang"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 作为欲望动物，人都是有了的还想有，没有的总盼望。无论是不是自己能得到的，心态都如阿Q一样：和尚摸得，我就摸不得？

@@ -6,7 +6,7 @@ date: 2026-03-13
 lastmod: 2026-03-13
 slug: "from-deepin-back-to-windows"
 categories: ['guangan']
-tags: ["软件"]
+tags: ["software"]
 ---
 
 昨天，我将笔记本电脑的系统换成了 deepin，过程颇为曲折。原本尝试安装 2.5 版本，却一直卡在黑屏上无法解决，最后只好改用 2.3 版本才成功。然而今天，我又将系统换回了 Windows，原因如下：

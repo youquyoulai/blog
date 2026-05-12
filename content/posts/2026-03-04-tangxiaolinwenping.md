@@ -5,7 +5,7 @@ title: "唐小林的近期文评有些无趣"
 date: 2026-03-04
 slug: "tangxiaolinwenping"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 我以前关注过“文学自由谈”的公众号，那时候几乎每期都会有唐小林的文章。

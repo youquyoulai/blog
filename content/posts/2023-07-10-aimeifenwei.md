@@ -6,7 +6,7 @@ date: 2023-07-10
 lastmod: 2026-03-25
 slug: "aimeifenwei"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 很多时候，是非对错本身是不难明辨的。难的是，你被不辨是非的氛围裹挟着却没有突围的勇气与能力。

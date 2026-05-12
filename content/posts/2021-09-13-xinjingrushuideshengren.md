@@ -6,7 +6,7 @@ date: 2021-09-13
 lastmod: 2026-03-31
 slug: "xinjingrushuideshengren"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 美国的911袭击又引来了无数争吵，有人觉得漂亮国是自作孽，活该。有人认为911是恐怖袭击，指责那些幸灾乐祸的是在支持恐怖组织，极端偏激。

@@ -6,7 +6,7 @@ date: 2025-12-20
 lastmod: 2026-02-01
 slug: "dutedejianchi"
 categories: ['guangan']
-tags: ["阅读", "认知"]
+tags: ["reading", "cognition"]
 catalog: "0"
 ---
 

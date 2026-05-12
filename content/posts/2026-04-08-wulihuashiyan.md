@@ -6,7 +6,7 @@ date: 2026-04-08
 lastmod: 2026-04-13
 slug: "wulihuashiyan"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 thumb: "/img/webp/tu02.webp"
 ---
 

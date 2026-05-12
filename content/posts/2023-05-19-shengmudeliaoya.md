@@ -6,7 +6,7 @@ date: 2023-05-19
 lastmod: 2026-03-25
 slug: "shengmudeliaoya"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 很多时候，人就是这样。与己无关就罩着圣母的光辉，与己有关则露出尖利的獠牙。事不关己时，站在道德制高点或公平正义那边激昂文字。事若关己时，利益优先教导过别人的‘吃亏是福’犹如狗屁。

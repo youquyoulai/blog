@@ -6,7 +6,7 @@ date: 2024-08-30
 lastmod: 2026-03-25
 slug: "sanbuwangluoxiaoshuo"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 这段时间一直在番茄上看小说，半看半听。

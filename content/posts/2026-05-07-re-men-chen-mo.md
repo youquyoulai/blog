@@ -3,7 +3,7 @@ title: "热门事件上的谨言慎行"
 date: 2026-05-07T09:00:00+08:00
 cover: "@image:tu05.webp"
 categories: [guangan]
-tags: ["认知"]
+tags: ["cognition"]
 slug: "re-men-chen-mo"
 ---
 在‘网络时有话题出，各领风骚三五天’的时代，刷视频、看新闻免不了耳闻目染一些热门事件。如我之辈从不会在事件刚爆发时，就急匆匆地摆出义正辞严的姿态，更不会跟风起哄、推波助澜。

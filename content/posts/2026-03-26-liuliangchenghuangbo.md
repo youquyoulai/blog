@@ -6,7 +6,7 @@ date: 2026-03-26
 lastmod: 2026-03-26
 slug: "liuliangchenghuangbo"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 刘亮程散文集《一个人的村庄》第二篇《我改变的事物》中写到：

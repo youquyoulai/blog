@@ -6,7 +6,7 @@ date: 2026-03-23
 lastmod: 2026-03-25
 slug: "kuaishou-zero-yuan-shopping"
 categories: ['guangan']
-tags: ["购物"]
+tags: ["shopping"]
 thumb: "/img/webp/tu02.webp"
 ---
 

@@ -6,7 +6,7 @@ date: 2024-12-16
 lastmod: 2026-03-25
 slug: "huangdiqiguayan"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 《好歹也是个皇帝》

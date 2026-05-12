@@ -6,7 +6,7 @@ date: 2026-02-25
 lastmod: 2026-02-25
 slug: "zhangshanggongjiao"
 categories: ['guangan']
-tags: ["出行"]
+tags: ["travel"]
 ---
 
 我已经好些年没坐过公交车了。

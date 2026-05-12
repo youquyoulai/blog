@@ -5,7 +5,7 @@ title: "纸书与电子书就像包子和饺子"
 date: 2026-02-07
 slug: "zhishudianzishu"
 categories: ['guangan']
-tags: ["阅读", "认知"]
+tags: ["reading", "cognition"]
 ---
 
 在某社区，纸质书成了热门话题。不少人谈论说，相比电子书，纸书能带来更深的沉浸感，更能呈现阅读过程中的心路轨迹。

@@ -5,7 +5,7 @@ title: "罪恶之链的终结与延续"
 date: 2026-04-04
 slug: "buheshiyideren"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 thumb: "/img/webp/tu04.webp"
 ---
 

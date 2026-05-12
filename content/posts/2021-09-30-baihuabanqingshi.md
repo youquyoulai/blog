@@ -6,7 +6,7 @@ date: 2021-09-30
 lastmod: 2026-03-31
 slug: "baihuabanqingshi"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 据说白话文的《清史》出版了，洋洋洒洒三千多万字。有人发牢骚那么厚重的图书谁会买谁会看，文言文版本的多经济实惠。有人反驳说时代发展了社会进步了，白话文也能记录历史。

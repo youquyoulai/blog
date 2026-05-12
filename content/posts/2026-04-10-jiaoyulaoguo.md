@@ -6,7 +6,7 @@ date: 2026-04-10
 lastmod: 2026-04-10
 slug: "jiaoyulaoguo"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 thumb: "/img/webp/tu03.webp"
 ---
 

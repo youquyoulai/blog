@@ -6,7 +6,7 @@ date: 2025-12-27
 lastmod: 2026-02-01
 slug: "tanpianyishangdang"
 categories: ['guangan']
-tags: ["购物", "认知"]
+tags: ["shopping", "cognition"]
 catalog: "0"
 ---
 

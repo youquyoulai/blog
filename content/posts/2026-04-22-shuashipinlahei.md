@@ -5,7 +5,7 @@ title: "说话是你的权利，拉黑是我的自由"
 date: 2026-04-22
 slug: "shuashipinlahei"
 categories: ['guangan']
-tags: ["认知", "软件"]
+tags: ["cognition", "software"]
 thumb: "/img/webp/tu12.webp"
 ---
 

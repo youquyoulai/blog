@@ -6,7 +6,7 @@ date: 2026-01-11
 lastmod: 2026-01-16
 slug: "guangboke"
 categories: ['guangan']
-tags: ["博客"]
+tags: ["blog"]
 catalog: "0"
 ---
 

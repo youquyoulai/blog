@@ -6,7 +6,7 @@ date: 2026-01-07
 lastmod: 2026-01-30
 slug: "meishitouzhele"
 categories: ['guangan']
-tags: ["西西佛斯", "认知"]
+tags: ["sisyphus", "cognition"]
 catalog: "0"
 ---
 

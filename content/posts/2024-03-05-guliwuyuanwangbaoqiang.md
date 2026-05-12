@@ -6,7 +6,7 @@ date: 2024-03-05
 lastmod: 2026-03-25
 slug: "guliwuyuanwangbaoqiang"
 categories: ['guangan']
-tags: ["文艺"]
+tags: ["literature"]
 ---
 
 被全镇居民无视、厌恶的女主在奋力杀死三个入侵地球的外星人后，发现身边人都已活在寄生体营造出的幸福幻境中，于是选择了融入其中开启美好生活时代。

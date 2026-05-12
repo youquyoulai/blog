@@ -6,7 +6,7 @@ date: 2026-03-29
 lastmod: 2026-03-29
 slug: "xueshengxiyan"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 thumb: "/img/webp/tu11.webp"
 ---
 

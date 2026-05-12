@@ -6,7 +6,7 @@ date: 2024-03-11
 lastmod: 2026-03-25
 slug: "xiaoxuekeben"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 ---
 
 作为一名小学生的家长，我深感孩子的学习需要全程陪伴和指导。孩子一写作业就家里鸡飞狗跳，完全是人祸所造之孽。

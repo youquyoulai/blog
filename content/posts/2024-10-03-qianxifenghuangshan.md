@@ -6,7 +6,7 @@ date: 2024-10-03
 lastmod: 2026-03-25
 slug: "qianxifenghuangshan"
 categories: ['guangan']
-tags: ["出行"]
+tags: ["travel"]
 ---
 
 昨晚寻找游玩的地方，开始定的是蓟州的盘山。无意间，在某红书上发现一篇一小时前发布的图文，主要是说国庆期间盘山停车紧张，排队时间太长。于是，放弃了盘山。

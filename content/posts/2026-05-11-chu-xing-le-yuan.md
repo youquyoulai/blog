@@ -3,7 +3,7 @@ title: "家门口的亲子乐园越来越多了"
 date: 2026-05-11T15:15:00+08:00
 cover: "@image:2026slt/tu04.webp"
 categories: [jilu]
-tags: ["出行"]
+tags: ["travel"]
 slug: "chu-xing-le-yuan"
 ---
 周末，有时我会带孩子去主题公园或游乐场玩。由于时间有限，活动范围基本上在百八十里以内。

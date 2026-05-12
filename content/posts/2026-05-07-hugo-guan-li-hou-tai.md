@@ -3,7 +3,7 @@ title: "完成Hugo博客图片和文章管理后台"
 date: 2026-05-07T21:05:00+08:00
 cover: "@image:houtaibianjiqi-300.webp"
 categories: [jilu]
-tags: ["博客"]
+tags: ["blog"]
 slug: "hugo-guan-li-hou-tai"
 ---
 这两天一直在忙一件事：做一个 Hugo 的管理后台。起因是，用了一段时间 PocketHugo 后，渐渐感到一些使用上的不便。比如它的图文一体（图片和文件放在同一个文件夹里），再比如它的操作界面……

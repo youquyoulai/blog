@@ -6,7 +6,7 @@ date: 2026-02-04
 lastmod: 2026-02-04
 slug: "bokehuifang"
 categories: ['guangan']
-tags: ["博客", "认知"]
+tags: ["blog", "cognition"]
 ---
 
 前不久刚接触BearBlog时，我一度十分兴奋——它几乎满足了我对一个免费博客的全部想象：界面简洁、没有广告，而且速度极快。可当我准备付费升级时，却犹豫了很久，主要原因是它没有自带评论区，最多只能嵌入第三方留言板。

@@ -6,7 +6,7 @@ date: 2026-03-24
 lastmod: 2026-03-25
 slug: "chuanyuexiaoshuo"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 thumb: "/img/webp/tu01.webp"
 ---
 

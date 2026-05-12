@@ -6,7 +6,7 @@ date: 2021-11-28
 lastmod: 2026-03-31
 slug: "kanhaizishengxing"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 ---
 
 据说石家庄一位母亲将宝宝放在斑马线上后掏出手机对着宝宝录视频，完全无视来往车辆。路人进行疑劝阻，该女子却回答说：他玩的挺高兴，我还省事了，挺好。

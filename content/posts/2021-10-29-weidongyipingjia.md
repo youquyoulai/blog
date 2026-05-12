@@ -6,7 +6,7 @@ date: 2021-10-29
 lastmod: 2026-03-31
 slug: "weidongyipingjia"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 以下是刚看到的有人对韦东奕的评价：

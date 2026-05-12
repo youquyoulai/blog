@@ -6,7 +6,7 @@ date: 2024-11-01
 lastmod: 2026-03-25
 slug: "rensuxihuangyuan"
 categories: ['guangan']
-tags: ["文艺"]
+tags: ["literature"]
 ---
 
 看了会儿任素汐主演的电影《荒原》，整个过程基本上是刷刷手机看两眼电影或者忙活点儿其他事再看两眼电影，这种感觉就像年三十的时候一家人坐在炕头边吃边喝边聊边看春晚，

@@ -6,7 +6,7 @@ date: 2022-10-03
 lastmod: 2026-03-25
 slug: "fangxiafangbuxia"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 有人说人到了一定年纪，必须扔掉这四样东西：没意义的酒局、不爱你的人、看不起你的亲戚和虚情假意的朋友。

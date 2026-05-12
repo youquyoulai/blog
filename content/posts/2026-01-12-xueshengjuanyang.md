@@ -6,7 +6,7 @@ date: 2026-01-12
 lastmod: 2026-04-08
 slug: "xueshengjuanyang"
 categories: ['weibo']
-tags: ["教育", "认知"]
+tags: ["education", "cognition"]
 ---
 
 对学生课间圈养是年年都有人痛批，人人都在痛批的问题，之所以十多年了问题依旧甚或愈演愈烈，根源在于不管学生出了啥安全问题，所有的责任最终都是学校来背老师来抗。

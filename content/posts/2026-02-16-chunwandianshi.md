@@ -6,7 +6,7 @@ date: 2026-02-16
 lastmod: 2026-02-24
 slug: "chunwandianshi"
 categories: ['guangan']
-tags: ["节日", "情感"]
+tags: ["holiday", "emotion"]
 ---
 
 印象中，小时候有好几年，除夕夜的春晚都是在邻居家看的。那时一个村子不过两三台电视，只有家境较好、有正式工作的人家才买得起。

@@ -6,7 +6,7 @@ date: 2026-03-02
 lastmod: 2026-03-21
 slug: "bearblog-add-microblog-feature-and-homepage-call"
 categories: ['guangan']
-tags: ["博客"]
+tags: ["blog"]
 ---
 
 bearblog实现类似微博的功能还挺简单的，因为bearblog支持调用文章全部内容。具体操作步骤如下：

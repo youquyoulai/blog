@@ -6,7 +6,7 @@ date: 2026-01-12
 lastmod: 2026-04-08
 slug: "danshenyudingke"
 categories: ['weibo']
-tags: ["情感", "认知"]
+tags: ["emotion", "cognition"]
 ---
 
 不管是选择单身还是丁克，都免不了面对世俗观念、习惯、规范的冲击。

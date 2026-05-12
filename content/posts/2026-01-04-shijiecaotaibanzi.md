@@ -6,7 +6,7 @@ date: 2026-01-04
 lastmod: 2026-01-30
 slug: "shijiecaotaibanzi"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 catalog: "0"
 ---
 

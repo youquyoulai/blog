@@ -3,7 +3,7 @@ title: "讲解数学题目不能蝎子教徒弟"
 date: 2026-05-09T09:10:00+08:00
 cover: "@image:shuxuetiziranshupingfang-300.webp"
 categories: [guangan]
-tags: ["教育"]
+tags: ["education"]
 slug: "shu-xue-zi-ran-shu"
 ---
 刚刚刷到一个讲解七年级数学题目的视频，题目及答案图所示。

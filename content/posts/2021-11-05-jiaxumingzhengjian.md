@@ -6,7 +6,7 @@ date: 2021-11-05
 lastmod: 2026-03-31
 slug: "jiaxumingzhengjian"
 categories: ['guangan']
-tags: ["文艺"]
+tags: ["literature"]
 ---
 
 有人放出了2021年非遗相声大会上贾旭明与郑建合说的相声《神话新说》，给的评价是奇思妙想妙语连珠。

@@ -6,7 +6,7 @@ date: 2026-03-21
 lastmod: 2026-03-25
 slug: "high-quality-human-nonsense"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 thumb: "/img/webp/tu03.webp"
 ---
 

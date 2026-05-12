@@ -5,7 +5,7 @@ title: "本山大叔让《扶不扶》有了年味儿"
 date: 2026-01-17
 slug: "zhaobenshanfubufu"
 categories: ['guangan']
-tags: ["文艺"]
+tags: ["literature"]
 catalog: "0"
 ---
 

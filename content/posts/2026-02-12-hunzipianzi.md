@@ -6,7 +6,7 @@ date: 2026-02-12
 lastmod: 2026-02-24
 slug: "hunzipianzi"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 耍笔杆子的文痞与走江湖的骗子一旦同流合污，便总会上演种种恬不知耻的闹剧与骗局。

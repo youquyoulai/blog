@@ -6,7 +6,7 @@ date: 2026-02-27
 lastmod: 2026-03-03
 slug: "baidujizei"
 categories: ['guangan']
-tags: ["软件"]
+tags: ["software"]
 images:
   - /img/uploads/2026/03/3064020482.webp
 ---

@@ -6,7 +6,7 @@ date: 2026-01-13
 lastmod: 2026-02-03
 slug: "yanqianshenbian"
 categories: ['weibo']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 无论你怎样低头，流下的汗水冲不尽你心头的欲望。

@@ -6,7 +6,7 @@ date: 2026-03-13
 lastmod: 2026-03-13
 slug: "Justice-may-be-delayed"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 有两句话，我始终喜欢不起来。

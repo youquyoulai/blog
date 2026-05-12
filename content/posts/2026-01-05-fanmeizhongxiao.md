@@ -6,7 +6,7 @@ date: 2026-01-05
 lastmod: 2026-01-16
 slug: "fanmeizhongxiao"
 categories: ['guangan']
-tags: ["王小波"]
+tags: ["wangxiaobo"]
 catalog: "0"
 ---
 

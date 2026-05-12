@@ -6,7 +6,7 @@ date: 2026-01-01
 lastmod: 2026-02-05
 slug: "tangshanpoyingzhutigongyuan"
 categories: ['guangan']
-tags: ["出行"]
+tags: ["travel"]
 catalog: "0"
 ---
 

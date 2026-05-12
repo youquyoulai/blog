@@ -6,7 +6,7 @@ date: 2021-05-28
 lastmod: 2026-03-24
 slug: "shirenjingqiaoqiao"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 在1998年6月份的《读者》上读到了一首小诗《雨和诗人》：

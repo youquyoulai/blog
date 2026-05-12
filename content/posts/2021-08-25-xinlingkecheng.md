@@ -6,7 +6,7 @@ date: 2021-08-25
 lastmod: 2026-03-24
 slug: "xinlingkecheng"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 有媒体发了标题为《9天学费超过3万！“心灵课程”每天封闭上课18小时，学员互斥“你就是不要脸”》文章，内容我没看，单单是‘心灵课堂’就打消了我阅读的兴趣。

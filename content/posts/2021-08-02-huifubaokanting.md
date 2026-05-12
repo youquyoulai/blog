@@ -6,7 +6,7 @@ date: 2021-08-02
 lastmod: 2026-03-31
 slug: "huifubaokanting"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 一上海初中生致信《中国青年报》，呼吁恢复报刊亭，有人赞成有人反对。我对这事挺悲观的，那些赞成的人不妨想想：

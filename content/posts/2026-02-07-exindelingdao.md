@@ -5,7 +5,7 @@ title: "恶心的领导"
 date: 2026-02-07
 slug: "exindelingdao"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 有工人干活儿，边干边和我扯闲篇儿，扯着扯着就说起了其单位领导：

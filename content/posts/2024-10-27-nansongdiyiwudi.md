@@ -6,7 +6,7 @@ date: 2024-10-27
 lastmod: 2026-03-25
 slug: "nansongdiyiwudi"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 边读边听《南宋第一卧底》到近九百章弃书了。

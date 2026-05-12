@@ -6,7 +6,7 @@ date: 2026-02-24
 lastmod: 2026-02-25
 slug: "baipiaofufei"
 categories: ['guangan']
-tags: ["教育"]
+tags: ["education"]
 ---
 
 我经常上吾爱破解转转，不过通常也就是在水漫金山板块看看闲聊，至于软件安全和福利分享，倒是不怎么关注。

@@ -6,7 +6,7 @@ date: 2026-03-12
 lastmod: 2026-03-12
 slug: "you-tianjie-supports-jia-pingwa"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 images:
   - /img/uploads/2026/03/3139728353.webp
 ---

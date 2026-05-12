@@ -6,7 +6,7 @@ date: 2021-10-20
 lastmod: 2026-03-31
 slug: "liuliangmingxing"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 从某个角度讲，有时候，我们的说三道四挺可笑的，比如对流量明星的指责。

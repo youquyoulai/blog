@@ -6,7 +6,7 @@ date: 2026-03-30
 lastmod: 2026-03-30
 slug: "yanglireyi"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 thumb: "/img/webp/tu10.webp"
 ---
 

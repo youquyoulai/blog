@@ -6,7 +6,7 @@ date: 2026-01-15
 lastmod: 2026-04-08
 slug: "shipinlahei"
 categories: ['weibo']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 我有时也会刷刷短视频，也会翻看一下评论区，每每看到自己不喜欢的文案、观点、认知、表达方式就顺手拉黑博主或评论者。

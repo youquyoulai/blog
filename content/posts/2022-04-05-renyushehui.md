@@ -6,7 +6,7 @@ date: 2022-04-05
 lastmod: 2026-03-25
 slug: "renyushehui"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 李时收到了朋友王磊发来的邮件，内容是：李时，帮我一个忙呗。李时回了过去：有什么事尽管说，咱兄弟没啥客气的。另：昨天收到你寄来的特产，已拆开，很好吃啊。

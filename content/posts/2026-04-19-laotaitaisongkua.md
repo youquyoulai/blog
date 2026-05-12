@@ -6,7 +6,7 @@ date: 2026-04-19
 lastmod: 2026-04-20
 slug: "laotaitaisongkua"
 categories: ['weibo']
-tags: ["认知"]
+tags: ["cognition"]
 thumb: "/img/webp/tu03.webp"
 ---
 

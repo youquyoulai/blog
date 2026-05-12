@@ -6,7 +6,7 @@ date: 2023-06-22
 lastmod: 2026-03-25
 slug: "zaidayangkaijiuguan"
 categories: ['guangan']
-tags: ["阅读"]
+tags: ["reading"]
 ---
 
 在某听书APP上搜到小说《我在大唐开酒馆》，看评分高达9.2就听了几天。

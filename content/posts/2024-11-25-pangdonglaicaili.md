@@ -6,7 +6,7 @@ date: 2024-11-25
 lastmod: 2026-03-25
 slug: "pangdonglaicaili"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 ---
 
 这几天，胖东来给员工提出的‘明年起结婚不能要付彩礼，酒席最多5桌，做不到就取消一切福利’的要求引发了热议。

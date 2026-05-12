@@ -6,7 +6,7 @@ date: 2023-08-17
 lastmod: 2026-04-01
 slug: "kongbulvguan"
 categories: ['guangan']
-tags: ["文艺"]
+tags: ["literature"]
 ---
 
 中午看了12年的电影《恐怖旅馆》，这部电影通过不断重新演绎男女主人公在梦中以及醒来后的选择与境遇，展示了并不新鲜的主题：疑心生暗鬼，爱情要真诚。

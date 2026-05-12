@@ -6,7 +6,7 @@ date: 2026-03-15
 lastmod: 2026-03-25
 slug: "free-is-the-most-expensive"
 categories: ['guangan']
-tags: ["认知"]
+tags: ["cognition"]
 thumb: "/img/webp/tu08.webp"
 ---
 

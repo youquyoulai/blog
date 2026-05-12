@@ -1,7 +1,7 @@
 ---
 title: "家门口的亲子乐园越来越多了"
 date: 2026-05-11T15:15:00+08:00
-cover: "@image:tu04.webp"
+cover: "@image:2026slt/tu04.webp"
 categories: [jilu]
 tags: ["出行"]
 slug: "chu-xing-le-yuan"

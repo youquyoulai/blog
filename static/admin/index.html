@@ -818,12 +818,11 @@ function copyImgUrl(key) {
   var img = findImageByKey(k);
   if (img) { navigator.clipboard.writeText(img.url); toast('链接已复制', 'success'); }
 }
-// 复制 Markdown
+// 复制 Markdown（保留月份文件夹前缀）
 function copyImgMd(key) {
   var k = decodeURIComponent(key);
-  var filename = k.split('/').pop();
-  navigator.clipboard.writeText('@image:' + filename);
-  toast('已复制: @image:' + filename, 'success');
+  navigator.clipboard.writeText('@image:' + k);
+  toast('已复制: @image:' + k, 'success');
 }
 // 根据 key 查找图片
 function findImageByKey(key) {
@@ -870,8 +869,7 @@ function copyUrl(event) {
 function copyMarkdown(event) {
   event.stopPropagation();
   var key = document.getElementById('modalInfo').textContent;
-  var filename = key.split('/').pop();
-  var md = '@image:' + filename;
+  var md = '@image:' + key;
   navigator.clipboard.writeText(md);
   toast('已复制: ' + md, 'success');
 }
@@ -1324,8 +1322,12 @@ function confirmPicker() {
     var g = groups.find(function(x) { return x.base === firstBase; });
     var f300 = g ? g.files.find(function(f) { return f.sizeLabel === '300'; }) : null;
     var srcFile = f300 || (g ? g.files[0] : null) || {};
-    var filename = (srcFile.key || firstBase).split('/').pop();
-    document.getElementById('postCover').value = '@image:' + filename;
+    // 保留完整路径（含月份文件夹前缀），如 2026slt/tu04-300.webp
+    var coverKey = srcFile.key || firstBase;
+    // 如果 key 是 "2026slt/tu04-orig.webp"，提取 "2026slt/tu04-300.webp"
+    var dirPrefix = coverKey.includes('/') ? coverKey.substring(0, coverKey.lastIndexOf('/') + 1) : '';
+    var coverFilename = dirPrefix + coverKey.split('/').pop().replace(/-orig\./, '-300.').replace(/-800\./, '-300.');
+    document.getElementById('postCover').value = '@image:' + coverFilename;
     closePicker();
     toast('封面图已设置', 'success');
     return;

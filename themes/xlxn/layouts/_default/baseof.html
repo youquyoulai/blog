@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="format-detection" content="telephone=no">
     <meta name="theme-color" content="#1a1a2e">
-    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
-    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default .Summary | plainify | truncate 150 }}{{ end }}">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ if lt (len .Title) 20 }} - {{ .Site.Title }}{{ end }}{{ end }}</title>
+    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 160) }}{{ end }}">
     {{ if or .IsSection (eq .Kind "taxonomy") }}
     <meta name="robots" content="noindex, follow">
     {{ end }}

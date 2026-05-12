@@ -143,9 +143,11 @@
     .editor-header { margin-bottom: 16px; }
     .editor-title-input { width: 100%; padding: 12px 14px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1.1rem; outline: none; }
     .editor-title-input:focus { border-color: var(--accent); }
-    .editor-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-    .meta-input { padding: 6px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 0.85rem; outline: none; }
+    .editor-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+    .meta-input { padding: 6px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 0.85rem; outline: none; min-width: 120px; }
     .meta-input:focus { border-color: var(--accent); }
+    .meta-input-wrap { position: relative; display: inline-flex; align-items: center; }
+    .meta-hint { position: absolute; right: 8px; font-size: 0.7rem; color: var(--muted); pointer-events: none; opacity: 0.6; }
     .editor-toolbar { display: flex; gap: 4px; flex-wrap: wrap; padding: 10px; background: var(--card); border: 1px solid var(--border); border-bottom: none; border-radius: 8px 8px 0 0; }
     .toolbar-btn { padding: 6px 10px; background: none; border: 1px solid transparent; border-radius: 6px; color: var(--muted); cursor: pointer; font-size: 0.85rem; transition: 0.2s; display: flex; align-items: center; gap: 4px; }
     .toolbar-btn:hover { background: var(--bg); color: var(--text); border-color: var(--border); }
@@ -387,17 +389,14 @@
         <input type="text" class="editor-title-input" id="postTitle" placeholder="文章标题">
         <div class="editor-meta">
           <input type="text" class="meta-input" id="postDate" placeholder="日期 2026-05-06">
-          <input type="text" class="meta-input" id="postCategory" placeholder="分类 guanwu/jilu" list="catDatalist">
-          <input type="text" class="meta-input" id="postTags" placeholder="标签 用逗号分隔" list="tagDatalist">
+          <input type="text" class="meta-input" id="postCategory" placeholder="分类（点开可看到所有分类）" list="catDatalist" style="width:160px;">
+          <input type="text" class="meta-input" id="postTags" placeholder="标签（点开可看到所有标签）" list="tagDatalist" style="width:200px;">
           <input type="text" class="meta-input" id="postSlug" placeholder="slug">
           <input type="text" class="meta-input" id="postCover" placeholder="封面图" style="flex:1;min-width:200px;">
           <button class="btn btn-sm" onclick="showCoverPicker()">选封面</button>
         </div>
         <!-- 分类/标签提示框 -->
-        <datalist id="catDatalist">
-          <option value="guanwu">
-          <option value="jilu">
-        </datalist>
+        <datalist id="catDatalist"></datalist>
         <datalist id="tagDatalist"></datalist>
       </div>
       <div class="editor-toolbar">
@@ -611,13 +610,21 @@ function api(path, method, body) {
   });
 }
 
+// 分类中文名映射（key = slug, value = 显示名）
+var _catDisplayNames = {
+  'guanwu': '观感', 'jilu': '记录'
+};
+function catDisplayName(slug) {
+  return _catDisplayNames[slug] || slug;
+}
+
 // 标签中文名映射（key = slug, value = 显示名）
 var _tagDisplayNames = {
   'education': '教育', 'cognition': '认知', 'literature': '文艺',
   'reading': '阅读', 'blog': '博客', 'daily': '日常', 'emotion': '情感',
   'shopping': '购物', 'holiday': '节日', 'math': '数学', 'solution': '题解',
   'wangxiaobo': '王小波', 'ai': 'AI', 'software': '软件', 'rock': '摇滚',
-  'travel': '出行', 'movies': '电影'
+  'travel': '出行', 'movies': '电影', 'sisyphus': '西西弗斯', 'phone': '手机'
 };
 function tagDisplayName(slug) {
   return _tagDisplayNames[slug] || slug;
@@ -637,12 +644,13 @@ async function loadTaxonomyHints() {
   if (_taxonomyHintsLoaded) return;
   try {
     var data = await api('/api/taxonomies');
-    // 填充分类提示
+    // 填充分类提示（显示中文名，值为 slug）
     var catList = document.getElementById('catDatalist');
     catList.innerHTML = '';
     (data.categories || []).forEach(function(c) {
       var opt = document.createElement('option');
-      opt.value = c.name;
+      opt.value = catDisplayName(c.name) + ' (' + c.name + ')';  // 观感 (guanwu)
+      opt.dataset.slug = c.name;  // 存英文 slug
       catList.appendChild(opt);
     });
     // 填充标签提示（显示中文名，实际值为英文 slug）
@@ -1162,7 +1170,7 @@ async function editPost(filename) {
   } else {
     document.getElementById('postDate').value = '';
   }
-    document.getElementById('postCategory').value = extractFM(content, 'categories') || '';
+    document.getElementById('postCategory').value = catDisplayName(extractFM(content, 'categories') || '');
     document.getElementById('postTags').value = extractFM(content, 'tags') ? extractFM(content, 'tags').split(',').map(function(t){ return tagDisplayName(t.trim()); }).join(', ') : '';
     document.getElementById('postSlug').value = extractFM(content, 'slug') || filename.replace('.md','').replace(/^\d{4}-\d{2}-\d{2}-/,'');
     document.getElementById('postCover').value = extractFM(content, 'cover') || '';
@@ -1182,6 +1190,13 @@ function extractFM(content, field) {
   var arr = v.match(/^\[(.+)\]$/);
   if (arr) return arr[1].split(',').map(function(s){return s.trim().replace(/^["\']|["\']$/g,'');}).join(', ');
   return v;
+}
+
+// 分类 slug 解析：支持 "guanwu" 或 "观感 (guanwu)" 两种格式
+function resolveCategory(raw) {
+  var m = String(raw).match(/\(([^)]+)\)$/);  // 匹配 "xxx (slug)"
+  if (m) return m[1].trim();  // 返回括号里的 slug
+  return String(raw).trim();  // 直接返回原值
 }
 
 function extractBody(content) {
@@ -1213,7 +1228,7 @@ function buildFM(title, date, category, tags, slug, cover) {
 async function savePost(silent) {
   var title = document.getElementById('postTitle').value.trim();
   var date = document.getElementById('postDate').value.trim();
-  var category = document.getElementById('postCategory').value.trim();
+  var category = resolveCategory(document.getElementById('postCategory').value.trim());
   var tags = document.getElementById('postTags').value.trim().split(',').map(function(t){ return tagSlug(t.trim()); }).join(',');
   var slug = document.getElementById('postSlug').value.trim();
   var cover = document.getElementById('postCover').value.trim();

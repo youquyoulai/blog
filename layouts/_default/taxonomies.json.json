@@ -1,0 +1,39 @@
+{{- $categories := slice -}}
+{{- $tags := slice -}}
+{{- range .Site.RegularPages -}}
+  {{- range .Params.categories -}}
+    {{- $categories = $categories | append . -}}
+  {{- end -}}
+  {{- range .Params.tags -}}
+    {{- $tags = $tags | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- $catCounts := dict -}}
+{{- range $categories -}}
+  {{- $count := index $catCounts . | default 0 -}}
+  {{- $catCounts = merge $catCounts (dict . (add $count 1)) -}}
+{{- end -}}
+{{- $tagCounts := dict -}}
+{{- range $tags -}}
+  {{- $count := index $tagCounts . | default 0 -}}
+  {{- $tagCounts = merge $tagCounts (dict . (add $count 1)) -}}
+{{- end -}}
+{
+  "totalPosts": {{ len .Site.RegularPages }},
+  "categories": [
+    {{- $first := true -}}
+    {{- range $name, $count := $catCounts -}}
+      {{- if not $first -}},{{ end -}}
+      {{- $first = false -}}
+      {"name": {{ $name | jsonify }}, "count": {{ $count }}}
+    {{- end -}}
+  ],
+  "tags": [
+    {{- $first := true -}}
+    {{- range $name, $count := $tagCounts -}}
+      {{- if not $first -}},{{ end -}}
+      {{- $first = false -}}
+      {"name": {{ $name | jsonify }}, "count": {{ $count }}}
+    {{- end -}}
+  ]
+}

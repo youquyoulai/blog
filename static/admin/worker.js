@@ -526,44 +526,18 @@ async function writeGitHubFile(filePath, content, sha, message, env) {
 // 分类/标签统计
 // ═════════════════════════════════════════════════════════════════
 async function getTaxonomies(env) {
-  const data = await githubFetch(
-    '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR,
-    'GET',
-    env.GITHUB_TOKEN
-  );
-  const files = data.filter(function(f) { return f.name.endsWith('.md'); });
-  const totalPosts = files.length;
-
-  // 并发从 raw.githubusercontent.com 拉取所有文件内容（每次最多50篇）
-  const CHUNK = 50;
-  const categories = {};
-  const tags = {};
-  const parseFM = function(content) {
-    const fm = content.split('---')[1] || '';
-    const catMatch = fm.match(/categories:\s*\[([^\]]+)\]/);
-    if (catMatch) {
-      catMatch[1].split(',').map(s => s.trim().replace(/["']/g, '')).forEach(c => { if (c) categories[c] = (categories[c] || 0) + 1; });
+  // 直接从 Hugo 生成的 taxonomies.json 读取（构建时生成，包含所有分类和标签统计）
+  try {
+    const res = await fetch('https://www.pgoj.top/taxonomies.json');
+    if (res.ok) {
+      const data = await res.json();
+      return corsResponse(JSON.stringify(data));
     }
-    const tagMatch = fm.match(/tags:\s*\[([^\]]+)\]/);
-    if (tagMatch) {
-      tagMatch[1].split(',').map(s => s.trim().replace(/["']/g, '')).forEach(t => { if (t) tags[t] = (tags[t] || 0) + 1; });
-    }
-  };
-
-  for (let i = 0; i < files.length; i += CHUNK) {
-    const chunk = files.slice(i, i + CHUNK);
-    const rawUrl = 'https://raw.githubusercontent.com/' + GITHUB_REPO + '/main/' + POSTS_DIR + '/';
-    const results = await Promise.allSettled(
-      chunk.map(f => fetch(rawUrl + encodeURIComponent(f.name)).then(r => r.text()))
-    );
-    results.forEach(r => { if (r.status === 'fulfilled' && r.value) parseFM(r.value); });
+  } catch (e) {
+    console.error('读取 taxonomies.json 失败:', e.message);
   }
-
-  return corsResponse(JSON.stringify({
-    totalPosts,
-    categories: Object.entries(categories).sort((a,b) => b[1]-a[1]).map(([name,count]) => ({name,count})),
-    tags: Object.entries(tags).sort((a,b) => b[1]-a[1]).map(([name,count]) => ({name,count})),
-  }));
+  // 降级：返回空数据
+  return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [] }));
 }
 
 // ═════════════════════════════════════════════════════════════════

@@ -1,7 +1,7 @@
 ---
 title: "没有意义的‘除’和‘除以’的区别"
 date: 2026-05-01T06:33:00+08:00
-cover: "@image:chuhechuyi.png"
+cover: "@image:images/chuhechuyi.png"
 categories: [- guangan]
 tags: ["- 教育"]
 slug: "mei-you-yi-yi-chu-he-chu-yi"
@@ -17,3 +17,5 @@ slug: "mei-you-yi-yi-chu-he-chu-yi"
 有人担心这样的改变会影响学生对应用题中实际意义的理解。例如，过去学的“单价×数量=金额”，前后顺序的不同确实代表不同的意义——就像“10块钱的肉买四斤”与“4块钱的肉买十斤”，顺序不同，含义也不同。但在解题时，学生完全能清楚地区分单价和数量，无论是10×4还是4×10，都不会影响实际支付的金额。除法也是同样的道理。
 
 我觉得，如今教材内容比过去更加丰富，没有必要在非核心的细节上过分纠结。尤其是高年级的老师在教学时，以及受以前所学内容影响的家长在辅导孩子时，都需要做好心态和方法上的调整。
+
+![chuhechuyi.png](https://img.pgoj.top/images/chuhechuyi.png)

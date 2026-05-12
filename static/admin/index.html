@@ -553,6 +553,7 @@ let coverPickerMode = false;
 let currentPrefix = '';
 let currentFolderName = '';
 let currentPostPrefix = '';
+let pickerPrefix = '';          // 选图器当前文件夹前缀
 
 /* ===== 初始化 ===== */
 function init() {
@@ -1216,7 +1217,8 @@ function insertAtLine(text) {
 function showImagePicker() {
   pickerMode = true;
   coverPickerMode = false;
-  selectedImages.clear();
+  selectedPickerGroups.clear();
+  pickerPrefix = '';
   document.getElementById('pickerTitle').textContent = '选择图片插入';
   document.getElementById('confirmBtn').textContent = '插入选中';
   document.getElementById('sizeSelector').style.display = 'flex';
@@ -1228,7 +1230,8 @@ function showImagePicker() {
 function showCoverPicker() {
   pickerMode = true;
   coverPickerMode = true;
-  selectedImages.clear();
+  selectedPickerGroups.clear();
+  pickerPrefix = '';
   document.getElementById('pickerTitle').textContent = '选择封面图';
   document.getElementById('confirmBtn').textContent = '设为封面';
   document.getElementById('sizeSelector').style.display = 'none';
@@ -1237,13 +1240,32 @@ function showCoverPicker() {
   loadPickerImages();
 }
 
-async function loadPickerImages() {
+async function loadPickerImages(prefix) {
+  if (prefix !== undefined) pickerPrefix = prefix || '';
   try {
-    var data = await api('/api/images');
+    var url = '/api/images';
+    if (pickerPrefix) url += '?prefix=' + encodeURIComponent(pickerPrefix);
+    var data = await api(url);
     var groups = data.groups || [];
+    var folders = data.folders || [];
+    currentImageGroups = groups;
     var grid = document.getElementById('pickerGrid');
-    if (groups.length === 0) { grid.innerHTML = '<div class="empty-state"><p>图库为空</p></div>'; return; }
+    if (groups.length === 0 && folders.length === 0) {
+      grid.innerHTML = '<div class="empty-state"><p>图库为空</p></div>'; return;
+    }
     var html = '<div class="img-grid">';
+    // 返回按钮
+    if (pickerPrefix) {
+      html += '<div class="img-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1;cursor:pointer;background:var(--bg);border:2px dashed var(--border);" onclick="loadPickerImages(\'\')">' +
+        '<div style="font-size:2.5rem;">⬆️</div><div class="img-name">返回</div></div>';
+    }
+    // 文件夹
+    for (var i = 0; i < folders.length; i++) {
+      var f = folders[i];
+      html += '<div class="img-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1;cursor:pointer;" onclick="loadPickerImages(\'' + escAttr(f.prefix) + '\')">' +
+        '<div style="font-size:3rem;">📁</div><div class="img-name">' + escHtml(f.name) + '</div></div>';
+    }
+    // 图片组
     for (var i = 0; i < groups.length; i++) {
       var g = groups[i];
       html += '<div class="img-card" onclick="selectPickerGroup(\'' + encodeURIComponent(g.base) + '\',event)" data-base="' + escHtml(g.base) + '">' +
@@ -1255,7 +1277,7 @@ async function loadPickerImages() {
     html += '</div>';
     grid.innerHTML = html;
   } catch (e) {
-    document.getElementById('pickerGrid').innerHTML = '<div class="empty-state"><p>加载失败</p></div>';
+    grid.innerHTML = '<div class="empty-state"><p>加载失败: ' + escHtml(e.message) + '</p></div>';
   }
 }
 
@@ -1333,6 +1355,7 @@ function closePicker() {
   pickerMode = false;
   coverPickerMode = false;
   selectedPickerGroups.clear();
+  pickerPrefix = '';
 }
 
 /* ===== 发布 ===== */

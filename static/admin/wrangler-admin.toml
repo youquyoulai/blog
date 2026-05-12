@@ -10,6 +10,13 @@ bucket_name = "imgpg"
 [vars]
 R2_PUBLIC_URL = "https://img.pgoj.top"
 
+# 自定义域（Cloudflare Dashboard 中绑定的域名）
+[[routes]]
+pattern = "api.pgoj.top"
+zone_name = "pgoj.top"
+custom_domain = true
+enabled = true
+
 # 密钥通过 wrangler secret put 设置：
 # npx wrangler secret put ADMIN_TOKEN --config admin/wrangler-admin.toml
 # npx wrangler secret put GITHUB_TOKEN --config admin/wrangler-admin.toml

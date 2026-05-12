@@ -6,7 +6,7 @@ date: 2026-03-18
 lastmod: 2026-03-25
 slug: "renovate-hometown-house"
 categories: ['guangan']
-tags: ["reading", "日常"]
+tags: ["reading", "daily"]
 thumb: "/img/webp/tu05.webp"
 ---
 

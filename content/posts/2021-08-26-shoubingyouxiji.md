@@ -6,7 +6,7 @@ date: 2021-08-26
 lastmod: 2026-03-24
 slug: "shoubingyouxiji"
 categories: ['guangan']
-tags: ["日常"]
+tags: ["daily"]
 ---
 
 有人发帖说：一位父亲为了体验他儿子为什么游戏着迷，也用电脑玩起了游戏。没过多久，父亲不能自拔了，比他儿子还着迷。这让我想起了自己刚毕业时的情形：

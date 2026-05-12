@@ -6,7 +6,7 @@ date: 2026-03-20
 lastmod: 2026-03-25
 slug: "loose-bones"
 categories: ['guangan']
-tags: ["日常"]
+tags: ["daily"]
 thumb: "/img/webp/tu04.webp"
 ---
 

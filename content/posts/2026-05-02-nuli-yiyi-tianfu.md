@@ -3,7 +3,7 @@ title: "持续不懈地努力有意义也是一种天赋"
 date: 2026-05-02T18:05:00+08:00
 cover: "@image:images/nulideyiyi.webp"
 categories: [- guangan]
-tags: ["- 认知"]
+tags: ["cognition"]
 slug: "nuli-yiyi-tianfu"
 ---
 努力在天赋面前一文不值这种话，他姑妄言之，你姑妄听之，当不得真。

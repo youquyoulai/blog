@@ -53,7 +53,7 @@
         {{ with $page.Params.tags }}
         <span class="meta-tags">
             <i class="icon" aria-hidden="true">{{ partial "icons.html" (dict "name" "tag" "width" 13 "height" 13) }}</i>
-            {{ range $i, $tag := . }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/tags/%s" $tag)).Permalink }}">{{ $tag }}</a>{{ end }}
+            {{ range $i, $tag := . }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/tags/%s" $tag)).Permalink }}">{{ partial "tag-names.html" (dict "tag" $tag) }}</a>{{ end }}
         </span>
         {{ end }}
     </div>

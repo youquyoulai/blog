@@ -6,7 +6,7 @@ date: 2026-02-28
 lastmod: 2026-03-09
 slug: "jiangsu-yangzhou-first-survey-test-class-of-2026-math-paper-question-8-source"
 categories: ['guangan']
-tags: ["题解"]
+tags: ["solution"]
 thumb: "/img/webp/tu01.webp"
 ---
 

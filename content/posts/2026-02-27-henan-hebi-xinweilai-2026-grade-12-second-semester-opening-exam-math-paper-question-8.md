@@ -6,7 +6,7 @@ date: 2026-02-27
 lastmod: 2026-03-06
 slug: "henan-hebi-xinweilai-2026-grade-12-second-semester-opening-exam-math-paper-question-8"
 categories: ['guangan']
-tags: ["题解"]
+tags: ["solution"]
 thumb: "/img/webp/tu01.webp"
 ---
 

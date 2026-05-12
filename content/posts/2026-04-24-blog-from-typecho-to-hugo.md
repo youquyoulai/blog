@@ -2,7 +2,7 @@
 title: "博客从tyoecho转到了hugo"
 date: 2026-04-24T15:47:00+08:00
 categories: ['guangan']
-tags: ['博客']
+tags: ["blog"]
 url: /archives/blog-from-typecho-to-hugo.html
 ---
 

@@ -6,7 +6,7 @@ date: 2026-02-18
 lastmod: 2026-03-06
 slug: "sdjnkxxqdysx"
 categories: ['guangan']
-tags: ["题解"]
+tags: ["solution"]
 thumb: "/img/webp/tu01.webp"
 ---
 

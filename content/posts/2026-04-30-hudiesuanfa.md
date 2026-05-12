@@ -7,7 +7,7 @@ slug: "hudiesuanfa"
 categories:
  - weibo
 tags:
- - 数学
+ - math
 image: ""
 ---
 

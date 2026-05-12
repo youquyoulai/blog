@@ -6,7 +6,7 @@ date: 2026-02-25
 lastmod: 2026-03-07
 slug: "shandong-dezhou-2026-senior-high-school-second-semester-first-mock-exam-math-question-8"
 categories: ['guangan']
-tags: ["题解"]
+tags: ["solution"]
 thumb: "/img/webp/tu01.webp"
 ---
 

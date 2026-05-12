@@ -7,7 +7,7 @@ slug: "bokedebiyu"
 categories:
  - weibo
 tags:
- - 博客
+ - blog
 image: "/img/webp/tu01.webp"
 ---
 

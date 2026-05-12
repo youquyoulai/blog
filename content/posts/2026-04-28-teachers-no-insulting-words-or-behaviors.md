@@ -7,7 +7,7 @@ slug: "teachers-no-insulting-words-or-behaviors"
 categories:
  - guangan
 tags:
- - 教育
+ - education
 image: ""
 images:
  - https://img.pgoj.top/2026slt/shide.webp

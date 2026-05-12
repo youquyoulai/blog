@@ -3,7 +3,7 @@ title: "走不进去的影院与读不下去的书"
 date: 2026-05-03T20:02:00+08:00
 cover: "@image:images/dianyingyuan.webp"
 categories: [- guangan]
-tags: ["- 文艺"]
+tags: ["literature"]
 slug: "mo-luo-dian-ying"
 ---
 今年我进了两次电影院。第一次是带孩子看《惊蛰无声》——原本打算看《镖人》，但因为场次时间不合适放弃了。第二次是影院赠票，陪孩子看了《熊出没·年年有熊》。《惊蛰无声》剧情还行，结尾的反转也有味道；但《熊出没》就不尽如人意了，平淡得像日常的一日三餐。

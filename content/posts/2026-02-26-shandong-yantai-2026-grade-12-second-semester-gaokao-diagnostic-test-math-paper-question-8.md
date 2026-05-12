@@ -6,7 +6,7 @@ date: 2026-02-26
 lastmod: 2026-03-06
 slug: "shandong-yantai-2026-grade-12-second-semester-gaokao-diagnostic-test-math-paper-question-8"
 categories: ['guangan']
-tags: ["题解"]
+tags: ["solution"]
 thumb: "/img/webp/tu01.webp"
 ---
 

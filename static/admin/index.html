@@ -611,6 +611,24 @@ function api(path, method, body) {
   });
 }
 
+// 标签中文名映射（key = slug, value = 显示名）
+var _tagDisplayNames = {
+  'education': '教育', 'cognition': '认知', 'literature': '文艺',
+  'reading': '阅读', 'blog': '博客', 'daily': '日常', 'emotion': '情感',
+  'shopping': '购物', 'holiday': '节日', 'math': '数学', 'solution': '题解',
+  'wangxiaobo': '王小波', 'ai': 'AI', 'software': '软件', 'rock': '摇滚',
+  'travel': '出行', 'movies': '电影'
+};
+function tagDisplayName(slug) {
+  return _tagDisplayNames[slug] || slug;
+}
+// 反向映射（中文显示名 → 英文 slug）
+var _tagSlugMap = {};
+Object.entries(_tagDisplayNames).forEach(function(e){ _tagSlugMap[e[1]] = e[0]; });
+function tagSlug(name) {
+  return _tagSlugMap[name] || name;  // 找不到则保留原值
+}
+
 /* ===== Tab 切换 ===== */
 // 缓存已加载的分类/标签，用于输入框下拉提示
 var _taxonomyHintsLoaded = false;
@@ -627,12 +645,13 @@ async function loadTaxonomyHints() {
       opt.value = c.name;
       catList.appendChild(opt);
     });
-    // 填充标签提示
+    // 填充标签提示（显示中文名，实际值为英文 slug）
     var tagList = document.getElementById('tagDatalist');
     tagList.innerHTML = '';
     (data.tags || []).forEach(function(t) {
       var opt = document.createElement('option');
-      opt.value = t.name;
+      opt.value = tagDisplayName(t.name);  // 显示中文名
+      opt.dataset.slug = t.name;           // 存英文 slug
       tagList.appendChild(opt);
     });
     _taxonomyHintsLoaded = true;
@@ -1144,7 +1163,7 @@ async function editPost(filename) {
     document.getElementById('postDate').value = '';
   }
     document.getElementById('postCategory').value = extractFM(content, 'categories') || '';
-    document.getElementById('postTags').value = extractFM(content, 'tags') || '';
+    document.getElementById('postTags').value = extractFM(content, 'tags') ? extractFM(content, 'tags').split(',').map(function(t){ return tagDisplayName(t.trim()); }).join(', ') : '';
     document.getElementById('postSlug').value = extractFM(content, 'slug') || filename.replace('.md','').replace(/^\d{4}-\d{2}-\d{2}-/,'');
     document.getElementById('postCover').value = extractFM(content, 'cover') || '';
     document.getElementById('postContent').value = extractBody(content);
@@ -1195,7 +1214,7 @@ async function savePost(silent) {
   var title = document.getElementById('postTitle').value.trim();
   var date = document.getElementById('postDate').value.trim();
   var category = document.getElementById('postCategory').value.trim();
-  var tags = document.getElementById('postTags').value.trim();
+  var tags = document.getElementById('postTags').value.trim().split(',').map(function(t){ return tagSlug(t.trim()); }).join(',');
   var slug = document.getElementById('postSlug').value.trim();
   var cover = document.getElementById('postCover').value.trim();
   var body = document.getElementById('postContent').value;
@@ -1425,7 +1444,7 @@ async function loadTaxonomies() {
     html += '<div class="settings-group" style="max-height:55vh;overflow-y:auto;"><h3>标签 (' + tgs.length + ' 个)</h3>';
     html += '<div style="display:flex;flex-wrap:wrap;gap:6px;padding:8px 0;">';
     tgs.forEach(function(t) {
-      html += '<span class="tag" style="font-size:0.8rem;padding:4px 10px;">' + escHtml(t.name) + ' (' + t.count + ')</span>';
+      html += '<span class="tag" style="font-size:0.8rem;padding:4px 10px;">' + escHtml(tagDisplayName(t.name)) + ' (' + t.count + ')</span>';
     });
     html += '</div></div>';
     html += '</div>';

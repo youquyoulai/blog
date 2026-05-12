@@ -1,0 +1,25 @@
+{{ define "main" }}
+{{ $displayName := .Title }}
+{{ if eq .Type "categories" }}
+{{ $catMap := dict "guangan" "观感" "jilu" "记录" "weibo" "微语" }}
+{{ $displayName = index $catMap .Title | default .Title }}
+{{ else if eq .Type "tags" }}
+{{ $displayName = partial "tag-names.html" (dict "tag" .Title) }}
+{{ end }}
+
+<nav class="breadcrumbs" aria-label="面包屑导航">
+    <a href="{{ .Site.BaseURL }}"><i class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></i> 首页</a>
+    <span class="separator"><i class="icon">›</i></span>
+    <a href="{{ .Type | urlize | printf "/%s/" | relURL }}">{{ if eq .Type "tags" }}标签{{ else if eq .Type "categories" }}分类{{ else }}{{ .Type | humanize }}{{ end }}</a>
+    <span class="separator"><i class="icon">›</i></span>
+    <span class="current">{{ $displayName }}</span>
+</nav>
+
+<div class="post-list">
+    {{ range $idx, $page := .Paginator.Pages }}
+        {{ partial "post-card.html" (dict "page" $page "idx" $idx "paginator" $.Paginator) }}
+    {{ end }}
+</div>
+
+{{ partial "pagination.html" .Paginator }}
+{{ end }}

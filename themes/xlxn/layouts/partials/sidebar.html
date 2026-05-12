@@ -48,7 +48,8 @@
     <div class="tag-cloud">
         {{ range $tagName, $weightedPages := .Site.Taxonomies.tags }}
         {{ $tagPage := site.GetPage (printf "/tags/%s" $tagName) }}
-        <a href="{{ $tagPage.Permalink }}" class="tag-item">{{ $tagPage.Title }} ({{ len $weightedPages }})</a>
+        {{ $displayName := partial "tag-names.html" (dict "tag" $tagName) }}
+        <a href="{{ $tagPage.Permalink }}" class="tag-item">{{ $displayName }} ({{ len $weightedPages }})</a>
         {{ end }}
     </div>
 </div>

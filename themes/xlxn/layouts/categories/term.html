@@ -34,7 +34,7 @@
             {{ if $page.Params.tags }}
             <div class="feed-tags">
                 {{ range $page.Params.tags }}
-                <a href="/tags/{{ . | urlize }}/" class="feed-tag">{{ . }}</a>
+                <a href="/tags/{{ . | urlize }}/" class="feed-tag">{{ partial "tag-names.html" (dict "tag" .) }}</a>
                 {{ end }}
             </div>
             {{ end }}

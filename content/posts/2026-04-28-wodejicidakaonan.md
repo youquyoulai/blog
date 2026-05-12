@@ -6,7 +6,7 @@ date: 2026-04-28
 lastmod: 2026-04-28
 slug: "wodejicidakaonan"
 categories: ['guangan']
-tags: ["日常"]
+tags: ["daily"]
 images:
   - https://img.pgoj.top/2026slt/taniangdetiancai.webp
 ---

@@ -6,7 +6,7 @@ date: 2024-06-23
 lastmod: 2026-03-25
 slug: "shenghuoyichuangyiwangyishouji"
 categories: ['guangan']
-tags: ["日常"]
+tags: ["daily"]
 ---
 
 若干年前，如我之辈酷爱呼朋引伴喝酒聚餐，喜觥筹交错中称兄道弟，好烟雾缭绕时侃天说地。

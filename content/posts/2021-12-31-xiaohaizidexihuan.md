@@ -6,7 +6,7 @@ date: 2021-12-31
 lastmod: 2026-03-24
 slug: "xiaohaizidexihuan"
 categories: ['guangan']
-tags: ["日常"]
+tags: ["daily"]
 ---
 
 我一向不喜欢养动植物，原因有二：一是自己懒，二是心太软。所养之物一旦死了难免伤心，而伤心很大程度要怪罪于自己的懒惰，这不是徒增烦恼吗？

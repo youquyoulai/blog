@@ -1,0 +1,10 @@
+{{/* 输出标签名称，将英文 slug 映射为中文显示名 */}}
+{{/* 调用方式：{{ partial "tag-names.html" (dict "tag" "education" "all" $.Site.Taxonomies.tags) }} */}}
+{{- $tag := .tag -}}
+{{- $all := .all -}}
+{{- $tagNames := dict "education" "教育" "literature" "文艺" "cognition" "认知" "reading" "阅读" "blog" "博客" "daily" "日常" "emotion" "情感" "movies" "电影" "shopping" "购物" "holiday" "节日" "math" "数学" "solution" "题解" "wangxiaobo" "王小波" "game" "游戏" "tech" "技术" "ai" "AI" "software" "软件" "rock" "摇滚" "travel" "出行" -}}
+{{- with $tag -}}
+  {{- $displayName := index $tagNames . -}}
+  {{- if not $displayName }}{{ $displayName = . }}{{ end -}}
+  {{- $displayName -}}
+{{- end -}}

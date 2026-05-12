@@ -47,7 +47,7 @@
     {{ with .Params.tags }}
     <div class="post-tags">
         <span><i class="icon" aria-hidden="true">{{ partial "icons.html" (dict "name" "tag" "width" 14 "height" 14) }}</i> 标签：</span>
-        {{ range . }}<a href="{{ (site.GetPage (printf "/tags/%s" .)).Permalink }}" class="post-tag" itemprop="keywords">{{ . }}</a> {{ end }}
+        {{ range . }}<a href="{{ (site.GetPage (printf "/tags/%s" .)).Permalink }}" class="post-tag" itemprop="keywords">{{ partial "tag-names.html" (dict "tag" .) }}</a> {{ end }}
     </div>
     {{ end }}
 

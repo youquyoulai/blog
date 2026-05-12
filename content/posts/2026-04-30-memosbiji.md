@@ -7,7 +7,7 @@ slug: "memosbiji"
 categories:
  - jilu
 tags:
- - 博客
+ - blog
 image: ""
 images:
  - https://img.pgoj.top/2026slt/memos.png

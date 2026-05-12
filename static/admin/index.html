@@ -389,15 +389,15 @@
         <input type="text" class="editor-title-input" id="postTitle" placeholder="文章标题">
         <div class="editor-meta">
           <input type="text" class="meta-input" id="postDate" placeholder="日期 2026-05-06">
-          <input type="text" class="meta-input" id="postCategory" placeholder="分类（点开可看到所有分类）" list="catDatalist" style="width:160px;">
-          <input type="text" class="meta-input" id="postTags" placeholder="标签（点开可看到所有标签）" list="tagDatalist" style="width:200px;">
+          <input type="text" class="meta-input" id="postCategory" placeholder="点击下方选择分类" style="width:160px;">
+          <input type="text" class="meta-input" id="postTags" placeholder="点击下方选择标签" style="width:200px;">
           <input type="text" class="meta-input" id="postSlug" placeholder="slug">
           <input type="text" class="meta-input" id="postCover" placeholder="封面图" style="flex:1;min-width:200px;">
           <button class="btn btn-sm" onclick="showCoverPicker()">选封面</button>
         </div>
-        <!-- 分类/标签提示框 -->
-        <datalist id="catDatalist"></datalist>
-        <datalist id="tagDatalist"></datalist>
+        <!-- 分类/标签可点击列表 -->
+        <div id="catChips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div>
+        <div id="tagChips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div>
       </div>
       <div class="editor-toolbar">
         <button class="toolbar-btn" onclick="insertAtLine('---')" title="分割线">分割线</button>
@@ -637,33 +637,94 @@ function tagSlug(name) {
 }
 
 /* ===== Tab 切换 ===== */
-// 缓存已加载的分类/标签，用于输入框下拉提示
+// 缓存已加载的分类/标签，用于可点击标签列表
 var _taxonomyHintsLoaded = false;
+var _allCategories = [];
+var _allTags = [];
 
 async function loadTaxonomyHints() {
-  if (_taxonomyHintsLoaded) return;
+  if (_taxonomyHintsLoaded) { renderChips(); return; }
   try {
     var data = await api('/api/taxonomies');
-    // 填充分类提示（显示中文名，值为 slug）
-    var catList = document.getElementById('catDatalist');
-    catList.innerHTML = '';
-    (data.categories || []).forEach(function(c) {
-      var opt = document.createElement('option');
-      opt.value = catDisplayName(c.name) + ' (' + c.name + ')';  // 观感 (guanwu)
-      opt.dataset.slug = c.name;  // 存英文 slug
-      catList.appendChild(opt);
-    });
-    // 填充标签提示（显示中文名，实际值为英文 slug）
-    var tagList = document.getElementById('tagDatalist');
-    tagList.innerHTML = '';
-    (data.tags || []).forEach(function(t) {
-      var opt = document.createElement('option');
-      opt.value = tagDisplayName(t.name);  // 显示中文名
-      opt.dataset.slug = t.name;           // 存英文 slug
-      tagList.appendChild(opt);
-    });
+    _allCategories = data.categories || [];
+    _allTags = data.tags || [];
     _taxonomyHintsLoaded = true;
-  } catch(e) {}
+    renderChips();
+  } catch(e) { console.error('加载分类/标签失败', e); }
+}
+
+function renderChips() {
+  // 渲染分类标签
+  var catEl = document.getElementById('catChips');
+  catEl.innerHTML = '<span style="font-size:0.78rem;color:var(--muted);margin-right:4px;">分类：</span>';
+  _allCategories.forEach(function(c) {
+    var display = catDisplayName(c.name) + ' (' + c.count + ')';
+    var span = document.createElement('span');
+    span.className = 'chip cat-chip';
+    span.textContent = display;
+    span.dataset.slug = c.name;
+    span.style.cssText = 'cursor:pointer;font-size:0.78rem;padding:3px 10px;border:1px solid var(--border);border-radius:12px;background:var(--card);transition:0.15s;user-select:none;';
+    span.onmouseenter = function(){ this.style.borderColor='var(--accent)';this.style.color='var(--accent)'; };
+    span.onmouseleave = function(){ if(!this.classList.contains('active')){ this.style.borderColor='var(--border)';this.style.color='var(--muted)'; } };
+    span.onclick = function() {
+      document.getElementById('postCategory').value = catDisplayName(this.dataset.slug);
+      // 高亮当前选中
+      document.querySelectorAll('.cat-chip').forEach(function(el){ el.classList.remove('active'); el.style.background='var(--card)'; el.style.color='var(--muted)'; });
+      this.classList.add('active');
+      this.style.background='rgba(108,92,231,0.12)';
+      this.style.color='var(--accent2)';
+    };
+    catEl.appendChild(span);
+  });
+
+  // 渲染标签标签
+  var tagEl = document.getElementById('tagChips');
+  tagEl.innerHTML = '<span style="font-size:0.78rem;color:var(--muted);margin-right:4px;">标签：</span>';
+  _allTags.forEach(function(t) {
+    var display = tagDisplayName(t.name) + ' (' + t.count + ')';
+    var span = document.createElement('span');
+    span.className = 'tag-chip';
+    span.textContent = display;
+    span.dataset.slug = t.name;
+    span.style.cssText = 'cursor:pointer;font-size:0.78rem;padding:3px 10px;border:1px solid var(--border);border-radius:12px;background:var(--card);color:var(--muted);transition:0.15s;user-select:none;';
+    span.onmouseenter = function(){ this.style.borderColor='var(--accent)';this.style.color='var(--accent)'; };
+    span.onmouseleave = function(){ if(!this.classList.contains('active')){ this.style.borderColor='var(--border)';this.style.color='var(--muted)'; } };
+    span.onclick = function() {
+      var current = document.getElementById('postTags').value;
+      var newVal = current ? current + ', ' + tagDisplayName(this.dataset.slug) : tagDisplayName(this.dataset.slug);
+      document.getElementById('postTags').value = newVal;
+      // 视觉反馈
+      this.classList.add('active');
+      this.style.background='rgba(108,92,231,0.12)';
+      this.style.color='var(--accent2)';
+      var that = this;
+      setTimeout(function(){ that.classList.remove('active'); that.style.background='var(--card)'; that.style.color='var(--muted)'; },800);
+    };
+    tagEl.appendChild(span);
+  });
+
+  // 同步高亮状态（编辑文章时，已填的值要高亮对应标签）
+  syncChipActiveState();
+}
+
+function syncChipActiveState() {
+  // 分类高亮
+  var catVal = (document.getElementById('postCategory').value || '').trim();
+  document.querySelectorAll('.cat-chip').forEach(function(el) {
+    var isMatch = (catDisplayName(el.dataset.slug) === catVal);
+    el.classList.toggle('active', isMatch);
+    el.style.background = isMatch ? 'rgba(108,92,231,0.12)' : 'var(--card)';
+    el.style.color = isMatch ? 'var(--accent2)' : 'var(--muted)';
+  });
+  // 标签高亮（标签值里包含该 tag 名）
+  var tagVal = ',' + (document.getElementById('postTags').value || '') + ',';
+  document.querySelectorAll('.tag-chip').forEach(function(el) {
+    var name = tagDisplayName(el.dataset.slug);
+    var isMatch = tagVal.indexOf(',' + name + ',') !== -1;
+    el.classList.toggle('active', isMatch);
+    el.style.background = isMatch ? 'rgba(108,92,231,0.12)' : 'var(--card)';
+    el.style.color = isMatch ? 'var(--accent2)' : 'var(--muted)';
+  });
 }
 
 function switchTab(name) {
@@ -1143,13 +1204,12 @@ function newPost() {
   document.getElementById('postTags').value = '';
   document.getElementById('postSlug').value = '';
   document.getElementById('postCover').value = '';
-  document.getElementById('postContent').value = '';
-  document.getElementById('deletePostBtn').style.display = 'none';
-  // 记录当前所在月份，新建文章自动放入该月
-  window._newPostPrefix = currentPostPrefix;
-  switchTab('editor');
-  loadTaxonomyHints();
-}
+    document.getElementById('postContent').value = '';
+    document.getElementById('deletePostBtn').style.display = 'none';
+    // 记录当前所在月份，新建文章自动放入该月
+    window._newPostPrefix = currentPostPrefix;
+    switchTab('editor');
+  }
 
 async function editPost(filename) {
   try {

@@ -2,8 +2,13 @@
 title: "拥有一个报刊亭曾经是我的理想"
 date: 2026-05-13T08:05:00+08:00
 cover: "@image:202605/duzhewenzhai02-300.webp"
+<<<<<<< HEAD
 categories: jilu
 tags: ["reading"]
+=======
+categories: [记录]
+tags: ["reading", "daily"]
+>>>>>>> b7d44d81f1207ae29169b0d2dca88d85c728c2a7
 slug: "li-xiang-bao-kan-ting"
 ---
 回老家时，在杂物间里看到了一堆被灰尘覆盖的书籍报纸，都是很久以前买的。

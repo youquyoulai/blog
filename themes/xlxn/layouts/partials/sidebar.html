@@ -24,8 +24,16 @@
     </button>
 </div>
 
-{{/* 微语 - 显示 weibo 分类最新一篇 */}}
-{{- $weiboPages := where .Site.RegularPages "Params.categories" "intersect" (slice "weibo") -}}
+{{/* 微语 - 显示 weibo 分类最新一篇，同时兼容字符串和数组格式 */}}
+{{- $weiboPages := slice -}}
+{{- range .Site.RegularPages -}}
+{{- $cats := .Params.categories -}}
+{{- $isSlice := reflect.IsSlice $cats -}}
+{{- $catList := cond $isSlice $cats (slice $cats) -}}
+{{- if or (in $catList "weibo") (in $catList "微博") -}}
+{{- $weiboPages = $weiboPages | append . -}}
+{{- end -}}
+{{- end -}}
 {{- $latest := cond (gt (len $weiboPages) 0) (index (sort $weiboPages "Date" "desc") 0) nil -}}
 {{- with $latest }}
 <div class="widget widget-memos">

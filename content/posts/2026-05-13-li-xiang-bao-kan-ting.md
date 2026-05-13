@@ -2,7 +2,7 @@
 title: "拥有一个报刊亭曾经是我的理想"
 date: 2026-05-13T08:05:00+08:00
 cover: "@image:202605/duzhewenzhai02-300.webp"
-categories: jilu
+categories: [jilu]
 tags: ["reading", "daily"]
 slug: "li-xiang-bao-kan-ting"
 ---

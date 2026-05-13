@@ -3,7 +3,7 @@ title: "拥有一个报刊亭曾经是我的理想"
 date: 2026-05-13T08:05:00+08:00
 cover: "@image:202605/duzhewenzhai02-300.webp"
 categories: [记录]
-tags: ["reading"]
+tags: ["reading", "daily"]
 slug: "li-xiang-bao-kan-ting"
 ---
 回老家时，在杂物间里看到了一堆被灰尘覆盖的书籍报纸，都是很久以前买的。

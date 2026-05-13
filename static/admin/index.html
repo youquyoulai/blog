@@ -667,7 +667,8 @@ function renderChips() {
     span.onmouseenter = function(){ this.style.borderColor='var(--accent)';this.style.color='var(--accent)'; };
     span.onmouseleave = function(){ if(!this.classList.contains('active')){ this.style.borderColor='var(--border)';this.style.color='var(--muted)'; } };
     span.onclick = function() {
-      document.getElementById('postCategory').value = catDisplayName(this.dataset.slug);
+      // 写入 slug，不是中文名
+      document.getElementById('postCategory').value = this.dataset.slug;
       // 高亮当前选中
       document.querySelectorAll('.cat-chip').forEach(function(el){ el.classList.remove('active'); el.style.background='var(--card)'; el.style.color='var(--muted)'; });
       this.classList.add('active');
@@ -690,8 +691,9 @@ function renderChips() {
     span.onmouseenter = function(){ this.style.borderColor='var(--accent)';this.style.color='var(--accent)'; };
     span.onmouseleave = function(){ if(!this.classList.contains('active')){ this.style.borderColor='var(--border)';this.style.color='var(--muted)'; } };
     span.onclick = function() {
+      // 写入 slug，不是中文名
       var current = document.getElementById('postTags').value;
-      var newVal = current ? current + ', ' + tagDisplayName(this.dataset.slug) : tagDisplayName(this.dataset.slug);
+      var newVal = current ? current + ', ' + this.dataset.slug : this.dataset.slug;
       document.getElementById('postTags').value = newVal;
       // 视觉反馈
       this.classList.add('active');
@@ -716,11 +718,10 @@ function syncChipActiveState() {
     el.style.background = isMatch ? 'rgba(108,92,231,0.12)' : 'var(--card)';
     el.style.color = isMatch ? 'var(--accent2)' : 'var(--muted)';
   });
-  // 标签高亮（标签值里包含该 tag 名）
+  // 标签高亮：输入框里存的是 slug，直接对比
   var tagVal = ',' + (document.getElementById('postTags').value || '') + ',';
   document.querySelectorAll('.tag-chip').forEach(function(el) {
-    var name = tagDisplayName(el.dataset.slug);
-    var isMatch = tagVal.indexOf(',' + name + ',') !== -1;
+    var isMatch = tagVal.indexOf(',' + el.dataset.slug + ',') !== -1;
     el.classList.toggle('active', isMatch);
     el.style.background = isMatch ? 'rgba(108,92,231,0.12)' : 'var(--card)';
     el.style.color = isMatch ? 'var(--accent2)' : 'var(--muted)';
@@ -1230,8 +1231,9 @@ async function editPost(filename) {
   } else {
     document.getElementById('postDate').value = '';
   }
-    document.getElementById('postCategory').value = catDisplayName(extractFM(content, 'categories') || '');
-    document.getElementById('postTags').value = extractFM(content, 'tags') ? extractFM(content, 'tags').split(',').map(function(t){ return tagDisplayName(t.trim()); }).join(', ') : '';
+    // 输入框存 slug，显示名通过 chip 高亮体现
+    document.getElementById('postCategory').value = (extractFM(content, 'categories') || 'jilu').trim();
+    document.getElementById('postTags').value = extractFM(content, 'tags') ? extractFM(content, 'tags').split(',').map(function(t){ return t.trim(); }).join(', ') : '';
     document.getElementById('postSlug').value = extractFM(content, 'slug') || filename.replace('.md','').replace(/^\d{4}-\d{2}-\d{2}-/,'');
     document.getElementById('postCover').value = extractFM(content, 'cover') || '';
     document.getElementById('postContent').value = extractBody(content);
@@ -1289,7 +1291,8 @@ async function savePost(silent) {
   var title = document.getElementById('postTitle').value.trim();
   var date = document.getElementById('postDate').value.trim();
   var category = resolveCategory(document.getElementById('postCategory').value.trim());
-  var tags = document.getElementById('postTags').value.trim().split(',').map(function(t){ return tagSlug(t.trim()); }).join(',');
+  // 输入框里存的直接是 slug，不需要转换
+  var tags = document.getElementById('postTags').value.trim().split(',').map(function(t){ return t.trim(); }).filter(Boolean).join(',');
   var slug = document.getElementById('postSlug').value.trim();
   var cover = document.getElementById('postCover').value.trim();
   var body = document.getElementById('postContent').value;

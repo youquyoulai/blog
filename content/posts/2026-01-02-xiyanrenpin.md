@@ -5,7 +5,7 @@ title: "有些吸烟者人品恶劣"
 date: 2026-01-02
 lastmod: 2026-04-08
 slug: "xiyanrenpin"
-categories: ['weibo']
+categories: weibo
 tags: ["cognition"]
 ---
 

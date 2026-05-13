@@ -5,7 +5,7 @@ title: "由免费理财想到摸石看病"
 date: 2026-03-15
 lastmod: 2026-03-25
 slug: "free-is-the-most-expensive"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 thumb: "/img/webp/tu08.webp"
 ---

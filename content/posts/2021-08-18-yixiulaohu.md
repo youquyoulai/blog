@@ -5,7 +5,7 @@ title: "破掉的针鼻与屏风上的老虎"
 date: 2021-08-18
 lastmod: 2026-03-31
 slug: "yixiulaohu"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

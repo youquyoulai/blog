@@ -4,7 +4,7 @@ url: /archives/jinyinanyanlianke.html
 title: "吃糖的女人与弃糖的孩子"
 date: 2026-04-20
 slug: "jinyinanyanlianke"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 thumb: "/img/webp/tu02.webp"
 ---

@@ -5,7 +5,7 @@ title: "抬抬头看看眼前"
 date: 2026-01-13
 lastmod: 2026-02-03
 slug: "yanqianshenbian"
-categories: ['weibo']
+categories: weibo
 tags: ["cognition"]
 ---
 

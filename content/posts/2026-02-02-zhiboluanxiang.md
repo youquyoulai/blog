@@ -5,7 +5,7 @@ title: "只有幻想，不愿付出的年轻人"
 date: 2026-02-02
 lastmod: 2026-02-02
 slug: "zhiboluanxiang"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

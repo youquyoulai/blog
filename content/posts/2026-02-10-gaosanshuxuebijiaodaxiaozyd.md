@@ -5,7 +5,7 @@ title: "高三数学试题之比较大小（a=0.2b=0.16）"
 date: 2026-02-10
 lastmod: 2026-03-06
 slug: "gaosanshuxuebijiaodaxiaozyd"
-categories: ['guangan']
+categories: guangan
 tags: ["solution"]
 thumb: "/img/webp/tu01.webp"
 ---

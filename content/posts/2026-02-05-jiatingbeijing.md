@@ -5,7 +5,7 @@ title: "卸下《家庭背景》的重担"
 date: 2026-02-05
 lastmod: 2026-02-05
 slug: "jiatingbeijing"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "emotion"]
 ---
 

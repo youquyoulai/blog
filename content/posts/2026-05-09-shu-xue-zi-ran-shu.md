@@ -2,7 +2,7 @@
 title: "讲解数学题目不能蝎子教徒弟"
 date: 2026-05-09T09:10:00+08:00
 cover: "@image:2026slt/shuxuetiziranshupingfang-300.webp"
-categories: [guangan]
+categories: guangan
 tags: ["education"]
 slug: "shu-xue-zi-ran-shu"
 ---

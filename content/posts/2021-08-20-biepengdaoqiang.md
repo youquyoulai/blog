@@ -5,7 +5,7 @@ title: "别碰着墙与真TMD灵"
 date: 2021-08-20
 lastmod: 2026-03-31
 slug: "biepengdaoqiang"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

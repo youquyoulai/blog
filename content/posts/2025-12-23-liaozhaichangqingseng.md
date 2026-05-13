@@ -5,7 +5,7 @@ title: "别样的穿越-《长清僧》"
 date: 2025-12-23
 lastmod: 2026-01-16
 slug: "liaozhaichangqingseng"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 catalog: "0"
 ---

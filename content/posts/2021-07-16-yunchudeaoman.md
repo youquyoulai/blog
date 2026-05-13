@@ -5,7 +5,7 @@ title: "歧视显示了你的愚蠢的傲慢"
 date: 2021-07-16
 lastmod: 2026-04-01
 slug: "yunchudeaoman"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

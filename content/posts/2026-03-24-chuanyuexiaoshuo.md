@@ -5,7 +5,7 @@ title: "穿越不过是心中的妄念罢了"
 date: 2026-03-24
 lastmod: 2026-03-25
 slug: "chuanyuexiaoshuo"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 thumb: "/img/webp/tu01.webp"
 ---

@@ -5,7 +5,7 @@ title: "教育让我想起老郭的‘我就是个裤衩’"
 date: 2026-04-10
 lastmod: 2026-04-10
 slug: "jiaoyulaoguo"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 thumb: "/img/webp/tu03.webp"
 ---

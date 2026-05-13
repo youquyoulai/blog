@@ -2,7 +2,7 @@
 title: "手机不是孩子不愿意学习的主因"
 date: 2026-05-10T19:12:00+08:00
 cover: "@image:2026slt/haizishuashouji.webp"
-categories: [guangan]
+categories: guangan
 tags: ["education"]
 slug: "nong-cun-xue-xi"
 ---

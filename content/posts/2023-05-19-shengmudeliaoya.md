@@ -5,7 +5,7 @@ title: "己无关装圣母，己有关露獠牙"
 date: 2023-05-19
 lastmod: 2026-03-25
 slug: "shengmudeliaoya"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

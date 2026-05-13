@@ -5,7 +5,7 @@ title: "汝之佳肴彼之毒药的杨笠"
 date: 2026-03-30
 lastmod: 2026-03-30
 slug: "yanglireyi"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 thumb: "/img/webp/tu10.webp"
 ---

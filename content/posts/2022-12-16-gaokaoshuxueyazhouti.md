@@ -5,7 +5,7 @@ title: "数学压轴题不是你想突破就能突破的"
 date: 2022-12-16
 lastmod: 2026-04-01
 slug: "gaokaoshuxueyazhouti"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

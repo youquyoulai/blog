@@ -5,7 +5,7 @@ title: "不同时代不同的霸凌"
 date: 2026-01-09
 lastmod: 2026-01-16
 slug: "xiaoyuanbaling"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 catalog: "0"
 ---

@@ -5,7 +5,7 @@ title: "立体性混乱里，努力只是螳臂当车"
 date: 2026-03-05
 lastmod: 2026-03-05
 slug: "xitonghunluan"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

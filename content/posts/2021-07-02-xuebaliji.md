@@ -5,7 +5,7 @@ title: "学霸的精致利己主义"
 date: 2021-07-02
 lastmod: 2026-03-24
 slug: "xuebaliji"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

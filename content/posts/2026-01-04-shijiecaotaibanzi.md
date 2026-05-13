@@ -5,7 +5,7 @@ title: "草台班子里平庸的你我"
 date: 2026-01-04
 lastmod: 2026-01-30
 slug: "shijiecaotaibanzi"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 catalog: "0"
 ---

@@ -5,7 +5,7 @@ title: " 自得其乐的展现与文化垃圾无关"
 date: 2022-01-19
 lastmod: 2026-03-24
 slug: "wenhualaji"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

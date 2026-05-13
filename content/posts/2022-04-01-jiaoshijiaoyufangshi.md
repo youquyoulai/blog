@@ -5,7 +5,7 @@ title: "教师的教育方式、语气得慎而又慎"
 date: 2022-04-01
 lastmod: 2026-03-25
 slug: "jiaoshijiaoyufangshi"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

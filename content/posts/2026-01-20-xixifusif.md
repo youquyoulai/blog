@@ -4,7 +4,7 @@ url: /archives/xixifusif.html
 title: "拥抱西西弗斯的“铁饭碗”"
 date: 2026-01-20
 slug: "xixifusif"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

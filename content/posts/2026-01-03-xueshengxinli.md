@@ -5,7 +5,7 @@ title: "学生心理问题"
 date: 2026-01-03
 lastmod: 2026-04-08
 slug: "xueshengxinli"
-categories: ['jilu']
+categories: jilu
 tags: ["education"]
 ---
 

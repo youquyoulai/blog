@@ -1,7 +1,7 @@
 ---
 title: "写了一个hugo博客发布后台"
 date: 2026-05-06
-categories: [weibo]
+categories: weibo
 tags: ["blog"]
 slug: "hou-tai-fa-bu"
 ---

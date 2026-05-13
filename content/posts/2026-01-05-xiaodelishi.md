@@ -5,7 +5,7 @@ title: "笑的故事与笑的历史"
 date: 2026-01-05
 lastmod: 2026-04-08
 slug: "xiaodelishi"
-categories: ['weibo']
+categories: weibo
 tags: ["reading"]
 ---
 

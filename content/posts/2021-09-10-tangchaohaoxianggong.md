@@ -5,7 +5,7 @@ title: "《唐朝好相公》中尴尬的歪诗"
 date: 2021-09-10
 lastmod: 2026-03-31
 slug: "tangchaohaoxianggong"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

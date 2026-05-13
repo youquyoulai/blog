@@ -5,7 +5,7 @@ title: "安静的孩子疏松的骨头"
 date: 2026-03-20
 lastmod: 2026-03-25
 slug: "loose-bones"
-categories: ['guangan']
+categories: guangan
 tags: ["daily"]
 thumb: "/img/webp/tu04.webp"
 ---

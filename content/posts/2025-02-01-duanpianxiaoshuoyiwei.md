@@ -5,7 +5,7 @@ title: "短篇小说更重要的是‘意味’"
 date: 2025-02-01
 lastmod: 2026-04-04
 slug: "duanpianxiaoshuoyiwei"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

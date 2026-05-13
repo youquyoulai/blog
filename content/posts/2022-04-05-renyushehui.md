@@ -5,7 +5,7 @@ title: "人在改变着社会，社会也在改变着人"
 date: 2022-04-05
 lastmod: 2026-03-25
 slug: "renyushehui"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

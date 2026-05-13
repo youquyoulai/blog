@@ -4,7 +4,7 @@ url: /archives/nianqingjiaoshi.html
 title: "两难的学生和教师"
 date: 2026-01-27
 slug: "nianqingjiaoshi"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

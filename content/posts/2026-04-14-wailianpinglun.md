@@ -4,7 +4,7 @@ url: /archives/wailianpinglun.html
 title: "主题增加了外链跳转，重写了评论区"
 date: 2026-04-14
 slug: "wailianpinglun"
-categories: ['jilu']
+categories: jilu
 tags: ["blog"]
 images:
   - /img/uploads/2026/04/709271874.webp

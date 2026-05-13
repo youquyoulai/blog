@@ -1,7 +1,7 @@
 ---
 title: "杞人忧天的为青少年未来担忧"
 date: 2026-04-26T08:30:00+08:00
-categories: ['guangan']
+categories: guangan
 tags: ["education", "cognition"]
 url: /archives/qirenyoutian-teenagers.html
 thumb: https://img.pgoj.top/2026slt/haizishuashouji.webp

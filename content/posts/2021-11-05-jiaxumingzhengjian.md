@@ -5,7 +5,7 @@ title: "贾旭明与郑建的相声《神话新说》"
 date: 2021-11-05
 lastmod: 2026-03-31
 slug: "jiaxumingzhengjian"
-categories: ['guangan']
+categories: guangan
 tags: ["literature"]
 ---
 

@@ -5,7 +5,7 @@ title: "顺其自然的回访与留言"
 date: 2026-02-04
 lastmod: 2026-02-04
 slug: "bokehuifang"
-categories: ['guangan']
+categories: guangan
 tags: ["blog", "cognition"]
 ---
 

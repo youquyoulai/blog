@@ -5,7 +5,7 @@ title: "没有数学味道的数学课"
 date: 2022-03-13
 lastmod: 2026-03-24
 slug: "shuxueshibucunzaide"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "education"]
 ---
 

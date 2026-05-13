@@ -5,7 +5,7 @@ title: "欣赏少女美，细思和尚言"
 date: 2026-01-14
 lastmod: 2026-01-16
 slug: "liaozhaizhiyihuabi"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 catalog: "0"
 ---

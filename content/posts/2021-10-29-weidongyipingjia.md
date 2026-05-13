@@ -5,7 +5,7 @@ title: "对韦东奕不中肯的评价"
 date: 2021-10-29
 lastmod: 2026-03-31
 slug: "weidongyipingjia"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

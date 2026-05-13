@@ -5,7 +5,7 @@ title: "西装革履者的蝗虫不吃庄稼"
 date: 2026-03-21
 lastmod: 2026-03-25
 slug: "high-quality-human-nonsense"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 thumb: "/img/webp/tu03.webp"
 ---

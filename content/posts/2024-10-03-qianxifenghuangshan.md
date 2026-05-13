@@ -5,7 +5,7 @@ title: "迁西凤凰山景区游玩"
 date: 2024-10-03
 lastmod: 2026-03-25
 slug: "qianxifenghuangshan"
-categories: ['guangan']
+categories: guangan
 tags: ["travel"]
 ---
 

@@ -5,7 +5,7 @@ title: "我家的第一台电视机源于春晚"
 date: 2026-02-16
 lastmod: 2026-02-24
 slug: "chunwandianshi"
-categories: ['guangan']
+categories: guangan
 tags: ["holiday", "emotion"]
 ---
 

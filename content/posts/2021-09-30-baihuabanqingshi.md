@@ -5,7 +5,7 @@ title: "白话文《清史》出版引起的争议"
 date: 2021-09-30
 lastmod: 2026-03-31
 slug: "baihuabanqingshi"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

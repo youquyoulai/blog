@@ -5,7 +5,7 @@ title: "我觉得我们更该关注学生吸烟现象"
 date: 2026-03-29
 lastmod: 2026-03-29
 slug: "xueshengxiyan"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 thumb: "/img/webp/tu11.webp"
 ---

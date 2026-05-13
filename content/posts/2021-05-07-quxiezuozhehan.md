@@ -5,7 +5,7 @@ title: "曲协不能瘸子打围坐着喊"
 date: 2021-05-07
 lastmod: 2026-03-24
 slug: "quxiezuozhehan"
-categories: ['guangan']
+categories: guangan
 tags: ["literature"]
 ---
 

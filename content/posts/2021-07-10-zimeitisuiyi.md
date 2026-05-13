@@ -5,7 +5,7 @@ title: "头条作者南宫寻欢不该的随意为之"
 date: 2021-07-10
 lastmod: 2026-04-01
 slug: "zimeitisuiyi"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

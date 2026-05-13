@@ -5,7 +5,7 @@ title: "以‘省心’为第一要义的看孩子"
 date: 2021-11-28
 lastmod: 2026-03-31
 slug: "kanhaizishengxing"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

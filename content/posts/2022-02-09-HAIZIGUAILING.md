@@ -5,7 +5,7 @@ title: "孩子不能成为谷爱凌就是父母所造之孽"
 date: 2022-02-09
 lastmod: 2026-03-24
 slug: "HAIZIGUAILING"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

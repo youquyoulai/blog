@@ -5,7 +5,7 @@ title: "分享日常生活要自得其乐"
 date: 2023-04-28
 lastmod: 2026-03-25
 slug: "fenxiangrichang"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

@@ -5,7 +5,7 @@ title: "教材改革与收拾屋子"
 date: 2021-10-10
 lastmod: 2026-03-31
 slug: "jiaocaigaigeshoushiwuzi"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

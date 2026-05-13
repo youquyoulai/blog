@@ -5,7 +5,7 @@ title: "总要有些小目标有些小勇气"
 date: 2026-01-02
 lastmod: 2026-01-21
 slug: "mubiaoyongqi"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 catalog: "0"
 ---

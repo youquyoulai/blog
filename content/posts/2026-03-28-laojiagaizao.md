@@ -5,7 +5,7 @@ title: "老家的局部改造终于开始了"
 date: 2026-03-28
 lastmod: 2026-03-29
 slug: "laojiagaizao"
-categories: ['guangan']
+categories: guangan
 tags: ["daily"]
 thumb: "/img/webp/tu12.webp"
 ---

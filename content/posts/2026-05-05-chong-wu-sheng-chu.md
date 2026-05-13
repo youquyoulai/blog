@@ -2,7 +2,7 @@
 title: "你的心头宠物只是别人眼中的牲畜"
 date: 2026-05-05T11:07:00+08:00
 cover: "@image:2026slt/tu07.webp"
-categories: [- jilu]
+categories: jilu
 tags: ["daily"]
 slug: "chong-wu-sheng-chu"
 ---

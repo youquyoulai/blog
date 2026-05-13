@@ -5,7 +5,7 @@ title: "专家抱怨不会做孙子的数学作业"
 date: 2021-07-08
 lastmod: 2026-03-24
 slug: "zhuanjiashuxuezuoye"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

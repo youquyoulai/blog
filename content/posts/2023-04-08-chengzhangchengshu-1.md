@@ -5,7 +5,7 @@ title: "成熟的路上未必有你我"
 date: 2023-04-08
 lastmod: 2026-03-25
 slug: "chengzhangchengshu-1"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

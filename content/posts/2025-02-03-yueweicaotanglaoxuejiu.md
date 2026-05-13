@@ -5,7 +5,7 @@ title: "《阅微草堂笔记》中的老学究"
 date: 2025-02-03
 lastmod: 2026-04-04
 slug: "yueweicaotanglaoxuejiu"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

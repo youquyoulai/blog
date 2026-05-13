@@ -5,7 +5,7 @@ title: "以前时过境迁，如今索然无味"
 date: 2024-07-06
 lastmod: 2026-03-25
 slug: "yiqianrujin"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

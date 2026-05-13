@@ -5,7 +5,7 @@ title: "我的堂弟也曾当榜一大哥"
 date: 2026-01-03
 lastmod: 2026-01-29
 slug: "nvzhubobangyi"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "emotion"]
 catalog: "0"
 ---

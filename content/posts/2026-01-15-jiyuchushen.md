@@ -5,7 +5,7 @@ title: "机遇与出身造成同格不同命"
 date: 2026-01-15
 lastmod: 2026-02-01
 slug: "jiyuchushen"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "cognition"]
 catalog: "0"
 ---

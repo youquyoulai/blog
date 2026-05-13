@@ -5,7 +5,7 @@ title: "生活得学会‘没事偷着乐’"
 date: 2026-01-07
 lastmod: 2026-01-30
 slug: "meishitouzhele"
-categories: ['guangan']
+categories: guangan
 tags: ["sisyphus", "cognition"]
 catalog: "0"
 ---

@@ -5,7 +5,7 @@ title: "孑与2的文字让我想起了王小波的小说"
 date: 2026-03-14
 lastmod: 2026-03-25
 slug: "jieyu2-wang-xiaobo"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "wangxiaobo"]
 thumb: "/img/webp/tu10.webp"
 ---

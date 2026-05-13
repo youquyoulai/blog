@@ -5,7 +5,7 @@ title: "精简了主题代码"
 date: 2026-01-16
 lastmod: 2026-04-08
 slug: "zhutidaima"
-categories: ['weibo']
+categories: weibo
 tags: ["blog"]
 ---
 

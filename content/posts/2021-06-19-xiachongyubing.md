@@ -5,7 +5,7 @@ title: "夏虫与冰皆无错"
 date: 2021-06-19
 lastmod: 2026-03-24
 slug: "xiachongyubing"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

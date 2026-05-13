@@ -2,7 +2,7 @@
 title: "评论系统由waline换成了twikoo"
 date: 2026-04-30
 slug: "waline-to-twikoo"
-categories: ['weibo']
+categories: weibo
 tags: ["blog"]
 ---
 

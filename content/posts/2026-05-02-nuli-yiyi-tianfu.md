@@ -2,7 +2,7 @@
 title: "持续不懈地努力有意义也是一种天赋"
 date: 2026-05-02T18:05:00+08:00
 cover: "@image:images/nulideyiyi.webp"
-categories: [- guangan]
+categories: guangan
 tags: ["cognition"]
 slug: "nuli-yiyi-tianfu"
 ---

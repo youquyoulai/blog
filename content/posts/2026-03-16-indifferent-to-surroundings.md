@@ -5,7 +5,7 @@ title: "对远方指手画脚，对身边漠不关心"
 date: 2026-03-16
 lastmod: 2026-03-25
 slug: "indifferent-to-surroundings"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 thumb: "/img/webp/tu07.webp"
 ---

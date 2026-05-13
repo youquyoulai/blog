@@ -5,7 +5,7 @@ title: "不明大势的刑天成了工具"
 date: 2021-12-14
 lastmod: 2026-03-31
 slug: "wobushiyeren"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

@@ -5,7 +5,7 @@ title: "中午看了12年的电影《恐怖旅馆》"
 date: 2023-08-17
 lastmod: 2026-04-01
 slug: "kongbulvguan"
-categories: ['guangan']
+categories: guangan
 tags: ["literature"]
 ---
 

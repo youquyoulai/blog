@@ -2,7 +2,7 @@
 title: "没有意义的‘除’和‘除以’的区别"
 date: 2026-05-01T06:33:00+08:00
 cover: "@image:images/chuhechuyi.png"
-categories: [- guangan]
+categories: guangan
 tags: ["education"]
 slug: "mei-you-yi-yi-chu-he-chu-yi"
 ---

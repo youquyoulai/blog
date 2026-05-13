@@ -5,7 +5,7 @@ title: "我的几次大考中的难堪往事"
 date: 2026-04-28
 lastmod: 2026-04-28
 slug: "wodejicidakaonan"
-categories: ['guangan']
+categories: guangan
 tags: ["daily"]
 images:
   - https://img.pgoj.top/2026slt/taniangdetiancai.webp

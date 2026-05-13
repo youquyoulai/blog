@@ -2,7 +2,7 @@
 title: "世界的小与大"
 date: 2026-04-30
 slug: "world-big-small"
-categories: ['weibo']
+categories: weibo
 tags: ["cognition"]
 ---
 

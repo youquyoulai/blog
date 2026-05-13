@@ -5,7 +5,7 @@ title: "我理解父母为什么不愿修缮老家的房子"
 date: 2026-03-18
 lastmod: 2026-03-25
 slug: "renovate-hometown-house"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "daily"]
 thumb: "/img/webp/tu05.webp"
 ---

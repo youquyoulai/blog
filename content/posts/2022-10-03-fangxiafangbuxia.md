@@ -5,7 +5,7 @@ title: "放不下也就放不下了"
 date: 2022-10-03
 lastmod: 2026-03-25
 slug: "fangxiafangbuxia"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

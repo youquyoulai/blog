@@ -5,7 +5,7 @@ title: "快乐又疲惫的主题重构"
 date: 2026-01-25
 lastmod: 2026-01-29
 slug: "bokezhuti"
-categories: ['guangan']
+categories: guangan
 tags: ["blog", "AI"]
 ---
 

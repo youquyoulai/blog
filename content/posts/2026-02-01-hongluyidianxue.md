@@ -4,7 +4,7 @@ url: /archives/hongluyidianxue.html
 title: "红炉一点雪，笑意越千年"
 date: 2026-02-01
 slug: "hongluyidianxue"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

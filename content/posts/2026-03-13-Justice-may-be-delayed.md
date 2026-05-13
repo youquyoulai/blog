@@ -5,7 +5,7 @@ title: "迟到的正义，虚伪的尊重"
 date: 2026-03-13
 lastmod: 2026-03-13
 slug: "Justice-may-be-delayed"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

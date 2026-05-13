@@ -4,7 +4,7 @@ url: /archives/shuxuepaogenwendi.html
 title: "刨根问底啥？Just remember！"
 date: 2026-04-02
 slug: "shuxuepaogenwendi"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "education"]
 thumb: "/img/webp/tu08.webp"
 ---

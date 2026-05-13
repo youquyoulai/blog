@@ -5,7 +5,7 @@ title: "数学不能以无知者无畏的勇气胡搅蛮缠"
 date: 2024-07-15
 lastmod: 2026-03-25
 slug: "shuxuehujiaomanchan"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

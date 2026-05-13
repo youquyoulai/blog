@@ -5,7 +5,7 @@ title: "家长请老师补课，完后举报老师"
 date: 2021-08-08
 lastmod: 2026-03-31
 slug: "jiazhangjubaolaoshi"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

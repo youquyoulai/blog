@@ -5,7 +5,7 @@ title: "吹皱一池春水还是搅得周天寒彻"
 date: 2026-04-15
 lastmod: 2026-04-16
 slug: "jiaqianqianshanshida"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 images:
   - /img/uploads/2026/04/1619370691.webp

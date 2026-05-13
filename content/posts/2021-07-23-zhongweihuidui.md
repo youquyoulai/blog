@@ -5,7 +5,7 @@ title: "忽略了公众人物身份的周炜"
 date: 2021-07-23
 lastmod: 2026-04-01
 slug: "zhongweihuidui"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

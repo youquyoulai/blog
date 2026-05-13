@@ -5,7 +5,7 @@ title: "《直立象传说》和《奋力求生》"
 date: 2022-12-03
 lastmod: 2026-04-01
 slug: "zhilixiangdechuanshuo"
-categories: ['guangan']
+categories: guangan
 tags: ["literature"]
 ---
 

@@ -5,7 +5,7 @@ title: "《好歹也是个皇帝》和《北宋妻管严》"
 date: 2024-12-16
 lastmod: 2026-03-25
 slug: "huangdiqiguayan"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

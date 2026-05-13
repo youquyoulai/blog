@@ -5,7 +5,7 @@ title: "解读与自以为是的误读"
 date: 2022-12-01
 lastmod: 2026-03-25
 slug: "jieduyuwudu"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

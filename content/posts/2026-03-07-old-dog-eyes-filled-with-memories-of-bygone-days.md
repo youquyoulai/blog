@@ -4,7 +4,7 @@ url: /archives/old-dog-eyes-filled-with-memories-of-bygone-days.html
 title: "老狗满眼都是陈事旧影"
 date: 2026-03-07
 slug: "old-dog-eyes-filled-with-memories-of-bygone-days"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "cognition"]
 ---
 

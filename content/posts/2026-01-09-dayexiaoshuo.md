@@ -5,7 +5,7 @@ title: "八十岁大爷曾交我一部手稿"
 date: 2026-01-09
 lastmod: 2026-01-16
 slug: "dayexiaoshuo"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 catalog: "0"
 ---

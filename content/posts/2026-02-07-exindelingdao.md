@@ -4,7 +4,7 @@ url: /archives/exindelingdao.html
 title: "恶心的领导"
 date: 2026-02-07
 slug: "exindelingdao"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

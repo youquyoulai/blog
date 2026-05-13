@@ -5,7 +5,7 @@ title: "意外成就的经典"
 date: 2026-01-09
 lastmod: 2026-02-02
 slug: "cuijianchenpeisi"
-categories: ['weibo']
+categories: weibo
 tags: ["rock"]
 ---
 

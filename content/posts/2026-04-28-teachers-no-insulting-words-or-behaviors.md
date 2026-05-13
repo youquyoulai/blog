@@ -4,8 +4,7 @@ title: "不使用侮辱性词语或方式是教师的师德"
 draft: false
 date: "2026-04-29T06:02:03+08:00"
 slug: "teachers-no-insulting-words-or-behaviors"
-categories:
- - guangan
+categories: guangan
 tags:
  - education
 image: ""

@@ -5,7 +5,7 @@ title: "所谓生活，一床一网一手机而已"
 date: 2024-06-23
 lastmod: 2026-03-25
 slug: "shenghuoyichuangyiwangyishouji"
-categories: ['guangan']
+categories: guangan
 tags: ["daily"]
 ---
 

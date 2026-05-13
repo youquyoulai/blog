@@ -4,7 +4,7 @@ url: /archives/zaoshenluoji.html
 title: "不在乎逻辑的逻辑"
 date: 2026-01-31
 slug: "zaoshenluoji"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "education"]
 ---
 

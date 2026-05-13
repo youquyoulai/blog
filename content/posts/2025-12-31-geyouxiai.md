@@ -5,7 +5,7 @@ title: "各有喜爱，无需互相伤害"
 date: 2025-12-31
 lastmod: 2026-01-30
 slug: "geyouxiai"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 catalog: "0"
 ---

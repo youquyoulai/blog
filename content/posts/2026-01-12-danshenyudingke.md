@@ -5,7 +5,7 @@ title: "单身与丁克的认知"
 date: 2026-01-12
 lastmod: 2026-04-08
 slug: "danshenyudingke"
-categories: ['weibo']
+categories: weibo
 tags: ["emotion", "cognition"]
 ---
 

@@ -5,7 +5,7 @@ title: "以苦难为师与孙子才画得圆"
 date: 2026-03-17
 lastmod: 2026-03-25
 slug: "learn-from-suffering"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 thumb: "/img/webp/tu06.webp"
 ---

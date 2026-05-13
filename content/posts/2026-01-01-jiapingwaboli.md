@@ -5,7 +5,7 @@ title: "破碎的玻璃完整的人性"
 date: 2026-01-01
 lastmod: 2026-01-16
 slug: "jiapingwaboli"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 catalog: "0"
 ---

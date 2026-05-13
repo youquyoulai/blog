@@ -4,7 +4,7 @@ url: /archives/shitanwentan.html
 title: "肆无忌惮的诗坛文坛"
 date: 2026-01-23
 slug: "shitanwentan"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 catalog: "0"
 ---

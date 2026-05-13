@@ -1,7 +1,7 @@
 ---
 title: "我放弃独立博客的原因"
 date: 2022-11-26
-categories: [jilu]
+categories: jilu
 tags: ["blog"]
 slug: "fang-qi-bo-ke"
 ---

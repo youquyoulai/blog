@@ -5,7 +5,7 @@ title: "短视频平台上的杠精"
 date: 2026-01-17
 lastmod: 2026-04-08
 slug: "duanshipingangjing"
-categories: ['weibo']
+categories: weibo
 tags: ["cognition"]
 ---
 

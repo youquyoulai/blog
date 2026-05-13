@@ -4,8 +4,7 @@ title: "html、php、静态博客的比喻"
 draft: false
 date: "2026-04-27T02:09:43+08:00"
 slug: "bokedebiyu"
-categories:
- - weibo
+categories: weibo
 tags:
  - blog
 image: "/img/webp/tu01.webp"

@@ -5,7 +5,7 @@ title: "对《重庆》的游戏之语"
 date: 2026-02-13
 lastmod: 2026-02-24
 slug: "chongqingyouxi"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

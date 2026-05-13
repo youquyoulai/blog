@@ -4,7 +4,7 @@ url: /archives/pengdubeiying.html
 title: "捧读成为渐行渐远的背影"
 date: 2026-01-21
 slug: "pengdubeiying"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

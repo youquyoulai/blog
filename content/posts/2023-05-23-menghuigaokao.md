@@ -5,7 +5,7 @@ title: "未曾梦回高考是怎样的美妙啊"
 date: 2023-05-23
 lastmod: 2026-03-25
 slug: "menghuigaokao"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

@@ -5,7 +5,7 @@ title: "纠结是否对bearblog升级"
 date: 2026-01-14
 lastmod: 2026-01-16
 slug: "bearblogshengji"
-categories: ['guangan']
+categories: guangan
 tags: ["blog"]
 catalog: "0"
 ---

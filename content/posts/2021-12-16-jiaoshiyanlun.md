@@ -5,7 +5,7 @@ title: "教师时刻应该注意保持理智与克制"
 date: 2021-12-16
 lastmod: 2026-03-31
 slug: "jiaoshiyanlun"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

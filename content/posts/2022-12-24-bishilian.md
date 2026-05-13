@@ -5,7 +5,7 @@ title: "鄙视链上的你和我"
 date: 2022-12-24
 lastmod: 2026-03-25
 slug: "bishilian"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

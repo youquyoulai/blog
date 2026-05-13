@@ -4,7 +4,7 @@ url: /archives/things-may-not-be-used.html
 title: "东西可以不用，功能不能没有"
 date: 2026-03-08
 slug: "things-may-not-be-used"
-categories: ['guangan']
+categories: guangan
 tags: ["blog"]
 ---
 

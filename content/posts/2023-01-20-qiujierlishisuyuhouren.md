@@ -5,7 +5,7 @@ title: "心态平和地接纳复杂凌乱的世界"
 date: 2023-01-20
 lastmod: 2026-03-25
 slug: "qiujierlishisuyuhouren"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

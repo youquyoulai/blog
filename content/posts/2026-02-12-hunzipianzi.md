@@ -5,7 +5,7 @@ title: "笔杆混子与江湖骗子"
 date: 2026-02-12
 lastmod: 2026-02-24
 slug: "hunzipianzi"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

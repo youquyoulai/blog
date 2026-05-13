@@ -5,7 +5,7 @@ title: "deepseek帮我解决了地图插件"
 date: 2026-01-16
 lastmod: 2026-01-29
 slug: "deepseekditu"
-categories: ['guangan']
+categories: guangan
 tags: ["blog", "AI"]
 catalog: "0"
 ---

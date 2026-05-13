@@ -5,7 +5,7 @@ title: "tyoecho分类页面做微博说说"
 date: 2026-02-02
 lastmod: 2026-04-08
 slug: "wwibopinglun"
-categories: ['weibo']
+categories: weibo
 tags: ["blog", "AI"]
 ---
 

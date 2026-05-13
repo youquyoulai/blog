@@ -5,7 +5,7 @@ title: "虚假的浩然正气"
 date: 2026-01-08
 lastmod: 2026-04-08
 slug: "haoranzhengqi"
-categories: ['weibo']
+categories: weibo
 tags: ["cognition"]
 ---
 

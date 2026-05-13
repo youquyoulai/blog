@@ -5,7 +5,7 @@ title: "与其教师掌握急救知识不如安排校医"
 date: 2021-10-24
 lastmod: 2026-03-31
 slug: "jiaoshijijiu"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

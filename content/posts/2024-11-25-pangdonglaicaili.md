@@ -5,7 +5,7 @@ title: "胖东来的彩礼要求"
 date: 2024-11-25
 lastmod: 2026-03-25
 slug: "pangdonglaicaili"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

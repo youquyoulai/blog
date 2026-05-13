@@ -4,8 +4,7 @@ title: "有些绕的《大唐宗王》"
 draft: false
 date: "2021-12-11T10:33:47+08:00"
 slug: "datangzongwang"
-categories:
- - guangan
+categories: guangan
 tags:
  - reading
 image: ""

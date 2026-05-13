@@ -5,7 +5,7 @@ title: "上帝与他的班子的日常"
 date: 2026-03-10
 lastmod: 2026-03-10
 slug: "god-and-his-team-daily"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

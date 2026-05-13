@@ -5,7 +5,7 @@ title: "掌上公交的收费和共享单车停放"
 date: 2026-02-25
 lastmod: 2026-02-25
 slug: "zhangshanggongjiao"
-categories: ['guangan']
+categories: guangan
 tags: ["travel"]
 ---
 

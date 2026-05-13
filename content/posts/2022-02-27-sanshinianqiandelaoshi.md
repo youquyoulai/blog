@@ -5,7 +5,7 @@ title: "我记忆中的三十年前的老师"
 date: 2022-02-27
 lastmod: 2026-03-24
 slug: "sanshinianqiandelaoshi"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

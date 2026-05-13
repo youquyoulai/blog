@@ -5,7 +5,7 @@ title: "范美忠有一点是我认同的"
 date: 2026-01-08
 lastmod: 2026-01-16
 slug: "fanmeizgongyidian"
-categories: ['guangan']
+categories: guangan
 catalog: "0"
 ---
 

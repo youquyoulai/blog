@@ -5,7 +5,7 @@ title: "世界读书日,微信读书赠免费书币"
 date: 2026-04-23
 lastmod: 2026-04-23
 slug: "weixindushushubi"
-categories: ['weibo']
+categories: weibo
 tags: ["software"]
 images:
   - /img/uploads/2026/04/1336191206.webp

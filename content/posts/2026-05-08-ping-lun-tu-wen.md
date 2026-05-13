@@ -1,7 +1,7 @@
 ---
 title: "评论管理与图文管理后台整合"
 date: 2026-05-08T15:35:00+08:00
-categories: [weibo]
+categories: weibo
 tags: ["blog"]
 slug: "ping-lun-tu-wen"
 ---

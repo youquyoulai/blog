@@ -5,7 +5,7 @@ title: "我又忍不住，折腾起博客来了"
 date: 2026-01-16
 lastmod: 2026-01-16
 slug: "kaiqiduliboke"
-categories: ['guangan']
+categories: guangan
 tags: ["blog"]
 catalog: "0"
 ---

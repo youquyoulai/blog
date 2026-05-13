@@ -4,8 +4,7 @@ title: "被母亲压榨的小姑娘"
 draft: false
 date: "2021-12-12T10:07:54+08:00"
 slug: "huanlesong"
-categories:
- - guangan
+categories: guangan
 tags:
  - emotion
 image: ""

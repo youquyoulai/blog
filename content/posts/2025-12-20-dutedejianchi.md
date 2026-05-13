@@ -5,7 +5,7 @@ title: "人的独特就在于某种坚持"
 date: 2025-12-20
 lastmod: 2026-02-01
 slug: "dutedejianchi"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "cognition"]
 catalog: "0"
 ---

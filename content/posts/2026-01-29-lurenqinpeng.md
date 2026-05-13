@@ -5,7 +5,7 @@ title: "亲近的路人疏远的亲朋"
 date: 2026-01-29
 lastmod: 2026-02-01
 slug: "lurenqinpeng"
-categories: ['guangan']
+categories: guangan
 tags: ["phone"]
 ---
 

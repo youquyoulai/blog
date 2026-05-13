@@ -5,7 +5,7 @@ title: "少了憨厚拙直，却未必聪明了"
 date: 2026-03-07
 lastmod: 2026-03-07
 slug: "without-simplicity-not-necessarily-smarter"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

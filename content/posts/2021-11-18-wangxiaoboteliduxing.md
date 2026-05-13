@@ -5,7 +5,7 @@ title: "王小波那只特立独行的猪"
 date: 2021-11-18
 lastmod: 2026-03-24
 slug: "wangxiaoboteliduxing"
-categories: ['guangan']
+categories: guangan
 tags: ["wangxiaobo", "cognition"]
 ---
 

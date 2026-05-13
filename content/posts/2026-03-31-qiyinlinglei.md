@@ -5,7 +5,7 @@ title: "《中国古代奇淫技巧》与《西方文明的另类历史》"
 date: 2026-03-31
 lastmod: 2026-04-08
 slug: "qiyinlinglei"
-categories: ['weibo']
+categories: weibo
 tags: ["reading"]
 ---
 

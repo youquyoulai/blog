@@ -5,7 +5,7 @@ title: "有时候还是怀念以前的时光"
 date: 2022-12-06
 lastmod: 2026-04-01
 slug: "bokeluntan"
-categories: ['guangan']
+categories: guangan
 tags: ["blog"]
 ---
 

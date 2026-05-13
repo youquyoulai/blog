@@ -5,7 +5,7 @@ title: "我喜欢逛独立博客的原因"
 date: 2026-01-11
 lastmod: 2026-01-16
 slug: "guangboke"
-categories: ['guangan']
+categories: guangan
 tags: ["blog"]
 catalog: "0"
 ---

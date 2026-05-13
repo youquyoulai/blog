@@ -5,7 +5,7 @@ title: "中规中矩的网文《北颂》"
 date: 2026-01-06
 lastmod: 2026-04-08
 slug: "wangwenbeisong"
-categories: ['jilu']
+categories: jilu
 tags: ["reading"]
 ---
 

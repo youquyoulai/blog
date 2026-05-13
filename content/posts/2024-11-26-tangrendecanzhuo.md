@@ -5,7 +5,7 @@ title: "在追孑与2的小说《唐人的餐桌》"
 date: 2024-11-26
 lastmod: 2026-03-25
 slug: "tangrendecanzhuo"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

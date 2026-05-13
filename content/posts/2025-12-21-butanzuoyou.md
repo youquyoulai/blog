@@ -5,7 +5,7 @@ title: "我这样的普通人不配谈论左右"
 date: 2025-12-21
 lastmod: 2026-01-18
 slug: "butanzuoyou"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 catalog: "0"
 ---

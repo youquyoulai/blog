@@ -5,7 +5,7 @@ title: "想当然的恢复报刊亭的呼吁"
 date: 2021-08-02
 lastmod: 2026-03-31
 slug: "huifubaokanting"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

@@ -5,7 +5,7 @@ title: "如今我已成半隐者"
 date: 2026-01-07
 lastmod: 2026-04-08
 slug: "banyinzhe"
-categories: ['weibo']
+categories: weibo
 tags: ["cognition"]
 ---
 

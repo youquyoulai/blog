@@ -4,8 +4,7 @@ title: "蝴蝶算法与三角函数值记"
 draft: false
 date: "2026-04-30"
 slug: "hudiesuanfa"
-categories:
- - weibo
+categories: weibo
 tags:
  - math
 image: ""

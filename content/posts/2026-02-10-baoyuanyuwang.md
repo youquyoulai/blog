@@ -5,7 +5,7 @@ title: "抱怨源于能力撑不住欲望"
 date: 2026-02-10
 lastmod: 2026-02-24
 slug: "baoyuanyuwang"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

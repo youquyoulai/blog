@@ -4,8 +4,7 @@ title: "由twikoo转向waline"
 draft: false
 date: "2026-05-02T20:28:57+08:00"
 slug: "twikoo-waline"
-categories:
- - weibo
+categories: weibo
 tags:
  - blog
 image: ""

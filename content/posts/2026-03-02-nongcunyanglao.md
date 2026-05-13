@@ -5,7 +5,7 @@ title: "回农村养老，只是想起来美好"
 date: 2026-03-02
 lastmod: 2026-03-04
 slug: "nongcunyanglao"
-categories: ['guangan']
+categories: guangan
 tags: ["cognition"]
 ---
 

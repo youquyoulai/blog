@@ -5,7 +5,7 @@ title: "我们教育似乎在一条畸形的路上越走越远"
 date: 2023-06-01
 lastmod: 2026-04-01
 slug: "jiaoyujixing"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

@@ -2,7 +2,7 @@
 title: "完成Hugo博客图片和文章管理后台"
 date: 2026-05-07T21:05:00+08:00
 cover: "@image:202605/shoujifabu.PNG"
-categories: [jilu]
+categories: jilu
 tags: ["blog"]
 slug: "hugo-guan-li-hou-tai"
 ---

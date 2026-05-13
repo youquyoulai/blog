@@ -5,7 +5,7 @@ title: "诗坛吃瓜与诗人特性"
 date: 2026-02-14
 lastmod: 2026-02-24
 slug: "shirentexing"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

@@ -5,7 +5,7 @@ title: "意义本无所谓无所谓无"
 date: 2026-01-14
 lastmod: 2026-02-04
 slug: "wusuoweiyouyiyo"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "cognition"]
 ---
 

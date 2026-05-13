@@ -5,7 +5,7 @@ title: "雪泥鸿爪，各自安好"
 date: 2026-01-26
 lastmod: 2026-02-01
 slug: "xuenihongzhua"
-categories: ['guangan']
+categories: guangan
 tags: ["blog", "cognition"]
 ---
 

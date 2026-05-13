@@ -5,7 +5,7 @@ title: "《我改变的事物》让我想起《杀生》"
 date: 2026-03-26
 lastmod: 2026-03-26
 slug: "liuliangchenghuangbo"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

@@ -5,7 +5,7 @@ title: "‘公式相声’只是‘校园相声’"
 date: 2026-01-11
 lastmod: 2026-01-16
 slug: "gongshixiangsheng"
-categories: ['guangan']
+categories: guangan
 tags: ["literature"]
 catalog: "0"
 ---

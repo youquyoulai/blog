@@ -4,7 +4,7 @@ url: /archives/puzhinanjibgxi.html
 title: "对普直男来说，小惊喜就是大惊吓"
 date: 2026-02-01
 slug: "puzhinanjibgxi"
-categories: ['guangan']
+categories: guangan
 tags: ["holiday", "cognition"]
 ---
 

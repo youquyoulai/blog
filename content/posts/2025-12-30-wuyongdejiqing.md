@@ -5,7 +5,7 @@ title: "不留痕迹的无用的激情"
 date: 2025-12-30
 lastmod: 2026-02-01
 slug: "wuyongdejiqing"
-categories: ['guangan']
+categories: guangan
 tags: ["blog", "cognition"]
 catalog: "0"
 ---

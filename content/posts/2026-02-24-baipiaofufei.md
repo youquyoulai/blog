@@ -5,7 +5,7 @@ title: "白嫖时狂热与付费后失落"
 date: 2026-02-24
 lastmod: 2026-02-25
 slug: "baipiaofufei"
-categories: ['guangan']
+categories: guangan
 tags: ["education"]
 ---
 

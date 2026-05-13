@@ -5,7 +5,7 @@ title: "站长就像守着土地的老农"
 date: 2026-01-13
 lastmod: 2026-01-16
 slug: "zhanzhanglaonong"
-categories: ['guangan']
+categories: guangan
 tags: ["blog"]
 catalog: "0"
 ---

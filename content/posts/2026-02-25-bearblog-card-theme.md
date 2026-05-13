@@ -5,7 +5,7 @@ title: "bearblog卡片式主题"
 date: 2026-02-25
 lastmod: 2026-03-21
 slug: "bearblog-card-theme"
-categories: ['guangan']
+categories: guangan
 tags: ["blog"]
 ---
 

@@ -5,7 +5,7 @@ title: "2025读了孑与2四部小说"
 date: 2025-12-28
 lastmod: 2026-01-16
 slug: "jieyu2xiaoshuo"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 catalog: "0"
 ---

@@ -5,7 +5,7 @@ title: "书渐渐归于“可看可不看”"
 date: 2026-01-12
 lastmod: 2026-01-16
 slug: "yueduxingqudi"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 catalog: "0"
 ---

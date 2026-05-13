@@ -5,7 +5,7 @@ title: "高山的独特，小草的快乐"
 date: 2026-01-19
 lastmod: 2026-02-01
 slug: "liuliangchengrenchu"
-categories: ['guangan']
+categories: guangan
 tags: ["reading", "cognition"]
 ---
 

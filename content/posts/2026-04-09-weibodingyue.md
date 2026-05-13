@@ -4,7 +4,7 @@ url: /archives/weibodingyue.html
 title: "实现友链订阅与微博功能调整"
 date: 2026-04-09
 slug: "weibodingyue"
-categories: ['weibo']
+categories: weibo
 tags: ["blog"]
 ---
 

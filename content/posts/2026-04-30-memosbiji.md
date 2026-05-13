@@ -4,8 +4,7 @@ title: "轻量笔记Memos的便捷与不足"
 draft: false
 date: "2026-04-30T13:48:20+08:00"
 slug: "memosbiji"
-categories:
- - jilu
+categories: jilu
 tags:
  - blog
 image: ""

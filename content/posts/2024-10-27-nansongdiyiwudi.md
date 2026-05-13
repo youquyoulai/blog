@@ -5,7 +5,7 @@ title: "i那位主角大杀四方弃书《南宋第一卧底》"
 date: 2024-10-27
 lastmod: 2026-03-25
 slug: "nansongdiyiwudi"
-categories: ['guangan']
+categories: guangan
 tags: ["reading"]
 ---
 

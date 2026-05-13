@@ -5,7 +5,7 @@ title: "用typecho实现微博说说功能"
 date: 2026-01-01
 lastmod: 2026-04-08
 slug: "typechoweibo"
-categories: ['weibo']
+categories: weibo
 tags: ["blog"]
 ---
 

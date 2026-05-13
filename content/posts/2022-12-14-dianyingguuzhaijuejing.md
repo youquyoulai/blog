@@ -5,7 +5,7 @@ title: "宇宙就是人类的孤宅"
 date: 2022-12-14
 lastmod: 2026-03-25
 slug: "dianyingguuzhaijuejing"
-categories: ['guangan']
+categories: guangan
 tags: ["literature"]
 ---
 

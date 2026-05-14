@@ -8,11 +8,15 @@
 
     <h1 class="page-title">📖 文汇</h1>
 
+    <!-- 先显示统计栏骨架 -->
+    <div id="wenhui-stats" class="wenhui-stats"></div>
+
     <div id="wenhui-container">
-        <!-- 加载状态 -->
-        <div class="wenhui-loading">
-            <div class="wenhui-spinner"></div>
-            <span>正在加载文汇...</span>
+        <!-- 骨架屏占位 -->
+        <div class="wenhui-grid" id="wenhui-skeleton">
+            <div class="wenhui-card wenhui-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-desc"></div><div class="skeleton-meta"></div></div>
+            <div class="wenhui-card wenhui-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-desc"></div><div class="skeleton-meta"></div></div>
+            <div class="wenhui-card wenhui-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-desc"></div><div class="skeleton-meta"></div></div>
         </div>
     </div>
 
@@ -22,24 +26,6 @@
 
 <style>
 /* 文汇总页面卡片样式 */
-.wenhui-loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 60px;
-    color: var(--muted, #888);
-}
-.wenhui-spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #e0e0e6;
-    border-top-color: #6366f1;
-    border-radius: 50%;
-    animation: wenhui-spin 0.8s linear infinite;
-}
-@keyframes wenhui-spin { to { transform: rotate(360deg); } }
-
 .wenhui-empty {
     text-align: center;
     padding: 60px 20px;
@@ -180,6 +166,34 @@
     color: var(--muted-color, #888);
 }
 
+/* 骨架屏动画 */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+.skeleton-line {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* 骨架卡片 */
+.wenhui-skeleton-card { pointer-events: none; }
+.skeleton-title {
+    height: 20px; width: 85%;
+    background: linear-gradient(90deg, #e8e8e8 25%, #f0f0f0 50%, #e8e8e8 75%);
+    background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; margin-bottom: 10px;
+}
+.skeleton-desc {
+    height: 14px; width: 100%;
+    background: linear-gradient(90deg, #ebebeb 25%, #f3f3f3 50%, #ebebeb 75%);
+    background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; margin-bottom: 6px;
+}
+.skeleton-meta {
+    height: 12px; width: 60%;
+    background: linear-gradient(90deg, #ebebeb 25%, #f3f3f3 50%, #ebebeb 75%);
+    background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px;
+}
+
 /* 响应式 */
 @media (max-width: 640px) {
     .wenhui-grid { grid-template-columns: 1fr; }
@@ -190,7 +204,9 @@
 (function(){
     var PAGE_SIZE = 12;
     var container = document.getElementById('wenhui-container');
+    var statsEl = document.getElementById('wenhui-stats');
     var pagination = document.getElementById('wenhui-pagination');
+    var skeleton = document.getElementById('wenhui-skeleton');
 
     function getPage() {
         var p = parseInt(new URLSearchParams(location.search).get('page') || '1', 10);
@@ -199,6 +215,7 @@
 
     function renderEmpty(msg) {
         container.innerHTML = '<div class="wenhui-empty"><span class="wenhui-empty-icon">📭</span><p>' + (msg || '暂无内容') + '</p></div>';
+        if (statsEl) statsEl.style.display = 'none';
     }
 
     function escHtml(s) {
@@ -223,11 +240,10 @@
         var end = start + PAGE_SIZE;
         var pageItems = articles.slice(start, end);
 
-        // 统计信息
-        var statsHtml = '<div class="wenhui-stats">' +
-            '共 <strong>' + articles.length + '</strong> 篇' +
-            (articles.length > PAGE_SIZE ? '，第 <strong>' + page + '</strong> / <strong>' + totalPages + '</strong> 页' : '') +
-            '</div>';
+        // 统计栏单独渲染
+        var statsHtml = '共 <strong>' + articles.length + '</strong> 篇' +
+            (articles.length > PAGE_SIZE ? '，第 <strong>' + page + '</strong> / <strong>' + totalPages + '</strong> 页' : '');
+        if (statsEl) statsEl.innerHTML = statsHtml;
 
         // 卡片
         var cardsHtml = '<div class="wenhui-grid">';
@@ -245,7 +261,7 @@
         }
         cardsHtml += '</div>';
 
-        container.innerHTML = statsHtml + cardsHtml;
+        container.innerHTML = cardsHtml;
 
         // 分页
         if (totalPages <= 1) {
@@ -304,8 +320,12 @@
             var articles = data.articles || [];
             window._wenhuiArticles = articles;
 
+            // 移除骨架屏
+            if (skeleton) skeleton.style.display = 'none';
+
             if (articles.length === 0) {
                 renderEmpty('暂无内容，请先在后台添加 RSS 源');
+                statsEl.style.display = 'none';
                 pagination.style.display = 'none';
                 return;
             }

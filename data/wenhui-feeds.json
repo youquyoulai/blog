@@ -29,6 +29,11 @@
       "name": "我的日志",
       "url": "https://ilogs.cn/feed/",
       "category": ""
+    },
+    {
+      "name": "旺东自留地",
+      "url": "https://wang618.cn/rss.php",
+      "category": ""
     }
   ]
 }

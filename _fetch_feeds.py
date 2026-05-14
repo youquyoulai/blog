@@ -81,7 +81,7 @@ def fetch_feed(source):
 
     print(f"  抓取: {name} ({url})")
     try:
-        feed = feedparser.parse(url, timeout=8)
+        feed = feedparser.parse(url)
 
         if feed.bozo and not feed.entries:
             print(f"    ⚠️  解析失败: {feed.bozo_exception}")

@@ -1,5 +1,172 @@
 {
-  "feeds": [],
-  "articles": [],
-  "updated": ""
+  "feeds": [
+    {
+      "name": "fengcs Blog",
+      "url": "https://rssweball.top/feed/afaf2a3c-e11a-4783-a358-9e2d20d76a69.xml",
+      "category": ""
+    },
+    {
+      "name": "边境研究所",
+      "url": "https://szhshp.org/rss.xml",
+      "category": ""
+    },
+    {
+      "name": "崔话记",
+      "url": "https://cuixiping.com/blog/feed/",
+      "category": ""
+    },
+    {
+      "name": "沈罗记",
+      "url": "https://nzw025.top/feed",
+      "category": ""
+    },
+    {
+      "name": "荒野菲克",
+      "url": "https://ficor.net/feed",
+      "category": ""
+    },
+    {
+      "name": "我的日志",
+      "url": "https://ilogs.cn/feed/",
+      "category": ""
+    },
+    {
+      "name": "旺东自留地",
+      "url": "https://wang618.cn/rss.php",
+      "category": ""
+    },
+    {
+      "name": "周天记",
+      "url": "https://zhoutian.com/feed",
+      "category": ""
+    },
+    {
+      "name": "徐建伟",
+      "url": "http://www.xulog.cn/index.php?act=rss",
+      "category": ""
+    },
+    {
+      "name": "飞絮落叶雪",
+      "url": "https://www.mrhe.net/feed/",
+      "category": ""
+    },
+    {
+      "name": "威言微语",
+      "url": "https://www.weisay.com/blog/feed",
+      "category": ""
+    },
+    {
+      "name": "凤舞心弦",
+      "url": "https://fengwu.art/feed",
+      "category": ""
+    },
+    {
+      "name": "ACWVS",
+      "url": "http://acevs.com/feed",
+      "category": ""
+    }
+  ],
+  "articles": [
+    {
+      "title": "一万的退税到账了，这是我头一回",
+      "link": "https://cuixiping.com/blog/think/wslugs",
+      "desc": "昨天收到退税成功的通知了，一万的退税到账了，这是我第一次得到退税，之前都是补税的。这次从提交到办结也就2天时间，效率还是很赞的。前阵子被个税系统提示做年度结算，登录到个税app查看，发现有点奇怪...",
+      "pubDate": "2026-05-14T12:05:00+08:00",
+      "source": "崔话记",
+      "sourceUrl": "https://cuixiping.com/blog/feed/",
+      "category": ""
+    },
+    {
+      "title": "丙午马年-五月",
+      "link": "http://www.xulog.cn/index.php?act=pl&id=1140",
+      "desc": "有时候我感觉什么事都有前兆，人这一生好像都被上帝安排好了，谁走什么样的路线似乎已成定局，比如你是跑外卖的，他说开大车的，这个人瞬间中大奖发大财了，那个人在事业飞黄腾达的时候突然生意失败变的穷困潦倒了，还有人意外去世了，我总感觉这发生的一切都是命中注定，就如“圣人”说的你这辈子该有多少财运就有多少，人生必须要经过这个劫难，总之我们在不同的环境中生活着，或许每个人都有自己的快乐和烦恼...",
+      "pubDate": "2026-05-14T08:00:09+08:00",
+      "source": "徐建伟",
+      "sourceUrl": "http://www.xulog.cn/index.php?act=rss",
+      "category": ""
+    },
+    {
+      "title": "展望与回望",
+      "link": "https://ficor.net/archives/42",
+      "desc": "文章通过两个片段展现时间的回望与展望：一方面记录八年级学生备战地生中考的紧张日常，强调中考成绩对升学路径的关键影响，以及家长与孩子面对压力的不同心态；另一方面回顾汶川地震18周年，提及“可乐男孩”、108罗汉娃等当年受关注的人物如今的成长与生活现状，呈现灾后重建与生命韧性的积极图景。",
+      "pubDate": "2026-05-14T04:01:41+00:00",
+      "source": "荒野菲克",
+      "sourceUrl": "https://ficor.net/feed",
+      "category": ""
+    },
+    {
+      "title": "上海七宝老街 5",
+      "link": "https://fengwu.art/2026-05/110.html",
+      "desc": "上海七宝老街是位于闵行区的千年古镇，成形于北宋、兴盛于明清，以江南水乡风貌、青瓦白墙、小桥流水和丰富的小吃文化著称，是距离上海市中心最近的历史文化街区之一。我曾多次来访七宝老街，也使用不同手机/相机，在不同时期拍摄了类似的照片。七宝老街照片会分多次分发",
+      "pubDate": "2026-05-14T02:03:05+00:00",
+      "source": "凤舞心弦",
+      "sourceUrl": "https://fengwu.art/feed",
+      "category": ""
+    },
+    {
+      "title": "摄影习作: 崇仁巷深",
+      "link": "https://fengcblog.880200.xyz/article/000268/.html",
+      "desc": "发布日期: 2026-05-14",
+      "pubDate": "2026-05-14T00:08:08+08:00",
+      "source": "fengcs Blog",
+      "sourceUrl": "https://rssweball.top/feed/afaf2a3c-e11a-4783-a358-9e2d20d76a69.xml",
+      "category": ""
+    },
+    {
+      "title": "周天记正式更换主题Riven",
+      "link": "https://zhoutian.com/369.html",
+      "desc": "主题以及插件的开发，还是要感谢AI的通力协作，不然我不可能这么快完成上线使用。终于在昨天，已经敲定了可以使用的版本，当然可能还存在不少隐藏的问题，我自己没测出来，但是整体功能上应该是没太大问题，...",
+      "pubDate": "2026-05-09T14:03:00+08:00",
+      "source": "周天记",
+      "sourceUrl": "https://zhoutian.com/feed",
+      "category": ""
+    },
+    {
+      "title": "机械革命售后无门",
+      "link": "https://www.mrhe.net/3623.html",
+      "desc": "2024 年 1 月份在京东云桔子专卖店（现已关店）购买了一台无界 S Mini 主机，配置是 AMD 7840H ，32G DDR5 5600 内存，1T 固态硬盘。用了半年后风扇异响走过一次...",
+      "pubDate": "2026-05-09T10:50:43+08:00",
+      "source": "飞絮落叶雪",
+      "sourceUrl": "https://www.mrhe.net/feed/",
+      "category": ""
+    },
+    {
+      "title": "这个五一：集场、烧烤、小医生和饭局",
+      "link": "https://www.weisay.com/blog/may-day-homecoming-notes.html",
+      "desc": "这个五一回了趟老家，顺带赶了场久违的集场。小时候惦记的套圈已经没了那味儿，不过自己在院子里折腾的一顿烧烤，倒是把气氛拉满了。小朋友们围着烤炉抢肉串，女儿还抱回套医生玩具，整天像模像样地给我各种检查。中间还穿插着几个从过年一直延到现在的饭局，天天都挺忙活。",
+      "pubDate": "2026-05-06T07:45:26+00:00",
+      "source": "威言微语",
+      "sourceUrl": "https://www.weisay.com/blog/feed",
+      "category": ""
+    },
+    {
+      "title": "地震+吃酒席",
+      "link": "https://ilogs.cn/2026/05/02/380.html",
+      "desc": "昨天早上八点醒来，手机收到一条地震预警消息。点开一看，提示长江对岸的监利市发生4级地震。我立刻在各大平台搜索监利地震的相关信息，看到都说只是轻微震动，没有造成任何影响。 我离震中大概三十公里，全程完全没有感觉到晃动。我向来睡眠质量很好，这种轻微的震动根本吵不醒我。 不过离家这么近发生地震，心里还是有些担心。我又去用deepseek查询搜...",
+      "pubDate": "2026-05-01T23:26:00+00:00",
+      "source": "我的日志",
+      "sourceUrl": "https://ilogs.cn/feed/",
+      "category": ""
+    },
+    {
+      "title": "假设, AI 把我代替的那一刻真的到来",
+      "link": "https://szhshp.org/post/pandavideogenerator/",
+      "desc": "",
+      "pubDate": "2026-04-05T00:00:00+00:00",
+      "source": "边境研究所",
+      "sourceUrl": "https://szhshp.org/rss.xml",
+      "category": ""
+    },
+    {
+      "title": "殇",
+      "link": "https://nzw025.top/dansiwuji/suibi/shang/",
+      "desc": "2026-3-29 08:35 | 2024年10月21日10时25分46秒，我弄丢了爸爸。 2026年3月26日23时46分，我又弄丢了妈妈。 2026-3-29 08:36 | 哥说，你不要什么都往身上揽。 亲戚们说，你是世间最孝的女儿。 同事们说，你是我们学习的楷模。 爸妈说，幸好有你，我的幺女。 十几年来，除了上街买菜上课，我没有离开过父母一步。 为什么我还是那么自责，还是觉得没有照顾好爸...",
+      "pubDate": "2026-04-01T21:46:00+08:00",
+      "source": "沈罗记",
+      "sourceUrl": "https://nzw025.top/feed",
+      "category": ""
+    }
+  ],
+  "total": 11,
+  "updated": "2026-05-14T16:41:56.904705"
 }

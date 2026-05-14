@@ -325,9 +325,13 @@
         <button class="btn btn-primary" onclick="showWenhuiAddForm()">+ 添加 RSS 源</button>
       </div>
       <p style="font-size:0.82rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">
-        添加博客 RSS 地址，文汇页面会自动聚合所有文章。添加后需点击「发布」重新构建博客，RSS 抓取在构建时完成。
+        添加博客 RSS 地址，文汇页面会自动聚合所有文章。编辑完成后点击「保存并发布」即可更新。
       </p>
       <div id="wenhuiList"></div>
+      <div style="margin-top:16px;display:flex;gap:10px;">
+        <button class="btn btn-primary" onclick="saveWenhuiAndDeploy()">保存并发布</button>
+        <button class="btn" onclick="saveWenhui()">仅保存</button>
+      </div>
       <!-- 添加/编辑 RSS 源表单 -->
       <div id="wenhuiForm" style="display:none;margin-top:16px;padding:16px;background:rgba(108,92,231,0.06);border-radius:10px;border:1px solid rgba(108,92,231,0.15);">
         <h3 id="wenhuiFormTitle" style="font-size:0.95rem;margin:0 0 12px 0;color:var(--accent2);">添加 RSS 源</h3>
@@ -1640,18 +1644,6 @@ function wenhuiFormSubmit() {
   saveWenhui();
 }
 
-function wenhuiEdit(i) {
-  var f = _wenhuiFeeds[i];
-  var name = prompt('博客名称：', f.name);
-  if (name === null) return;
-  var url = prompt('RSS 地址：', f.url);
-  if (url === null) return;
-  var category = prompt('分类（可选）：', f.category || '');
-  if (category === null) return;
-  _wenhuiFeeds[i] = { name: name.trim() || f.name, url: url.trim() || f.url, category: category.trim() };
-  saveWenhui();
-}
-
 function wenhuiDelete(i) {
   if (!confirm('确定删除「' + _wenhuiFeeds[i].name + '」？')) return;
   _wenhuiFeeds.splice(i, 1);
@@ -1661,10 +1653,21 @@ function wenhuiDelete(i) {
 async function saveWenhui() {
   try {
     await api('/api/wenhui-feeds', 'PUT', { feeds: _wenhuiFeeds });
-    toast('文汇 RSS 源已保存，记得「发布」重新构建', 'success');
+    toast('文汇 RSS 源已保存', 'success');
     renderWenhuiList();
   } catch (e) {
     toast('保存失败: ' + e.message, 'error');
+  }
+}
+
+async function saveWenhuiAndDeploy() {
+  try {
+    await api('/api/wenhui-feeds', 'PUT', { feeds: _wenhuiFeeds });
+    toast('RSS 源已保存，正在发布...', 'success');
+    renderWenhuiList();
+    await triggerDeploy();
+  } catch (e) {
+    toast('操作失败: ' + e.message, 'error');
   }
 }
 

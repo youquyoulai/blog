@@ -235,7 +235,6 @@
         <button class="tab-btn" data-tab="posts" onclick="switchTab('posts')">文章</button>
         <button class="tab-btn" data-tab="taxonomies" onclick="switchTab('taxonomies')">分类/标签</button>
         <button class="tab-btn" data-tab="wenhui" onclick="switchTab('wenhui')">文汇</button>
-        <button class="tab-btn" data-tab="links" onclick="switchTab('links')">友链</button>
         <button class="tab-btn" data-tab="pages" onclick="switchTab('pages')">页面</button>
         <button class="tab-btn" data-tab="comments" onclick="switchTab('comments')">评论</button>
         <button class="tab-btn" data-tab="editor" onclick="switchTab('editor')" style="display:none" id="tabEditorBtn">编辑</button>
@@ -329,19 +328,6 @@
         添加博客 RSS 地址，文汇页面会自动聚合所有文章。添加后需点击「发布」重新构建博客，RSS 抓取在构建时完成。
       </p>
       <div id="wenhuiList"></div>
-    </div>
-
-    <!-- 友链 -->
-    <div id="tab-links" class="tab-content">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-        <h2 style="font-size:1rem;color:var(--accent2);">友情链接</h2>
-        <button class="btn btn-sm" onclick="loadLinks()">刷新</button>
-      </div>
-      <div id="linksEditor">
-        <textarea id="linksContent" style="width:100%;min-height:300px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;line-height:1.6;font-family:'SF Mono','Fira Code',monospace;resize:vertical;outline:none;margin-bottom:12px;"></textarea>
-        <button class="btn btn-primary" onclick="saveLinks()">保存友链</button>
-        <span style="font-size:0.8rem;color:var(--muted);margin-left:12px;">修改后记得「发布」部署</span>
-      </div>
     </div>
 
     <!-- 页面 -->
@@ -513,10 +499,6 @@
       <button class="nav-item" data-tab="wenhui" onclick="switchTab('wenhui')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         <span>文汇</span>
-      </button>
-      <button class="nav-item" data-tab="links" onclick="switchTab('links')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-        <span>友链</span>
       </button>
       <button class="nav-item" data-tab="pages" onclick="switchTab('pages')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
@@ -756,7 +738,6 @@ function switchTab(name) {
   if (name === 'posts') loadPosts();
   if (name === 'comments') loadComments();
   if (name === 'taxonomies') loadTaxonomies();
-  if (name === 'links') loadLinks();
   if (name === 'wenhui') loadWenhui();
   if (name === 'pages') loadPages();
   if (name === 'settings') checkApi();
@@ -1550,28 +1531,6 @@ async function loadTaxonomies() {
     el.innerHTML = html;
   } catch (e) {
     el.innerHTML = '<div class="empty-state"><p>加载失败: ' + escHtml(e.message) + '</p></div>';
-  }
-}
-
-/* ===== 友链 ===== */
-async function loadLinks() {
-  var ta = document.getElementById('linksContent');
-  ta.value = '加载中...';
-  try {
-    var data = await api('/api/links');
-    ta.value = data.content || '# 暂无友链';
-  } catch (e) {
-    ta.value = '加载失败: ' + e.message;
-  }
-}
-
-async function saveLinks() {
-  var content = document.getElementById('linksContent').value;
-  try {
-    await api('/api/links', 'PUT', { content: content });
-    toast('友链已保存', 'success');
-  } catch (e) {
-    toast('保存失败: ' + e.message, 'error');
   }
 }
 

@@ -71,7 +71,7 @@ def parse_date(date_str):
 
 
 def fetch_feed(source):
-    """抓取单个 RSS 源"""
+    """抓取单个 RSS 源，只取最新一篇"""
     url = source.get("url")
     name = source.get("name", url)
     category = source.get("category", "")
@@ -88,7 +88,8 @@ def fetch_feed(source):
             return []
 
         articles = []
-        for entry in feed.entries[:20]:  # 最多取 20 篇
+        # 只取最新一篇 (feed.entries 已按发布时间降序排列)
+        for entry in feed.entries[:1]:
             # 获取标题
             title = clean_text(getattr(entry, 'title', '') or '')
 

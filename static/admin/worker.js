@@ -380,12 +380,12 @@ async function githubFetch(path, method, token, body) {
     headers: githubHeaders(token),
     body: body ? JSON.stringify(body) : undefined,
   });
-  if (res.status === 204) return {};  // GitHub dispatch 等接口返回空内容
+  const text = await res.text();
+  if (res.status === 204 || text === '') return {};
   if (!res.ok) {
-    const text = await res.text();
     throw new Error('GitHub ' + res.status + ': ' + text.substring(0, 200));
   }
-  return res.json();
+  return JSON.parse(text);
 }
 
 async function listPosts(request, env) {
@@ -476,14 +476,16 @@ async function deletePost(slug, request, env) {
 // 构建触发
 // ═════════════════════════════════════════════════════════════════
 async function triggerDeploy(env) {
-  // 通过请求 GitHub 仓库的 dispatch event 触发 Pages 重建
-  const token = env.GITHUB_TOKEN;
-  await githubFetch(
-    '/repos/' + GITHUB_REPO + '/dispatches',
-    'POST',
-    token,
-    { event_type: 'rebuild' }
-  );
+  // 通过 Cloudflare Pages 部署钩子触发构建
+  const hookUrl = env.CF_DEPLOY_HOOK;
+  if (!hookUrl) {
+    throw new Error('Missing CF_DEPLOY_HOOK');
+  }
+  const res = await fetch(hookUrl, { method: 'POST' });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error('Deploy hook ' + res.status + ': ' + text.substring(0, 200));
+  }
   return corsResponse(JSON.stringify({ ok: true }));
 }
 

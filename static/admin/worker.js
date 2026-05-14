@@ -380,6 +380,7 @@ async function githubFetch(path, method, token, body) {
     headers: githubHeaders(token),
     body: body ? JSON.stringify(body) : undefined,
   });
+  if (res.status === 204) return {};  // GitHub dispatch 等接口返回空内容
   if (!res.ok) {
     const text = await res.text();
     throw new Error('GitHub ' + res.status + ': ' + text.substring(0, 200));

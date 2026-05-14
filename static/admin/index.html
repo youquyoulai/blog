@@ -322,12 +322,34 @@
     <div id="tab-wenhui" class="tab-content">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
         <h2 style="font-size:1rem;color:var(--accent2);">📖 文汇 RSS 源</h2>
-        <button class="btn btn-primary" onclick="wenhuiAdd()">+ 添加 RSS 源</button>
+        <button class="btn btn-primary" onclick="showWenhuiAddForm()">+ 添加 RSS 源</button>
       </div>
       <p style="font-size:0.82rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">
         添加博客 RSS 地址，文汇页面会自动聚合所有文章。添加后需点击「发布」重新构建博客，RSS 抓取在构建时完成。
       </p>
       <div id="wenhuiList"></div>
+      <!-- 添加/编辑 RSS 源表单 -->
+      <div id="wenhuiForm" style="display:none;margin-top:16px;padding:16px;background:rgba(108,92,231,0.06);border-radius:10px;border:1px solid rgba(108,92,231,0.15);">
+        <h3 id="wenhuiFormTitle" style="font-size:0.95rem;margin:0 0 12px 0;color:var(--accent2);">添加 RSS 源</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">博客名称</label>
+            <input type="text" id="wenhuiName" placeholder="如：平哥偶记" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">RSS 地址</label>
+            <input type="text" id="wenhuiUrl" placeholder="如：https://example.com/feed.xml" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">分类（可选）</label>
+            <input type="text" id="wenhuiCat" placeholder="如：博客/科技" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px;">
+            <button class="btn btn-primary" onclick="wenhuiFormSubmit()">保存</button>
+            <button class="btn" onclick="hideWenhuiForm()">取消</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 页面 -->
@@ -1574,13 +1596,46 @@ function renderWenhuiList() {
   el.innerHTML = html;
 }
 
-function wenhuiAdd() {
-  var name = prompt('博客名称（如：平哥偶记）：');
-  if (!name) return;
-  var url = prompt('RSS 地址（如：https://example.com/feed.xml）：');
-  if (!url) return;
-  var category = prompt('分类（可选，如：博客/科技，回车跳过）：') || '';
-  _wenhuiFeeds.push({ name: name.trim(), url: url.trim(), category: category.trim() });
+var _wenhuiEditIdx = -1;
+
+function showWenhuiAddForm() {
+  _wenhuiEditIdx = -1;
+  document.getElementById('wenhuiFormTitle').textContent = '添加 RSS 源';
+  document.getElementById('wenhuiName').value = '';
+  document.getElementById('wenhuiUrl').value = '';
+  document.getElementById('wenhuiCat').value = '';
+  document.getElementById('wenhuiForm').style.display = 'block';
+  document.getElementById('wenhuiName').focus();
+}
+
+function wenhuiEdit(i) {
+  _wenhuiEditIdx = i;
+  var f = _wenhuiFeeds[i];
+  document.getElementById('wenhuiFormTitle').textContent = '编辑 RSS 源';
+  document.getElementById('wenhuiName').value = f.name;
+  document.getElementById('wenhuiUrl').value = f.url;
+  document.getElementById('wenhuiCat').value = f.category || '';
+  document.getElementById('wenhuiForm').style.display = 'block';
+  document.getElementById('wenhuiName').focus();
+}
+
+function hideWenhuiForm() {
+  document.getElementById('wenhuiForm').style.display = 'none';
+  _wenhuiEditIdx = -1;
+}
+
+function wenhuiFormSubmit() {
+  var name = document.getElementById('wenhuiName').value.trim();
+  var url = document.getElementById('wenhuiUrl').value.trim();
+  var category = document.getElementById('wenhuiCat').value.trim();
+  if (!name) { toast('请输入博客名称', 'error'); return; }
+  if (!url) { toast('请输入 RSS 地址', 'error'); return; }
+  if (_wenhuiEditIdx >= 0) {
+    _wenhuiFeeds[_wenhuiEditIdx] = { name: name, url: url, category: category };
+  } else {
+    _wenhuiFeeds.push({ name: name, url: url, category: category });
+  }
+  hideWenhuiForm();
   saveWenhui();
 }
 

@@ -560,6 +560,32 @@ async function updateLinks(request, env) {
 }
 
 // ═════════════════════════════════════════════════════════════════
+// 文汇 RSS 源管理
+const WENHUI_PATH = 'data/wenhui-feeds.json';
+
+async function getWenhuiFeeds(env) {
+  const file = await readGitHubFile(WENHUI_PATH, env);
+  if (!file) return corsResponse(JSON.stringify({ feeds: [] }));
+  try {
+    const data = JSON.parse(file.content);
+    return corsResponse(JSON.stringify(data));
+  } catch(e) {
+    return corsResponse(JSON.stringify({ feeds: [] }));
+  }
+}
+
+async function updateWenhuiFeeds(request, env) {
+  const body = await request.json();
+  const { feeds } = body;
+  const content = JSON.stringify({ feeds: feeds || [] }, null, 2);
+  // 检查文件是否存在
+  const existing = await readGitHubFile(WENHUI_PATH, env).catch(function(){ return null; });
+  const sha = existing ? existing.sha : undefined;
+  await writeGitHubFile(WENHUI_PATH, content, sha, 'Update wenhui feeds', env);
+  return corsResponse(JSON.stringify({ ok: true }));
+}
+
+// ═════════════════════════════════════════════════════════════════
 // 页面管理
 // ═════════════════════════════════════════════════════════════════
 const PAGES_DIR = 'content/pages';
@@ -691,6 +717,14 @@ export default {
       }
       if (path === '/api/links' && request.method === 'PUT') {
         return await updateLinks(request, env);
+      }
+
+      // ─── 文汇 RSS 源 API ─────────────────────────────────────────
+      if (path === '/api/wenhui-feeds' && request.method === 'GET') {
+        return await getWenhuiFeeds(env);
+      }
+      if (path === '/api/wenhui-feeds' && request.method === 'PUT') {
+        return await updateWenhuiFeeds(request, env);
       }
 
       // ─── 页面管理 API ────────────────────────────────────────────

@@ -39,6 +39,11 @@
       "name": "周天记",
       "url": "https://zhoutian.com/feed",
       "category": ""
+    },
+    {
+      "name": "徐建伟",
+      "url": "http://www.xulog.cn/index.php?act=rss",
+      "category": ""
     }
   ]
 }

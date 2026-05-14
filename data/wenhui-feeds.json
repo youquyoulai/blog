@@ -64,6 +64,11 @@
       "name": "ACWVS",
       "url": "http://acevs.com/feed",
       "category": ""
+    },
+    {
+      "name": "疏影横斜",
+      "url": "https://pocs.cn/zb_system/xml-rpc/wlwmanifest.xml",
+      "category": ""
     }
   ]
 }

@@ -192,8 +192,8 @@
 
 {{ $js := resources.Get "js/main.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}" defer></script>
-{{ if eq .Layout "search" }}
 {{ $searchJs := resources.Get "js/search.js" | minify | fingerprint }}
+{{ if eq .Layout "search" }}
 <script src="{{ $searchJs.RelPermalink }}" defer></script>
 {{ end }}
 

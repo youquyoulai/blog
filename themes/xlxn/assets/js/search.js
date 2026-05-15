@@ -1,4 +1,9 @@
 (function() {
+    function escapeHtml(str) {
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(str));
+        return div.innerHTML;
+    }
     var container = document.getElementById('searchResults');
     if (!container) return;
     var params = new URLSearchParams(window.location.search);
@@ -32,10 +37,4 @@
     }).catch(function() {
         container.innerHTML = '<p class="search-empty">搜索索引加载失败，请稍后重试</p>';
     });
-
-    function escapeHtml(str) {
-        var div = document.createElement('div');
-        div.appendChild(document.createTextNode(str));
-        return div.innerHTML;
-    }
 })();

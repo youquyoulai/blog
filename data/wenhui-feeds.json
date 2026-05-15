@@ -84,6 +84,11 @@
       "name": "I'm Marcus",
       "url": "https://immarcus.com/blog/rss.xml",
       "category": ""
+    },
+    {
+      "name": "瓦匠",
+      "url": "https://airy.ink/api/RssFeed",
+      "category": ""
     }
   ]
 }

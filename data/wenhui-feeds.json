@@ -74,6 +74,11 @@
       "name": "拾月",
       "url": "https://www.skyue.com",
       "category": "https://www.skyue.com/feed"
+    },
+    {
+      "name": "浮生事",
+      "url": "https://etom.top/feed/",
+      "category": ""
     }
   ]
 }

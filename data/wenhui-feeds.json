@@ -89,6 +89,11 @@
       "name": "瓦匠",
       "url": "https://airy.ink/api/RssFeed",
       "category": ""
+    },
+    {
+      "name": "树下语",
+      "url": "https://yishu-life.com/index.php/feed/",
+      "category": ""
     }
   ]
 }

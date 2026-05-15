@@ -69,6 +69,11 @@
       "name": "碎言",
       "url": "https://www.suiyan.cc/feed.xml",
       "category": ""
+    },
+    {
+      "name": "拾月",
+      "url": "https://www.skyue.com",
+      "category": "https://www.skyue.com/feed"
     }
   ]
 }

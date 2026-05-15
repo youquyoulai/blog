@@ -5,29 +5,42 @@
  */
 
 // ═════════════════════════════════════════════════════════════════
-// 图片 resize 配置（可选功能，需要开启 Cloudflare Image Resizing）
-// R2 公开访问 URL，作为 Image Resizing 的 origin
+// 配置
+// ═════════════════════════════════════════════════════════════════
 const R2_ORIGIN = 'https://img.pgoj.top';
+const ALLOWED_ORIGIN = 'https://www.pgoj.top';  // 只允许自己的域名
+const API_PREFIX = '/wgpjyhxlxn';  // API 路径前缀
 
 // ═════════════════════════════════════════════════════════════════
-// CORS 配置
+// 安全响应头
 // ═════════════════════════════════════════════════════════════════
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Admin-Token',
+const SECURITY_HEADERS = {
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'X-XSS-Protection': '1; mode=block',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';",
 };
 
+function getCorsHeaders(origin) {
+  return {
+    'Access-Control-Allow-Origin': origin || ALLOWED_ORIGIN,
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Token',
+    'Access-Control-Max-Age': '86400',
+  };
+}
+
 function corsResponse(body, status = 200, extraHeaders) {
+  const origin = extraHeaders && extraHeaders['Origin'];
   const headers = {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Admin-Token',
+    ...SECURITY_HEADERS,
+    ...getCorsHeaders(origin),
   };
   if (extraHeaders) {
     for (const [key, value] of Object.entries(extraHeaders)) {
-      headers[key] = value;
+      if (key !== 'Origin') headers[key] = value;
     }
   }
   return new Response(body, { status, headers });
@@ -37,12 +50,21 @@ function checkAuth(request, env) {
   try {
     const token = request.headers.get('X-Admin-Token');
     const expectedToken = env.ADMIN_TOKEN;
-    console.log('checkAuth: token=' + token + ', expected=' + (expectedToken ? 'exists' : 'undefined'));
-    return token && expectedToken && token === expectedToken;
+    if (!token || !expectedToken || token !== expectedToken) {
+      return false;
+    }
+    // 移除敏感日志
+    return true;
   } catch (e) {
-    console.error('checkAuth error:', e.message);
     return false;
   }
+}
+
+// 验证请求来源
+function checkOrigin(request) {
+  const origin = request.headers.get('Origin');
+  if (!origin) return true;  // 无 Origin 头（直接访问）放行
+  return origin === ALLOWED_ORIGIN || origin.endsWith('.pgoj.top');
 }
 
 // ═════════════════════════════════════════════════════════════════
@@ -657,8 +679,13 @@ export default {
 
     // 公开的连接测试接口（无需认证）
     const url = new URL(request.url);
-    if (url.pathname === '/api/ping') {
+    if (url.pathname === '/wgpjyhxlxn/ping') {
       return corsResponse(JSON.stringify({ ok: true, timestamp: Date.now() }));
+    }
+
+    // 验证来源
+    if (!checkOrigin(request)) {
+      return corsResponse(JSON.stringify({ error: 'Forbidden' }), 403);
     }
 
     if (!checkAuth(request, env)) {
@@ -669,89 +696,89 @@ export default {
 
     try {
       // ─── R2 图片 API ─────────────────────────────────────────────
-      if (path === '/api/images' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/images' && request.method === 'GET') {
         return await listImages(request, env);
       }
-      if (path === '/api/images/upload' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/images/upload' && request.method === 'POST') {
         return await uploadImage(request, env);
       }
-      if (path.startsWith('/api/images/') && request.method === 'DELETE') {
-        const key = decodeURIComponent(path.replace('/api/images/', ''));
+      if (path.startsWith('/wgpjyhxlxn/images/') && request.method === 'DELETE') {
+        const key = decodeURIComponent(path.replace('/wgpjyhxlxn/images/', ''));
         return await deleteImage(key, env);
       }
-      if (path === '/api/images/move' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/images/move' && request.method === 'POST') {
         return await moveImages(request, env);
       }
-      if (path === '/api/images/batch-move' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/images/batch-move' && request.method === 'POST') {
         return await batchMoveImages(request, env);
       }
-      if (path === '/api/images/resize' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/images/resize' && request.method === 'GET') {
         return await resizeImage(request, env);
       }
 
       // ─── GitHub 文章 API ──────────────────────────────────────────
-      if (path === '/api/posts' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/posts' && request.method === 'GET') {
         return await listPosts(request, env);
       }
-      if (path === '/api/posts' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/posts' && request.method === 'POST') {
         return await createPost(request, env);
       }
-      if (path.startsWith('/api/posts/') && request.method === 'PUT') {
-        const slug = decodeURIComponent(path.replace('/api/posts/', ''));
+      if (path.startsWith('/wgpjyhxlxn/posts/') && request.method === 'PUT') {
+        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/posts/', ''));
         return await updatePost(slug, request, env);
       }
-      if (path.startsWith('/api/posts/') && request.method === 'DELETE') {
-        const slug = decodeURIComponent(path.replace('/api/posts/', ''));
+      if (path.startsWith('/wgpjyhxlxn/posts/') && request.method === 'DELETE') {
+        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/posts/', ''));
         return await deletePost(slug, request, env);
       }
-      if (path.startsWith('/api/post/') && request.method === 'GET') {
-        const filename = decodeURIComponent(path.replace('/api/post/', ''));
+      if (path.startsWith('/wgpjyhxlxn/post/') && request.method === 'GET') {
+        const filename = decodeURIComponent(path.replace('/wgpjyhxlxn/post/', ''));
         return await getPost(filename, env);
       }
 
       // ─── 分类/标签 API ──────────────────────────────────────────
-      if (path === '/api/taxonomies' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/taxonomies' && request.method === 'GET') {
         return await getTaxonomies(env);
       }
 
       // ─── 友链 API ───────────────────────────────────────────────
-      if (path === '/api/links' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/links' && request.method === 'GET') {
         return await getLinks(env);
       }
-      if (path === '/api/links' && request.method === 'PUT') {
+      if (path === '/wgpjyhxlxn/links' && request.method === 'PUT') {
         return await updateLinks(request, env);
       }
 
       // ─── 文汇 RSS 源 API ─────────────────────────────────────────
-      if (path === '/api/wenhui-feeds' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/wenhui-feeds' && request.method === 'GET') {
         return await getWenhuiFeeds(env);
       }
-      if (path === '/api/wenhui-feeds' && request.method === 'PUT') {
+      if (path === '/wgpjyhxlxn/wenhui-feeds' && request.method === 'PUT') {
         return await updateWenhuiFeeds(request, env);
       }
 
       // ─── 页面管理 API ────────────────────────────────────────────
-      if (path === '/api/pages' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/pages' && request.method === 'GET') {
         return await listPages(env);
       }
-      if (path === '/api/pages' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/pages' && request.method === 'POST') {
         return await createPage(request, env);
       }
-      if (path.startsWith('/api/pages/') && request.method === 'PUT') {
-        const slug = decodeURIComponent(path.replace('/api/pages/', ''));
+      if (path.startsWith('/wgpjyhxlxn/pages/') && request.method === 'PUT') {
+        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/pages/', ''));
         return await updatePage(slug, request, env);
       }
-      if (path.startsWith('/api/pages/') && request.method === 'DELETE') {
-        const slug = decodeURIComponent(path.replace('/api/pages/', ''));
+      if (path.startsWith('/wgpjyhxlxn/pages/') && request.method === 'DELETE') {
+        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/pages/', ''));
         return await deletePage(slug, request, env);
       }
-      if (path.startsWith('/api/page/') && request.method === 'GET') {
-        const filename = decodeURIComponent(path.replace('/api/page/', ''));
+      if (path.startsWith('/wgpjyhxlxn/page/') && request.method === 'GET') {
+        const filename = decodeURIComponent(path.replace('/wgpjyhxlxn/page/', ''));
         return await getPage(filename, env);
       }
 
       // ─── 构建触发 ─────────────────────────────────────────────────
-      if (path === '/api/deploy' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/deploy' && request.method === 'POST') {
         return await triggerDeploy(env);
       }
 

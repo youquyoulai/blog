@@ -12,7 +12,23 @@
         container.innerHTML = '<p class="search-empty">请输入搜索关键词</p>';
         return;
     }
-    fetch('/searchindex.json').then(function(r) { return r.json(); }).then(function(data) {
+    fetch('/searchindex.json', { headers: { 'Accept': 'application/json' } })
+    .then(function(r) {
+        if (!r.ok) {
+            throw new Error('HTTP error ' + r.status);
+        }
+        return r.text();
+    })
+    .then(function(text) {
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error('JSON parse error:', e);
+            console.error('Response text:', text);
+            throw new Error('Invalid JSON');
+        }
+    })
+    .then(function(data) {
         var q = query.toLowerCase();
         var results = data.filter(function(item) {
             var text = (item.title + ' ' + item.summary + ' ' + (item.tags || []).join(' ') + ' ' + (item.categories || []).join(' ')).toLowerCase();

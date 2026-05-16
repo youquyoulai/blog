@@ -7,8 +7,8 @@
     <div class="search-results-page">
       <h1 class="page-title">搜索结果</h1>
       <div class="search-results-header">
-        <form method="get" action="{{ .Site.BaseURL }}" class="search-form" role="search">
-          <input type="text" id="searchPageInput" name="s" placeholder="搜索..." value="{{ .Params.s }}">
+          <form method="get" action="/search" class="search-form" role="search">
+          <input type="text" id="searchPageInput" name="s" placeholder="输入搜索关键词..." value="{{ with .Params.s }}{{ . }}{{ end }}">
           <button type="submit">🔍</button>
         </form>
       </div>
@@ -32,38 +32,61 @@
     return;
   }
 
-  fetch('{{ .Site.BaseURL }}searchindex.json')
-    .then(function(r) { return r.json(); })
+  function toArray(val) {
+    if (Array.isArray(val)) return val;
+    if (typeof val === 'string' && val.trim()) return [val.trim()];
+    return [];
+  }
+
+  var jsonUrl = '{{ "searchindex.json" | absURL }}';
+  fetch(jsonUrl, { headers: { 'Accept': 'application/json' } })
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    })
+    .then(function(text) {
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        console.error('JSON parse error:', e);
+        console.error('Response text preview:', text.substring(0, 500));
+        throw new Error('Invalid JSON');
+      }
+    })
     .then(function(data) {
       var results = [];
       var q = query.toLowerCase();
       for (var i = 0; i < data.length; i++) {
         var post = data[i];
-        var text = (post.title + ' ' + post.summary + ' ' + (post.tags || []).join(' ')).toLowerCase();
+        var tags = toArray(post.tags);
+        var categories = toArray(post.categories);
+        var text = (post.title + ' ' + post.summary + ' ' + tags.join(' ') + ' ' + categories.join(' ')).toLowerCase();
         if (text.indexOf(q) !== -1) {
           results.push(post);
         }
       }
 
       if (results.length === 0) {
-        container.innerHTML = '<p class="search-empty">没有找到与 "<strong>' + query + '</strong>" 相关的文章</p>';
+        container.innerHTML = '<p class="search-empty">没有找到与 "' + query + '" 相关的文章</p>';
         return;
       }
 
       var html = '<p class="search-count">找到 ' + results.length + ' 篇相关文章</p>';
       for (var j = 0; j < results.length; j++) {
         var r = results[j];
+        var catArray = toArray(r.categories);
         html += '<div class="search-result-item">';
         html += '<a href="' + r.url + '" class="search-result-title">' + highlight(r.title, query) + '</a>';
         if (r.summary) {
           html += '<p class="search-result-summary">' + highlight(truncate(r.summary, 150), query) + '</p>';
         }
-        html += '<span class="search-result-meta">' + (r.categories || []).join(', ') + ' · ' + r.date + '</span>';
+        html += '<span class="search-result-meta">' + (catArray.join(', ') || '未分类') + ' · ' + r.date + '</span>';
         html += '</div>';
       }
       container.innerHTML = html;
     })
-    .catch(function() {
+    .catch(function(err) {
+      console.error('搜索失败:', err);
       container.innerHTML = '<p class="search-empty">搜索失败，请稍后重试</p>';
     });
 

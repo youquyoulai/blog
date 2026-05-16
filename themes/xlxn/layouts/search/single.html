@@ -10,7 +10,7 @@
                 <form method="get" action="/search" class="search-form" role="search">
                     <input type="text" id="searchPageInput" name="s" placeholder="{{ .Params.placeholder | default "搜索文章、标签..." }}">
                     <button type="submit" aria-label="搜索">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                        <svg width="16" height="16" fill="currentColor"><use href="#icon-search"></use></svg>
                     </button>
                 </form>
             </div>
@@ -20,5 +20,89 @@
         </div>
     </div>
 </div>
+{{ end }}
+
+{{ define "scripts" }}
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var query = (params.get('s') || '').trim();
+  var container = document.getElementById('searchResults');
+
+  if (!query) {
+    container.innerHTML = '<p class="search-empty">请输入搜索关键词</p>';
+    return;
+  }
+
+  function toArray(val) {
+    if (Array.isArray(val)) return val;
+    if (typeof val === 'string' && val.trim()) return [val.trim()];
+    return [];
+  }
+
+  var jsonUrl = '{{ "searchindex.json" | absURL }}';
+  fetch(jsonUrl, { headers: { 'Accept': 'application/json' } })
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    })
+    .then(function(text) {
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        console.error('JSON parse error:', e);
+        console.error('Response text preview:', text.substring(0, 500));
+        throw new Error('Invalid JSON');
+      }
+    })
+    .then(function(data) {
+      var results = [];
+      var q = query.toLowerCase();
+      for (var i = 0; i < data.length; i++) {
+        var post = data[i];
+        var tags = toArray(post.tags);
+        var categories = toArray(post.categories);
+        var text = (post.title + ' ' + post.summary + ' ' + tags.join(' ') + ' ' + categories.join(' ')).toLowerCase();
+        if (text.indexOf(q) !== -1) {
+          results.push(post);
+        }
+      }
+
+      if (results.length === 0) {
+        container.innerHTML = '<p class="search-empty">没有找到与 "' + query + '" 相关的文章</p>';
+        return;
+      }
+
+      var html = '<p class="search-count">找到 ' + results.length + ' 篇相关文章</p>';
+      for (var j = 0; j < results.length; j++) {
+        var r = results[j];
+        var catArray = toArray(r.categories);
+        html += '<div class="search-result-item">';
+        html += '<a href="' + r.url + '" class="search-result-title">' + highlight(r.title, query) + '</a>';
+        if (r.summary) {
+          html += '<p class="search-result-summary">' + highlight(truncate(r.summary, 150), query) + '</p>';
+        }
+        html += '<span class="search-result-meta">' + (catArray.join(', ') || '未分类') + ' · ' + r.date + '</span>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+    })
+    .catch(function(err) {
+      console.error('搜索失败:', err);
+      container.innerHTML = '<p class="search-empty">搜索失败，请稍后重试</p>';
+    });
+
+  function truncate(str, len) {
+    var plain = str.replace(/<[^>]*>/g, '');
+    return plain.length > len ? plain.substring(0, len) + '...' : plain;
+  }
+
+  function highlight(text, q) {
+    if (!q) return text;
+    var regex = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+})();
+</script>
 {{ end }}
 

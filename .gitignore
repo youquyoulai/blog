@@ -11,5 +11,6 @@ backup_*.html
 *backup*
 *fix*
 *wrangler*
+!workers/wrangler.toml
 test_*.js
 twikoo-cloudflare/

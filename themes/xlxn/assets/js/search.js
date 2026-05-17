@@ -12,7 +12,12 @@
         container.innerHTML = '<p class="search-empty">请输入搜索关键词</p>';
         return;
     }
-    fetch('/searchindex.json').then(function(r) { return r.json(); }).then(function(data) {
+    // 使用相对路径，兼容本地和线上
+    var jsonUrl = new URL('searchindex.json', location.origin + location.pathname.replace(/\/[^\/]*$/, '/') + '../').href;
+    fetch(jsonUrl).then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+    }).then(function(data) {
         var q = query.toLowerCase();
         var results = data.filter(function(item) {
             var text = (item.title + ' ' + item.summary + ' ' + (item.tags || []).join(' ') + ' ' + (item.categories || []).join(' ')).toLowerCase();
@@ -34,7 +39,8 @@
             html += '</article>';
         });
         container.innerHTML = html;
-    }).catch(function() {
-        container.innerHTML = '<p class="search-empty">搜索索引加载失败，请稍后重试</p>';
+    }).catch(function(err) {
+        console.error('搜索失败:', err);
+        container.innerHTML = '<p class="search-empty">搜索失败，请稍后重试</p>';
     });
 })();

@@ -22,10 +22,13 @@
 
 {{ define "scripts" }}
 <script>
+console.log('Search script loaded at', new Date().toISOString());
 (function() {
   var params = new URLSearchParams(window.location.search);
   var query = (params.get('s') || '').trim();
   var container = document.getElementById('searchResults');
+
+  console.log('Search query:', query);
 
   if (!query) {
     container.innerHTML = '<p class="search-empty">请输入搜索关键词</p>';
@@ -38,15 +41,21 @@
     return [];
   }
 
-  var jsonUrl = '{{ "searchindex.json" | absURL }}';
-  fetch(jsonUrl, { headers: { 'Accept': 'application/json' } })
+  var jsonUrl = '{{ "searchindex.json" | absURL }}?v={{ now.Unix }}';
+  console.log('Search index URL:', jsonUrl);
+  
+  fetch(jsonUrl, { headers: { 'Accept': 'application/json' }, cache: 'no-cache' })
     .then(function(r) {
+      console.log('HTTP status:', r.status);
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.text();
     })
     .then(function(text) {
+      console.log('Response text length:', text.length);
       try {
-        return JSON.parse(text);
+        var data = JSON.parse(text);
+        console.log('Parsed data length:', data.length);
+        return data;
       } catch (e) {
         console.error('JSON parse error:', e);
         console.error('Response text preview:', text.substring(0, 500));
@@ -65,6 +74,8 @@
           results.push(post);
         }
       }
+
+      console.log('Search results found:', results.length);
 
       if (results.length === 0) {
         container.innerHTML = '<p class="search-empty">没有找到与 "' + query + '" 相关的文章</p>';

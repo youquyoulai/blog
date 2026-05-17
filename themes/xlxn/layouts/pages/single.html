@@ -14,9 +14,13 @@
     </div>
     {{ end }}
 
-    {{ with .Site.Params.waline.serverURL }}
+    {{ if .Site.Params.waline.serverURL }}
     {{ $path := $.Permalink | relURL }}
-    {{ partial "waline.html" (dict "ctx" $ "serverURL" . "el" "waline" "path" $path "label" "留言") }}
+    {{ if eq .Params.layout "guestbook" }}
+        {{ partial "waline.html" (dict "ctx" $ "serverURL" .Site.Params.waline.serverURL "el" "waline" "path" $path "label" "留言") }}
+    {{ else }}
+        {{ partial "waline.html" (dict "ctx" $ "serverURL" .Site.Params.waline.serverURL "el" "waline" "path" $path "label" "评论") }}
+    {{ end }}
     {{ end }}
 </div>
 {{ end }}

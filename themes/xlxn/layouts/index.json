@@ -1,7 +1,14 @@
-{{- $.Scratch.Add "index" slice -}}
-{{- range .Site.RegularPages -}}
-{{- $plainSummary := .Summary | plainify | truncate 80 -}}
-{{- $.Scratch.Add "index" (dict "title" .Title "url" .Permalink "date" (.Date.Format "2006-01-02") "categories" .Params.categories "tags" .Params.tags "summary" $plainSummary) -}}
-{{- end -}}
-{{- $.Scratch.Get "index" | jsonify -}}
-
+[
+  {{- $pages := where .Site.RegularPages "Section" "posts" -}}
+  {{- range $i, $p := $pages -}}
+  {{- if $i -}},{{- end -}}
+  {
+    "title": {{ $p.Title | jsonify }},
+    "url": {{ $p.RelPermalink | jsonify }},
+    "date": {{ $p.Date.Format "2006-01-02" | jsonify }},
+    "summary": {{ $p.Summary | plainify | jsonify }},
+    "categories": {{ $p.Params.categories | jsonify }},
+    "tags": {{ $p.Params.tags | jsonify }}
+  }
+  {{- end -}}
+]

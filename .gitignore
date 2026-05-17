@@ -14,3 +14,7 @@ backup_*.html
 !workers/wrangler.toml
 test_*.js
 twikoo-cloudflare/
+pages.json
+.wrangler/
+hugo_server.log
+

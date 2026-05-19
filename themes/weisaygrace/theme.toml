@@ -1,0 +1,16 @@
+name = "Weisay Grace"
+license = "GPL-2.0-or-later"
+licenselink = "https://www.gnu.org/licenses/gpl-2.0.html"
+description = "Hugo 响应式博客主题，自适应 PC 端和手机端，设计优雅、使用便捷"
+homepage = "https://github.com/weisay/weisaygrace"
+min_version = "0.110.0"
+tags = ["responsive", "blog", "dark-mode", "comments", "two-column", "widgets"]
+features = ["responsive", "dark-mode", "syntax-highlighting", "comments", "widgets", "SEO", "pagination"]
+
+[author]
+  name = "Weisay"
+  homepage = "https://www.weisay.com"
+
+[original]
+  name = "Weisay Grace (WordPress)"
+  homepage = "https://www.weisay.com/blog/wordpress-theme-weisay-grace.html"

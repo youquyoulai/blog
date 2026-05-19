@@ -1,0 +1,294 @@
+{{/* 归档页 partial */}}
+{{ $allPosts := where .Site.RegularPages "Section" "posts" }}
+{{ $totalPosts := len $allPosts }}
+{{ $years := 0 }}
+{{ range $allPosts.GroupByDate "2006" }}{{ $years = add $years 1 }}{{ end }}
+
+<style>
+.archive-page .article {
+    margin-bottom: 1rem;
+}
+.archive-content {
+    padding: 0 1rem;
+}
+.archive-intro {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    color: #666;
+}
+.archive-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1rem;
+}
+.stat-item {
+    text-align: center;
+}
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color_link);
+    line-height: 1.2;
+}
+.stat-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #999;
+    margin-top: 0.25rem;
+}
+.expand-all-wrap {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.expand-all-btn {
+    background: none;
+    border: 1px solid var(--color_link);
+    color: var(--color_link);
+    padding: 0.375rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+.expand-all-btn:hover {
+    background: var(--color_link);
+    color: #fff;
+}
+.archive-container {
+    margin-top: 1rem;
+}
+.archive-year {
+    margin-bottom: 0.5rem;
+}
+.year-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.year-header:hover {
+    background: #e9ecef;
+}
+.year-text {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #333;
+}
+.year-count {
+    font-size: 0.875rem;
+    color: #999;
+}
+.year-months {
+    padding-left: 0.5rem;
+}
+.archive-month {
+    margin: 0.25rem 0;
+}
+.month-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem 0.5rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 0.25rem;
+}
+.month-header:hover {
+    background: #f0f0f0;
+}
+.month-text {
+    font-size: 1rem;
+    color: #555;
+}
+.month-count {
+    font-size: 0.75rem;
+    color: #aaa;
+}
+.month-posts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 2rem;
+}
+.post-item {
+    padding: 0.375rem 1rem;
+    border-bottom: 1px dashed #eee;
+}
+.post-item:last-child {
+    border-bottom: none;
+}
+.post-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+.post-title {
+    flex: 1;
+    font-size: 0.9375rem;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 1rem;
+}
+.post-link:hover .post-title {
+    color: var(--color_link);
+}
+.post-date {
+    font-size: 0.75rem;
+    color: #999;
+    white-space: nowrap;
+}
+.archive-empty {
+    text-align: center;
+    color: #999;
+    padding: 2rem;
+}
+.archive-year.collapsed .year-months {
+    display: none;
+}
+.archive-month.collapsed .month-posts {
+    display: none;
+}
+.archive-year.expanded .year-months {
+    display: block;
+}
+.archive-month.expanded .month-posts {
+    display: block;
+}
+</style>
+
+<div class="archive-page">
+    <div class="article">
+    <h1 class="post-title">{{ .Title }}</h1>
+    </div>
+
+    <div class="archive-content">
+    {{ if .Content }}
+    <div class="archive-intro">{{ .Content }}</div>
+    {{ end }}
+
+    <div class="archive-stats">
+        <div class="stat-item">
+            <span class="stat-number">{{ $totalPosts }}</span>
+            <span class="stat-label">篇文章</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">{{ $years }}</span>
+            <span class="stat-label">个年份</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">{{ .Site.Params.commentCount | default "0" }}</span>
+            <span class="stat-label">条评论</span>
+        </div>
+    </div>
+
+    <div class="expand-all-wrap">
+        <button class="expand-all-btn" id="expandAllBtn">展开全部</button>
+    </div>
+
+    <div class="archive-container">
+        {{ range $allPosts.GroupByDate "2006" }}
+        {{ $yearTotal := len .Pages }}
+        <div class="archive-year collapsed">
+            <div class="year-header">
+                <span class="year-text">{{ .Key }} 年</span>
+                <span class="year-count">{{ $yearTotal }} 篇</span>
+            </div>
+            <div class="year-months">
+                {{ range .Pages.GroupByDate "2006-01" }}
+                {{ $monthName := strings.TrimPrefix "0" (substr .Key 5 2) }}
+                <div class="archive-month collapsed">
+                    <div class="month-header">
+                        <span class="month-text">{{ $monthName }} 月</span>
+                        <span class="month-count">{{ len .Pages }} 篇</span>
+                    </div>
+                    <ul class="month-posts">
+                        {{ range .Pages }}
+                        <li class="post-item">
+                            <a href="{{ .Permalink }}" class="post-link">
+                                <span class="post-title">{{ .Title }}</span>
+                                <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+                            </a>
+                        </li>
+                        {{ end }}
+                    </ul>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+        {{ else }}
+        <p class="archive-empty">暂无文章</p>
+        {{ end }}
+    </div>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var expandAllBtn = document.getElementById('expandAllBtn');
+    var years = document.querySelectorAll('.archive-year');
+    var allExpanded = false;
+
+    if (expandAllBtn) {
+        expandAllBtn.addEventListener('click', function() {
+            if (allExpanded) {
+                years.forEach(function(year) {
+                    year.classList.remove('expanded');
+                    year.classList.add('collapsed');
+                    var months = year.querySelectorAll('.archive-month');
+                    months.forEach(function(month) {
+                        month.classList.remove('expanded');
+                        month.classList.add('collapsed');
+                    });
+                });
+                expandAllBtn.textContent = '展开全部';
+                allExpanded = false;
+            } else {
+                years.forEach(function(year) {
+                    year.classList.remove('collapsed');
+                    year.classList.add('expanded');
+                    var months = year.querySelectorAll('.archive-month');
+                    months.forEach(function(month) {
+                        month.classList.remove('collapsed');
+                        month.classList.add('expanded');
+                    });
+                });
+                expandAllBtn.textContent = '折叠全部';
+                allExpanded = true;
+            }
+        });
+    }
+
+    years.forEach(function(year) {
+        var yearHeader = year.querySelector('.year-header');
+        if (yearHeader) {
+            yearHeader.addEventListener('click', function(e) {
+                e.stopPropagation();
+                year.classList.toggle('expanded');
+                year.classList.toggle('collapsed');
+            });
+        }
+    });
+
+    document.querySelectorAll('.archive-month').forEach(function(month) {
+        var monthHeader = month.querySelector('.month-header');
+        if (monthHeader) {
+            monthHeader.addEventListener('click', function(e) {
+                e.stopPropagation();
+                month.classList.toggle('expanded');
+                month.classList.toggle('collapsed');
+            });
+        }
+    });
+});
+</script>

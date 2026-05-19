@@ -1,0 +1,15 @@
+{{ define "main" }}
+{{- $posts := where .Site.RegularPages "Section" "posts" -}}
+{{- $filtered := slice -}}
+{{- range $posts -}}
+  {{- if not (in .Params.categories "weibo") -}}
+    {{- $filtered = $filtered | append . -}}
+  {{- end -}}
+{{- end -}}
+{{ $paginator := .Paginate $filtered }}
+{{ range $idx, $page := $paginator.Pages }}
+{{ partial "post-card.html" (dict "page" $page "idx" $idx "paginator" $paginator) }}
+{{ end }}
+
+{{ partial "pagination.html" $paginator }}
+{{ end }}

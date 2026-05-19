@@ -1,0 +1,17 @@
+{{/* 输出分类名称（纯文本），将英文分类名映射为中文显示名。
+   调用方式：{{ partial "cat-names.html" $page.Params.categories }}
+   注意：此文件只输出纯文本，调用方需要自行包裹 <a> 标签。
+*/}}
+{{ if . }}
+  {{ $catNames := dict "guangan" "观感" "jilu" "记录" "weibo" "微语" }}
+  {{ $cats := . }}
+  {{ if not (reflect.IsSlice .) }}{{ $cats = (slice .) }}{{ end }}
+  {{ range $i, $cat := $cats }}
+    {{ if $cat }}
+      {{ if $i }}, {{ end }}
+      {{ $displayName := index $catNames $cat }}
+      {{ if not $displayName }}{{ $displayName = $cat }}{{ end }}
+      {{ $displayName }}
+    {{ end }}
+  {{ end }}
+{{ end }}

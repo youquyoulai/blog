@@ -1,0 +1,263 @@
+{{ define "main" }}
+{{ $displayName := partial "cat-names.html" .Title }}
+
+{{ partial "breadcrumbs.html" . }}
+
+{{ if eq .Title "weibo" }}
+{{/* ===== 微语：朋友圈时间线样式 ===== */}}
+<div class="weibo-feed">
+    {{ $paginator := .Paginator }}
+    {{ range $idx, $page := $paginator.Pages }}
+    <div class="feed-item">
+        <div class="feed-info">
+            <span class="feed-author">{{ $.Site.Params.author }}</span>
+            <span class="feed-time">{{ $page.Date.Format "2006年01月02日" }}</span>
+        </div>
+        <div class="feed-text">{{ $page.Content | safeHTML }}</div>
+        {{ $imgs := $page.Resources.ByType "image" }}
+        {{ if gt (len $imgs) 0 }}
+        <div class="feed-images image-grid-{{ if le (len $imgs) 1 }}1{{ else if le (len $imgs) 2 }}2{{ else if le (len $imgs) 3 }}3{{ else }}4{{ end }}">
+            {{ range $imgs }}
+            <a class="feed-image-link" href="{{ .Permalink }}" data-lightbox="weibo" target="_blank" rel="noopener">
+                <img src="{{ .Permalink }}" alt="{{ $page.Title }}" loading="lazy" decoding="async">
+            </a>
+            {{ end }}
+        </div>
+        {{ end }}
+        <div class="feed-footer">
+            {{ if $page.Params.tags }}
+            <div class="feed-tags">
+                {{ range $page.Params.tags }}
+                <a href="/tags/{{ . | urlize }}/" class="feed-tag">{{ partial "tag-names.html" (dict "tag" .) }}</a>
+                {{ end }}
+            </div>
+            {{ end }}
+            {{ with $.Site.Params.waline.serverURL }}
+            <button class="feed-reply-btn" data-target="feed-comments-{{ $idx }}">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span class="feed-reply-count">评论</span>
+            </button>
+            {{ end }}
+        </div>
+        {{ with $.Site.Params.waline.serverURL }}
+        <div class="feed-comments" id="feed-comments-{{ $idx }}" data-path="{{ $page.RelPermalink }}"></div>
+        {{ end }}
+    </div>
+    {{ end }}
+
+{{ partial "pagination.html" $paginator }}
+
+{{/* 兜底：将 feed-text 内残留的 markdown 图片转成 HTML */}}
+<script>
+document.querySelectorAll('.feed-text').forEach(function(el){
+    el.innerHTML = el.innerHTML.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;border-radius:8px;margin:8px 0;">');
+});
+</script>
+</div>
+
+{{ with $.Site.Params.waline.serverURL }}
+<script>
+(function(){
+    var serverURL='{{ . }}';
+    var walineLoaded=false;
+    function loadWaline(callback){
+        if(walineLoaded&&typeof Waline!=='undefined'){callback();return;}
+        var css=document.createElement('link');css.rel='stylesheet';css.href='{{ $.Site.BaseURL }}js/waline/waline.css';document.head.appendChild(css);
+        var s=document.createElement('script');s.src='{{ $.Site.BaseURL }}js/waline/waline.js';s.onload=function(){walineLoaded=true;callback();};document.head.appendChild(s);
+    }
+    var inited={};
+    document.querySelectorAll('.feed-reply-btn[data-target]').forEach(function(btn,i){
+        var target=document.getElementById(btn.getAttribute('data-target'));
+        btn.addEventListener('click',function(e){
+            e.preventDefault();e.stopPropagation();
+            if(!target)return;
+            var isOpen=target.classList.contains('feed-comments-open');
+            if(isOpen){
+                target.classList.remove('feed-comments-open');
+                btn.querySelector('.feed-reply-count').textContent='评论';
+            }else{
+                target.classList.add('feed-comments-open');
+                btn.querySelector('.feed-reply-count').textContent='收起';
+                if(!inited[i]){inited[i]=true;loadWaline(function(){Waline.init({serverURL:serverURL,el:target,lang:'zh-CN',path:target.getAttribute('data-path')});});}
+            }
+        });
+    });
+})();
+</script>
+{{ end }}
+
+{{ else }}
+{{/* ===== 普通分类：标准文章列表 ===== */}}
+
+{{ $paginator := .Paginate .Pages }}
+{{ range $idx, $page := $paginator.Pages }}
+{{ partial "post-card.html" (dict "page" $page "idx" $idx "paginator" $paginator "hideCategory" true) }}
+{{ end }}
+
+{{ partial "pagination.html" $paginator }}
+{{ end }}
+
+{{ if eq .Title "weibo" }}
+<style>
+/* ====== 微语朋友圈时间线样式 ====== */
+.weibo-feed { width: 100%; padding: 0; }
+.feed-item {
+    background: #fff;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    transition: box-shadow .25s, transform .2s;
+    border: 1px solid #eee;
+}
+.feed-item:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,.1);
+    transform: translateY(-2px);
+}
+.feed-info {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.feed-author {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #333;
+}
+.feed-time {
+    font-size: .8rem;
+    color: #999;
+}
+.feed-text {
+    font-size: .95rem;
+    line-height: 1.68;
+    color: #444;
+    word-break: break-word;
+    margin-bottom: 16px;
+}
+.feed-text p { margin: 0 0 10px; }
+.feed-text p:last-child { margin-bottom: 0; }
+.feed-images {
+    display: grid;
+    gap: 6px;
+    margin: 16px 0 8px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+.image-grid-1 { grid-template-columns: 1fr; }
+.image-grid-1 img { max-height: 420px; width: 100%; object-fit: cover; }
+.image-grid-2 { grid-template-columns: 1fr 1fr; }
+.image-grid-2 img { aspect-ratio: 1/1; object-fit: cover; }
+.image-grid-3 { grid-template-columns: 1fr 1fr; }
+.image-grid-3>a:first-child { grid-column: span 2; }
+.image-grid-3>a:first-child img { max-height: 280px; width: 100%; object-fit: cover; }
+.image-grid-3 img { aspect-ratio: 4/3; object-fit: cover; }
+.image-grid-4 { grid-template-columns: 1fr 1fr; }
+.image-grid-4 img { aspect-ratio: 1/1; object-fit: cover; }
+.feed-image-link {
+    display: block;
+    overflow: hidden;
+    cursor: zoom-in;
+}
+.feed-image-link img {
+    width: 100%; height: 100%;
+    transition: transform .3s ease;
+}
+.feed-image-link:hover img { transform: scale(1.03); }
+.feed-footer {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.feed-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.feed-tag {
+    display: inline-block;
+    font-size: .75rem;
+    color: #999;
+    background: #f5f5f5;
+    padding: 2px 10px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all .2s;
+}
+.feed-tag:hover { background: var(--color_link, #ed5565); color: #fff; }
+.feed-reply-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f9f9f9;
+    color: #666;
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: .75rem;
+    font-weight: 500;
+    border: 1px solid #e5e5e5;
+    cursor: pointer;
+    transition: all .2s;
+}
+.feed-reply-btn:hover {
+    background: var(--color_link, #ed5565);
+    color: #fff;
+    border-color: var(--color_link, #ed5565);
+}
+.feed-comments {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    font-size: .8rem;
+    display: none !important;
+    box-sizing: border-box;
+    overflow: visible;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.feed-comments.feed-comments-open { display: block !important; }
+.feed-comments:empty { display: none !important; }
+.feed-comments { --waline-avatar-size: 32px; --waline-m-avatar-size: 28px; }
+.feed-comments .wl-cards .wl-user { --avatar-size: 32px !important; width: 32px !important; height: 32px !important; flex-shrink: 0; }
+.feed-comments .wl-cards .wl-user img { width: 32px !important; height: 32px !important; border-radius: 50% !important; object-fit: cover; max-width: none !important; max-height: none !important; }
+.feed-comments .wl-editor, .feed-comments .wl-input, .feed-comments .wl-textarea { max-width: 100% !important; box-sizing: border-box; }
+
+@media (max-width: 600px) {
+    .weibo-feed { padding: 0; }
+    .feed-item { padding: 16px; border-radius: 14px; }
+    .feed-text { font-size: .95rem; }
+    .feed-author { font-size: 1rem; }
+    .feed-time { font-size: .75rem; }
+    .feed-footer { flex-wrap: wrap; gap: 8px; }
+    .feed-tags { flex: 1; min-width: 0; }
+    .feed-comments { padding: 8px 4px; }
+    .image-grid-1 img { max-height: 300px; }
+}
+
+/* 暗色模式 */
+[data-theme="dark"] .feed-item,
+.dark .feed-item {
+    background: #1e1e2e;
+    border-color: #333;
+}
+[data-theme="dark"] .feed-text,
+.dark .feed-text { color: #ccc; }
+[data-theme="dark"] .feed-author,
+.dark .feed-author { color: #eee; }
+[data-theme="dark"] .feed-footer,
+.dark .feed-footer { }
+[data-theme="dark"] .feed-tag,
+.dark .feed-tag { background: #2a2a3e; color: #aaa; }
+[data-theme="dark"] .feed-reply-btn,
+.dark .feed-reply-btn { background: #2a2a3e; color: #ccc; border-color: #444; }
+[data-theme="dark"] .feed-comments,
+.dark .feed-comments { background: #1a1a2a; }
+[data-theme="dark"] .feed-images,
+.dark .feed-images { background: #2a2a3a; }
+</style>
+{{ end }}
+{{ end }}

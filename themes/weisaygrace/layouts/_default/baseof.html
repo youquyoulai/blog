@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="{{ .Site.Params.themeColor | default "#434a54" }}">
+    {{ if .Site.Params.appleTouchIcon }}<link rel="apple-touch-icon" href="{{ .Site.Params.appleTouchIcon }}">{{ end }}
+
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ if lt (len .Title) 20 }} - {{ .Site.Title }}{{ end }}{{ end }}</title>
+    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 160) }}{{ end }}">
+    <meta name="keywords" content="{{ if .IsPage }}{{ with .Params.tags }}{{ delimit . "," }}{{ else }}{{ $.Site.Params.keywords | default "" }}{{ end }}{{ else }}{{ .Site.Params.keywords | default "" }}{{ end }}">
+    {{ if .Params.noindex }}
+    <meta name="robots" content="noindex, follow">
+    {{ end }}
+
+    {{ if .Site.Params.favicon }}
+    <link rel="shortcut icon" href="{{ .Site.Params.favicon }}" type="image/x-icon">
+    <link rel="icon" href="{{ .Site.Params.favicon }}">
+    {{ end }}
+
+    {{ with .Site.Params.waline.serverURL }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
+    <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
+    {{ with .Site.Params.waline.serverURL }}<link rel="dns-prefetch" href="{{ . }}">{{ end }}
+
+    {{ $css := resources.Get "css/style.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+    {{ $darkCss := resources.Get "css/dark.css" | minify | fingerprint }}
+    <link rel="preload" as="style" href="{{ $darkCss.RelPermalink }}" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ $darkCss.RelPermalink }}"></noscript>
+
+    <!-- SVG Sprite (icons used across theme) -->
+    <svg style="display:none">
+        <symbol id="icon-tag" viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></symbol>
+        <symbol id="icon-calendar" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></symbol>
+        <symbol id="icon-folder" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></symbol>
+        <symbol id="icon-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
+        <symbol id="icon-archive" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm1 4h16v14H4V7zm3 2v3h10V9H7zm2 5v3h6v-3H9z"/></symbol>
+        <symbol id="icon-about" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></symbol>
+        <symbol id="icon-rss" viewBox="0 0 24 24"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></symbol>
+        <symbol id="icon-message" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></symbol>
+        <symbol id="icon-link" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></symbol>
+        <symbol id="icon-category" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></symbol>
+        <symbol id="icon-user" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></symbol>
+        <symbol id="icon-email" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></symbol>
+    </svg>
+
+    {{ if not .IsHome }}
+    <!-- JSON-LD: BreadcrumbList -->
+    {{ if .IsSection }}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "{{ .Site.BaseURL | safeURL }}"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "{{ .Title | plainify }}",
+                "item": "{{ .Permalink | safeURL }}"
+            }
+        ]
+    }
+    </script>
+    {{ else if .IsPage }}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "{{ .Site.BaseURL | safeURL }}"
+            }{{ with .CurrentSection }},
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "{{ .Title | plainify }}",
+                "item": "{{ .Permalink | safeURL }}"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{{ $.Title | plainify }}",
+                "item": "{{ $.Permalink | safeURL }}"
+            }{{ else }},
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "{{ $.Title | plainify }}",
+                "item": "{{ $.Permalink | safeURL }}"
+            }{{ end }}
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD: BlogPosting -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "{{ .Title | plainify }}",
+        "description": "{{ .Params.description | default (.Summary | plainify | truncate 200) }}",
+        "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+        "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ .Permalink | safeURL }}"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "{{ .Site.Params.author | default .Site.Title }}"
+        }{{ with .Params.thumbnail }},
+        "image": "{{ . | absURL }}"
+        {{ end }}
+    }
+    </script>
+    {{ end }}
+    {{ end }}
+
+    <!-- SEO -->
+    <link rel="canonical" href="{{ .Permalink }}">
+    {{ with .OutputFormats.Get "rss" }}
+    <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
+    {{ end }}
+
+    {{ if .IsPage }}
+    <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+    {{ if ne (.Lastmod.Format "2006-01-02T15:04:05Z07:00") (.Date.Format "2006-01-02T15:04:05Z07:00") }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+    {{ end }}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}">
+    <meta property="og:description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 200) }}{{ end }}">
+    <meta property="og:site_name" content="{{ .Site.Title }}">
+    <meta property="og:locale" content="zh_CN">
+    {{ $ogImg := "" }}
+    {{ if .Params.thumbnail }}
+        {{ $ogImg = .Params.thumbnail }}
+    {{ else if .Params.cover }}
+        {{ $ogImg = .Params.cover }}
+    {{ end }}
+    {{ if $ogImg }}
+    {{ if (findRE "^@image:" $ogImg) }}
+    <meta property="og:image" content="{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}">
+    {{ else if (findRE "^/" $ogImg) }}
+    <meta property="og:image" content="{{ $ogImg | absURL }}">
+    {{ else }}
+    <meta property="og:image" content="{{ $ogImg }}">
+    {{ end }}
+    <meta property="og:image:alt" content="{{ .Title | default "文章配图" }}">
+    {{ end }}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="{{ if $ogImg }}summary_large_image{{ else }}summary{{ end }}">
+    <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}">
+    <meta name="twitter:description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 200) }}{{ end }}">
+    {{ if $ogImg }}
+    {{ if (findRE "^@image:" $ogImg) }}
+    <meta name="twitter:image" content="{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}">
+    {{ else if (findRE "^/" $ogImg) }}
+    <meta name="twitter:image" content="{{ $ogImg | absURL }}">
+    {{ else }}
+    <meta name="twitter:image" content="{{ $ogImg }}">
+    {{ end }}
+    {{ end }}
+
+    {{ hugo.Generator }}
+</head>
+<body>
+
+{{ partial "header.html" . }}
+
+<div class="container" id="main-content">
+    <div class="main">
+        {{ block "main" . }}{{ end }}
+    </div>
+    
+    <aside class="sidebar" id="desktopSidebar">
+        {{ partial "sidebar.html" . }}
+    </aside>
+</div>
+
+{{ partial "footer.html" . }}
+
+{{ $js := resources.Get "js/main.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" defer></script>
+
+<script>document.querySelectorAll('.article-content img:not([loading])').forEach(function(img){img.loading='lazy';img.decoding='async'})</script>
+
+{{ block "scripts" . }}{{ end }}
+
+<!-- 浮动暗色模式切换按钮 -->
+<button id="dark-mode-toggle-mobile" class="floating-dark-toggle" aria-label="切换暗色模式">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+</button>
+</body>
+</html>

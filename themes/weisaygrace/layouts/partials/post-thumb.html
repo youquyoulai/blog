@@ -1,0 +1,52 @@
+{{/* 文章缩略图处理 partial
+   参数：$page (Page对象), $idx (索引, 可选), $paginator (Paginator对象, 可选)
+   用法：{{ partial "post-thumb.html" (dict "page" .) }}
+   支持的缩略图来源（按优先级）：
+   1. Params.thumbnail 字段
+   2. 文章资源中匹配 *thumb* 的文件
+   3. Params.images 数组的第一张图
+   4. Params.cover 字段（支持 @image:xxx-300.webp 格式）
+   5. 随机默认缩略图
+*/}}
+{{ $page := .page }}
+{{ $idx := .idx | default 0 }}
+{{ $paginator := .paginator }}
+{{ $isLazy := not (and $paginator (eq $paginator.PageNumber 1) (eq $idx 0)) }}
+
+{{ $thumb := $page.Params.thumbnail }}
+
+{{ if not $thumb }}
+    {{ $thumb = $page.Resources.GetMatch "*thumb*" }}
+{{ end }}
+
+{{ if not $thumb }}
+    {{ with $page.Params.images }}
+        {{ $thumb = index . 0 }}
+    {{ end }}
+{{ end }}
+
+{{ if not $thumb }}
+    {{ with $page.Params.cover }}
+        {{ $coverVal := . }}
+        {{ if (findRE "^@image:" $coverVal) }}
+            {{ $imgName := (replace $coverVal "@image:" "") }}
+            {{ $thumb = printf "https://img.pgoj.top/%s" $imgName }}
+        {{ else }}
+            {{ $thumb = $coverVal }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ if not $thumb }}
+    {{ $imgs := slice "/images/thumbs/tu01.webp" "/images/thumbs/tu02.webp" "/images/thumbs/tu03.webp" "/images/thumbs/tu04.webp" "/images/thumbs/tu05.webp" "/images/thumbs/tu06.webp" "/images/thumbs/tu07.webp" "/images/thumbs/tu08.webp" "/images/thumbs/tu09.webp" "/images/thumbs/tu10.webp" "/images/thumbs/tu11.webp" "/images/thumbs/tu12.webp" "/images/thumbs/tu13.webp" }}
+    {{ $thumbIdx := mod $page.Date.Unix (len $imgs) }}
+    {{ $thumb = index $imgs $thumbIdx }}
+{{ end }}
+
+{{ if $thumb }}
+<div class="thumbnail" style="flex-shrink:0;margin-right:12px;width:160px;height:117px;">
+    <a href="{{ $page.Permalink }}" rel="nofollow" title="{{ $page.Title }}">
+        <img class="diagram" src="{{ $thumb }}" alt="{{ $page.Title }}" itemprop="image" {{ if $isLazy }}loading="lazy"{{ else }}fetchpriority="high"{{ end }} decoding="async" style="width:160px;height:117px;object-fit:cover;" />
+    </a>
+</div>
+{{ end }}

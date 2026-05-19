@@ -1,0 +1,10 @@
+{{ define "main" }}
+{{ partial "breadcrumbs.html" . }}
+
+{{ $paginator := .Paginate .Pages }}
+{{ range $idx, $page := $paginator.Pages }}
+{{ partial "post-card.html" (dict "page" $page "idx" $idx "paginator" $paginator) }}
+{{ end }}
+
+{{ partial "pagination.html" $paginator }}
+{{ end }}

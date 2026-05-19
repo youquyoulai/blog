@@ -1,0 +1,18 @@
+{{ define "main" }}
+<div class="article article-404">
+<h1 class="post-title">404 - 页面未找到</h1>
+<div class="article-content">
+    <div class="404-emoji">📭</div>
+    <p>抱歉，您访问的页面不存在。</p>
+    <p><a href="{{ .Site.BaseURL }}">返回首页</a></p>
+</div>
+</div>
+
+<style>
+.article-404 .404-emoji {
+    font-size: 5rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+</style>
+{{ end }}

@@ -1,0 +1,20 @@
+[
+  {{- $pages := where .Site.RegularPages "Section" "posts" -}}
+  {{- $filtered := slice -}}
+  {{- range $p := $pages -}}
+    {{- if not (in $p.Params.categories "weibo") -}}
+      {{- $filtered = $filtered | append $p -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range $i, $p := $filtered -}}
+  {{- if $i -}},{{- end -}}
+  {
+    "title": {{ $p.Title | jsonify }},
+    "url": {{ $p.RelPermalink | jsonify }},
+    "date": {{ $p.Date.Format "2006-01-02" | jsonify }},
+    "summary": {{ $p.Summary | plainify | jsonify }},
+    "categories": {{ $p.Params.categories | jsonify }},
+    "tags": {{ $p.Params.tags | jsonify }}
+  }
+  {{- end -}}
+]

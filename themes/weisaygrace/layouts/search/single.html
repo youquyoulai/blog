@@ -1,0 +1,125 @@
+{{ define "main" }}
+{{ partial "breadcrumbs.html" . }}
+
+<div class="article">
+<h1 class="post-title">搜索结果</h1>
+<div class="search-form-wrapper">
+    <form class="search-form" method="get" action="{{ .Site.BaseURL }}search">
+        <input class="search-input" required="" value="{{ .Params.s }}" type="text" name="s" placeholder="输入关键词搜索" />
+        <button aria-label="搜索" class="search-submit" type="submit"><svg class="icon-search" style="width:1em;height:1em;"><use href="#icon-search"/></svg></button>
+    </form>
+</div>
+
+<div id="search-results"><p class="search-loading">搜索中...</p></div>
+</div>
+
+<style>
+.search-loading { color: #999; text-align: center; padding: 2rem 0; }
+.search-count { color: #666; font-size: .875rem; margin-bottom: 1rem; }
+.search-result-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+.search-result-item:last-child { border-bottom: none; }
+.search-result-title {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color_link, #ed5565);
+    text-decoration: none;
+    margin-bottom: .25rem;
+}
+.search-result-title:hover { text-decoration: underline; }
+.search-result-summary {
+    color: #666;
+    font-size: .9rem;
+    line-height: 1.6;
+    margin: .25rem 0;
+}
+.search-result-meta {
+    font-size: .8rem;
+    color: #999;
+}
+.search-result-item mark {
+    background: #fff3cd;
+    color: inherit;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+</style>
+{{ end }}
+
+{{ define "scripts" }}
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var query = (params.get('s') || '').trim();
+  var container = document.getElementById('search-results');
+
+  if (!query) {
+    container.innerHTML = '<p class="search-empty">请输入搜索关键词</p>';
+    return;
+  }
+
+  function toArray(val) {
+    if (Array.isArray(val)) return val;
+    if (typeof val === 'string' && val.trim()) return [val.trim()];
+    return [];
+  }
+
+  function truncate(str, len) {
+    var plain = str.replace(/<[^>]*>/g, '');
+    return plain.length > len ? plain.substring(0, len) + '...' : plain;
+  }
+
+  function highlight(text, q) {
+    if (!q) return text;
+    var regex = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+
+  var jsonUrl = '{{ "searchindex.json" | relURL }}';
+  fetch(jsonUrl)
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      var results = [];
+      var q = query.toLowerCase();
+      for (var i = 0; i < data.length; i++) {
+        var post = data[i];
+        var tags = toArray(post.tags);
+        var categories = toArray(post.categories);
+        var text = (post.title + ' ' + post.summary + ' ' + tags.join(' ') + ' ' + categories.join(' ')).toLowerCase();
+        if (text.indexOf(q) !== -1) {
+          results.push(post);
+        }
+      }
+
+      if (results.length === 0) {
+        container.innerHTML = '<p class="search-empty">没有找到与 "' + query + '" 相关的文章</p>';
+        return;
+      }
+
+      var html = '<p class="search-count">找到 ' + results.length + ' 篇相关文章</p>';
+      for (var j = 0; j < results.length; j++) {
+        var r = results[j];
+        var catArray = toArray(r.categories);
+        html += '<div class="search-result-item">';
+        html += '<a href="' + r.url + '" class="search-result-title">' + highlight(r.title, query) + '</a>';
+        if (r.summary) {
+          html += '<p class="search-result-summary">' + highlight(truncate(r.summary, 150), query) + '</p>';
+        }
+        html += '<span class="search-result-meta">' + (catArray.join(', ') || '未分类') + ' · ' + r.date + '</span>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+    })
+    .catch(function(err) {
+      console.error('搜索失败:', err);
+      container.innerHTML = '<p class="search-empty">搜索失败，请稍后重试</p>';
+    });
+})();
+</script>
+{{ end }}

@@ -1,0 +1,53 @@
+{{/* 文章卡片 partial - 用于列表页复用
+   参数：$page (Page对象), $idx (索引), $paginator (Paginator对象, 可选), $hideCategory (是否隐藏分类, 可选)
+   用法：{{ partial "post-card.html" (dict "page" . "idx" $idx "paginator" $paginator) }}
+*/}}
+{{ $page := .page }}
+{{ $idx := .idx }}
+{{ $paginator := .paginator }}
+{{ $hideCategory := .hideCategory | default false }}
+<div class="post" {{ with $page.File }}id="post-{{ .UniqueID }}"{{ end }} itemscope itemtype="http://schema.org/Article" style="display:flex;flex-direction:column;">
+<h2 class="post-title" itemprop="headline">
+    <a href="{{ $page.Permalink }}" rel="bookmark" title="{{ $page.Title }}" itemprop="url">{{ $page.Title }}</a>
+</h2>
+<div class="post-body" style="display:flex;align-items:flex-start;">
+{{ partial "post-thumb.html" (dict "page" $page "idx" $idx "paginator" $paginator) }}
+<div class="post-content" itemprop="description" style="flex:1;min-height:117px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;">
+    {{ if $page.Summary }}
+    <p style="margin:0;font-size:1rem;line-height:1.875rem;">{{ $page.Summary | plainify | truncate 360 }}</p>
+    {{ else }}
+    <p style="margin:0;font-size:1rem;line-height:1.875rem;">{{ $page.Content | plainify | truncate 360 }}</p>
+    {{ end }}
+</div>
+</div>
+<div class="clear"></div>
+<div class="post-info">
+    <span class="date info-icon" itemprop="datePublished" content="{{ $page.Date.Format "2006-01-02T15:04:05Z07:00" }}">
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-calendar"/></svg>{{ $page.Date.Format "2006-01-02" }}
+    </span>
+    {{ if not $hideCategory }}
+    {{ if reflect.IsSlice $page.Params.categories }}
+    <span class="category info-icon" itemprop="articleSection">
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg>{{ range $i, $cat := $page.Params.categories }}{{ if $i }}, {{ end }}<a href="{{ "/categories/" | relURL }}{{ $cat | urlize }}">{{ partial "cat-names.html" $cat }}</a>{{ end }}
+    </span>
+    {{ else if $page.Params.categories }}
+    <span class="category info-icon" itemprop="articleSection">
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg><a href="{{ "/categories/" | relURL }}{{ $page.Params.categories | urlize }}">{{ partial "cat-names.html" $page.Params.categories }}</a>
+    </span>
+    {{ end }}
+    {{ end }}
+    {{ if reflect.IsSlice $page.Params.tags }}
+    <span class="tags info-icon" itemprop="keywords">
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg>{{ range $i, $tag := $page.Params.tags }}{{ if $i }}, {{ end }}<a href="{{ "/tags/" | relURL }}{{ $tag | urlize }}">{{ partial "tag-names.html" (dict "tag" $tag) }}</a>{{ end }}
+    </span>
+    {{ else if $page.Params.tags }}
+    <span class="tags info-icon" itemprop="keywords">
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg><a href="{{ "/tags/" | relURL }}{{ $page.Params.tags | urlize }}">{{ partial "tag-names.html" (dict "tag" $page.Params.tags) }}</a>
+    </span>
+    {{ end }}
+</div>
+<div class="read-more">
+    <a class="read-more-icon" href="{{ $page.Permalink }}" title="{{ $page.Title }}" rel="nofollow">阅读全文<span></span></a>
+</div>
+</div>
+<div class="clear"></div>

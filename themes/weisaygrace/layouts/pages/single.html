@@ -1,0 +1,21 @@
+{{ define "main" }}
+{{ partial "breadcrumbs.html" . }}
+
+<div class="article">
+
+{{ if .Content }}
+<div class="article-content">
+    {{ .Content }}
+</div>
+{{ end }}
+
+{{ if .Site.Params.waline.serverURL }}
+{{ $path := $.Permalink | relURL }}
+{{ if eq .Params.layout "guestbook" }}
+    {{ partial "waline.html" (dict "ctx" $ "serverURL" .Site.Params.waline.serverURL "el" "waline" "path" $path "label" "留言") }}
+{{ else }}
+    {{ partial "waline.html" (dict "ctx" $ "serverURL" .Site.Params.waline.serverURL "el" "waline" "path" $path "label" "评论") }}
+{{ end }}
+{{ end }}
+</div>
+{{ end }}

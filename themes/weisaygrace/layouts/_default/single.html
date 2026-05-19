@@ -1,0 +1,95 @@
+{{ define "main" }}
+
+{{/* ====== 归档页 ====== */}}
+{{ if eq .Params._pagetype "archive" }}
+{{ partial "archive.html" . }}
+
+{{/* ====== 普通文章/页面 ====== */}}
+{{ else }}
+{{ partial "breadcrumbs.html" . }}
+
+<div {{ with .File }}id="post-{{ .UniqueID }}"{{ end }} class="article" itemscope itemtype="http://schema.org/Article">
+<h1 class="post-title" itemprop="headline">{{ .Title }}</h1>
+<div class="article-info">
+    <div class="article-infomation">
+        <span class="vcard author info-icon" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <span class="fn"><svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-user"/></svg>{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}</span>
+        </span>
+        <span class="date info-icon" itemprop="datePublished" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-calendar"/></svg>{{ .Date.Format "2006-01-02" }} <span class="date-hi">{{ .Date.Format "15:04" }}</span>
+        </span>
+        {{ if reflect.IsSlice .Params.categories }}
+        <span class="category info-icon" itemprop="articleSection">
+            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg>{{ range $i, $cat := .Params.categories }}{{ if $i }}, {{ end }}<a href="{{ "/categories/" | relURL }}{{ $cat | urlize }}">{{ partial "cat-names.html" $cat }}</a>{{ end }}
+        </span>
+        {{ else if .Params.categories }}
+        <span class="category info-icon" itemprop="articleSection">
+            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg><a href="{{ "/categories/" | relURL }}{{ .Params.categories | urlize }}">{{ partial "cat-names.html" .Params.categories }}</a>
+        </span>
+        {{ end }}
+        {{ if reflect.IsSlice .Params.tags }}
+        <span class="tags info-icon" itemprop="keywords">
+            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg>{{ range $i, $tag := .Params.tags }}{{ if $i }}, {{ end }}<a href="{{ "/tags/" | relURL }}{{ $tag | urlize }}">{{ partial "tag-names.html" (dict "tag" $tag) }}</a>{{ end }}
+        </span>
+        {{ else if .Params.tags }}
+        <span class="tags info-icon" itemprop="keywords">
+            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg><a href="{{ "/tags/" | relURL }}{{ .Params.tags | urlize }}">{{ partial "tag-names.html" (dict "tag" .Params.tags) }}</a>
+        </span>
+        {{ end }}
+    </div>
+</div>
+
+<div class="article-content article-index-area" itemprop="articleBody">
+{{ .Content }}
+</div>
+
+{{ if .Site.Params.author_info }}
+<div class="article-author">
+    <div class="article-author-item">
+        <div class="article-author-avatar">
+            <img src="{{ .Site.Params.avatar | default "https://www.gravatar.com/avatar/" }}" alt="{{ .Site.Params.author }}" />
+        </div>
+        <div class="article-author-info">
+            <p>{{ .Site.Params.author }}：{{ .Site.Params.description }}</p>
+        </div>
+    </div>
+</div>
+{{ end }}
+</div>
+
+<div class="article article-navigation">
+{{ with .PrevInSection }}
+<a class="nav-item nav-prev" href="{{ .Permalink }}">
+    {{ with .Params.thumbnail }}
+    <div class="nav-item-image"><img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" /></div>
+    {{ end }}
+    <div class="nav-item-content">
+        <div class="nav-item-label">上一篇</div>
+        <div class="nav-item-title"><p>{{ .Title }}</p></div>
+    </div>
+</a>
+{{ else }}
+<div class="nav-item nav-prev nav-item-empty"><div class="nav-item-content">已是最早的文章了</div></div>
+{{ end }}
+{{ with .NextInSection }}
+<a class="nav-item nav-next" href="{{ .Permalink }}">
+    <div class="nav-item-content">
+        <div class="nav-item-label">下一篇</div>
+        <div class="nav-item-title"><p>{{ .Title }}</p></div>
+    </div>
+    {{ with .Params.thumbnail }}
+    <div class="nav-item-image"><img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" /></div>
+    {{ end }}
+</a>
+{{ else }}
+<div class="nav-item nav-next nav-item-empty"><div class="nav-item-content">已是最新的文章了</div></div>
+{{ end }}
+</div>
+
+{{ if .Site.Params.waline.serverURL }}
+{{ $path := .RelPermalink }}
+{{ partial "waline.html" (dict "ctx" . "serverURL" .Site.Params.waline.serverURL "el" "waline" "path" $path "label" "评论") }}
+{{ end }}
+{{ end }}
+
+{{ end }}

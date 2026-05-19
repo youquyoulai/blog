@@ -1,0 +1,10 @@
+{
+  "name": "Weisay Grace",
+  "short_name": "Weisay",
+  "description": "Hugo 响应式博客主题",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eef1f4",
+  "theme_color": "#ed5565",
+  "icons": []
+}

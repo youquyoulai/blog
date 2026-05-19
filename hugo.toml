@@ -2,7 +2,7 @@ baseURL = 'https://www.pgoj.top/'
 languageCode = 'zh-cn'
 defaultContentLanguage = 'zh'
 title = '平哥偶记'
-theme = 'xlxn'
+theme = 'weisaygrace'
 
 hasCJKLanguage = true
 buildFuture = true
@@ -20,6 +20,7 @@ capitalizeListTitles = false
   builtYear = '2021'
   email = 'wuliwuju@126.com'
   favicon = '/favicon.ico'
+  imageCDN = 'https://img.pgoj.top'
 
   # Twikoo 评论配置 (已停用)
   #[params.twikoo]

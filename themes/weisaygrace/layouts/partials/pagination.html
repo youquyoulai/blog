@@ -1,0 +1,70 @@
+{{/*
+  分页导航 - 带省略号
+  参数：$ (Paginator对象)
+  用法：{{ partial "pagination.html" $paginator }}
+*/}}
+{{ if gt .TotalPages 1 }}
+<div class="pagination">
+{{ if .HasPrev }}
+<a href="{{ .Prev.URL }}" class="prev">上一页</a>
+{{ end }}
+
+{{ $current := .PageNumber }}
+{{ $total := .TotalPages }}
+{{ $pagers := .Pagers }}
+
+{{ if le $total 7 }}
+    {{ range $pagers }}
+        {{ if eq .PageNumber $current }}
+<span class="current">{{ .PageNumber }}</span>
+        {{ else }}
+<a href="{{ .URL }}">{{ .PageNumber }}</a>
+        {{ end }}
+    {{ end }}
+{{ else }}
+    {{/* 显示前 2 页 */}}
+    {{ range first 2 $pagers }}
+        {{ if eq .PageNumber $current }}
+<span class="current">{{ .PageNumber }}</span>
+        {{ else }}
+<a href="{{ .URL }}">{{ .PageNumber }}</a>
+        {{ end }}
+    {{ end }}
+
+    {{/* 检查是否需要左边省略号 */}}
+    {{ if gt $current 4 }}
+<span class="dots">...</span>
+    {{ end }}
+
+    {{/* 显示当前页前后 1 页 */}}
+    {{ range $index, $p := $pagers }}
+        {{ $pageNum := $p.PageNumber }}
+        {{ if and (gt $pageNum 2) (lt $pageNum (sub $total 1)) (or (eq $pageNum (sub $current 1)) (eq $pageNum $current) (eq $pageNum (add $current 1))) }}
+            {{ if eq $pageNum $current }}
+<span class="current">{{ $pageNum }}</span>
+            {{ else }}
+<a href="{{ $p.URL }}">{{ $pageNum }}</a>
+            {{ end }}
+        {{ end }}
+    {{ end }}
+
+    {{/* 检查是否需要右边省略号 */}}
+    {{ if lt $current (sub $total 3) }}
+<span class="dots">...</span>
+    {{ end }}
+
+    {{/* 显示后 2 页 */}}
+    {{ range last 2 $pagers }}
+        {{ if eq .PageNumber $current }}
+<span class="current">{{ .PageNumber }}</span>
+        {{ else }}
+<a href="{{ .URL }}">{{ .PageNumber }}</a>
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ if .HasNext }}
+<a href="{{ .Next.URL }}" class="next">下一页</a>
+{{ end }}
+</div>
+{{ end }}

@@ -50,11 +50,10 @@
 </style>
 <div class="container">
   <div class="main-content">
-    <div class="breadcrumbs">
+    <div class="search-breadcrumb">
       <a href="{{ .Site.BaseURL }}">首页</a> &gt; <span>搜索</span>
     </div>
     <div class="search-results-page">
-      <h1 class="page-title">搜索结果</h1>
       <div class="search-results-header">
         <form method="get" action="/search" class="search-form" role="search">
           <input type="text" id="searchPageInput" name="s" placeholder="输入搜索关键词..." value="{{ with .Params.s }}{{ . }}{{ end }}">
@@ -108,7 +107,7 @@
         return;
       }
 
-      var html = '<p class="search-count">找到 ' + results.length + ' 篇相关文章</p><div class="search-card">';
+      var html = '<div class="search-count-card"><span>找到 ' + results.length + ' 篇相关文章</span></div><div class="search-card">';
       for (var j = 0; j < results.length; j++) {
         var r = results[j];
         var catArray = toArray(r.categories);

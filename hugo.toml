@@ -38,11 +38,11 @@ capitalizeListTitles = false
   category = 'categories'
 
 [outputs]
-  home = ['HTML', 'RSS', 'JSON', 'sitemap']
-  section = ['HTML', 'RSS', 'sitemap']
-  taxonomy = ['HTML', 'RSS', 'sitemap']
-  term = ['HTML', 'RSS', 'sitemap']
-  page = ['HTML', 'sitemap']
+  home = ['HTML', 'RSS', 'JSON']
+  section = ['HTML', 'RSS']
+  taxonomy = ['HTML', 'RSS']
+  term = ['HTML', 'RSS']
+  page = ['HTML']
 
 [outputFormats.JSON]
   mediatype = "application/json"

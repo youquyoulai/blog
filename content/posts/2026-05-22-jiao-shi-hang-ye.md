@@ -1,5 +1,5 @@
 ---
-title: "老师承受的会辐射到各个行业"
+title: "老师承受的会传递到各个行业"
 date: 2026-05-22T14:44:00+08:00
 cover: "@image:2026slt/tu21.webp"
 categories: [guangan]

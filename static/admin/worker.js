@@ -674,7 +674,14 @@ async function deletePage(filename, request, env) {
 export default {
   async fetch(request, env, ctx) {
     if (request.method === 'OPTIONS') {
-      return new Response(null, { status: 204, headers: CORS_HEADERS });
+      const origin = request.headers.get('Origin');
+      return new Response(null, {
+        status: 204,
+        headers: {
+          ...SECURITY_HEADERS,
+          ...getCorsHeaders(origin),
+        },
+      });
     }
 
     // 公开的连接测试接口（无需认证）

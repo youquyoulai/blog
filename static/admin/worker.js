@@ -679,7 +679,7 @@ export default {
 
     // 公开的连接测试接口（无需认证）
     const url = new URL(request.url);
-    if (url.pathname === '/wgpjyhxlxn/ping') {
+    if (url.pathname === '/wgpjyhxlxn/api/ping') {
       return corsResponse(JSON.stringify({ ok: true, timestamp: Date.now() }));
     }
 
@@ -696,48 +696,48 @@ export default {
 
     try {
       // ─── R2 图片 API ─────────────────────────────────────────────
-      if (path === '/wgpjyhxlxn/images' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/api/images' && request.method === 'GET') {
         return await listImages(request, env);
       }
-      if (path === '/wgpjyhxlxn/images/upload' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/api/images/upload' && request.method === 'POST') {
         return await uploadImage(request, env);
       }
-      if (path.startsWith('/wgpjyhxlxn/images/') && request.method === 'DELETE') {
-        const key = decodeURIComponent(path.replace('/wgpjyhxlxn/images/', ''));
+      if (path.startsWith('/wgpjyhxlxn/api/images/') && request.method === 'DELETE') {
+        const key = decodeURIComponent(path.replace('/wgpjyhxlxn/api/images/', ''));
         return await deleteImage(key, env);
       }
-      if (path === '/wgpjyhxlxn/images/move' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/api/images/move' && request.method === 'POST') {
         return await moveImages(request, env);
       }
-      if (path === '/wgpjyhxlxn/images/batch-move' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/api/images/batch-move' && request.method === 'POST') {
         return await batchMoveImages(request, env);
       }
-      if (path === '/wgpjyhxlxn/images/resize' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/api/images/resize' && request.method === 'GET') {
         return await resizeImage(request, env);
       }
 
       // ─── GitHub 文章 API ──────────────────────────────────────────
-      if (path === '/wgpjyhxlxn/posts' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/api/posts' && request.method === 'GET') {
         return await listPosts(request, env);
       }
-      if (path === '/wgpjyhxlxn/posts' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/api/posts' && request.method === 'POST') {
         return await createPost(request, env);
       }
-      if (path.startsWith('/wgpjyhxlxn/posts/') && request.method === 'PUT') {
-        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/posts/', ''));
+      if (path.startsWith('/wgpjyhxlxn/api/posts/') && request.method === 'PUT') {
+        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/api/posts/', ''));
         return await updatePost(slug, request, env);
       }
-      if (path.startsWith('/wgpjyhxlxn/posts/') && request.method === 'DELETE') {
-        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/posts/', ''));
+      if (path.startsWith('/wgpjyhxlxn/api/posts/') && request.method === 'DELETE') {
+        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/api/posts/', ''));
         return await deletePost(slug, request, env);
       }
-      if (path.startsWith('/wgpjyhxlxn/post/') && request.method === 'GET') {
-        const filename = decodeURIComponent(path.replace('/wgpjyhxlxn/post/', ''));
+      if (path.startsWith('/wgpjyhxlxn/api/post/') && request.method === 'GET') {
+        const filename = decodeURIComponent(path.replace('/wgpjyhxlxn/api/post/', ''));
         return await getPost(filename, env);
       }
 
       // ─── 分类/标签 API ──────────────────────────────────────────
-      if (path === '/wgpjyhxlxn/taxonomies' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/api/taxonomies' && request.method === 'GET') {
         return await getTaxonomies(env);
       }
 
@@ -750,35 +750,35 @@ export default {
       }
 
       // ─── 文汇 RSS 源 API ─────────────────────────────────────────
-      if (path === '/wgpjyhxlxn/wenhui-feeds' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/api/wenhui-feeds' && request.method === 'GET') {
         return await getWenhuiFeeds(env);
       }
-      if (path === '/wgpjyhxlxn/wenhui-feeds' && request.method === 'PUT') {
+      if (path === '/wgpjyhxlxn/api/wenhui-feeds' && request.method === 'PUT') {
         return await updateWenhuiFeeds(request, env);
       }
 
       // ─── 页面管理 API ────────────────────────────────────────────
-      if (path === '/wgpjyhxlxn/pages' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/api/pages' && request.method === 'GET') {
         return await listPages(env);
       }
-      if (path === '/wgpjyhxlxn/pages' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/api/pages' && request.method === 'POST') {
         return await createPage(request, env);
       }
-      if (path.startsWith('/wgpjyhxlxn/pages/') && request.method === 'PUT') {
-        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/pages/', ''));
+      if (path.startsWith('/wgpjyhxlxn/api/pages/') && request.method === 'PUT') {
+        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/api/pages/', ''));
         return await updatePage(slug, request, env);
       }
-      if (path.startsWith('/wgpjyhxlxn/pages/') && request.method === 'DELETE') {
-        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/pages/', ''));
+      if (path.startsWith('/wgpjyhxlxn/api/pages/') && request.method === 'DELETE') {
+        const slug = decodeURIComponent(path.replace('/wgpjyhxlxn/api/pages/', ''));
         return await deletePage(slug, request, env);
       }
-      if (path.startsWith('/wgpjyhxlxn/page/') && request.method === 'GET') {
-        const filename = decodeURIComponent(path.replace('/wgpjyhxlxn/page/', ''));
+      if (path.startsWith('/wgpjyhxlxn/api/page/') && request.method === 'GET') {
+        const filename = decodeURIComponent(path.replace('/wgpjyhxlxn/api/page/', ''));
         return await getPage(filename, env);
       }
 
       // ─── 构建触发 ─────────────────────────────────────────────────
-      if (path === '/wgpjyhxlxn/deploy' && request.method === 'POST') {
+      if (path === '/wgpjyhxlxn/api/deploy' && request.method === 'POST') {
         return await triggerDeploy(env);
       }
 

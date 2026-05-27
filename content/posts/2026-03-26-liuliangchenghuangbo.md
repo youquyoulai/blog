@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/liuliangchenghuangbo.html
 
 title: "《我改变的事物》让我想起《杀生》"
+description: "刘亮程散文集《一个人的村庄》第二篇《我改变的事物》中写到： 我年轻力盛的那些年，常常扛一把铁锨，像个无事的人，在村外的野地上闲转。 我会花一晌午工夫，把一个跟我毫无关系的土包铲平，或在一片平地上无辜地挖一个大坑。"
 date: 2026-03-26
 lastmod: 2026-03-26
 slug: "liuliangchenghuangbo"

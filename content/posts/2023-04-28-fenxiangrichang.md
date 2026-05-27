@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/fenxiangrichang.html
 
 title: "分享日常生活要自得其乐"
+description: "有人发帖说自己的父亲喜欢在家庭群里分享日常生活，但因为每次分享后得不到群里他人的回应，于是退出了家庭群。在帖子下的评论里有人表达了类似的情况，也有人直言不讳地说自己就是不回应者。"
 date: 2023-04-28
 lastmod: 2026-03-25
 slug: "fenxiangrichang"

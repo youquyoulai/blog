@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/xiyanrenpin.html
 
-title: "有些吸烟者人品恶劣"
+title: "有些吸烟者人品恶劣：不反感吸烟，反感缺乏公德心的行为"
+description: "作为不吸烟且反感烟味的人，我对吸烟本身没有意见，却深深厌恶那些缺乏公德心的行为。"
 date: 2026-01-02
 lastmod: 2026-04-08
 slug: "xiyanrenpin"

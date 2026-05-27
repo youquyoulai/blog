@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/yangyibingdian.html
 
 title: "我对杨议的好感降至冰点"
+description: "我对杨议的印象，最初源于多年前他与父亲合说的相声《肉烂在锅里》以及他主演的电视剧《杨光的快乐生活》。那时的相声和电视剧都十分风趣，我也确实很喜欢看。"
 date: 2025-12-22
 lastmod: 2026-01-16
 slug: "yangyibingdian"

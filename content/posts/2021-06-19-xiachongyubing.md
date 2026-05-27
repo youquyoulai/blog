@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/xiachongyubing.html
 
-title: "夏虫与冰皆无错"
+title: "夏虫与冰皆无错：不必用自己的尺子丈量别人的世界"
+description: "一名坐在场边休息的球员随手将自己的运动鞋抛向了观众席，接到球鞋的年轻小伙满脸的不可置信，那种喜从天降的感觉可能就像买彩票中了大奖吧。 评论区里有很多人不屑或不解的说‘拿那鞋干嘛！"
 date: 2021-06-19
 lastmod: 2026-03-24
 slug: "xiachongyubing"

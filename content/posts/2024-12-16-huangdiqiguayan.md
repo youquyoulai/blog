@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/huangdiqiguayan.html
 
 title: "《好歹也是个皇帝》和《北宋妻管严》"
+description: "《好歹也是个皇帝》 开头，前面百八十章过家家式的三国争霸（自大的野鸡皇帝们，可怜的丞相府、户部尚书，流氓打架般的国家征战）还是有些意思的。"
 date: 2024-12-16
 lastmod: 2026-03-25
 slug: "huangdiqiguayan"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/xuenihongzhua.html
 
-title: "雪泥鸿爪，各自安好"
+title: "雪泥鸿爪各自安好：我愿人们看到我，但不知道我是谁"
+description: "我将博客定位为记录日常书写感悟，但实际上，我能记录的日常范围非常有限。一方面，我觉得绝大多数日常不值得出现在博客里；另一方面，我也不希望被熟识的人看到并辨认出来。"
 date: 2026-01-26
 lastmod: 2026-02-01
 slug: "xuenihongzhua"

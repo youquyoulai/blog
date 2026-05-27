@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zhilixiangdechuanshuo.html
 
 title: "《直立象传说》和《奋力求生》"
+description: "今天看了两部电影。 《直立象传说》是一部比较适合陪孩子一起看的充满冒险却很温馨的动画片，讲述的是爬行的桃栗象反抗人类的压迫的故事，语言、画面、前面的情节都不错。"
 date: 2022-12-03
 lastmod: 2026-04-01
 slug: "zhilixiangdechuanshuo"

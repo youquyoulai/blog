@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/liboxixing.html
 
 title: "不中肯的对郦波《西行》的批评"
+description: "这两天不时看到有人议论郦波《西行》，不外乎是‘才气不足’、‘化用前人事诗’、‘抄袭’之类。"
 date: 2021-09-11
 lastmod: 2026-03-24
 slug: "liboxixing"

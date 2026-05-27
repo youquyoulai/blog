@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/typechoweibo.html
 
 title: "用typecho实现微博说说功能"
+description: "用typecho实现微博功说说能有两个思路：用评论系统或分类页面。 用评论系统好做，网上有现成的插件，也有很多主题自带微语功能，交给AI也能很快解决。 分类页面就有些难。自定义模板好说，首页排除分类文章也好说，难得是页码。"
 date: 2026-01-01
 lastmod: 2026-04-08
 slug: "typechoweibo"

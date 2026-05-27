@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/kaiqiduliboke.html
 
 title: "我又忍不住，折腾起博客来了"
+description: "前天，我先后收到了博主 Sol Lo 和 Bearblog 创始人 Herman 的回复，得到了明确的答案：支付 198 美元即可终身使用该平台；付费用户的上传限额为 20000 张照片，每张不超过 10MB；并且支持信用卡支付。"
 date: 2026-01-16
 lastmod: 2026-01-16
 slug: "kaiqiduliboke"

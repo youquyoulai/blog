@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/sanshinianqiandelaoshi.html
 
 title: "我记忆中的三十年前的老师"
+description: "我记得：因为个子矮，老师让班里的三名学生留级了。 我记得：有一个学生没做作业，被揪到办公室言语拳脚教育一番后罚站。中午的时候，老师将其锁在办公室自己回家吃饭，结果那个学生跳窗户跑回了家，结果下午迎接他的是全武行。"
 date: 2022-02-27
 lastmod: 2026-03-24
 slug: "sanshinianqiandelaoshi"

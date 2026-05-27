@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/weibodingyue.html
 
 title: "实现友链订阅与微博功能调整"
+description: "开始想通过typecho自定义页面模板实现订阅多个独立博客的最新文章，整好后才意识到自己已经有了友链页面，于是继续整改，实现了友情链接模块显示博客最新一篇文章。 原先的微博是通过程序评论功能实现的，用腻了，于是调整成了用分类自定义模板实现。"
 date: 2026-04-09
 slug: "weibodingyue"
 categories: weibo

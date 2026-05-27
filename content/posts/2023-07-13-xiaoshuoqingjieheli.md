@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/xiaoshuoqingjieheli.html
 
-title: "不合理的小说的情节"
+title: "不合理的小说的情节：当逻辑缺席，故事还能成立吗"
+description: "在《文学自由谈》上看到一篇文章《小说的情节要合理》，文中列举了韩石山和石钟山等作家的小说中不合情理的情节，这让我想起来刚读过的一篇小小说。"
 date: 2023-07-13
 lastmod: 2026-04-01
 slug: "xiaoshuoqingjieheli"

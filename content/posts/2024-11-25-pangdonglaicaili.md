@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/pangdonglaicaili.html
 
-title: "胖东来的彩礼要求"
+title: "胖东来的彩礼要求：企业凭什么管员工的婚嫁私事"
+description: "这几天，胖东来给员工提出的‘明年起结婚不能要付彩礼，酒席最多5桌，做不到就取消一切福利’的要求引发了热议。 婚前男方付给女方彩礼是我们这里几千年的风俗，彩礼的多少因时因人因家而异。"
 date: 2024-11-25
 lastmod: 2026-03-25
 slug: "pangdonglaicaili"

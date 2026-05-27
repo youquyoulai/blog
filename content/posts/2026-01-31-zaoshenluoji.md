@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zaoshenluoji.html
 
-title: "不在乎逻辑的逻辑"
+title: "不在乎逻辑的逻辑：打扮历史，也打扮我们熟知的人和事"
+description: "《短史记》中对在断案决狱方面并无多少真实传奇故事的包拯如何成了鼎鼎大名的“青天”总结了三点：其一，其地位高、人脉广、会做官、节操好，死后不久即有很大名气；其二，成熟的公案小说让其适逢其时，成了创作者首选的塑造对象；"
 date: 2026-01-31
 slug: "zaoshenluoji"
 categories: guangan

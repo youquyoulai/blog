@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/xiaohaizidexihuan.html
 
 title: "小孩子的一时兴起的喜欢"
+description: "我一向不喜欢养动植物，原因有二：一是自己懒，二是心太软。所养之物一旦死了难免伤心，而伤心很大程度要怪罪于自己的懒惰，这不是徒增烦恼吗？ 你不想可架不住别人想啊。"
 date: 2021-12-31
 lastmod: 2026-03-24
 slug: "xiaohaizidexihuan"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jinyinanyanlianke.html
 
 title: "吃糖的女人与弃糖的孩子"
+description: "在金一南将军的《为什么是中国》里，读到一个与日本人和糖有关的故事： 故事发生在离山口真一少尉驻地不远的邯郸西部山区的一个村庄，是件真实的事。那天事发突然，孩子们正在追逐玩耍，不知从哪里冒出来的日本鬼子一下子把村子包围了。"
 date: 2026-04-20
 slug: "jinyinanyanlianke"
 categories: guangan

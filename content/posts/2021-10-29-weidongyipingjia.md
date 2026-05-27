@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/weidongyipingjia.html
 
 title: "对韦东奕不中肯的评价"
+description: "以下是刚看到的有人对韦东奕的评价： 其一、实话说，成就不算大，还牺牲了作为人的正常生活，我要是他的父母，我不想看到孩子这样。 其二、目前成就确实不大，但付出很多。"
 date: 2021-10-29
 lastmod: 2026-03-31
 slug: "weidongyipingjia"

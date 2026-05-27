@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/duanshipingangjing.html
 
-title: "短视频平台上的杠精"
+title: "短视频平台上的杠精：一句评论捅了马蜂窝后的遭遇"
+description: "昨天看到某些杠精对一条很正面的新闻抬硬杠，忍不住也参与了一下。好家伙，捅了马蜂窝了。从发出评论到现在，手机一直没消停。各种点赞的支持的倒也罢了，便是反驳的抬杠的也没啥，各抒己见嘛。"
 date: 2026-01-17
 lastmod: 2026-04-08
 slug: "duanshipingangjing"

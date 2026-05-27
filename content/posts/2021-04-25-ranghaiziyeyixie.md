@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/ranghaiziyeyixie.html
 
 title: "亡羊补牢的‘让孩子野一些’"
+description: "这些天很多家长与各种媒体一直在兴致盎然地呼吁‘让孩子野一些’‘不要圈养孩子’，吐槽各地各校的不合理的‘看管’学生方式，也有好多80后家长，80前网民回忆自己上学时的家校关系，抱怨越来越多的佛系教师。"
 date: 2021-04-25
 lastmod: 2026-03-24
 slug: "ranghaiziyeyixie"

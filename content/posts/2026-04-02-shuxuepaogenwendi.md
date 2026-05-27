@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/shuxuepaogenwendi.html
 
 title: "刨根问底啥？Just remember！"
+description: "《原来数学可以这样学》的著者在开篇讲了自己上学时向物理老师求教碰钉子的故事：因为不知道一个公式的来源，作者就追问自己的老师。老师虽然有点儿不高兴，但还是和善的告诉他：你记住好了，怎么来的说出来你也不懂。"
 date: 2026-04-02
 slug: "shuxuepaogenwendi"
 categories: guangan

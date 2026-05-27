@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/wenhualaji.html
 
 title: " 自得其乐的展现与文化垃圾无关"
+description: "有人将‘震惊体’、‘爆炸性’、‘有偿式’、‘自恋式’归入文化垃圾，前三种应该是无甚异议的，毕竟这些年来大家或多或少都曾在各种平台被这些东西恶心过。"
 date: 2022-01-19
 lastmod: 2026-03-24
 slug: "wenhualaji"

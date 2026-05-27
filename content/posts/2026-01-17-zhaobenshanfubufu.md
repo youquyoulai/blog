@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zhaobenshanfubufu.html
 
 title: "本山大叔让《扶不扶》有了年味儿"
+description: "刷到一个视频，提及了2014年马年春晚语言类节目指导赵本山对沈腾小品《扶不扶》的关键指导。 原剧本开端设计是“老人碰瓷郝建”，结局则是郝建化身蜘蛛侠将老太太带走。"
 date: 2026-01-17
 slug: "zhaobenshanfubufu"
 categories: guangan

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jiaoshijiaoyufangshi.html
 
 title: "教师的教育方式、语气得慎而又慎"
+description: "在作家张大春的散文集《认识几个字》中读到：我自己学习数学的兴趣完全被打消掉的那个情境至今历历在目。小学二年级的一次月考，我的数学考了八十六分。"
 date: 2022-04-01
 lastmod: 2026-03-25
 slug: "jiaoshijiaoyufangshi"

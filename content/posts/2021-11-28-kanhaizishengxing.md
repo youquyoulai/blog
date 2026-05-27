@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/kanhaizishengxing.html
 
 title: "以‘省心’为第一要义的看孩子"
+description: "据说石家庄一位母亲将宝宝放在斑马线上后掏出手机对着宝宝录视频，完全无视来往车辆。路人进行疑劝阻，该女子却回答说：他玩的挺高兴，我还省事了，挺好。 这位母亲可能是个奇葩，因为凡正常父母都不会将自己的宝宝置于那样危险的境地。"
 date: 2021-11-28
 lastmod: 2026-03-31
 slug: "kanhaizishengxing"

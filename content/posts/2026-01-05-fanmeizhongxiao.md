@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/fanmeizhongxiao.html
 
 title: "范美忠不过是漏出了下面的‘小’"
+description: "微信读书给我推送了一篇轻纪实《“范跑跑”围困范美忠15年》，让我一下子又想起那张有些桀骜不驯的脸，以及他那番曾引起千夫所指的言论：“在这种生死抉择的瞬间，只有为了我的女儿我才可能考虑牺牲自我。"
 date: 2026-01-05
 lastmod: 2026-01-16
 slug: "fanmeizhongxiao"

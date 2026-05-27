@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/biepengdaoqiang.html
 
 title: "别碰着墙与真TMD灵"
+description: "翻阅杂志，偶然看到一个小故事： 第一则：格林夫人去世了，葬礼安排在当地的小教堂举行。仪式结束后，人们便抬着棺材朝教堂外走去。在一个狭窄的拐角处，棺材不小心碰到了墙上，这时从棺材里传来一声微弱的呻吟。"
 date: 2021-08-20
 lastmod: 2026-03-31
 slug: "biepengdaoqiang"

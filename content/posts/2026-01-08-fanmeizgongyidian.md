@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/fanmeizgongyidian.html
 
 title: "范美忠有一点是我认同的"
+description: "轻纪实《“范跑跑”围困范美忠15年》一文中，范美忠曾说：“你要是觉得我水平高，还不如直接给我发个特级教师的证书。但你要我去递交申请材料，对不起，我不要了。”这一点颇合我胃口，或者说，在性格的某些方面，我与范美忠确是同类人。"
 date: 2026-01-08
 lastmod: 2026-01-16
 slug: "fanmeizgongyidian"

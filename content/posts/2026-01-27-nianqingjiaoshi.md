@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/nianqingjiaoshi.html
 
-title: "两难的学生和教师"
+title: "两难的学生和教师：谁来当年轻教师的练手对象"
+description: "小区里闲聊时，有人提到孩子班上的英语老师——一位刚上岗的年轻教师——被全班投票换掉了，接着说起这位老师教学如何不行。这让我想起了自己的一段经历。高一时，我们的数学老师也是个大学刚毕业的姑娘，高高瘦瘦的，脾气好、说话温柔。"
 date: 2026-01-27
 slug: "nianqingjiaoshi"
 categories: guangan

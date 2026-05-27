@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/renjiguanxi.html
 
 title: "远去的关系永久的记忆"
+description: "有人说：“我好像无法正常维持一段关系。小学的好友毕业后就不联系了，初中是，高中是，大学也是。我在每个环境里都有玩得好的朋友，但只要脱离了那个环境，这段关系就好像死了一样。"
 date: 2026-02-26
 slug: "renjiguanxi"
 categories: guangan

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/shuxueshibucunzaide.html
 
 title: "没有数学味道的数学课"
+description: "教授韩毓海在《怀念我的老师柏庆禹》一文中写到：记得有一回，我在数学课上提问说：“我见过锅、见过球、见过正月十五的月亮，就是没见过什么是‘圆’，数学教的东西，包括圆——统统都是不存在的。"
 date: 2022-03-13
 lastmod: 2026-03-24
 slug: "shuxueshibucunzaide"

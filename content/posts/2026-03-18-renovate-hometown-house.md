@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/renovate-hometown-house.html
 
 title: "我理解父母为什么不愿修缮老家的房子"
+description: "在微信读书上看了轻纪实《纠结16年，我要在农村老家盖房子了》，让我想起我老家的房子也盖了好些年了。"
 date: 2026-03-18
 lastmod: 2026-03-25
 slug: "renovate-hometown-house"

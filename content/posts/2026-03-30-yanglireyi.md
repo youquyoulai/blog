@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/yanglireyi.html
 
 title: "汝之佳肴彼之毒药的杨笠"
+description: "似乎每隔一段时间，只要涉及到杨笠的事情，总会引发争议。比如，前几年有媒体称杨笠为奔驰代言，结果奔驰公司及杨笠工作室都发声明说杨笠只是参加活动。"
 date: 2026-03-30
 lastmod: 2026-03-30
 slug: "yanglireyi"

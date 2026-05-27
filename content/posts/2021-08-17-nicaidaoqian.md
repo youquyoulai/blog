@@ -1,7 +1,8 @@
 ---
 url: /archives/nicaidaoqian.html
 
-title: "尼采的道歉"
+title: "尼采的道歉：当众抱马痛哭背后的悲悯与疯狂"
+description: "1899年的一天，尼采在街上看见一个车夫正在鞭打一匹马，他跑上前去，当着车夫的面，抱住马头放声大哭。作家米兰·昆德拉对哲学家这一举动的解释是：他正努力替车夫向这匹马道歉。"
 date: 2021-08-17
 lastmod: 2026-03-24
 slug: "nicaidaoqian"

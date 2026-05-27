@@ -1,5 +1,6 @@
 ---
 title: "讲解数学题目不能蝎子教徒弟"
+description: "刚刚刷到一个讲解七年级数学题目的视频，题目及答案图所示。 视频中用归纳法给得出了连续自然数平方和的公式，可过程的第一步1²=1/6×1×（1+1）×（2×1+1）从天而降，来的莫名其妙。"
 date: 2026-05-09T09:10:00+08:00
 cover: "@image:2026slt/shuxuetiziranshupingfang-300.webp"
 categories: guangan

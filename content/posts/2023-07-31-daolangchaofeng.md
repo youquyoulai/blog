@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/daolangchaofeng.html
 
 title: "享受《罗刹海市》盛宴者也是被嘲讽者"
+description: "刀郎的《罗刹海市》引发了大众的狂欢。好事者赶场般兴致盎然一家一家的循环打卡攻击，好事者在任意评论区眉飞色舞地通传真的假的信息，粉墨登场的自媒体则各显其能进行花样百出的演绎。"
 date: 2023-07-31
 lastmod: 2026-04-01
 slug: "daolangchaofeng"

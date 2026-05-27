@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/youxishoufei.html
 
 title: "立法强制下载有些收费？"
+description: "有人说：现在很多青年玩游戏，不找老婆，不去工作，沉迷于网络游戏世界。免费的游戏害死人，不花钱也能玩游戏，而且花少量的钱也可以玩。游戏公司一般还要请托刺激大家花钱。"
 date: 2023-01-09
 lastmod: 2026-03-25
 slug: "youxishoufei"

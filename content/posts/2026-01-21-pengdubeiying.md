@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/pengdubeiying.html
 
 title: "捧读成为渐行渐远的背影"
+description: "长篇小说《书生行》是我喜欢的类型，搁以前能一口气从头读到尾，就像读刘醒龙的《天行健》，就像读李佩甫的《羊的门》。 然而，这样一个好故事，读了八九章后我放下了，因为无法沉浸到青春咏叹调之中。"
 date: 2026-01-21
 slug: "pengdubeiying"
 categories: guangan

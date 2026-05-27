@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/wangkuishanouran.html
 
 title: "偶然之下的必然，必然之下的偶然"
+description: "路边光缆警示牌上的“神舟”被写成了“神州”。退休干部老乔遛弯时发现了这个错误，便联系上了相关负责人胡军，胡军答应一定尽快改正。一个月过去，“州”字依旧未改。老乔再次联系胡军，对方解释说“三城联创”任务紧、工作繁重，并再次承诺马上改正。"
 date: 2026-04-11
 slug: "wangkuishanouran"
 categories: guangan

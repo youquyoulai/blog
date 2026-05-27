@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/quxiezuozhehan.html
 
 title: "曲协不能瘸子打围坐着喊"
+description: "前几天曲协发布了抵制恶俗相声表演的倡议书，但“让人们在含着眼泪的笑声中得到教育和启迪”之类的提法让人颇为不解。"
 date: 2021-05-07
 lastmod: 2026-03-24
 slug: "quxiezuozhehan"

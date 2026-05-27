@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/changshimangdian.html
 
 title: "你的常识对别人来说可能是盲点"
+description: "有小学二年级班主任在班级群里吐槽：大无语事件，讲古诗二首，问学生知不知道黄河，全班没一个知道的，又问知不知道长江，也没一个人知道的!多读点书不好吗?多增加一点常识不好吗?"
 date: 2021-10-30
 lastmod: 2026-03-31
 slug: "changshimangdian"

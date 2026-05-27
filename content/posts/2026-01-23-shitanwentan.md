@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/shitanwentan.html
 
-title: "肆无忌惮的诗坛文坛"
+title: "肆无忌惮的诗坛文坛：一个外行眼中的文坛乱象"
+description: "下午在某公众号读了一系列关于诗坛乱象的文章。像我这样的人，虽学过不少诗、读过不少诗，却依然是个十足的外行——莫说创作，就连鉴赏的能力也几乎为零。所以所谓的“看”，也就是看看热闹而已。"
 date: 2026-01-23
 slug: "shitanwentan"
 categories: guangan

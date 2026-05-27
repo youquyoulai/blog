@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/diandongchetoukui.html
 
 title: "为骑电动车带不带头盔打嘴仗"
+description: "交警部门强制要求佩戴头盔的规定，又一次成了某个社区的热门话题。许多支持者现身说法，强调头盔对驾驶者安全保护的重要作用；"
 date: 2026-04-03
 slug: "diandongchetoukui"
 categories: guangan

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/buheshiyideren.html
 
 title: "罪恶之链的终结与延续"
+description: "杜希君的小说《不合时宜的人》讲述了一个美国南方白人的暴力人生。他从出生起便活在父亲的拳头与酒气中，少年时参加南北战争，战后经历了两次婚姻，在殡仪馆修补死人容貌。一次，他目睹一群孩子烧死一个黑人，随后被其中一个男孩持枪抢劫，他开枪杀了那孩子。"
 date: 2026-04-04
 slug: "buheshiyideren"
 categories: guangan

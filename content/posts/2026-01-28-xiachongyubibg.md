@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/xiachongyubibg.html
 
 title: "我们有一颗永不相交的心"
+description: "在一个关于王宝强《Hello，树先生》的视频下，有人留言“这部戏真没看懂，好在哪里？”，有人留言“不是没看懂，是没意义，没内容”。在一个与花儿乐队时期的大张伟有关的视频下，有人留言“谁是窦唯，没听说过”。"
 date: 2026-01-28
 slug: "xiachongyubibg"
 categories: guangan

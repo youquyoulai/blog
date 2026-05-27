@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/wangluoxiaoshuoshoufei.html
 
-title: "不愿为网络小说付费"
+title: "不愿为网络小说付费：从盗版读者到正版用户的心路历程"
+description: "以前也看盗版网络小说，先是在盗版小说网站上追着看，后来找那种打包好的下载到手机上看，再后来是安装阅读之类的可以换源的APP。随着版权意识渐增，逐渐摒弃了所有的盗版书籍与软件。如今想要读或者听网络小说时，一般都用xx读书或者xx听书。"
 date: 2023-06-14
 lastmod: 2026-04-01
 slug: "wangluoxiaoshuoshoufei"

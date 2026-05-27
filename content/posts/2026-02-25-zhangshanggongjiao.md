@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zhangshanggongjiao.html
 
 title: "掌上公交的收费和共享单车停放"
+description: "我已经好些年没坐过公交车了。 半年多前，我第一次用掌上公交App乘坐公交车。车是电动的，比较新，坐着很舒服。App也很贴心，能实时显示我要坐的车离我还有几站、大概还要等多久，体验挺不错。"
 date: 2026-02-25
 lastmod: 2026-02-25
 slug: "zhangshanggongjiao"

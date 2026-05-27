@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/bearblog-add-microblog-feature-and-homepage-call.html
 
 title: "bearblog添加微博功能并首页调用"
+description: "bearblog实现类似微博的功能还挺简单的，因为bearblog支持调用文章全部内容。具体操作步骤如下：1、新建微博页面，"
 date: 2026-03-02
 lastmod: 2026-03-21
 slug: "bearblog-add-microblog-feature-and-homepage-call"

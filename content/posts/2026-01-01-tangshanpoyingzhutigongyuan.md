@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/tangshanpoyingzhutigongyuan.html
 
 title: "唐山皮影主题公园游玩"
+description: "由于天气原因，已经很久没有带孩子出门玩了。看到元旦三天假期天气不错，而且唐山皮影主题公园的“2026冰雪欢乐季”正好在元旦当天启动，于是今天我们就出发了。 事先就料到人可能会很多，所以到了现场发现没有停车位时，也没有太着急。"
 date: 2026-01-01
 lastmod: 2026-02-05
 slug: "tangshanpoyingzhutigongyuan"

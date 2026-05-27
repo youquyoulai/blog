@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/sanbuwangluoxiaoshuo.html
 
 title: "这段时间看的三部网络小说"
+description: "这段时间一直在番茄上看小说，半看半听。 《大明打工路：每天都盼着老朱驾崩》 看完了。虽然有些地方随意了些，但节奏的把握和情节的推进都很好，顾晨与老朱等角色立得住，作者的情感、价值观颇合我意。 《木子的北宋生活》 看了100章左右弃书。"
 date: 2024-08-30
 lastmod: 2026-03-25
 slug: "sanbuwangluoxiaoshuo"

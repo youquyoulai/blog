@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/bearblogshengji.html
 
 title: "纠结是否对bearblog升级"
+description: "用了一段时间，对bearblog简洁的后台和页面的速度，我都很满意，所以这两天在考虑升级的问题。"
 date: 2026-01-14
 lastmod: 2026-01-16
 slug: "bearblogshengji"

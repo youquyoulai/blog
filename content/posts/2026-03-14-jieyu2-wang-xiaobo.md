@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jieyu2-wang-xiaobo.html
 
 title: "孑与2的文字让我想起了王小波的小说"
+description: "孑与2的《唐人的餐桌》前言中有段文字：“在旷野中裸奔，在闹市中打滚，迎着风大喊，在暴雨中跳舞，向最美的女人问价，向最博学的人吐口水，向平凡者弯腰，向权贵者挺起生殖器。"
 date: 2026-03-14
 lastmod: 2026-03-25
 slug: "jieyu2-wang-xiaobo"

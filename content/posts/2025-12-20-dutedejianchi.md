@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/dutedejianchi.html
 
 title: "人的独特就在于某种坚持"
+description: "一位在地区文联小有名气的作家，因始终放不下作品的文学性，在报纸副刊发表、文学评奖、小说出版等方面屡屡碰壁。最终，他的世界日益缩小，活得越来越边缘，也逐渐与外界疏离。或许，我们都不免为他感到唏嘘。"
 date: 2025-12-20
 lastmod: 2026-02-01
 slug: "dutedejianchi"

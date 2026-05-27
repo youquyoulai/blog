@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/fangxiafangbuxia.html
 
-title: "放不下也就放不下了"
+title: "放不下也就放不下了：所谓断舍离，不过是另一种执念"
+description: "有人说人到了一定年纪，必须扔掉这四样东西：没意义的酒局、不爱你的人、看不起你的亲戚和虚情假意的朋友。"
 date: 2022-10-03
 lastmod: 2026-03-25
 slug: "fangxiafangbuxia"

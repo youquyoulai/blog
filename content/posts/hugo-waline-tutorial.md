@@ -1,5 +1,6 @@
 ---
 title: "关于hugo的Waline评论和转换教程"
+description: "昨天，发了《博客从tyoecho转到了hugo》，关于评论的问题说几句： 1、评论由原来的Giscus变为Waline。Giscus虽然部署简单，但需要有github账号才能发布留言，条件太苛刻了。"
 date: 2026-04-25T15:31:00+08:00
 url: "/archives/hugo-waline-tutorial.html"
 categories: jilu

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/bokeluntan.html
 
 title: "有时候还是怀念以前的时光"
+description: "有时候听着郑钧的‘这种疼痛/如震撼之后般的欢乐/这种欢乐/如天空般的无我/你用你的刀刻画着我/你用你的刀刻画着我’，就会想起折腾网站、博客的那些岁月。"
 date: 2022-12-06
 lastmod: 2026-04-01
 slug: "bokeluntan"

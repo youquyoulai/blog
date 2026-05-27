@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zimeitisuiyi.html
 
 title: "头条作者南宫寻欢不该的随意为之"
+description: "头条作者南宫寻欢把中国小朋友说是日本的，还大吹法螺媚日。被揭穿后，昨日终于在抵挡不住铺天盖地的网友的口诛笔伐后道歉了。洋洋洒洒码了一大堆汉字，结果招来的依旧是愤怒的板砖。"
 date: 2021-07-10
 lastmod: 2026-04-01
 slug: "zimeitisuiyi"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/xiaoyuanbaling.html
 
-title: "不同时代不同的霸凌"
+title: "不同时代不同的霸凌：一个12岁少女被霸凌至死的沉重纪实"
+description: "轻纪实《被霸凌的12岁少女》讲述了一个因'被诬陷偷钱'而迅速失控、最终导致少女殒命的校园悲剧，揭示了校园霸凌、教育失职、留守儿童等多重社会问题。"
 date: 2026-01-09
 lastmod: 2026-01-16
 slug: "xiaoyuanbaling"

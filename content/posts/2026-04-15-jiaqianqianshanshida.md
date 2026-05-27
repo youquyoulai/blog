@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jiaqianqianshanshida.html
 
 title: "吹皱一池春水还是搅得周天寒彻"
+description: "一直在公众号不遗余力地对贾平凹父女抄袭进行批评揭露的唐小林又发了文章《一问陕西师大：为何对贾浅浅抄袭置若罔闻？》，文中说‘为贾浅浅抄袭论文大开绿灯的陕西师范大学，才是贾浅浅学术造假，最终彻底翻车的第一现场’。"
 date: 2026-04-15
 lastmod: 2026-04-16
 slug: "jiaqianqianshanshida"

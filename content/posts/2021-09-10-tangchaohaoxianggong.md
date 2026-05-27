@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/tangchaohaoxianggong.html
 
 title: "《唐朝好相公》中尴尬的歪诗"
+description: "昨晚睡觉前听了穿越小说《唐朝好相公》的开头，其中有个情节：主角被姐姐带着向县主簿女儿求亲，主簿夫人提出让所有在场的‘才子’们根据花园的景致赋诗一首，交予女儿评判。主角为了让自己出局，于是写了首歪诗：大明湖，明湖大，大明湖里有荷花。"
 date: 2021-09-10
 lastmod: 2026-03-31
 slug: "tangchaohaoxianggong"

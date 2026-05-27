@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zuojiayujiaoshi.html
 
 title: "作家群体面临的境遇和教师类似"
+description: "据说作家阎连科、余华和残雪登上了今年诺贝尔文学奖获奖赔率榜，于是吃瓜群众们立即热血沸腾起来：残雪是谁啊？不认识。余华，也就是个二三流作家！阎连科，吹捧鬼子糖甜的投机分子！"
 date: 2021-10-05
 lastmod: 2026-03-31
 slug: "zuojiayujiaoshi"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/cosplaynianqingren.html
 
 title: "玩cosplay的年轻人越来越多了"
+description: "带着孩子去商场转悠，迎面走来了两个玩cosplay的年轻人，二闺女夸张地赞叹：“好漂亮！”漂亮不漂亮我没感觉，别致倒是一如既往的别致。 我第一次注意到cosplay，是几年前国庆节的时候。"
 date: 2026-03-01
 slug: "cosplaynianqingren"
 categories: guangan

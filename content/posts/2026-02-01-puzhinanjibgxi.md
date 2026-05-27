@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/puzhinanjibgxi.html
 
 title: "对普直男来说，小惊喜就是大惊吓"
+description: "像我这样的人，除了端午、中秋、春节、元宵这类传统节日，对其他节日都没什么兴趣。这些节日大多空有其名，并不能给我带来什么实际好处。至少传统节日会放假，一放假我就能和家人团聚，看看父母，走走亲戚。可别的节日有什么呢？"
 date: 2026-02-01
 slug: "puzhinanjibgxi"
 categories: guangan

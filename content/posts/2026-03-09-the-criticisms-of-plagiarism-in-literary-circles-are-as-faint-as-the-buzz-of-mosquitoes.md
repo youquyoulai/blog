@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/the-criticisms-of-plagiarism-in-literary-circles-are-as-faint-as-the-buzz-of-mosquitoes.html
 
 title: "对文坛抄袭的讨伐声若蚊蝇"
+description: "在公众号上看到一篇文章，说去年年初的时候，小红书博主用图片对比的方式揭露文坛的抄袭现象，在网上引起了很大动静。可一年的功夫，小红书博主还在不停地揭露新的抄袭者，却逐渐没有人关注了。"
 date: 2026-03-09
 slug: "the-criticisms-of-plagiarism-in-literary-circles-are-as-faint-as-the-buzz-of-mosquitoes"
 categories: guangan

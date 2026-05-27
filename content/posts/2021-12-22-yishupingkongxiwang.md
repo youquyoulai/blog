@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/yishupingkongxiwang.html
 
 title: "艺术中的希望现实中的绝望"
+description: "沙漠导演的短片《刹车》再一次提醒我们：问题孩子的根源在于问题父母。那些忙忙碌碌从不倾听孩子的父母，那些爱面子却不会爱孩子的父母，才是将孩子推上邪路或者走向极端的黑手。"
 date: 2021-12-22
 lastmod: 2026-03-24
 slug: "yishupingkongxiwang"

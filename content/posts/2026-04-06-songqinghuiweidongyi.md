@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/songqinghuiweidongyi.html
 
 title: "不知所谓的宋清辉硬蹭韦东奕"
+description: "在观察者网的风闻社区，有两个人发的帖子我基本不会点开：一个人总在文末附上自己的大头照，让人极不舒服；另一个就是宋清辉。 宋清辉让人讨厌的地方，一是他的帖子随处可见“著名经济学家宋清辉”字样，就连怀念自己儿子的文字也不例外。"
 date: 2026-04-06
 slug: "songqinghuiweidongyi"
 categories: guangan

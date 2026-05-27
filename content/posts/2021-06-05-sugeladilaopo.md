@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/sugeladilaopo.html
 
 title: "阔论的老公现实的老婆"
+description: "下面这两则丈夫被老婆当面兜头泼水的轶闻出自余世存《非常道》: 1962年，杨振宁跟父母在日内瓦见面，当时杨在美国，很少知道中国的实际情形。"
 date: 2021-06-05
 lastmod: 2026-03-24
 slug: "sugeladilaopo"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/xuebaliji.html
 
-title: "学霸的精致利己主义"
+title: "学霸的精致利己主义：成绩好不等于品格好"
+description: "网络上，不时有人会抱怨说如今当老师的都是上学时班里学习成绩一般甚至很渣的学生，并借此表示对自己孩子的将来担忧。"
 date: 2021-07-02
 lastmod: 2026-03-24
 slug: "xuebaliji"

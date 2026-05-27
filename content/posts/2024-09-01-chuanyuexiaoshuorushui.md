@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/chuanyuexiaoshuorushui.html
 
-title: "网络穿越文如水"
+title: "网络穿越文如水：明知是套路，为何还欲罢不能"
+description: "百无聊赖的时候就看网文，那种穿越型的爽文，那种靠情节推动的主角一路火花带闪电的爽文。比如《让你管封底，没让你人均暴富》《大明打工路：每天都盼着老朱驾崩》《木子的北宋生活》《大侄子不会当皇帝？"
 date: 2024-09-01
 lastmod: 2026-03-25
 slug: "chuanyuexiaoshuorushui"

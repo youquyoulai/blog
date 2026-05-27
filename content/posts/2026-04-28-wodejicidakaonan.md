@@ -2,6 +2,7 @@
 url: /archives/wodejicidakaonan.html
 
 title: "我的几次大考中的难堪往事"
+description: "路上听到两名高中生说，五一放假回来就要开始学考了，不禁让我想起自己几次大考中的难堪往事。 话说那年中考，做物理试卷一道大题时，我发现怎么算结果都不对。聪明如我，果断将题目中的一个条件划掉，又重新添加了一个条件，这样就和我的答案吻合了。"
 date: 2026-04-28
 lastmod: 2026-04-28
 slug: "wodejicidakaonan"

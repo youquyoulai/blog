@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/lianzishuati.html
 
 title: "走心的努力也是一种能力"
+description: "我非常讨厌需要手写的材料，因为我的字太难看。同样的纸张，同样的内容，看人家的就像蓝天白云下的大草原让人心旷神怡，而自己的宛如一百只母鸡奔驰过的雪地一样惨不忍睹。"
 date: 2026-02-06
 lastmod: 2026-02-06
 slug: "lianzishuati"

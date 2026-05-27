@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/free-is-the-most-expensive.html
 
 title: "由免费理财想到摸石看病"
+description: "在电视上用某影音App看节目时，总会反复播放一个叫什么牛的理财广告，播得特别勤。以至于我小女儿都忍不住让她妈赶紧去学学，还说“不花一分钱”。在广告胡说八道成风的年代，我们这些人对天上掉馅饼的事自然是不会信的。"
 date: 2026-03-15
 lastmod: 2026-03-25
 slug: "free-is-the-most-expensive"

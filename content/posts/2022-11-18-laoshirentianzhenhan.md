@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/laoshirentianzhenhan.html
 
 title: "古失去的原因就是因为其古"
+description: "《春秋的老实人和天真汉》里说：要找人心“古”的，也只好到古代去找。唐宋元明清，一路看下来，越往后聪明人越多，老实人也上不了史书了。再往前找，老实人、天真汉渐多，找到春秋，那就是遍地老实人了。"
 date: 2022-11-18
 lastmod: 2026-04-01
 slug: "laoshirentianzhenhan"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/hunqianhunhou.html
 
 title: "婚前睁大眼，婚后少生气"
+description: "有人发帖称因丈夫沉迷游戏坚决要求离婚，理由是游戏不仅侵占睡眠、损害健康，还会影响家庭正常生活。评论区随之热议，绝大多数留言都是“可怜你先生”“早点儿离”这类回应。"
 date: 2026-01-18
 lastmod: 2026-02-01
 slug: "hunqianhunhou"

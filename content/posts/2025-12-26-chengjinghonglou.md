@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/chengjinghonglou.html
 
 title: "老树成精的《红楼梦》"
+description: "我第一次读《红楼梦》是在高考之后。因为自觉考得不好，心里极度烦闷，便去新华书店买了一本，随后就不分昼夜地读了起来。 那时的我，对曹雪芹“草蛇灰线，伏延千里”的笔法尚无体会，真正触动我的，是书中人物的喜怒悲欢。"
 date: 2025-12-26
 lastmod: 2026-01-16
 slug: "chengjinghonglou"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/without-simplicity-not-necessarily-smarter.html
 
 title: "少了憨厚拙直，却未必聪明了"
+description: "有人说：在聪明的道路上，我们已经一骑绝尘，把古人远远地甩在了后边。今天这一屋子人，每一个都是聪明人，古人见到我们这么多聪明人也会吓得跑回古代去，所以，我担心的倒是另一件事，就是聪明过头了怎么办？太聪明了聪明反被聪明所误怎么办？"
 date: 2026-03-07
 lastmod: 2026-03-07
 slug: "without-simplicity-not-necessarily-smarter"

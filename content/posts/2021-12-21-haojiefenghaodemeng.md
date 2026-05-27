@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/haojiefenghaodemeng.html
 
 title: "郝杰的《冯海的梦》的先锋性"
+description: "导演郝杰的《冯海的梦》让我想起很久以前看过的某些先锋性的小说。它的每一处断裂都像一个谜，诱使你去问为什么？它的每一个细节也都像一个谜，诱使你去想怎么会这样？ 有时候，那你看完了还一头雾水，这是啥跟啥啊！"
 date: 2021-12-21
 lastmod: 2026-03-31
 slug: "haojiefenghaodemeng"

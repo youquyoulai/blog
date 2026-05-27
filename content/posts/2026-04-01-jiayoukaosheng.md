@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jiayoukaosheng.html
 
 title: "或许家有考生的日子都差不多"
+description: "周瑄璞的《一颗扣子》写出了学生中考前的焦虑，会让所有有过或者有着中考生或高考生的父母（尤其是女儿）觉得心有戚戚焉。"
 date: 2026-04-01
 slug: "jiayoukaosheng"
 categories: guangan

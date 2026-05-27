@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zaidayangkaijiuguan.html
 
 title: "放弃了《我在大唐开酒馆》"
+description: "在某听书APP上搜到小说《我在大唐开酒馆》，看评分高达9.2就听了几天。 因为自己对历史所知寥寥，仅局限于著名的历史人物与事件，所以我不会在意穿越小说的一些细节问题。"
 date: 2023-06-22
 lastmod: 2026-03-25
 slug: "zaidayangkaijiuguan"

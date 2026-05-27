@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/nvzhubobangyi.html
 
 title: "我的堂弟也曾当榜一大哥"
+description: "读了轻纪实作品《榜一大哥自述：我想用钱交换爱情，她却想要更多》，心中颇有感慨。 ​ ​正所谓年年岁岁花相似，岁岁年年人不同。"
 date: 2026-01-03
 lastmod: 2026-01-29
 slug: "nvzhubobangyi"

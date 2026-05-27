@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/god-and-his-team-daily.html
 
 title: "上帝与他的班子的日常"
+description: "上帝说要有光，于是就有了光。至于哪里光照强，哪里光照弱，上帝可不管。 上帝说要有水，于是就有了水。至于哪里水量多，哪里水量少，上帝也不管。 上帝说要有人，于是就有了人。至于哪里的人丑，哪里的人美，上帝同样不管。"
 date: 2026-03-10
 lastmod: 2026-03-10
 slug: "god-and-his-team-daily"

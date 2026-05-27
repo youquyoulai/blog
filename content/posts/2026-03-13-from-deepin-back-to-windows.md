@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/from-deepin-back-to-windows.html
 
 title: "笔记本系统从deepin换回windows"
+description: "昨天，我将笔记本电脑的系统换成了 deepin，过程颇为曲折。原本尝试安装 2.5 版本，却一直卡在黑屏上无法解决，最后只好改用 2.3 版本才成功。"
 date: 2026-03-13
 lastmod: 2026-03-13
 slug: "from-deepin-back-to-windows"

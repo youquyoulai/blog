@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/shuxuejiachenxingshen.html
 
 title: "陈省身的成长与现在的辅导班"
+description: "对有的人来说，数学就是玩儿，玩着玩着就成大家了。对多数人来说，数学就是苦读，读着读着就成学渣了。 据说，有一年过春节时，陈省身父亲给和祖母一起居住在老家的他带了一套礼物，是当时流行于新式学堂的《笔算数学》，分上中下 三册。"
 date: 2022-11-23
 lastmod: 2026-04-01
 slug: "shuxuejiachenxingshen"

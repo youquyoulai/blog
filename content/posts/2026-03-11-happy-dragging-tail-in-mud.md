@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/happy-dragging-tail-in-mud.html
 
 title: "或许，快乐地曳尾涂中就挺好"
+description: "波兰作家米沃什在《作家的自白》里讲了一个寓言故事：“很久以前，我走在波兰的乡村路上，看见几只鸭子在污泥塘里洗澡，不免沉思起来。附近就有一条流过赤杨林的可爱的小河，使我吃了一惊。为什么它们不到小河里去呢？我问一位坐在小屋前木凳上的老农。"
 date: 2026-03-11
 slug: "happy-dragging-tail-in-mud"
 categories: guangan

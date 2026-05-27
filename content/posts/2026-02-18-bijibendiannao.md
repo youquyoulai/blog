@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/bijibendiannao.html
 
-title: "鸡肋般的笔记本电脑"
+title: "鸡肋般的笔记本电脑：电池报废键盘失灵，却依然舍不得换"
+description: "我那台旧笔记本问题多多：电池彻底废了，只能时刻插着电源；键盘上不少按键失灵，有的得摁上十次八次才能勉强显示；系统已经是精简版的Windows 7了，可有时刚打开浏览器就崩溃；"
 date: 2026-02-18
 lastmod: 2026-02-24
 slug: "bijibendiannao"

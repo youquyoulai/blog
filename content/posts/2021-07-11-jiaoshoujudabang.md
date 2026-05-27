@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jiaoshoujudabang.html
 
 title: "天津大学教授马知遥的大棒高举"
+description: "天津大学教授马知遥在头条上怒斥一作者‘上纲上线无可救药的文革思维’、‘无耻小人’，因为好久不见此类‘当头棒喝’，出于好奇看了一下原文。"
 date: 2021-07-11
 lastmod: 2026-04-01
 slug: "jiaoshoujudabang"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/dianyingguuzhaijuejing.html
 
-title: "宇宙就是人类的孤宅"
+title: "宇宙就是人类的孤宅：电影《孤宅绝境》中的存在主义隐喻"
+description: "电影《孤宅绝境》讲述的是：十个人周末旅行，到预定的酒店时却发现酒店里不仅空无一人而且连昆虫、鸟类的生物都没有。因为没有足够的油料，他们不得不选择住了下来。于是，在这个奇怪的地方发生了诡异的事件——其中的九个人都消失了。"
 date: 2022-12-14
 lastmod: 2026-03-25
 slug: "dianyingguuzhaijuejing"

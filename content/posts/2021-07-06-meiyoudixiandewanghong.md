@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/meiyoudixiandewanghong.html
 
 title: "以撕扯国民伤疤来吸引眼球的‘网红’"
+description: "在旅顺博物馆门口，穿着受日本影响的服装，欢快地跳与日本文化有关的宅舞的‘网红’道歉说：我在选景时忽略了旅顺博物馆在艺术文化和历史方面的深厚含义，我的无知导致了这样一个严重的错误。"
 date: 2021-07-06
 lastmod: 2026-04-01
 slug: "meiyoudixiandewanghong"

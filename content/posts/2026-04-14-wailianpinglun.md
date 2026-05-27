@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/wailianpinglun.html
 
 title: "主题增加了外链跳转，重写了评论区"
+description: "以前申请的免费php主机不给用了，再找新的还得注册、实名，有些麻烦，于是昨天用小皮面板搭建了网站环境，安装了typecho，准备就在本地调试主题了。 我一直用deepseek修改代码。有了本地php环境，就寻思交给workbuddy。"
 date: 2026-04-14
 slug: "wailianpinglun"
 categories: jilu

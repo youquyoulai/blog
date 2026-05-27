@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/liuliangchengrenchu.html
 
 title: "高山的独特，小草的快乐"
+description: "刘亮程在《人畜共居的村庄》中写到：有时想想，在黄沙梁做一头驴，也是不错的。只要不年纪轻轻被人宰掉，拉拉车，吃吃草，亢奋时叫几声，平常的时候就沉默，心怀驴胎，想想眼前嘴前的事儿。只要不懒，一辈子也挨不了几鞭。"
 date: 2026-01-19
 lastmod: 2026-02-01
 slug: "liuliangchengrenchu"

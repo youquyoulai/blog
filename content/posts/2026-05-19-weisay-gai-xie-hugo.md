@@ -1,5 +1,6 @@
 ---
 title: "将Weisay Grace改写成Hugo主题"
+description: "昨天得到了威言威语博主的回复，可以将主题Weisay Grace改写成Hugo主题，于是从昨晚直到今晚，一直在让AI进行改写和调试。"
 date: 2026-05-19T19:53:00+08:00
 cover: "@image:2026slt/tu05.webp"
 categories: [weibo]

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/nansongdiyiwudi.html
 
 title: "i那位主角大杀四方弃书《南宋第一卧底》"
+description: "边读边听《南宋第一卧底》到近九百章弃书了。 应该说小说开头几个大案虽然有些不合情理之处，但还是挺引人入胜的，初看起来迷雾重重真相大白后的恍然大悟很容易让人想起电视剧《少年包青天》和《神探狄仁杰》。"
 date: 2024-10-27
 lastmod: 2026-03-25
 slug: "nansongdiyiwudi"

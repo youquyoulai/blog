@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/yueduxingqudi.html
 
 title: "书渐渐归于“可看可不看”"
+description: "我自信能够做到每日阅读不间断，却从未参加过任何“365天阅读挑战赛”。 对我而言，阅读早已成为一种习惯。大多数时候，我带着明确的目的翻开书；有时，也只是随手翻阅几页。"
 date: 2026-01-12
 lastmod: 2026-01-16
 slug: "yueduxingqudi"

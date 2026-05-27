@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/old-dog-eyes-filled-with-memories-of-bygone-days.html
 
 title: "老狗满眼都是陈事旧影"
+description: "唐小林再一次在文评中将矛头掷向了刘亮程，指责其文章是把苦难的生活抹上甜得发腻的蜂蜜后熬制成俗不可耐的心灵鸡汤，给涉世未深的年轻人上人生“哲学课”。作为普通读者，我不这样看。我读过刘亮程的《一个人的村庄》，也曾沉浸于狗的世界、驴的生活里。"
 date: 2026-03-07
 slug: "old-dog-eyes-filled-with-memories-of-bygone-days"
 categories: guangan

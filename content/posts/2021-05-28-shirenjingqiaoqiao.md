@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/shirenjingqiaoqiao.html
 
-title: "诗人的存在静悄悄"
+title: "诗人的存在静悄悄：诗歌凋零的时代，诗人成了无声的存在"
+description: "在1998年6月份的《读者》上读到了一首小诗《雨和诗人》： 雨在天上烦了 跑到人间来哭泣 故事全部倾诉给了土地 不小心被诗人捡去当做了主题 诗人太用心 于是诗卖得太艰辛 因为没人再读诗"
 date: 2021-05-28
 lastmod: 2026-03-24
 slug: "shirenjingqiaoqiao"

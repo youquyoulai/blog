@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/exindelingdao.html
 
-title: "恶心的领导"
+title: "恶心的领导：让下属搬冰箱安油烟机的领导能有多离谱"
+description: "有工人干活儿，边干边和我扯闲篇儿，扯着扯着就说起了其单位领导： 单位领导家买了个抽油烟机，让他和另一个同事给安装。‘我们两个也不是干那个的，量这儿量那儿的，鼓捣了好半天才安好。’ 单位领导家买了个对开门的大冰箱，让他和同事给搬到家里。"
 date: 2026-02-07
 slug: "exindelingdao"
 categories: guangan

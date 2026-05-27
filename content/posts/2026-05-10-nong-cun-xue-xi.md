@@ -1,5 +1,6 @@
 ---
 title: "手机不是孩子不愿意学习的主因"
+description: "有人说，农村学校现在愿意学习的孩子不足五分之一，绝大多数孩子都沉迷手机无法自拔。 像我们这代人上学时，虽然没有电脑和手机，但那时有精彩的武侠和言情小说啊。"
 date: 2026-05-10T19:12:00+08:00
 cover: "@image:2026slt/haizishuashouji.webp"
 categories: guangan

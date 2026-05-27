@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/duanpianxiaoshuoyiwei.html
 
 title: "短篇小说更重要的是‘意味’"
+description: "邓力 小说《钓》 优点：小说对环境、某些细节的描写以及乡村语言的运用还是很好的。 缺点：小说的情节生硬，说教意味甚浓，更像是主题先行的命题作文。比如老者介入的方式，老者介入的理由，以及麻老师的突兀的转变。"
 date: 2025-02-01
 lastmod: 2026-04-04
 slug: "duanpianxiaoshuoyiwei"

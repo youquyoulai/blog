@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/dulibokeAI.html
 
 title: "独立博客展现博主自我还是AI塑造"
+description: "这段时间刷视频，发现越来越多的内容都是AI生成的。AI生成的东西，除了页面会标注相应提示之外，画面过于清晰精致也是识别的办法之一——就像年画上的娃娃，漂亮是漂亮，可总让人觉得一眼假。"
 date: 2026-04-12
 lastmod: 2026-04-15
 slug: "dulibokeAI"

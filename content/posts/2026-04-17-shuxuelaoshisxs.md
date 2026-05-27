@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/shuxuelaoshisxs.html
 
 title: "数学老师不讲发现√2的意义"
+description: "有人说数学老师不讲勾股定理能解决什么实际问题，不讲无理数，有理数是在什么情况下提出的，不讲√2（根号）发现的重大意义，不是因为他们懒是因为他们自己都不懂。这种论调套在我小时候的部分老师头上，倒没什么大问题。"
 date: 2026-04-17
 slug: "shuxuelaoshisxs"
 categories: guangan

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zhuanjiashuxuezuoye.html
 
 title: "专家抱怨不会做孙子的数学作业"
+description: "不时看到‘某专家抱怨说自己都不会做孙子的数学作业题’或者‘大学生解不出小学题’之类的帖子，好像以前还听过‘数学家做不出高考数学题’传闻。每次这样的消息出来，往往会有一大批‘心有戚戚焉’者的评论。"
 date: 2021-07-08
 lastmod: 2026-03-24
 slug: "zhuanjiashuxuezuoye"

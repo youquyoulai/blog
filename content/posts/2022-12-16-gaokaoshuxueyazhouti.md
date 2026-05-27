@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/gaokaoshuxueyazhouti.html
 
 title: "数学压轴题不是你想突破就能突破的"
+description: "自媒体上一个带货的说‘见过太多的老师，遇到圆锥曲线和导数只会照着答案讲。圆锥曲线从来不自己算，导数直接念答案。"
 date: 2022-12-16
 lastmod: 2026-04-01
 slug: "gaokaoshuxueyazhouti"

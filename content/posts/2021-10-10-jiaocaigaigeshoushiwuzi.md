@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jiaocaigaigeshoushiwuzi.html
 
-title: "教材改革与收拾屋子"
+title: "教材改革与收拾屋子：折腾来折腾去，受苦的总是孩子"
+description: "我们的教材改革专家有时候就像爱收拾屋子的家庭妇女： 昨天垃圾桶放在了厨房角落，今天觉得不合理就放到了客厅。 今天将沙发南北摆放了，明天又觉得不顺眼改成东西摆放的。"
 date: 2021-10-10
 lastmod: 2026-03-31
 slug: "jiaocaigaigeshoushiwuzi"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/xiapinchenpeisizhaobenshan.html
 
 title: "小品的开山祖师与春晚舞台的小品王"
+description: "陈佩斯被称为小品的开山祖师，如今更是多年的艺术家了，有人说他是天才的演员，在《主角与配角》等小品中用精湛的演技、干净的语言征服了亿万观众。"
 date: 2021-05-05
 lastmod: 2026-03-24
 slug: "xiapinchenpeisizhaobenshan"

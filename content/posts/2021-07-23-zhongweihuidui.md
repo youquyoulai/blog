@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zhongweihuidui.html
 
 title: "忽略了公众人物身份的周炜"
+description: "这两天，相声演员周炜回怼网友：“我捐的是你”，“傻孩子，你就是我捐的，回家问问”，“我这辈子就是一时冲动捐赠了你，孩子挺住”而被推上了舆论的风口浪尖。"
 date: 2021-07-23
 lastmod: 2026-04-01
 slug: "zhongweihuidui"

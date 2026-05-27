@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zhizhangzhihui.html
 
 title: "如今每个声音都显得声嘶力竭"
+description: "以前逛书摊或书店的时候，往往一去就是一上午或一下午。左转右看，挑挑选选，总是要在多本喜欢的书籍前犹豫好一阵儿，才会买上一两本。那时候的书籍都是被畅读后才存放起来，有些直到今天依旧会偶尔翻翻。"
 date: 2022-12-28
 lastmod: 2026-03-25
 slug: "zhizhangzhihui"

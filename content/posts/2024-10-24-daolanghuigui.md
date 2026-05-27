@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/daolanghuigui.html
 
 title: "不管怎样，刀郎的歌还是会听的"
+description: "看了篇帖子《刀郎回归，打了谁的脸?》，主旨是说对歌手刀郎复出不要吹捧过度，还是要评事客观，论事理智。 在去年之前，我对刀郎的印象就是耳熟能详的那几首歌《2002的第一场雪》《冲动的惩罚》……。"
 date: 2024-10-24
 lastmod: 2026-03-25
 slug: "daolanghuigui"

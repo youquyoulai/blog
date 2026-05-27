@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jiaoshidelei.html
 
-title: "教师的累病去如抽丝"
+title: "教师的累病去如抽丝：中小学教师为何越来越累"
+description: "中小学教师为何越来越累？个中缘由其实已是共识，大家都能列举几条，却始终缺乏真正可行的解决方案。 在互联网尚未兴起及其发展初期，中小学教师能够将全部精力投入教育教学。"
 date: 2026-01-06
 lastmod: 2026-01-16
 slug: "jiaoshidelei"

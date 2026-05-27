@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jieduyuwudu.html
 
 title: "解读与自以为是的误读"
+description: "有时候，对文艺作品解读能帮助人们更好地理解作品，甚至解读出作家落笔时没能想到的东西。可如果过度的‘深挖洞’（隐晦的深意、隐喻、反讽、象征），往往就成了自以为是的误读。"
 date: 2022-12-01
 lastmod: 2026-03-25
 slug: "jieduyuwudu"

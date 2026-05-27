@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/yueweicaotangbijidong.html
 
 title: "无需徒增烦恼的知州董思任"
+description: "《阅微草堂笔记》笔记中说：某孝廉的书房被狐狸霸占了，时任知州董思任听说后决定亲自赶走作祟的狐狸。当董思任慷慨激昂大讲人妖殊途的道理时，却听狐狸说：“董大人，您为民做主，为官清廉，我不敢用砖瓦攻击您。"
 date: 2023-04-26
 lastmod: 2026-03-25
 slug: "yueweicaotangbijidong"

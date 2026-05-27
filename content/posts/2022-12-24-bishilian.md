@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/bishilian.html
 
-title: "鄙视链上的你和我"
+title: "鄙视链上的你和我：谁又比谁更高贵呢"
+description: "一小男孩不愿意上学被爸爸带到工地上拉废钢筋体验生活，结果孩子干了一天半后受不了，说想通了回去一定好好上学。"
 date: 2022-12-24
 lastmod: 2026-03-25
 slug: "bishilian"

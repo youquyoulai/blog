@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/you-tianjie-supports-jia-pingwa.html
 
 title: "游天杰对贾平凹的支持软弱无力"
+description: "近日，网络上正热烈讨论和批判着贾平凹涉嫌抄袭一事。就在舆论如火如荼之际，忽然刷到一篇题为《我坚定支持贾平凹》的文章，瞬间勾起了我的好奇心。脑海中不由自主闪过那句网络流行语：“这是谁的部将？” 点进去一看，作者竟是诗人游天杰。"
 date: 2026-03-12
 lastmod: 2026-03-12
 slug: "you-tianjie-supports-jia-pingwa"

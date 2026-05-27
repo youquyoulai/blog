@@ -1,5 +1,6 @@
 ---
 title: "没有意义的‘除’和‘除以’的区别"
+description: "刷视频时看到一位初中老师发的图文，讲的是教学过程中遇到的一个实际问题：学生读“√a ÷ √b = √(a÷b)”时，把式子读成了“根号a除根号b”。老师纠正说，这里只能读作“除以”，不能读作“除”。"
 date: 2026-05-01T06:33:00+08:00
 cover: "@image:images/chuhechuyi.png"
 categories: guangan

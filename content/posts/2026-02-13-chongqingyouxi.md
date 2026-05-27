@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/chongqingyouxi.html
 
 title: "对《重庆》的游戏之语"
+description: "有时候事情就怕琢磨。宋明理学大师能从毛茸茸的小鸡身上看出“仁”来，《狂人日记》的主人公能从字缝里读出“吃人”。一首看似不明所以的口语诗，稍作思量，也能咂摸出别样的味道。"
 date: 2026-02-13
 lastmod: 2026-02-24
 slug: "chongqingyouxi"

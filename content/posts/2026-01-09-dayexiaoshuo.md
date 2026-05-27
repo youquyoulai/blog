@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/dayexiaoshuo.html
 
 title: "八十岁大爷曾交我一部手稿"
+description: "在微读上看了一篇轻纪实《老年人沉迷代写回忆录，每本1万元起步》，让我想起自己经历过的一件事。 前些年暑假，我回老家。"
 date: 2026-01-09
 lastmod: 2026-01-16
 slug: "dayexiaoshuo"

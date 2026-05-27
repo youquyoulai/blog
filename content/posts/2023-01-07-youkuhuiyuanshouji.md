@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/youkuhuiyuanshouji.html
 
 title: "优酷会员账号只能登录一个手机"
+description: "说如今优酷会员账号只能登录一个手机了，而此前一个优酷会员账号可以同时登录三个手机设备，优酷对汹汹舆情的回应是为保护用户账号安全，打击黑灰产，并且考虑到绝大多数用户的使用习惯。"
 date: 2023-01-07
 lastmod: 2026-03-25
 slug: "youkuhuiyuanshouji"

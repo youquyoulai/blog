@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/guangboke.html
 
 title: "我喜欢逛独立博客的原因"
+description: "我有个习惯：几乎每天都会去博客聚合网站转转，看看独立博主们的最新文章。有时随手点开一个博客，逛完后又在友情链接里点开另一个。"
 date: 2026-01-11
 lastmod: 2026-01-16
 slug: "guangboke"

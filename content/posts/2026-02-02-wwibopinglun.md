@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/wwibopinglun.html
 
 title: "tyoecho分类页面做微博说说"
+description: "这几天还是一直在尝试用typecho分类页做微博说说页面，因为用评论页做的有很多不足的地方，比如没法用标签，微博没有独自的url。可用分类页做也有很大的困难： 一个是前面说过的精准分页。首页排除微博分类，就会给分页码带来很大的困难。"
 date: 2026-02-02
 lastmod: 2026-04-08
 slug: "wwibopinglun"

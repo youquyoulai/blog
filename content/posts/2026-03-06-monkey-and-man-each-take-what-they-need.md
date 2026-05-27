@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/monkey-and-man-each-take-what-they-need.html
 
-title: "各取所需的猴子与人"
+title: "各取所需的猴子与人：你以为你在耍猴，猴也在耍你"
+description: "微型小说《人与猴》的大意是：动物园里，大人用一包花生逗弄笼子里的猴子，孩子被逗得哈哈大笑。回家路上小孩问大人为什么将花生扔到大猴的背后，大人得意地说：“猴子翻来覆去地来回折腾才有意思啊，你若直接扔到它眼前，还有这么好玩吗？"
 date: 2026-03-06
 slug: "monkey-and-man-each-take-what-they-need"
 categories: guangan

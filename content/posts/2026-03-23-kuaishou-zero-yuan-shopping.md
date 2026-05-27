@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/kuaishou-zero-yuan-shopping.html
 
 title: "第一次用快手差点弄成零元购"
+description: "早上，收到了快手退款。我有些懵逼，因为这段时间没在快手消费过。 查看详情，得知是某养车店的退款。我想起来了，两个月前刷快手时，看到一个价格不高离自己又很近的汽车保养店。当天，我在快手上下了订单并做了保养。"
 date: 2026-03-23
 lastmod: 2026-03-25
 slug: "kuaishou-zero-yuan-shopping"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/chencunyitian.html
 
 title: "张三的一天，许三观的猪肝"
+description: "陈村的小说《一天》分为四个小节： 第一节，张三在半梦半醒中睁开半只眼，在母亲的催促下起床、洗漱、吃饭、下楼，此刻邻居们还在沉睡。"
 date: 2026-02-28
 slug: "chencunyitian"
 categories: guangan

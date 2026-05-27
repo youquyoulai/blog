@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/yueweicaotanglaoxuejiu.html
 
 title: "《阅微草堂笔记》中的老学究"
+description: "《阅微草堂笔记》老学究 自认为读了一辈子书的老学究胸中只有解释经义的文章一部，选刻取中的试卷五六百篇，经文七八十篇，应试的策文三四十篇， 而且文章中的字字都化成黑烟笼罩在学堂屋封闭住了学生的朗读声。"
 date: 2025-02-03
 lastmod: 2026-04-04
 slug: "yueweicaotanglaoxuejiu"

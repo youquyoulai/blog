@@ -1,5 +1,6 @@
 ---
 title: "完成Hugo博客图片和文章管理后台"
+description: "这两天一直在忙一件事：做一个 Hugo 的管理后台。起因是，用了一段时间 PocketHugo 后，渐渐感到一些使用上的不便。"
 date: 2026-05-07T21:05:00+08:00
 cover: "@image:202605/shoujifabu.PNG"
 categories: jilu

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/learn-from-suffering.html
 
 title: "以苦难为师与孙子才画得圆"
+description: "在某处看到一段话：“人生总有不可把握的现在、无法预知的未来，没有大起大落的动荡，也难以获得大彻大悟的成长，如悬崖上的树，那些动态的不安，构成了生活中的绝美。” 我不太认同这种论调。"
 date: 2026-03-17
 lastmod: 2026-03-25
 slug: "learn-from-suffering"

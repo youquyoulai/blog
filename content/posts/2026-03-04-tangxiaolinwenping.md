@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/tangxiaolinwenping.html
 
 title: "唐小林的近期文评有些无趣"
+description: "我以前关注过“文学自由谈”的公众号，那时候几乎每期都会有唐小林的文章。文学自由谈的内容大多是深情的回忆文章和纪念性的文字，偶有评论，也都是些不痛不痒、四平八稳的调调。"
 date: 2026-03-04
 slug: "tangxiaolinwenping"
 categories: guangan

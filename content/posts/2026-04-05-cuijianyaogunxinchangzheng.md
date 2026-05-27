@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/cuijianyaogunxinchangzheng.html
 
 title: "手机铃声依然是《新长征路上的摇滚》"
+description: "在某社区看到一篇关于崔健的文章，说今年64岁的崔健不想被供在神坛上落灰，更不想被那些“教父”“反叛者”的标签所绑架。 ![gcz_image (1).jpg][1] 作为一个摇滚乐的爱好者，我的手机铃声一直是崔健的《新长征路上的摇滚》。"
 date: 2026-04-05
 slug: "cuijianyaogunxinchangzheng"
 categories: guangan

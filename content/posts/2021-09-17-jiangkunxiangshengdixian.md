@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jiangkunxiangshengdixian.html
 
 title: "姜昆不食人间烟火的表态"
+description: "据说曲协主席姜昆在湖北接受当地媒体采访时说：“我跟相声演员说，你们的节目演给周围的朋友听，一帮女粉丝们哈哈大笑，你们再想一想，这样的节目能不能给孩子听？我们是公众人物，一半不属于自己，而是属于社会。最后一半就是底线。"
 date: 2021-09-17
 lastmod: 2026-03-24
 slug: "jiangkunxiangshengdixian"

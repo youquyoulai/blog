@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/deepseekditu.html
 
 title: "deepseek帮我解决了地图插件"
+description: "博客新开张，就像买了毛坯房。虽然程序是顺手的，主题也是用过的，但因为间隔时间太久，装修起来还是慌慌张张。 中午花了好长时间折腾网站地图。我在网上找到一个 sitemap 插件，启用后却无法生成 sitemap.xml 文件。"
 date: 2026-01-16
 lastmod: 2026-01-29
 slug: "deepseekditu"

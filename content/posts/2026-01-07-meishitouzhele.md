@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/meishitouzhele.html
 
 title: "生活得学会‘没事偷着乐’"
+description: "曾有北大教授接受采访时说“人这一生不能只是为了谋生，否则你这一生只能是个苦役”。很多人在评论区急切地反驳，称“谋生都很艰难了”、“站着说话不腰疼”、“你下来试一试”……显然，这些人误解了林教授的意思。"
 date: 2026-01-07
 lastmod: 2026-01-30
 slug: "meishitouzhele"

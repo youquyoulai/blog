@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/bearblog-card-theme.html
 
 title: "bearblog卡片式主题"
+description: "说明：以下提供的css是官方主题Bento修改而得，主要是调整了一些显示样式，将原来的双排显示改为单行，去掉了网站标题和导航上的数字标记，增加了网页字体随屏幕大小自适应，并增加了微博功能。"
 date: 2026-02-25
 lastmod: 2026-03-21
 slug: "bearblog-card-theme"

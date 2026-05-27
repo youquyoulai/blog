@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/tanpianyishangdang.html
 
 title: "贪便宜要有上当的自觉"
+description: "买手机壳这类小物件，我通常选某多或某宝，图个便宜，对质量也没太高指望。但像家用电器这种大件，我肯定去某东自营，看中它的品牌、质量和发货速度。至于某音、某手上那些带货直播间的东西？我从来敬而远之。"
 date: 2025-12-27
 lastmod: 2026-02-01
 slug: "tanpianyishangdang"

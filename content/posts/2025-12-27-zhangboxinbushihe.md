@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zhangboxinbushihe.html
 
 title: "张伯鑫真的不适合说相声"
+description: "和许多人一样，我最初知道张伯鑫是通过《相声有新人》这个节目。他在表演中那句“我让了”带来的尴尬，与节目中一些模式化的夫妻相声相比，其实并无太大不同。 后来他创办《高兴社》，我也看过几段他的作品。"
 date: 2025-12-27
 lastmod: 2026-01-16
 slug: "zhangboxinbushihe"

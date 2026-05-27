@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/high-quality-human-nonsense.html
 
 title: "西装革履者的蝗虫不吃庄稼"
+description: "《资治通鉴》中说：僖宗乾符二年，875年，秋，七月，蝗自东向西，蔽日，所过赤地。京兆尹杨知至奏：蝗入京畿，不食稼，皆抱荆棘而死。宰相皆贺。"
 date: 2026-03-21
 lastmod: 2026-03-25
 slug: "high-quality-human-nonsense"

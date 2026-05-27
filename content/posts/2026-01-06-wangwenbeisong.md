@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/wangwenbeisong.html
 
 title: "中规中矩的网文《北颂》"
+description: "《北颂》是中规中矩的靠故事情节推动的爽文。无论是生活中的困难，还是朝堂上的暗流，都被主角凭着自己的能力与智慧游刃有余地破解。并且在不知不觉中，改变了历史的轨迹。"
 date: 2026-01-06
 lastmod: 2026-04-08
 slug: "wangwenbeisong"

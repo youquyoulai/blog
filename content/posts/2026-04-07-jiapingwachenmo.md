@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jiapingwachenmo.html
 
 title: "沉默不是贾平凹和贾浅浅最好的选择"
+description: "网络上，关于贾平凹、贾浅浅作品涉嫌抄袭的批评已持续很长时间，相关证据也日益增多且愈发惊人。除了“抒情的森林”这样的博主、批评家唐小林等个体发声外，包括凤凰网在内的一些主流媒体也开始关注此事，但贾氏父女依然保持沉默。"
 date: 2026-04-07
 slug: "jiapingwachenmo"
 categories: guangan

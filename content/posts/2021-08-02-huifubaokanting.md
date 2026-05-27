@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/huifubaokanting.html
 
 title: "想当然的恢复报刊亭的呼吁"
+description: "一上海初中生致信《中国青年报》，呼吁恢复报刊亭，有人赞成有人反对。我对这事挺悲观的，那些赞成的人不妨想想： 如果真的设立了，你会不会去买？一个星期，一个月，你会买几次？"
 date: 2021-08-02
 lastmod: 2026-03-31
 slug: "huifubaokanting"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/jiaxumingzhengjian.html
 
 title: "贾旭明与郑建的相声《神话新说》"
+description: "有人放出了2021年非遗相声大会上贾旭明与郑建合说的相声《神话新说》，给的评价是奇思妙想妙语连珠。 原视频大概十四五分钟，我坚持看了六分多钟后关掉了。虽然现场上似乎不时有笑声响起，但我却没感到一个笑点。"
 date: 2021-11-05
 lastmod: 2026-03-31
 slug: "jiaxumingzhengjian"

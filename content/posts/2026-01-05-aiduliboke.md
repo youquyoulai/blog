@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/aiduliboke.html
 
 title: "AI或许会杀死独立博客？"
+description: "某论坛中出现了题为“AI是不是基本上杀死了blog”的帖子，对此我想谈谈自己的看法。我觉得，博客最核心的特质在于其内容是博主的自我表达。这种表达可能是分享技术、观点或日常生活，也可能仅仅是情绪的宣泄。"
 date: 2026-01-05
 lastmod: 2026-01-29
 slug: "aiduliboke"

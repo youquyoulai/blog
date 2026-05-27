@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/qiujierlishisuyuhouren.html
 
 title: "心态平和地接纳复杂凌乱的世界"
+description: "丘吉尔在《历史是属于后代人的》一书中说：有一天，罗斯福总统告诉我，他正在征求公众对二次世界大战的意见，并问我以何对这次战争予以命名？我立即说：原可不必的战争。"
 date: 2023-01-20
 lastmod: 2026-03-25
 slug: "qiujierlishisuyuhouren"

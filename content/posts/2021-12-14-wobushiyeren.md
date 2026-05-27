@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/wobushiyeren.html
 
 title: "不明大势的刑天成了工具"
+description: "《我不是野人》：刑天躺在十字架上絮絮叨叨的，看的出来他好像不怎么愿意死，他好像特别，特别的珍惜自己的生命，他觉得自己还有很多很多美好的事情没有去做，没有去享受。"
 date: 2021-12-14
 lastmod: 2026-03-31
 slug: "wobushiyeren"

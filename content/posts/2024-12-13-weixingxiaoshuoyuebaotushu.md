@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/weixingxiaoshuoyuebaotushu.html
 
 title: "看了几篇微型小说月报的短篇小说"
+description: "何小竹《图书馆》 一开始，这篇小说看得我一头雾水，我想不通作者到底想告诉我们什么 我能理解图书馆管理员的援手，但无法理解主人公自己借书却委托他人阅读的动机，是自己选出的书能分享给‘知音’的满足，还是为自己为别人带去了‘帮助’的满足？"
 date: 2024-12-13
 lastmod: 2026-03-25
 slug: "weixingxiaoshuoyuebaotushu"

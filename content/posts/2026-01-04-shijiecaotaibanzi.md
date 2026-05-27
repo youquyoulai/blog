@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/shijiecaotaibanzi.html
 
 title: "草台班子里平庸的你我"
+description: "有人说，换过N份工作后才发现世界就像个草台班子，人人都在混日子。"
 date: 2026-01-04
 lastmod: 2026-01-30
 slug: "shijiecaotaibanzi"

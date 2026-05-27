@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/yaoyangenfeng.html
 
-title: "推波助澜的凑趣跟风"
+title: "推波助澜的凑趣跟风：空调水何以成了圣水"
+description: "据说，在印度一座名为“Shri Banke Bihari”的寺庙墙边，有一只大象造型的小雕像，其嘴中不时滴下水来，周围常围着一群虔诚的信徒，排队用手接取滴落的水。他们认为那是黑天脚下的圣水，十分珍贵。"
 date: 2026-02-03
 lastmod: 2026-02-03
 slug: "yaoyangenfeng"

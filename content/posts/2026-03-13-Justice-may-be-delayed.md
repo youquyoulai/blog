@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/Justice-may-be-delayed.html
 
 title: "迟到的正义，虚伪的尊重"
+description: "有两句话，我始终喜欢不起来。 第一句是：“正义可能会迟到，但不会缺席。”这句话频频出现在影视剧和小说里，听上去铿锵有力、郑重其事，骨子里却透着冷冰冰的漠然。"
 date: 2026-03-13
 lastmod: 2026-03-13
 slug: "Justice-may-be-delayed"

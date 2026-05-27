@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/liaozhaizhiyihuabi.html
 
 title: "欣赏少女美，细思和尚言"
+description: "《聊斋志异》中的小说《画壁》讲的是：江西书生朱孝廉在寺中看壁画，被画中散花天女吸引，忽然神魂出窍进入画中世界。他与画中一位垂髫仙女结缘，两人在幻境中共度美好时光。后来因为其他仙女怀疑，朱孝廉惊慌躲藏，最终被老和尚从画壁外唤回魂魄。"
 date: 2026-01-14
 lastmod: 2026-01-16
 slug: "liaozhaizhiyihuabi"

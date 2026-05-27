@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/liaozhaichangqingseng.html
 
 title: "别样的穿越-《长清僧》"
+description: "《聊斋志异》中的《长清僧》讲述的是：山东长清县一位道行很高的老和尚，去世后灵魂没有消散，随风飘到百里外，进入了一个刚死去的富贵子弟身体里，活了过来。那户人家高兴地把他接回去。"
 date: 2025-12-23
 lastmod: 2026-01-16
 slug: "liaozhaichangqingseng"

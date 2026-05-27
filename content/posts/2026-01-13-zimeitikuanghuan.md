@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zimeitikuanghuan.html
 
 title: "某些自媒体狂欢的盛宴"
+description: "在微信读书上看了轻纪实《谁在给你的脑子“投毒”？》，有些感慨。互联网上时常传来各种信息，有的令人感动，有的令人愤怒，也有的让人伤感。它们不断刺激着我们的神经，牵动着我们的情绪。"
 date: 2026-01-13
 lastmod: 2026-01-16
 slug: "zimeitikuanghuan"

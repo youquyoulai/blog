@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/chengzhangchengshu-1.html
 
 title: "成熟的路上未必有你我"
+description: "每个人在每个阶段都自以为长大了成熟了。 八九岁时，你觉得听懂了很多话，于是迫不及待地展现出小大人的姿态。那时候，大人们觉得你可爱。十八九时，你觉得明白了好多事，于是不可遏制地透漏出了抗拒的情绪。那时候，过来人摇头而叹。"
 date: 2023-04-08
 lastmod: 2026-03-25
 slug: "chengzhangchengshu-1"

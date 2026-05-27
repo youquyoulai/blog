@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/shenghuoyichuangyiwangyishouji.html
 
 title: "所谓生活，一床一网一手机而已"
+description: "若干年前，如我之辈酷爱呼朋引伴喝酒聚餐，喜觥筹交错中称兄道弟，好烟雾缭绕时侃天说地。 如今我已成半隐者，安于家与单位间的两点一线，每日按部就班地上岗办公，下班后忙着家长里短。"
 date: 2024-06-23
 lastmod: 2026-03-25
 slug: "shenghuoyichuangyiwangyishouji"

@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/zhishudianzishu.html
 
 title: "纸书与电子书就像包子和饺子"
+description: "在某社区，纸质书成了热门话题。不少人谈论说，相比电子书，纸书能带来更深的沉浸感，更能呈现阅读过程中的心路轨迹。 我最近买的一本小说是2013年出版的《炸裂志》，当时完全是冲着阎连科去的。"
 date: 2026-02-07
 slug: "zhishudianzishu"
 categories: guangan

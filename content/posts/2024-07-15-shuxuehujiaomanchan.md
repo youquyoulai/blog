@@ -1,7 +1,8 @@
-﻿---
+---
 url: /archives/shuxuehujiaomanchan.html
 
 title: "数学不能以无知者无畏的勇气胡搅蛮缠"
+description: "13.8与13.11谁大谁小显然没那么难，很多人之所以得出错误的结论多是因为没细想，乍一看懵住了，随后就想当然了。 事实上，各个平台不时会因为各种数学或者数字问题争吵不断。"
 date: 2024-07-15
 lastmod: 2026-03-25
 slug: "shuxuehujiaomanchan"

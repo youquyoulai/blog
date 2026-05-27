@@ -17,6 +17,8 @@
     - name: "荒野菲克"
       url: "https://ficor.net"
       rss: "https://ficor.net/feed"
+    - name: "秋記Autumn"
+      url: "https://www.zhyok.cn"
 - category: "博客聚合"
   links:
     - name: "笔墨迹"

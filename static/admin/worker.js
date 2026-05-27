@@ -568,7 +568,7 @@ async function getTaxonomies(env) {
 // ═════════════════════════════════════════════════════════════════
 // 友链管理
 // ═════════════════════════════════════════════════════════════════
-const LINKS_PATH = 'themes/xlxn/data/links.yaml';
+const LINKS_PATH = 'themes/weisaygrace/data/links.yaml';
 
 async function getLinks(env) {
   const file = await readGitHubFile(LINKS_PATH, env);
@@ -742,10 +742,10 @@ export default {
       }
 
       // ─── 友链 API ───────────────────────────────────────────────
-      if (path === '/wgpjyhxlxn/links' && request.method === 'GET') {
+      if (path === '/wgpjyhxlxn/api/links' && request.method === 'GET') {
         return await getLinks(env);
       }
-      if (path === '/wgpjyhxlxn/links' && request.method === 'PUT') {
+      if (path === '/wgpjyhxlxn/api/links' && request.method === 'PUT') {
         return await updateLinks(request, env);
       }
 

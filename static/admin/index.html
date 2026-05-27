@@ -6,6 +6,7 @@
   <title>博客管理后台</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1a1a2e">
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <style>
     :root {
       --bg: #f5f5f7; --card: #ffffff; --border: #e0e0e6;
@@ -235,6 +236,7 @@
         <button class="tab-btn" data-tab="posts" onclick="switchTab('posts')">文章</button>
         <button class="tab-btn" data-tab="taxonomies" onclick="switchTab('taxonomies')">分类/标签</button>
         <button class="tab-btn" data-tab="wenhui" onclick="switchTab('wenhui')">文汇</button>
+        <button class="tab-btn" data-tab="links" onclick="switchTab('links')">友链</button>
         <button class="tab-btn" data-tab="pages" onclick="switchTab('pages')">页面</button>
         <button class="tab-btn" data-tab="comments" onclick="switchTab('comments')">评论</button>
         <button class="tab-btn" data-tab="editor" onclick="switchTab('editor')" style="display:none" id="tabEditorBtn">编辑</button>
@@ -351,6 +353,64 @@
           <div style="display:flex;gap:8px;margin-top:4px;">
             <button class="btn btn-primary" onclick="wenhuiFormSubmit()">保存</button>
             <button class="btn" onclick="hideWenhuiForm()">取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 友链管理 -->
+    <div id="tab-links" class="tab-content">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h2 style="font-size:1rem;color:var(--accent2);">🔗 友链管理</h2>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-primary" onclick="showLinkAddCatForm()">+ 添加分类</button>
+        </div>
+      </div>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">
+        管理侧边栏的友情链接和博客聚合。支持两个分类：友情链接（带 RSS 可选项）和博客聚合。编辑完成后点击「保存并发布」即可更新。
+      </p>
+      <div id="linksList"></div>
+      <div style="margin-top:16px;display:flex;gap:10px;">
+        <button class="btn btn-primary" onclick="saveLinksAndDeploy()">保存并发布</button>
+        <button class="btn" onclick="saveLinks()">仅保存</button>
+      </div>
+      <!-- 添加/编辑链接表单 -->
+      <div id="linkForm" style="display:none;margin-top:16px;padding:16px;background:rgba(108,92,231,0.06);border-radius:10px;border:1px solid rgba(108,92,231,0.15);">
+        <h3 id="linkFormTitle" style="font-size:0.95rem;margin:0 0 12px 0;color:var(--accent2);">添加链接</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">所属分类</label>
+            <select id="linkFormCat" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;"></select>
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">链接名称</label>
+            <input type="text" id="linkFormName" placeholder="如：边境研究所" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">链接地址</label>
+            <input type="text" id="linkFormUrl" placeholder="如：https://szhshp.org" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">RSS 地址（可选）</label>
+            <input type="text" id="linkFormRss" placeholder="如：https://szhshp.org/rss.xml" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px;">
+            <button class="btn btn-primary" onclick="linkFormSubmit()">保存</button>
+            <button class="btn" onclick="hideLinkForm()">取消</button>
+          </div>
+        </div>
+      </div>
+      <!-- 添加/编辑分类表单 -->
+      <div id="linkCatForm" style="display:none;margin-top:16px;padding:16px;background:rgba(108,92,231,0.06);border-radius:10px;border:1px solid rgba(108,92,231,0.15);">
+        <h3 id="linkCatFormTitle" style="font-size:0.95rem;margin:0 0 12px 0;color:var(--accent2);">添加分类</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div>
+            <label style="font-size:0.8rem;color:var(--muted);">分类名称</label>
+            <input type="text" id="linkCatFormName" placeholder="如：工具箱" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px;">
+            <button class="btn btn-primary" onclick="linkCatFormSubmit()">保存</button>
+            <button class="btn" onclick="hideLinkCatForm()">取消</button>
           </div>
         </div>
       </div>
@@ -525,6 +585,10 @@
       <button class="nav-item" data-tab="wenhui" onclick="switchTab('wenhui')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         <span>文汇</span>
+      </button>
+      <button class="nav-item" data-tab="links" onclick="switchTab('links')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span>友链</span>
       </button>
       <button class="nav-item" data-tab="pages" onclick="switchTab('pages')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
@@ -766,6 +830,7 @@ function switchTab(name) {
   if (name === 'comments') loadComments();
   if (name === 'taxonomies') loadTaxonomies();
   if (name === 'wenhui') loadWenhui();
+  if (name === 'links') loadLinks();
   if (name === 'pages') loadPages();
   if (name === 'settings') checkApi();
   if (name === 'editor') loadTaxonomyHints();
@@ -1665,6 +1730,209 @@ async function saveWenhuiAndDeploy() {
     await api('/api/wenhui-feeds', 'PUT', { feeds: _wenhuiFeeds });
     toast('RSS 源已保存，正在发布...', 'success');
     renderWenhuiList();
+    await triggerDeploy();
+  } catch (e) {
+    toast('操作失败: ' + e.message, 'error');
+  }
+}
+
+/* ===== 友链管理 ===== */
+var _linksData = [];
+var _linksSha = null;
+
+async function loadLinks() {
+  var el = document.getElementById('linksList');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
+  try {
+    var data = await api('/api/links');
+    _linksSha = data.sha || null;
+    var yamlStr = data.content || '';
+    if (yamlStr.trim()) {
+      _linksData = jsyaml.load(yamlStr) || [];
+    } else {
+      _linksData = [];
+    }
+    renderLinksList();
+  } catch (e) {
+    toast('加载友链失败: ' + e.message, 'error');
+    _linksData = [];
+    renderLinksList();
+  }
+}
+
+function renderLinksList() {
+  var el = document.getElementById('linksList');
+  if (_linksData.length === 0) {
+    el.innerHTML = '<div class="empty-state"><p>暂无友链分类，点击上方「添加分类」开始</p></div>';
+    return;
+  }
+  var html = '';
+  _linksData.forEach(function(cat, ci) {
+    html += '<div class="settings-group" style="margin-bottom:16px;">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:8px 0;">';
+    html += '<h3 style="font-size:0.95rem;color:var(--accent2);margin:0;">' + escHtml(cat.category) + '</h3>';
+    html += '<div style="display:flex;gap:6px;">';
+    html += '<button class="btn btn-sm btn-primary" onclick="showLinkAddForm(' + ci + ')">+ 添加链接</button>';
+    html += '<button class="btn btn-sm" onclick="linkCatEdit(' + ci + ')">重命名</button>';
+    html += '<button class="btn btn-sm btn-danger" onclick="linkCatDelete(' + ci + ')">删除分类</button>';
+    html += '</div></div>';
+    var links = cat.links || [];
+    if (links.length === 0) {
+      html += '<div style="padding:12px;color:var(--muted);font-size:0.85rem;">此分类下暂无链接</div>';
+    }
+    links.forEach(function(link, li) {
+      html += '<div class="setting-row" style="cursor:default;">';
+      html += '<div style="flex:1;min-width:0;">';
+      html += '<div style="font-size:0.9rem;font-weight:500;">' + escHtml(link.name) + '</div>';
+      html += '<div style="font-size:0.75rem;color:var(--muted);margin-top:2px;">' + escHtml(link.url) + '</div>';
+      if (link.rss) {
+        html += '<div style="font-size:0.72rem;color:var(--green);margin-top:2px;">RSS: ' + escHtml(link.rss) + '</div>';
+      }
+      html += '</div>';
+      html += '<div style="display:flex;gap:6px;flex-shrink:0;margin-left:12px;">';
+      html += '<button class="btn btn-sm" onclick="linkEdit(' + ci + ',' + li + ')">编辑</button>';
+      html += '<button class="btn btn-sm btn-danger" onclick="linkDelete(' + ci + ',' + li + ')">删除</button>';
+      html += '</div></div>';
+    });
+    html += '</div>';
+  });
+  el.innerHTML = html;
+}
+
+var _linkEditCat = -1;
+var _linkEditIdx = -1;
+var _catEditIdx = -1;
+
+function showLinkAddForm(catIdx) {
+  _linkEditCat = catIdx;
+  _linkEditIdx = -1;
+  document.getElementById('linkFormTitle').textContent = '添加链接 - ' + escHtml(_linksData[catIdx].category);
+  document.getElementById('linkFormName').value = '';
+  document.getElementById('linkFormUrl').value = '';
+  document.getElementById('linkFormRss').value = '';
+  // 填充分类下拉
+  var sel = document.getElementById('linkFormCat');
+  sel.innerHTML = '';
+  _linksData.forEach(function(c, ci) {
+    sel.innerHTML += '<option value="' + ci + '"' + (ci === catIdx ? ' selected' : '') + '>' + escHtml(c.category) + '</option>';
+  });
+  sel.style.display = ''; // 添加模式下显示分类选择
+  document.getElementById('linkForm').style.display = 'block';
+  document.getElementById('linkFormName').focus();
+}
+
+function linkEdit(catIdx, linkIdx) {
+  _linkEditCat = catIdx;
+  _linkEditIdx = linkIdx;
+  var link = _linksData[catIdx].links[linkIdx];
+  document.getElementById('linkFormTitle').textContent = '编辑链接';
+  document.getElementById('linkFormName').value = link.name;
+  document.getElementById('linkFormUrl').value = link.url;
+  document.getElementById('linkFormRss').value = link.rss || '';
+  // 编辑模式下隐藏分类选择
+  var sel = document.getElementById('linkFormCat');
+  sel.style.display = 'none';
+  document.getElementById('linkForm').style.display = 'block';
+  document.getElementById('linkFormName').focus();
+}
+
+function hideLinkForm() {
+  document.getElementById('linkForm').style.display = 'none';
+  _linkEditCat = -1;
+  _linkEditIdx = -1;
+}
+
+function linkFormSubmit() {
+  var name = document.getElementById('linkFormName').value.trim();
+  var url = document.getElementById('linkFormUrl').value.trim();
+  var rss = document.getElementById('linkFormRss').value.trim();
+  if (!name) { toast('请输入链接名称', 'error'); return; }
+  if (!url) { toast('请输入链接地址', 'error'); return; }
+  // 确定目标分类
+  var targetCat;
+  if (_linkEditIdx >= 0) {
+    targetCat = _linkEditCat;
+  } else {
+    targetCat = parseInt(document.getElementById('linkFormCat').value);
+  }
+  var linkObj = { name: name, url: url };
+  if (rss) linkObj.rss = rss;
+  if (_linkEditIdx >= 0) {
+    _linksData[targetCat].links[_linkEditIdx] = linkObj;
+  } else {
+    _linksData[targetCat].links.push(linkObj);
+  }
+  hideLinkForm();
+  saveLinks();
+}
+
+function linkDelete(catIdx, linkIdx) {
+  if (!confirm('确定删除「' + _linksData[catIdx].links[linkIdx].name + '」？')) return;
+  _linksData[catIdx].links.splice(linkIdx, 1);
+  saveLinks();
+}
+
+function showLinkAddCatForm() {
+  _catEditIdx = -1;
+  document.getElementById('linkCatFormTitle').textContent = '添加分类';
+  document.getElementById('linkCatFormName').value = '';
+  document.getElementById('linkCatForm').style.display = 'block';
+  document.getElementById('linkCatFormName').focus();
+}
+
+function linkCatEdit(catIdx) {
+  _catEditIdx = catIdx;
+  document.getElementById('linkCatFormTitle').textContent = '重命名分类';
+  document.getElementById('linkCatFormName').value = _linksData[catIdx].category;
+  document.getElementById('linkCatForm').style.display = 'block';
+  document.getElementById('linkCatFormName').focus();
+}
+
+function hideLinkCatForm() {
+  document.getElementById('linkCatForm').style.display = 'none';
+  _catEditIdx = -1;
+}
+
+function linkCatFormSubmit() {
+  var name = document.getElementById('linkCatFormName').value.trim();
+  if (!name) { toast('请输入分类名称', 'error'); return; }
+  if (_catEditIdx >= 0) {
+    _linksData[_catEditIdx].category = name;
+  } else {
+    _linksData.push({ category: name, links: [] });
+  }
+  hideLinkCatForm();
+  saveLinks();
+}
+
+function linkCatDelete(catIdx) {
+  var cat = _linksData[catIdx];
+  var linkCount = (cat.links || []).length;
+  var msg = '确定删除分类「' + cat.category + '」？';
+  if (linkCount > 0) msg += '\n\n⚠️ 此分类下有 ' + linkCount + ' 个链接，删除分类后这些链接也会被删除！';
+  if (!confirm(msg)) return;
+  _linksData.splice(catIdx, 1);
+  saveLinks();
+}
+
+async function saveLinks() {
+  try {
+    var yamlStr = jsyaml.dump(_linksData, { lineWidth: -1, noRefs: true });
+    await api('/api/links', 'PUT', { content: yamlStr, sha: _linksSha || null });
+    toast('友链已保存', 'success');
+    renderLinksList();
+  } catch (e) {
+    toast('保存失败: ' + e.message, 'error');
+  }
+}
+
+async function saveLinksAndDeploy() {
+  try {
+    var yamlStr = jsyaml.dump(_linksData, { lineWidth: -1, noRefs: true });
+    var result = await api('/api/links', 'PUT', { content: yamlStr, sha: _linksSha || null });
+    if (result && result.sha) _linksSha = result.sha;
+    toast('友链已保存，正在发布...', 'success');
+    renderLinksList();
     await triggerDeploy();
   } catch (e) {
     toast('操作失败: ' + e.message, 'error');

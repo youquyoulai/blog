@@ -290,7 +290,13 @@
     <!-- 文章 -->
     <div id="tab-posts" class="tab-content">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <h2 style="font-size:1rem;color:var(--accent2);">文章列表</h2>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <h2 style="font-size:1rem;color:var(--accent2);">文章列表</h2>
+          <select id="postSectionSel" onchange="switchSection(this.value)" style="padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;">
+            <option value="posts">博客文章</option>
+            <option value="math">数学题解</option>
+          </select>
+        </div>
         <button class="btn btn-primary" onclick="newPost()">+ 新建文章</button>
       </div>
       <div id="postFolderNav" style="margin-bottom:12px;"></div>
@@ -647,6 +653,7 @@ let coverPickerMode = false;
 let currentPrefix = '';
 let currentFolderName = '';
 let currentPostPrefix = '';
+let currentSection = 'posts';
 let pickerPrefix = '';          // 选图器当前文件夹前缀
 
 /* ===== 初始化 ===== */
@@ -826,7 +833,7 @@ function switchTab(name) {
   if (nav) nav.classList.add('active');
 
   if (name === 'images') loadImages();
-  if (name === 'posts') loadPosts();
+  if (name === 'posts') { document.getElementById('postSectionSel').value = currentSection; loadPosts(); }
   if (name === 'comments') loadComments();
   if (name === 'taxonomies') loadTaxonomies();
   if (name === 'wenhui') loadWenhui();
@@ -1217,13 +1224,20 @@ async function handleFiles(files) {
 }
 
 /* ===== 文章管理 ===== */
+function switchSection(section) {
+  currentSection = section;
+  currentPostPrefix = '';
+  document.getElementById('postSectionSel').value = section;
+  loadPosts();
+}
+
 async function loadPosts(prefix) {
   if (prefix === undefined) prefix = currentPostPrefix;
   currentPostPrefix = prefix;
   var el = document.getElementById('postList');
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
-    var data = await api('/api/posts');
+    var data = await api('/api/posts?section=' + currentSection);
     var allPosts = Array.isArray(data) ? data : (data.posts || []);
 
     // 按年月分组（文件名格式: YYYY-MM-DD-slug.md）
@@ -1306,7 +1320,7 @@ function newPost() {
 async function editPost(filename) {
   try {
     filename = decodeURIComponent(filename);
-    var data = await api('/api/post/' + encodeURIComponent(filename));
+    var data = await api('/api/post/' + encodeURIComponent(filename) + '?section=' + currentSection);
     editingFile = { filename: filename, sha: data.sha };
     var content = data.content;
     document.getElementById('postTitle').value = extractFM(content, 'title') || filename.replace('.md','');
@@ -1395,9 +1409,9 @@ async function savePost(silent) {
   var filename = editingFile ? editingFile.filename : dateOnly + '-' + (slug || title.replace(/[^\w\u4e00-\u9fa5-]/g,'-').toLowerCase()) + '.md';
   try {
     if (editingFile) {
-      await api('/api/posts/' + encodeURIComponent(filename), 'PUT', { content: content, sha: editingFile.sha });
+      await api('/api/posts/' + encodeURIComponent(filename) + '?section=' + currentSection, 'PUT', { content: content, sha: editingFile.sha });
     } else {
-      await api('/api/posts', 'POST', { filename: filename, content: content });
+      await api('/api/posts', 'POST', { filename: filename, content: content, section: currentSection });
     }
     if (!silent) { toast('文章已保存', 'success'); backToList(); }
     editingFile = { filename: filename, sha: editingFile ? editingFile.sha : undefined };
@@ -1417,7 +1431,7 @@ async function deletePost() {
   if (!editingFile) return;
   if (!confirm('确定删除这篇文章？')) return;
   try {
-    await api('/api/posts/' + encodeURIComponent(editingFile.filename), 'DELETE', { sha: editingFile.sha });
+    await api('/api/posts/' + encodeURIComponent(editingFile.filename) + '?section=' + currentSection, 'DELETE', { sha: editingFile.sha });
     toast('已删除', 'success');
     backToList();
   } catch (e) {

@@ -366,7 +366,8 @@ async function replaceImageRefs(content, env) {
 // ═════════════════════════════════════════════════════════════════
 const GITHUB_API = 'https://api.github.com';
 const GITHUB_REPO = 'youquyoulai/blog';
-const POSTS_DIR = 'content/posts';
+const CONTENT_DIR = 'content';
+const DEFAULT_SECTION = 'posts';
 
 function githubHeaders(token) {
   return {
@@ -413,8 +414,11 @@ async function githubFetch(path, method, token, body) {
 async function listPosts(request, env) {
   const authToken = request.headers.get('X-Admin-Token');
   if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
+  const url = new URL(request.url);
+  const section = url.searchParams.get('section') || DEFAULT_SECTION;
+  const dir = CONTENT_DIR + '/' + section;
   const data = await githubFetch(
-    '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR,
+    '/repos/' + GITHUB_REPO + '/contents/' + dir,
     'GET',
     env.GITHUB_TOKEN
   );
@@ -428,10 +432,13 @@ async function listPosts(request, env) {
   return corsResponse(JSON.stringify(posts));
 }
 
-async function getPost(filename, env) {
+async function getPost(filename, request, env) {
+  const url = new URL(request.url);
+  const section = url.searchParams.get('section') || DEFAULT_SECTION;
+  const dir = CONTENT_DIR + '/' + section;
   const token = env.GITHUB_TOKEN;
   const data = await githubFetch(
-    '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR + '/' + filename,
+    '/repos/' + GITHUB_REPO + '/contents/' + dir + '/' + filename,
     'GET',
     token
   );
@@ -443,14 +450,15 @@ async function createPost(request, env) {
   const authToken = request.headers.get('X-Admin-Token');
   if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
   const body = await request.json();
-  const { filename, content } = body;
+  const { filename, content, section } = body;
   if (!filename || !content) return corsResponse(JSON.stringify({ error: 'Missing fields' }), 400);
 
+  const dir = CONTENT_DIR + '/' + (section || DEFAULT_SECTION);
   // 替换 @image:xxx 为 Markdown 图片语法
   const processedContent = await replaceImageRefs(content, env);
   const encoded = utf8ToBase64(processedContent);
   const data = await githubFetch(
-    '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR + '/' + filename,
+    '/repos/' + GITHUB_REPO + '/contents/' + dir + '/' + filename,
     'PUT',
     env.GITHUB_TOKEN,
     { message: 'Create ' + filename, content: encoded }
@@ -461,16 +469,19 @@ async function createPost(request, env) {
 async function updatePost(slug, request, env) {
   const authToken = request.headers.get('X-Admin-Token');
   if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
+  const url = new URL(request.url);
+  const section = url.searchParams.get('section') || DEFAULT_SECTION;
   const body = await request.json();
   const { content, sha } = body;
   if (!content || !sha) return corsResponse(JSON.stringify({ error: 'Missing fields' }), 400);
 
+  const dir = CONTENT_DIR + '/' + section;
   // 替换 @image:xxx 为 Markdown 图片语法
   const processedContent = await replaceImageRefs(content, env);
   const encoded = utf8ToBase64(processedContent);
   const filename = slug.endsWith('.md') ? slug : slug + '.md';
   const data = await githubFetch(
-    '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR + '/' + filename,
+    '/repos/' + GITHUB_REPO + '/contents/' + dir + '/' + filename,
     'PUT',
     env.GITHUB_TOKEN,
     { message: 'Update ' + filename, content: encoded, sha: sha }
@@ -481,12 +492,15 @@ async function updatePost(slug, request, env) {
 async function deletePost(slug, request, env) {
   const authToken = request.headers.get('X-Admin-Token');
   if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
+  const url = new URL(request.url);
+  const section = url.searchParams.get('section') || DEFAULT_SECTION;
   const sha = request.headers.get('X-File-Sha');
   if (!sha) return corsResponse(JSON.stringify({ error: 'Missing sha' }), 400);
 
+  const dir = CONTENT_DIR + '/' + section;
   const filename = slug.endsWith('.md') ? slug : slug + '.md';
   await githubFetch(
-    '/repos/' + GITHUB_REPO + '/contents/' + POSTS_DIR + '/' + filename,
+    '/repos/' + GITHUB_REPO + '/contents/' + dir + '/' + filename,
     'DELETE',
     env.GITHUB_TOKEN,
     { message: 'Delete ' + filename, sha: sha }
@@ -740,7 +754,7 @@ export default {
       }
       if (path.startsWith('/wgpjyhxlxn/api/post/') && request.method === 'GET') {
         const filename = decodeURIComponent(path.replace('/wgpjyhxlxn/api/post/', ''));
-        return await getPost(filename, env);
+        return await getPost(filename, request, env);
       }
 
       // ─── 分类/标签 API ──────────────────────────────────────────

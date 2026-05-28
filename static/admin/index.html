@@ -742,8 +742,8 @@ var _allTags = [];
 async function loadTaxonomyHints() {
   if (_taxonomyHintsLoaded) { renderChips(); return; }
   try {
-    var data = await api('/api/taxonomies?section=' + currentSection);
-    console.log('[TAXO] section=' + currentSection + ' _section=' + (data._section || 'MISSING') + ' cats=' + (data.categories||[]).length + ' tags=' + (data.tags||[]).length, data._error || '');
+    var section = document.getElementById('postSectionSel').value;
+    var data = await api('/api/taxonomies?section=' + section);
     _allCategories = data.categories || [];
     _allTags = data.tags || [];
     _taxonomyHintsLoaded = true;
@@ -834,7 +834,7 @@ function switchTab(name) {
   if (nav) nav.classList.add('active');
 
   if (name === 'images') loadImages();
-  if (name === 'posts') { document.getElementById('postSectionSel').value = currentSection; loadPosts(); }
+  if (name === 'posts') { loadPosts(); }
   if (name === 'comments') loadComments();
   if (name === 'taxonomies') loadTaxonomies();
   if (name === 'wenhui') loadWenhui();
@@ -1229,7 +1229,6 @@ function switchSection(section) {
   currentSection = section;
   currentPostPrefix = '';
   _taxonomyHintsLoaded = false;
-  document.getElementById('postSectionSel').value = section;
   loadPosts();
   loadTaxonomyHints();
 }
@@ -1240,8 +1239,9 @@ async function loadPosts(prefix) {
   var el = document.getElementById('postList');
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
-    var data = await api('/api/posts?section=' + currentSection);
-    console.log('[DEBUG] section=' + currentSection + ' response:', data);
+    var section = document.getElementById('postSectionSel').value;
+    currentSection = section;
+    var data = await api('/api/posts?section=' + section);
     var allPosts = Array.isArray(data) ? data : (data.posts || []);
 
     // 按年月分组（文件名格式: YYYY-MM-DD-slug.md）
@@ -1616,8 +1616,8 @@ async function loadTaxonomies() {
   var el = document.getElementById('taxonomyContent');
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
-    var data = await api('/api/taxonomies?section=' + currentSection);
-    console.log('[TAXO-MGMT] section=' + currentSection + ' _section=' + (data._section || 'MISSING') + ' cats=' + (data.categories||[]).length, data._error || '');
+    var section = document.getElementById('postSectionSel').value;
+    var data = await api('/api/taxonomies?section=' + section);
     var cats = data.categories || [];
     var tgs = data.tags || [];
     var html = '<div style="margin-bottom:12px;color:var(--muted);font-size:0.85rem;">共 ' + data.totalPosts + ' 篇文章，' + cats.length + ' 个分类，' + tgs.length + ' 个标签</div>';

@@ -447,7 +447,7 @@ async function listPosts(request, env) {
       const slug = name.replace(/\.md$/, '');
       return { name: name, slug: slug, sha: f.sha, path: f.path };
     });
-  return corsResponse(JSON.stringify({ section: section, dir: dir, count: posts.length, posts: posts }));
+  return corsResponse(JSON.stringify(posts));
 }
 
 async function getPost(filename, request, env) {
@@ -592,13 +592,12 @@ async function getTaxonomies(request, env) {
       const res = await fetch('https://www.pgoj.top/taxonomies.json');
       if (res.ok) {
         const data = await res.json();
-        data._section = section;
         return corsResponse(JSON.stringify(data));
       }
     } catch (e) {
       console.error('读取 taxonomies.json 失败:', e.message);
     }
-    return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [], _section: 'posts-fallback' }));
+    return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [] }));
   }
 
   // 非 posts section: 扫描目录文件，从 frontmatter 提取分类/标签并计数
@@ -633,12 +632,11 @@ async function getTaxonomies(request, env) {
     return corsResponse(JSON.stringify({
       totalPosts: mdFiles.length,
       categories: catList,
-      tags: tagList,
-      _section: section
+      tags: tagList
     }));
   } catch (e) {
     console.error('扫描 section taxonomies 失败:', e.message);
-    return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [], _section: section, _error: e.message }));
+    return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [] }));
   }
 }
 

@@ -17,8 +17,10 @@
                 <ul>
                     <li><a href="{{ .Site.BaseURL }}"{{ if .IsHome }} class="current_page_item"{{ end }}>首页</a></li>
                     {{ range .Site.Taxonomies.categories }}
+                    {{ if ne .Page.Title "shuxue" }}
                     {{ $catName := partial "cat-names.html" .Page.Title }}
                     <li><a href="{{ .Page.Permalink }}">{{ $catName }}</a></li>
+                    {{ end }}
                     {{ end }}
                     {{ $navPages := slice (dict "name" "links" "label" "文汇") (dict "name" "guestbook" "label" "留言") }}
                     {{ range $navPages }}

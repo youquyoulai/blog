@@ -742,7 +742,7 @@ var _allTags = [];
 async function loadTaxonomyHints() {
   if (_taxonomyHintsLoaded) { renderChips(); return; }
   try {
-    var data = await api('/api/taxonomies');
+    var data = await api('/api/taxonomies?section=' + currentSection);
     _allCategories = data.categories || [];
     _allTags = data.tags || [];
     _taxonomyHintsLoaded = true;
@@ -1227,6 +1227,7 @@ async function handleFiles(files) {
 function switchSection(section) {
   currentSection = section;
   currentPostPrefix = '';
+  _taxonomyHintsLoaded = false;
   document.getElementById('postSectionSel').value = section;
   loadPosts();
 }
@@ -1613,7 +1614,7 @@ async function loadTaxonomies() {
   var el = document.getElementById('taxonomyContent');
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
-    var data = await api('/api/taxonomies');
+    var data = await api('/api/taxonomies?section=' + currentSection);
     var cats = data.categories || [];
     var tgs = data.tags || [];
     var html = '<div style="margin-bottom:12px;color:var(--muted);font-size:0.85rem;">共 ' + data.totalPosts + ' 篇文章，' + cats.length + ' 个分类，' + tgs.length + ' 个标签</div>';

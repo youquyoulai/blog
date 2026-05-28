@@ -411,6 +411,24 @@ async function githubFetch(path, method, token, body) {
   return JSON.parse(text);
 }
 
+// 从文章 frontmatter 中提取分类/标签字段
+function extractFrontmatterField(content, field) {
+  const match = content.match(/^---\s*\n([\s\S]*?)\n---/);
+  if (!match) return [];
+  const fm = match[1];
+  // 数组格式: field: [value1, value2]
+  const arrMatch = fm.match(new RegExp(field + ':\\s*\\[([^\\]]*)\\]'));
+  if (arrMatch) {
+    return arrMatch[1].split(',').map(function(s) { return s.trim().replace(/^['"]|['"]$/g, ''); }).filter(Boolean);
+  }
+  // 单值格式: field: value
+  const singleMatch = fm.match(new RegExp(field + ':\\s*(.+)'));
+  if (singleMatch) {
+    return [singleMatch[1].trim().replace(/^['"]|['"]$/g, '')];
+  }
+  return [];
+}
+
 async function listPosts(request, env) {
   const authToken = request.headers.get('X-Admin-Token');
   if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
@@ -564,19 +582,62 @@ async function writeGitHubFile(filePath, content, sha, message, env) {
 // ═════════════════════════════════════════════════════════════════
 // 分类/标签统计
 // ═════════════════════════════════════════════════════════════════
-async function getTaxonomies(env) {
-  // 直接从 Hugo 生成的 taxonomies.json 读取（构建时生成，包含所有分类和标签统计）
-  try {
-    const res = await fetch('https://www.pgoj.top/taxonomies.json');
-    if (res.ok) {
-      const data = await res.json();
-      return corsResponse(JSON.stringify(data));
+async function getTaxonomies(request, env) {
+  const url = new URL(request.url);
+  const section = url.searchParams.get('section') || DEFAULT_SECTION;
+
+  // posts section: 使用 Hugo 生成的 taxonomies.json（覆盖大多数场景，快）
+  if (section === DEFAULT_SECTION) {
+    try {
+      const res = await fetch('https://www.pgoj.top/taxonomies.json');
+      if (res.ok) {
+        const data = await res.json();
+        return corsResponse(JSON.stringify(data));
+      }
+    } catch (e) {
+      console.error('读取 taxonomies.json 失败:', e.message);
     }
-  } catch (e) {
-    console.error('读取 taxonomies.json 失败:', e.message);
+    return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [] }));
   }
-  // 降级：返回空数据
-  return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [] }));
+
+  // 非 posts section: 扫描目录文件，从 frontmatter 提取分类/标签并计数
+  const dir = CONTENT_DIR + '/' + section;
+  try {
+    const data = await githubFetch(
+      '/repos/' + GITHUB_REPO + '/contents/' + dir,
+      'GET',
+      env.GITHUB_TOKEN
+    );
+    const mdFiles = data.filter(function(f) { return f.name.endsWith('.md') && f.name !== '_index.md'; });
+    const catMap = {};
+    const tagMap = {};
+
+    for (var i = 0; i < mdFiles.length; i++) {
+      var f = mdFiles[i];
+      var fileData = await githubFetch(
+        '/repos/' + GITHUB_REPO + '/contents/' + dir + '/' + f.name,
+        'GET',
+        env.GITHUB_TOKEN
+      );
+      var content = base64ToUtf8(fileData.content);
+      var cats = extractFrontmatterField(content, 'categories');
+      var tags = extractFrontmatterField(content, 'tags');
+      cats.forEach(function(c) { catMap[c] = (catMap[c] || 0) + 1; });
+      tags.forEach(function(t) { tagMap[t] = (tagMap[t] || 0) + 1; });
+    }
+
+    var catList = Object.keys(catMap).map(function(name) { return { name: name, count: catMap[name] }; });
+    var tagList = Object.keys(tagMap).map(function(name) { return { name: name, count: tagMap[name] }; });
+
+    return corsResponse(JSON.stringify({
+      totalPosts: mdFiles.length,
+      categories: catList,
+      tags: tagList
+    }));
+  } catch (e) {
+    console.error('扫描 section taxonomies 失败:', e.message);
+    return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [] }));
+  }
 }
 
 // ═════════════════════════════════════════════════════════════════
@@ -759,7 +820,7 @@ export default {
 
       // ─── 分类/标签 API ──────────────────────────────────────────
       if (path === '/wgpjyhxlxn/api/taxonomies' && request.method === 'GET') {
-        return await getTaxonomies(env);
+        return await getTaxonomies(request, env);
       }
 
       // ─── 友链 API ───────────────────────────────────────────────

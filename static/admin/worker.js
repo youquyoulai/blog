@@ -512,7 +512,8 @@ async function deletePost(slug, request, env) {
   if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
   const url = new URL(request.url);
   const section = url.searchParams.get('section') || DEFAULT_SECTION;
-  const sha = request.headers.get('X-File-Sha');
+  const body = await request.json();
+  const sha = body.sha;
   if (!sha) return corsResponse(JSON.stringify({ error: 'Missing sha' }), 400);
 
   const dir = CONTENT_DIR + '/' + section;

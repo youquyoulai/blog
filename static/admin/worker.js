@@ -429,7 +429,7 @@ async function listPosts(request, env) {
       const slug = name.replace(/\.md$/, '');
       return { name: name, slug: slug, sha: f.sha, path: f.path };
     });
-  return corsResponse(JSON.stringify(posts));
+  return corsResponse(JSON.stringify({ section: section, dir: dir, count: posts.length, posts: posts }));
 }
 
 async function getPost(filename, request, env) {

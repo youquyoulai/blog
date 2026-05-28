@@ -1238,6 +1238,7 @@ async function loadPosts(prefix) {
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
     var data = await api('/api/posts?section=' + currentSection);
+    console.log('[DEBUG] section=' + currentSection + ' response:', data);
     var allPosts = Array.isArray(data) ? data : (data.posts || []);
 
     // 按年月分组（文件名格式: YYYY-MM-DD-slug.md）

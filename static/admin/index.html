@@ -1230,6 +1230,7 @@ function switchSection(section) {
   _taxonomyHintsLoaded = false;
   document.getElementById('postSectionSel').value = section;
   loadPosts();
+  loadTaxonomyHints();
 }
 
 async function loadPosts(prefix) {

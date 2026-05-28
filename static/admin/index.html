@@ -321,6 +321,15 @@
 
     <!-- 分类/标签 -->
     <div id="tab-taxonomies" class="tab-content">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <h2 style="font-size:1rem;color:var(--accent2);">分类与标签</h2>
+          <select id="taxSectionSel" onchange="loadTaxonomies()" style="padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;">
+            <option value="posts">博客文章</option>
+            <option value="math">数学题解</option>
+          </select>
+        </div>
+      </div>
       <div id="taxonomyContent">
         <div class="loading"><div class="spinner"></div>加载中...</div>
       </div>
@@ -709,7 +718,8 @@ function api(path, method, body) {
 
 // 分类中文名映射（key = slug, value = 显示名）
 var _catDisplayNames = {
-  'guanwu': '观感', 'jilu': '记录'
+  'guanwu': '观感', 'jilu': '记录',
+  'math-solutions': '数学题解', 'exam-analysis': '试题评析'
 };
 function catDisplayName(slug) {
   return _catDisplayNames[slug] || slug;
@@ -721,7 +731,8 @@ var _tagDisplayNames = {
   'reading': '阅读', 'blog': '博客', 'daily': '日常', 'emotion': '情感',
   'shopping': '购物', 'holiday': '节日', 'math': '数学', 'solution': '题解',
   'wangxiaobo': '王小波', 'ai': 'AI', 'software': '软件', 'rock': '摇滚',
-  'travel': '出行', 'movies': '电影', 'sisyphus': '西西弗斯', 'phone': '手机'
+  'travel': '出行', 'movies': '电影', 'sisyphus': '西西弗斯', 'phone': '手机',
+  'gaokao-math': '高考数学', 'mock-exam': '高三模拟'
 };
 function tagDisplayName(slug) {
   return _tagDisplayNames[slug] || slug;
@@ -736,17 +747,20 @@ function tagSlug(name) {
 /* ===== Tab 切换 ===== */
 // 缓存已加载的分类/标签，用于可点击标签列表
 var _taxonomyHintsLoaded = false;
+var _taxonomyHintsSection = 'posts';
 var _allCategories = [];
 var _allTags = [];
 
 async function loadTaxonomyHints() {
-  if (_taxonomyHintsLoaded) { renderChips(); return; }
+  var section = document.getElementById('postSectionSel').value;
+  // section 变了就重新加载
+  if (_taxonomyHintsLoaded && _taxonomyHintsSection === section) { renderChips(); return; }
   try {
-    var section = document.getElementById('postSectionSel').value;
     var data = await api('/api/taxonomies?section=' + section);
     _allCategories = data.categories || [];
     _allTags = data.tags || [];
     _taxonomyHintsLoaded = true;
+    _taxonomyHintsSection = section;
     renderChips();
   } catch(e) { console.error('加载分类/标签失败', e); }
 }
@@ -1616,7 +1630,8 @@ async function loadTaxonomies() {
   var el = document.getElementById('taxonomyContent');
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
-    var section = document.getElementById('postSectionSel').value;
+    var sel = document.getElementById('taxSectionSel');
+    var section = sel ? sel.value : 'posts';
     var data = await api('/api/taxonomies?section=' + section);
     var cats = data.categories || [];
     var tgs = data.tags || [];
@@ -1624,16 +1639,24 @@ async function loadTaxonomies() {
     html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">';
     // 分类（可滚动）
     html += '<div class="settings-group" style="max-height:55vh;overflow-y:auto;"><h3>分类 (' + cats.length + ' 个)</h3>';
-    cats.forEach(function(c) {
-      html += '<div class="setting-row"><span class="setting-label">' + escHtml(c.name) + '</span><span class="setting-value">' + c.count + ' 篇</span></div>';
-    });
+    if (cats.length === 0) {
+      html += '<div style="padding:16px;color:var(--muted);font-size:0.85rem;">暂无分类</div>';
+    } else {
+      cats.forEach(function(c) {
+        html += '<div class="setting-row"><span class="setting-label">' + escHtml(catDisplayName(c.name)) + '</span><span class="setting-value">' + c.count + ' 篇</span></div>';
+      });
+    }
     html += '</div>';
     // 标签（可滚动）
     html += '<div class="settings-group" style="max-height:55vh;overflow-y:auto;"><h3>标签 (' + tgs.length + ' 个)</h3>';
     html += '<div style="display:flex;flex-wrap:wrap;gap:6px;padding:8px 0;">';
-    tgs.forEach(function(t) {
-      html += '<span class="tag" style="font-size:0.8rem;padding:4px 10px;">' + escHtml(tagDisplayName(t.name)) + ' (' + t.count + ')</span>';
-    });
+    if (tgs.length === 0) {
+      html += '<span style="color:var(--muted);font-size:0.85rem;">暂无标签</span>';
+    } else {
+      tgs.forEach(function(t) {
+        html += '<span class="tag" style="font-size:0.8rem;padding:4px 10px;">' + escHtml(tagDisplayName(t.name)) + ' (' + t.count + ')</span>';
+      });
+    }
     html += '</div></div>';
     html += '</div>';
     html += '<div style="margin-top:12px;padding:10px;background:rgba(108,92,231,0.08);border-radius:8px;font-size:0.82rem;color:var(--muted);line-height:1.8;">';

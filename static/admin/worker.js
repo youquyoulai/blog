@@ -600,8 +600,20 @@ async function getTaxonomies(request, env) {
     return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [] }));
   }
 
+  // 预设的 section taxonomy（即使没有文章也能显示）
+  const SECTION_TAXONOMY_PRESETS = {
+    'math': {
+      categories: ['math-solutions', 'exam-analysis'],
+      tags: ['gaokao-math', 'mock-exam'],
+    },
+  };
+
   // 非 posts section: 扫描目录文件，从 frontmatter 提取分类/标签并计数
   const dir = CONTENT_DIR + '/' + section;
+  const presets = SECTION_TAXONOMY_PRESETS[section] || null;
+  const catMap = {};
+  const tagMap = {};
+
   try {
     const data = await githubFetch(
       '/repos/' + GITHUB_REPO + '/contents/' + dir,
@@ -609,8 +621,6 @@ async function getTaxonomies(request, env) {
       env.GITHUB_TOKEN
     );
     const mdFiles = data.filter(function(f) { return f.name.endsWith('.md') && f.name !== '_index.md'; });
-    const catMap = {};
-    const tagMap = {};
 
     for (var i = 0; i < mdFiles.length; i++) {
       var f = mdFiles[i];
@@ -626,6 +636,16 @@ async function getTaxonomies(request, env) {
       tags.forEach(function(t) { tagMap[t] = (tagMap[t] || 0) + 1; });
     }
 
+    // 合并预设分类/标签（count 以实际扫描为准，预设的补充为 0）
+    if (presets) {
+      presets.categories.forEach(function(c) {
+        if (!(c in catMap)) catMap[c] = 0;
+      });
+      presets.tags.forEach(function(t) {
+        if (!(t in tagMap)) tagMap[t] = 0;
+      });
+    }
+
     var catList = Object.keys(catMap).map(function(name) { return { name: name, count: catMap[name] }; });
     var tagList = Object.keys(tagMap).map(function(name) { return { name: name, count: tagMap[name] }; });
 
@@ -635,6 +655,14 @@ async function getTaxonomies(request, env) {
       tags: tagList
     }));
   } catch (e) {
+    // 目录不存在或扫描失败，回退返回预设
+    if (presets) {
+      return corsResponse(JSON.stringify({
+        totalPosts: 0,
+        categories: presets.categories.map(function(c) { return { name: c, count: 0 }; }),
+        tags: presets.tags.map(function(t) { return { name: t, count: 0 }; }),
+      }));
+    }
     console.error('扫描 section taxonomies 失败:', e.message);
     return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [] }));
   }

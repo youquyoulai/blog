@@ -2,7 +2,7 @@
    调用方式：{{ partial "tag-names.html" (dict "tag" "education") }}
 */}}
 {{- $tag := .tag -}}
-{{- $tagNames := dict "blog" "博客" "AI" "AI" "cognition" "认知" "software" "软件" "daily" "日常" "education" "教育" "emotion" "情感" "holiday" "假日" "literature" "文学" "phone" "手机" "reading" "阅读" "rock" "摇滚" "shopping" "购物" "sisyphus" "西西弗" "solution" "方案" "travel" "旅行" "wangxiaobo" "王小波" -}}
+{{- $tagNames := dict "blog" "博客" "AI" "AI" "cognition" "认知" "software" "软件" "daily" "日常" "education" "教育" "emotion" "情感" "holiday" "假日" "literature" "文学" "phone" "手机" "reading" "阅读" "rock" "摇滚" "shopping" "购物" "sisyphus" "西西弗" "solution" "方案" "travel" "旅行" "wangxiaobo" "王小波" "gaokao-math" "高考数学" "mock-exam" "高三模拟" -}}
 {{- with $tag -}}
   {{- $displayName := index $tagNames . -}}
   {{- if not $displayName }}{{ $displayName = . }}{{ end -}}

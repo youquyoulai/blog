@@ -3,7 +3,7 @@
    注意：此文件只输出纯文本，调用方需要自行包裹 <a> 标签。
 */}}
 {{ if . }}
-  {{ $catNames := dict "guangan" "观感" "jilu" "记录" "weibo" "微语" }}
+  {{ $catNames := dict "guangan" "观感" "jilu" "记录" "weibo" "微语" "math-solutions" "数学题解" "exam-analysis" "试题评析" }}
   {{ $cats := . }}
   {{ if not (reflect.IsSlice .) }}{{ $cats = (slice .) }}{{ end }}
   {{ range $i, $cat := $cats }}

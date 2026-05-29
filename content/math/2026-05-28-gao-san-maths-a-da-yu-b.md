@@ -7,4 +7,5 @@ tags: ["mock-exam"]
 slug: "gao-san-maths-a-da-yu-b"
 ---
 简析：本题关键在于注意0.99与1.01间关系，联系起来两个等式。通过构造函数，利用函数单调性求解判断。
-![adayubcdayud0.99.PNG](https://img.pgoj.top/maths/adayubcdayud0.99.PNG)
+
+![adayubcdayud0.99.webp](https://img.pgoj.top/maths/adayubcdayud0.99.webp)

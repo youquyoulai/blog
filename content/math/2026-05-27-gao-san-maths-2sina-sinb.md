@@ -1,6 +1,6 @@
 ---
 title: "高三数学模拟试题之2sinA加sinB"
-date: 2026-05-26T08:31:00+08:00
+date: 2026-05-27T08:31:00+08:00
 cover: "@image:2026slt/sxtj.webp"
 categories: [math-solutions]
 tags: ["mock-exam", "mock-exam"]

@@ -1,16 +1,9 @@
 ---
-url: /archives/sdjnkxxqdysx.html
-
 title: "山东济南市2026届高三下学期开学学情调研测试数学试题第14题"
-description: "山东济南市2026届高三下学期开学学情调研测试数学试题第14题考查三角函数定义，单位圆应用，数形结合思想。"
-date: 2026-02-18
-lastmod: 2026-03-06
+date: 2026-02-18T08:00:00+08:00
+categories: [guangan]
 slug: "sdjnkxxqdysx"
-categories: guangan
-tags: ["solution"]
-thumb: "/img/webp/tu01.webp"
 ---
-
 山东济南市2026届高三下学期开学学情调研测试数学试题第14题考查三角函数定义，单位圆应用，数形结合思想。
 
 ![山东济南市2026届高三下学期开学学情调研测试数学试题第14题][1]

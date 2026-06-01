@@ -8,8 +8,8 @@
     <meta name="theme-color" content="{{ .Site.Params.themeColor | default "#434a54" }}">
     {{ if .Site.Params.appleTouchIcon }}<link rel="apple-touch-icon" href="{{ .Site.Params.appleTouchIcon }}">{{ end }}
 
-    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ if lt (len .Title) 20 }} - {{ .Site.Title }}{{ end }}{{ end }}</title>
-    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 160) }}{{ end }}">
+    <title>{{ if .IsHome }}{{ .Site.Title }} - {{ .Site.Params.description | default "博客" }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else if .IsPage }}{{ .Params.description | default (.Summary | plainify | truncate 200) }}{{ else }}{{ .Params.description | default (printf "%s - %s 的相关文章合集，记录日常观感与生活随笔。" .Title .Site.Params.author) }}{{ end }}">
     <meta name="keywords" content="{{ if .IsPage }}{{ with .Params.tags }}{{ delimit . "," }}{{ else }}{{ $.Site.Params.keywords | default "" }}{{ end }}{{ else }}{{ .Site.Params.keywords | default "" }}{{ end }}">
     {{ if .Params.noindex }}
     <meta name="robots" content="noindex, follow">

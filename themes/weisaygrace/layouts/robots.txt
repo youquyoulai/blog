@@ -1,4 +1,21 @@
 User-agent: *
 Allow: /
+Disallow: /page/*
+Disallow: /tags/*
+Disallow: /categories/*
+Disallow: /search/*
+Disallow: /*?*
+Disallow: /wp-content/*
+Disallow: /wp-admin/*
+Disallow: /vendor/*
+Disallow: /node_modules/*
+Disallow: /assets/*
+Disallow: /static/*
+
+# Bing 爬虫专用规则
+User-agent: bingbot
+Allow: /
+Disallow: /page/*
+Disallow: /search/*
 
 Sitemap: {{ trim .Site.BaseURL "/" }}/sitemap.xml

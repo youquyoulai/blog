@@ -18,3 +18,4 @@ pages.json
 .wrangler/
 hugo_server.log
 
+static/admin/index.html.bak*

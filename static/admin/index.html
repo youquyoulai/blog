@@ -5,650 +5,675 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>博客管理后台</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1a1a2e">
+  <meta name="theme-color" content="#1e2433">
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <style>
+    /* ── 设计令牌 ── */
     :root {
-      --bg: #f5f5f7; --card: #ffffff; --border: #e0e0e6;
-      --accent: #4f46e5; --accent2: #6366f1; --text: #1a1a2e;
-      --muted: #888; --green: #059669; --red: #dc2626;
-      --orange: #f472b6; --blue: #3b82f6;
+      --sidebar-w: 220px;
+      --topbar-h: 56px;
+      --radius: 8px;
+      --radius-lg: 12px;
+      --bg:        #f0f2f5;
+      --surface:   #ffffff;
+      --border:    #e4e6eb;
+      --text:      #1c1e21;
+      --muted:     #65676b;
+      --accent:    #1877f2;
+      --accent2:   #42b883;
+      --accent-bg: rgba(24,119,242,0.08);
+      --red:       #e41e3f;
+      --green:     #00a400;
+      --orange:    #f59e0b;
+      --sidebar-bg:#1e2433;
+      --sidebar-text:#c9cdd4;
+      --topbar-bg: #ffffff;
+      --input-bg:  #f5f6f7;
+      --shadow:    0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
-    a { color: var(--accent2); text-decoration: none; }
+    body { font-family: -apple-system,BlinkMacSystemFont,'PingFang SC','Segoe UI',sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; }
+    a { color: var(--accent); text-decoration: none; }
+    code { font-family: 'SF Mono','Fira Code','Consolas',monospace; font-size: 0.85em; background: var(--input-bg); padding: 2px 6px; border-radius: 4px; }
 
-    /* 登录页 */
-    #loginPage { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-    #loginPage h1 { font-size: 1.8rem; margin-bottom: 8px; color: var(--accent2); }
-    #loginPage p { color: var(--muted); margin-bottom: 24px; font-size: 0.9rem; }
-    .login-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 24px; width: 100%; max-width: 360px; }
-    .login-box input { width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem; margin-bottom: 12px; outline: none; }
-    .login-box input:focus { border-color: var(--accent); }
-    .login-box button { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: 0.2s; }
-    .login-box button:hover { background: var(--accent2); }
-    .login-error { color: var(--red); font-size: 0.85rem; margin-top: 8px; display: none; }
+    /* ── 登录页 ── */
+    #loginPage { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; background:linear-gradient(135deg,#1e2433 0%,#2d3550 100%); }
+    .login-card { background:var(--surface); border-radius:var(--radius-lg); padding:40px 32px; width:100%; max-width:380px; box-shadow:var(--shadow-md); }
+    .login-logo { text-align:center; margin-bottom:28px; }
+    .login-logo .logo-icon { width:52px; height:52px; background:var(--accent); border-radius:14px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px; }
+    .login-logo .logo-icon svg { width:28px; height:28px; color:white; }
+    .login-logo h1 { font-size:1.3rem; font-weight:700; }
+    .login-logo p { color:var(--muted); font-size:0.875rem; margin-top:4px; }
+    .form-group { margin-bottom:16px; }
+    .form-group label { display:block; font-size:0.78rem; font-weight:600; color:var(--muted); margin-bottom:6px; letter-spacing:0.04em; text-transform:uppercase; }
+    .form-group input { width:100%; padding:11px 14px; background:var(--input-bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:0.95rem; outline:none; transition:border-color 0.2s,box-shadow 0.2s; }
+    .form-group input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(24,119,242,0.15); }
+    .login-btn { width:100%; padding:12px; background:var(--accent); color:white; border:none; border-radius:var(--radius); font-size:0.95rem; font-weight:600; cursor:pointer; transition:0.2s; }
+    .login-btn:hover { background:#166fe5; }
+    .login-error { color:var(--red); font-size:0.82rem; margin-top:10px; display:none; text-align:center; }
 
-    /* 主布局 */
-    #app { display: none; }
-    header { background: var(--card); border-bottom: 1px solid var(--border); padding: 0 16px; position: sticky; top: 0; z-index: 100; }
-    .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; height: 56px; }
-    .header-title { font-size: 1.1rem; font-weight: 600; color: var(--accent2); display: none; }
-    .header-tabs { display: flex; gap: 4px; }
-    .tab-btn { padding: 8px 14px; background: none; border: none; color: var(--muted); font-size: 0.9rem; cursor: pointer; border-bottom: 2px solid transparent; transition: 0.2s; }
-    .tab-btn:hover { color: var(--text); }
-    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-    .header-actions { display: flex; gap: 8px; align-items: center; }
-    .btn { padding: 8px 14px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 8px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px; }
-    .btn:hover { border-color: var(--accent); color: var(--accent2); }
-    .btn-primary { background: var(--accent); border-color: var(--accent); color: white; }
-    .btn-primary:hover { background: var(--accent2); }
-    .btn-danger { border-color: var(--red); color: var(--red); }
-    .btn-danger:hover { background: var(--red); color: white; }
-    .btn-sm { padding: 6px 10px; font-size: 0.8rem; }
-    .btn-icon { padding: 8px; border-radius: 8px; }
+    /* ── 应用外壳 ── */
+    #app { display:none; min-height:100vh; }
 
-    /* 底部导航（移动端）*/
-    .bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--border); z-index: 100; padding: 8px 0; padding-bottom: max(8px, env(safe-area-inset-bottom)); }
-    .bottom-nav-inner { display: flex; justify-content: space-around; }
-    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--muted); font-size: 0.7rem; padding: 4px 12px; cursor: pointer; border: none; background: none; transition: 0.2s; }
-    .nav-item.active { color: var(--accent2); }
-    .nav-item svg { width: 22px; height: 22px; }
+    /* ── 侧边栏 ── */
+    .sidebar { position:fixed; top:0; left:0; bottom:0; width:var(--sidebar-w); background:var(--sidebar-bg); display:flex; flex-direction:column; z-index:200; transition:transform 0.3s cubic-bezier(0.4,0,0.2,1); overflow:hidden; }
+    .sidebar-brand { padding:20px 20px 16px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; gap:10px; }
+    .brand-icon { width:34px; height:34px; background:var(--accent); border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .brand-icon svg { width:18px; height:18px; color:white; }
+    .brand-name { font-size:0.9rem; font-weight:700; color:white; line-height:1.2; }
+    .brand-sub { font-size:0.72rem; color:rgba(255,255,255,0.4); margin-top:1px; }
+    .sidebar-nav { flex:1; overflow-y:auto; padding:12px 0; }
+    .sidebar-nav::-webkit-scrollbar { width:3px; }
+    .sidebar-nav::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:3px; }
+    .nav-section-label { padding:8px 20px 4px; font-size:0.68rem; font-weight:600; letter-spacing:0.08em; color:rgba(255,255,255,0.3); text-transform:uppercase; }
+    .nav-item { display:flex; align-items:center; gap:10px; padding:9px 20px; margin:1px 8px; border-radius:var(--radius); color:#c9cdd4; font-size:0.875rem; cursor:pointer; border:none; background:none; width:calc(100% - 16px); text-align:left; transition:all 0.15s; white-space:nowrap; }
+    .nav-item:hover { background:rgba(255,255,255,0.07); color:white; }
+    .nav-item.active { background:var(--accent); color:white; }
+    .nav-icon { width:18px; height:18px; flex-shrink:0; opacity:0.75; }
+    .nav-item.active .nav-icon, .nav-item:hover .nav-icon { opacity:1; }
+    .sidebar-footer { padding:14px 16px; border-top:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; gap:8px; }
+    .sidebar-footer .token-label { font-size:0.75rem; color:rgba(255,255,255,0.4); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
-    /* 内容区 */
-    main { padding: 16px; padding-bottom: 80px; max-width: 1200px; margin: 0 auto; }
+    /* ── 顶栏 ── */
+    .topbar { position:fixed; top:0; left:var(--sidebar-w); right:0; height:var(--topbar-h); background:var(--topbar-bg); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; padding:0 24px; z-index:100; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+    .topbar-menu-btn { display:none; width:36px; height:36px; border:none; background:none; cursor:pointer; border-radius:var(--radius); align-items:center; justify-content:center; color:var(--muted); }
+    .topbar-menu-btn:hover { background:var(--input-bg); }
+    .topbar-breadcrumb { flex:1; font-size:0.95rem; font-weight:600; color:var(--text); }
+    .topbar-actions { display:flex; align-items:center; gap:8px; }
+    .sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:150; }
+    .sidebar-overlay.open { display:block; }
 
-    /* Tab 内容 */
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    /* ── 主内容 ── */
+    .main-content { margin-left:var(--sidebar-w); padding-top:var(--topbar-h); min-height:100vh; }
+    .page-body { padding:24px; }
+    .page-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px; }
+    .page-header h1 { font-size:1.25rem; font-weight:700; }
+    .page-meta { font-size:0.82rem; color:var(--muted); margin-top:2px; }
 
-    /* 加载/空状态 */
-    .loading { display: flex; align-items: center; justify-content: center; padding: 40px; color: var(--muted); gap: 8px; }
-    .spinner { width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .empty-state { text-align: center; padding: 40px; color: var(--muted); }
+    /* ── 卡片 ── */
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; }
+    .card-header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+    .card-header h2 { font-size:0.95rem; font-weight:600; }
+    .card-body { padding:20px; }
 
-    /* 模态框 */
-    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
-    .modal.open { display: flex; }
+    /* ── 按钮 ── */
+    .btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:var(--radius); font-size:0.875rem; font-weight:500; cursor:pointer; border:1px solid var(--border); background:var(--surface); color:var(--text); transition:all 0.15s; white-space:nowrap; }
+    .btn:hover { border-color:var(--accent); color:var(--accent); }
+    .btn-primary { background:var(--accent); border-color:var(--accent); color:white; }
+    .btn-primary:hover { background:#166fe5; border-color:#166fe5; color:white; }
+    .btn-success { background:var(--green); border-color:var(--green); color:white; }
+    .btn-success:hover { background:#008f00; }
+    .btn-danger { border-color:var(--red); color:var(--red); }
+    .btn-danger:hover { background:var(--red); color:white; }
+    .btn-ghost { border-color:transparent; background:transparent; }
+    .btn-ghost:hover { background:var(--input-bg); border-color:var(--border); color:var(--text); }
+    .btn-sm { padding:5px 11px; font-size:0.8rem; }
+    .deploy-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 18px; border-radius:var(--radius); font-size:0.875rem; font-weight:600; cursor:pointer; background:var(--accent); color:white; border:none; transition:0.15s; box-shadow:0 1px 3px rgba(24,119,242,0.4); }
+    .deploy-btn:hover { background:#166fe5; }
+    .deploy-btn svg { width:14px; height:14px; }
 
-    /* Toast */
-    #toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: #333; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 0.9rem; opacity: 0; transition: all 0.3s; z-index: 9999; pointer-events: none; }
-    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    #toast.success { background: var(--green); }
-    #toast.error { background: var(--red); }
+    /* ── Tab / 状态 ── */
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+    .loading { display:flex; align-items:center; justify-content:center; padding:48px; color:var(--muted); gap:10px; }
+    .spinner { width:20px; height:20px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite; flex-shrink:0; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .empty-state { text-align:center; padding:60px 20px; color:var(--muted); }
+    .empty-state svg { width:48px; height:48px; margin-bottom:16px; opacity:0.35; }
+    .empty-state p { font-size:0.9rem; }
 
-    /* 图库网格 */
-    .img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-    .img-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: 0.2s; position: relative; }
-    .img-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .img-card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
-    .img-card .img-name { padding: 8px; font-size: 0.75rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .img-card .img-check { position: absolute; top: 6px; left: 6px; width: 22px; height: 22px; background: rgba(0,0,0,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.2s; }
-    .img-card.selected .img-check { opacity: 1; background: var(--accent); }
-    .img-card .img-check svg { width: 12px; height: 12px; color: white; }
+    /* ── Toast ── */
+    #toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(16px); background:var(--text); color:var(--bg); padding:10px 22px; border-radius:100px; font-size:0.875rem; font-weight:500; opacity:0; transition:all 0.25s; z-index:9999; pointer-events:none; box-shadow:var(--shadow-md); white-space:nowrap; }
+    #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    #toast.success { background:var(--green); color:white; }
+    #toast.error { background:var(--red); color:white; }
 
-    /* 图库分组卡片 */
-    .img-group-list { display: flex; flex-direction: column; gap: 8px; }
-    .img-group-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: 0.2s; }
-    .img-group-card:hover { border-color: var(--accent); }
-    .img-group-header { display: flex; align-items: center; gap: 12px; padding: 10px 12px; }
-    .img-group-thumb { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: var(--muted); }
-    .img-group-info { flex: 1; min-width: 0; }
-    .img-group-name { font-size: 0.875rem; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .img-group-meta { font-size: 0.75rem; color: var(--muted); margin-top: 3px; display: flex; gap: 10px; flex-wrap: wrap; }
-    .img-group-badge { background: var(--accent2); color: white; font-size: 0.7rem; padding: 1px 6px; border-radius: 10px; font-weight: 500; }
-    .img-group-expand { color: var(--muted); font-size: 0.7rem; padding: 0 10px; flex-shrink: 0; transition: 0.2s; }
-    .img-group-card.expanded .img-group-expand { transform: rotate(180deg); }
-    .img-group-files { display: none; padding: 0 12px 12px; border-top: 1px solid var(--border); }
-    .img-group-card.expanded .img-group-files { display: block; }
-    .img-group-file { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
-    .img-group-file:last-child { border-bottom: none; }
-    .img-group-file-thumb { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; }
-    .img-group-file-info { flex: 1; min-width: 0; }
-    .img-group-file-name { font-size: 0.8rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .img-group-file-size { font-size: 0.7rem; color: var(--muted); }
-    .img-group-file-label { font-size: 0.7rem; background: rgba(108,92,231,0.15); color: var(--accent2); padding: 1px 6px; border-radius: 4px; }
-    .img-group-file-actions { display: flex; gap: 6px; }
-    .img-group-file-btn { font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; cursor: pointer; border: 1px solid var(--border); background: var(--card); color: var(--muted); transition: 0.15s; }
-    .img-group-file-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .img-group-file-btn.copy { border-color: var(--green); color: var(--green); }
+    /* ── 图库 ── */
+    .upload-zone { border:2px dashed var(--border); border-radius:var(--radius-lg); padding:36px 20px; text-align:center; cursor:pointer; transition:0.2s; margin-bottom:20px; background:var(--surface); }
+    .upload-zone:hover, .upload-zone.dragover { border-color:var(--accent); background:var(--accent-bg); }
+    .upload-zone .upload-icon { width:44px; height:44px; margin:0 auto 12px; background:var(--accent-bg); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+    .upload-zone .upload-icon svg { width:22px; height:22px; color:var(--accent); }
+    .upload-zone p { color:var(--muted); font-size:0.9rem; }
+    .upload-zone .upload-title { color:var(--text); font-weight:500; margin-bottom:4px; }
+    .upload-hint { font-size:0.78rem; margin-top:4px; }
+    .upload-options { display:flex; align-items:center; gap:8px; padding:10px 16px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:16px; font-size:0.82rem; color:var(--accent); }
+    .upload-options input[type=checkbox] { accent-color:var(--accent); width:14px; height:14px; cursor:pointer; }
+    .upload-options label { cursor:pointer; flex:1; }
+    .img-group-list { display:flex; flex-direction:column; gap:8px; }
+    .img-group-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; cursor:pointer; transition:box-shadow 0.15s,border-color 0.15s; }
+    .img-group-card:hover { border-color:var(--accent); box-shadow:0 2px 8px rgba(24,119,242,0.1); }
+    .img-group-header { display:flex; align-items:center; gap:12px; padding:12px 16px; }
+    .img-group-thumb { width:56px; height:56px; border-radius:var(--radius); object-fit:cover; flex-shrink:0; background:var(--input-bg); }
+    .img-group-info { flex:1; min-width:0; }
+    .img-group-name { font-size:0.875rem; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .img-group-meta { font-size:0.75rem; color:var(--muted); margin-top:4px; display:flex; gap:10px; flex-wrap:wrap; }
+    .img-group-badge { background:var(--accent); color:white; font-size:0.7rem; padding:1px 7px; border-radius:100px; font-weight:600; }
+    .img-group-expand { color:var(--muted); font-size:0.7rem; padding:0 8px; flex-shrink:0; transition:0.2s; }
+    .img-group-card.expanded .img-group-expand { transform:rotate(180deg); }
+    .img-group-files { display:none; border-top:1px solid var(--border); }
+    .img-group-card.expanded .img-group-files { display:block; }
+    .img-group-file { display:flex; align-items:center; gap:10px; padding:10px 16px; border-bottom:1px solid var(--border); }
+    .img-group-file:last-child { border-bottom:none; }
+    .img-group-file-thumb { width:42px; height:42px; border-radius:6px; object-fit:cover; flex-shrink:0; }
+    .img-group-file-info { flex:1; min-width:0; }
+    .img-group-file-name { font-size:0.8rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .img-group-file-size { font-size:0.72rem; color:var(--muted); margin-top:2px; }
+    .img-group-file-label { font-size:0.7rem; background:var(--accent-bg); color:var(--accent); padding:2px 8px; border-radius:100px; font-weight:500; flex-shrink:0; }
+    .img-group-file-actions { display:flex; gap:6px; }
+    .img-group-file-btn { font-size:0.72rem; padding:4px 10px; border-radius:var(--radius); cursor:pointer; border:1px solid var(--border); background:var(--surface); color:var(--muted); transition:0.15s; }
+    .img-group-file-btn:hover, .img-group-file-btn.copy { border-color:var(--accent); color:var(--accent); }
+    .img-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px; }
+    .img-card { background:var(--surface); border:2px solid var(--border); border-radius:var(--radius); overflow:hidden; cursor:pointer; transition:0.15s; position:relative; }
+    .img-card:hover, .img-card.selected { border-color:var(--accent); }
+    .img-card img { width:100%; aspect-ratio:1; object-fit:cover; display:block; }
+    .img-card .img-name { padding:6px 8px; font-size:0.72rem; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .img-card .img-check { position:absolute; top:6px; left:6px; width:20px; height:20px; background:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; opacity:0; transition:0.15s; }
+    .img-card.selected .img-check { opacity:1; }
+    .img-card .img-check svg { width:11px; height:11px; color:white; }
 
-    /* 上传区 */
-    .upload-zone { border: 2px dashed var(--border); border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; transition: 0.2s; margin-bottom: 20px; }
-    .upload-zone:hover, .upload-zone.dragover { border-color: var(--accent); background: rgba(108,92,231,0.1); }
-    .upload-zone svg { width: 40px; height: 40px; color: var(--muted); margin-bottom: 12px; }
-    .upload-zone p { color: var(--muted); font-size: 0.9rem; }
-    .upload-zone .hint { font-size: 0.8rem; margin-top: 6px; }
+    /* ── 文章列表 ── */
+    .post-list { display:flex; flex-direction:column; gap:8px; }
+    .post-item { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:14px 18px; cursor:pointer; transition:all 0.15s; display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+    .post-item:hover { border-color:var(--accent); box-shadow:0 2px 8px rgba(24,119,242,0.08); }
+    .post-item-main { flex:1; min-width:0; }
+    .post-item-title { font-size:0.95rem; font-weight:600; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .post-item-meta { font-size:0.78rem; color:var(--muted); display:flex; gap:12px; flex-wrap:wrap; }
+    .post-item-arrow { color:var(--muted); flex-shrink:0; margin-top:2px; }
+    .post-item-tags { display:flex; gap:4px; flex-wrap:wrap; margin-top:6px; }
+    .tag { background:var(--accent-bg); color:var(--accent); padding:2px 8px; border-radius:100px; font-size:0.72rem; font-weight:500; }
+    .folder-btn { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); font-size:0.82rem; color:var(--text); cursor:pointer; transition:0.15s; margin:0 6px 6px 0; }
+    .folder-btn:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-bg); }
 
-    /* iframe 容器 */
-    .iframe-container { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    /* ── 编辑器 ── */
+    .editor-wrap { display:flex; flex-direction:column; gap:16px; }
+    .editor-meta-bar { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px 20px; display:flex; flex-direction:column; gap:12px; }
+    .editor-title-input { width:100%; padding:10px 0; background:transparent; border:none; border-bottom:2px solid var(--border); color:var(--text); font-size:1.25rem; font-weight:600; outline:none; transition:border-color 0.2s; }
+    .editor-title-input:focus { border-bottom-color:var(--accent); }
+    .editor-title-input::placeholder { color:var(--muted); font-weight:400; }
+    .editor-fields { display:flex; gap:10px; flex-wrap:wrap; }
+    .meta-input { padding:7px 12px; background:var(--input-bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:0.85rem; outline:none; transition:border-color 0.2s; }
+    .meta-input:focus { border-color:var(--accent); }
+    .editor-chips { display:flex; flex-wrap:wrap; gap:6px; }
+    .editor-toolbar { display:flex; gap:4px; flex-wrap:wrap; padding:10px 14px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg) var(--radius-lg) 0 0; }
+    .toolbar-btn { padding:5px 10px; border-radius:6px; background:none; border:1px solid transparent; color:var(--muted); cursor:pointer; font-size:0.82rem; transition:0.15s; display:flex; align-items:center; gap:4px; }
+    .toolbar-btn:hover { background:var(--input-bg); color:var(--text); border-color:var(--border); }
+    .editor-textarea { width:100%; min-height:500px; padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-top:none; border-radius:0 0 var(--radius-lg) var(--radius-lg); color:var(--text); font-size:0.92rem; line-height:2; resize:vertical; outline:none; font-family:'SF Mono','Fira Code','Consolas',monospace; }
+    .editor-actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .editor-hint { padding:10px 16px; border-radius:var(--radius); background:var(--accent-bg); border:1px solid rgba(24,119,242,0.15); font-size:0.82rem; color:var(--accent); line-height:1.6; }
 
-    /* 图片预览模态框 */
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
-    .modal.open { display: flex; }
-    .modal img { max-width: 100%; max-height: 80vh; border-radius: 8px; object-fit: contain; }
-    .modal-info { text-align: center; margin-top: 12px; color: var(--muted); font-size: 0.85rem; }
-    .modal-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
+    /* ── 设置 / 表单 ── */
+    .settings-group { margin-bottom:16px; }
+    .settings-group h3 { font-size:0.82rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px; }
+    .setting-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border); }
+    .setting-row:last-child { border-bottom:none; }
+    .setting-label { color:var(--muted); font-size:0.875rem; }
+    .setting-value { color:var(--text); font-size:0.875rem; max-width:60%; word-break:break-all; text-align:right; }
+    .api-status { display:flex; align-items:center; gap:8px; }
+    .status-dot { width:8px; height:8px; border-radius:50%; background:var(--muted); }
+    .status-dot.ok { background:var(--green); }
+    .status-dot.fail { background:var(--red); }
+    .inline-form { display:none; margin-top:16px; padding:20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); }
+    .inline-form h3 { font-size:0.95rem; font-weight:600; margin-bottom:14px; }
+    .form-field { margin-bottom:12px; }
+    .form-field label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .form-field input, .form-field select, .form-field textarea { width:100%; padding:9px 12px; background:var(--input-bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:0.9rem; outline:none; transition:border-color 0.2s; }
+    .form-field input:focus, .form-field select:focus { border-color:var(--accent); }
+    .form-actions { display:flex; gap:8px; margin-top:4px; }
 
-    /* 文章列表 */
-    .post-list { display: flex; flex-direction: column; gap: 10px; }
-    .post-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: 0.2s; }
-    .post-item:hover { border-color: var(--accent); }
-    .post-item-title { font-size: 1rem; font-weight: 500; margin-bottom: 6px; }
-    .post-item-meta { font-size: 0.8rem; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; }
-    .post-item-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
-    .tag { background: rgba(108,92,231,0.15); color: var(--accent2); padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; }
+    /* ── 模态框 ── */
+    .modal { position:fixed; inset:0; background:rgba(0,0,0,0.65); display:none; align-items:center; justify-content:center; z-index:1000; padding:20px; }
+    .modal.open { display:flex; }
+    .modal-card { background:var(--surface); border-radius:var(--radius-lg); overflow:hidden; display:flex; flex-direction:column; max-height:90vh; width:90%; max-width:700px; box-shadow:var(--shadow-md); }
+    .modal-header { padding:16px 20px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); }
+    .modal-header h3 { font-size:1rem; font-weight:600; }
+    .modal-body { padding:20px; overflow-y:auto; flex:1; }
+    .modal-footer { padding:14px 20px; border-top:1px solid var(--border); display:flex; justify-content:flex-end; gap:8px; }
+    #imgModal { flex-direction:column; gap:12px; }
+    #imgModal img { max-width:100%; max-height:70vh; border-radius:var(--radius); object-fit:contain; }
+    .modal-info { text-align:center; color:#c9cdd4; font-size:0.82rem; }
+    .modal-actions { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
 
-    /* 编辑器 */
-    .editor-header { margin-bottom: 16px; }
-    .editor-title-input { width: 100%; padding: 12px 14px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1.1rem; outline: none; }
-    .editor-title-input:focus { border-color: var(--accent); }
-    .editor-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
-    .meta-input { padding: 6px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 0.85rem; outline: none; min-width: 120px; }
-    .meta-input:focus { border-color: var(--accent); }
-    .meta-input-wrap { position: relative; display: inline-flex; align-items: center; }
-    .meta-hint { position: absolute; right: 8px; font-size: 0.7rem; color: var(--muted); pointer-events: none; opacity: 0.6; }
-    .editor-toolbar { display: flex; gap: 4px; flex-wrap: wrap; padding: 10px; background: var(--card); border: 1px solid var(--border); border-bottom: none; border-radius: 8px 8px 0 0; }
-    .toolbar-btn { padding: 6px 10px; background: none; border: 1px solid transparent; border-radius: 6px; color: var(--muted); cursor: pointer; font-size: 0.85rem; transition: 0.2s; display: flex; align-items: center; gap: 4px; }
-    .toolbar-btn:hover { background: var(--bg); color: var(--text); border-color: var(--border); }
-    .editor-textarea { width: 100%; min-height: 400px; padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 0 0 8px 8px; color: var(--text); font-size: 0.95rem; line-height: 1.8; resize: vertical; outline: none; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; }
+    /* ── 滚动条 ── */
+    ::-webkit-scrollbar { width:5px; height:5px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
 
-    /* 评论管理 */
-    .comment-card { transition: 0.2s; }
-    .comment-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-
-    /* Toast */
-    .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 10px 20px; border-radius: 20px; font-size: 0.9rem; z-index: 300; opacity: 0; transition: 0.3s; pointer-events: none; }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    .toast.success { border-color: var(--green); color: var(--green); }
-    .toast.error { border-color: var(--red); color: var(--red); }
-
-    /* 加载状态 */
-    .loading { display: flex; align-items: center; justify-content: center; padding: 40px; color: var(--muted); }
-    .spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 10px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* 设置页 */
-    .settings-group { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
-    .settings-group h3 { font-size: 0.9rem; color: var(--accent2); margin-bottom: 12px; }
-    .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
-    .setting-row:last-child { border-bottom: none; }
-    .setting-label { color: var(--muted); font-size: 0.85rem; }
-    .setting-value { color: var(--text); font-size: 0.85rem; max-width: 60%; word-break: break-all; text-align: right; }
-    .api-status { display: flex; align-items: center; gap: 6px; }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
-    .status-dot.ok { background: var(--green); }
-    .status-dot.fail { background: var(--red); }
-
-    /* 空状态 */
-    .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
-    .empty-state svg { width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.5; }
-    .empty-state p { font-size: 0.9rem; }
-
-    /* 移动端*/
-    @media (max-width: 768px) {
-      .header-tabs { display: none; }
-      .header-title { display: none; }
-      .bottom-nav { display: block; }
-      .header-actions .btn span { display: none; }
-      .img-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
-      .editor-textarea { min-height: 300px; font-size: 14px; }
+    /* ── 响应式 ── */
+    @media (max-width:900px) {
+      .sidebar { transform:translateX(-100%); }
+      .sidebar.open { transform:translateX(0); }
+      .topbar { left:0; }
+      .main-content { margin-left:0; }
+      .topbar-menu-btn { display:inline-flex; }
     }
-    @media (min-width: 769px) {
-      .bottom-nav { display: none !important; }
-      .header-tabs { display: flex; }
-      .header-title { display: none; }
+    @media (max-width:600px) {
+      .page-body { padding:16px; }
+      .editor-fields { flex-direction:column; }
+      .editor-textarea { min-height:360px; }
+      .topbar { padding:0 16px; }
     }
-    @media (max-width: 480px) {
-      .img-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-      .editor-toolbar { overflow-x: auto; flex-wrap: nowrap; padding: 8px; }
-    }
-
-    /* 滚动条 */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
   </style>
   <script data-cfasync="false" src="image-processor.js"></script>
   <script data-cfasync="false" src="comments.js"></script>
 </head>
 <body>
 
-<!-- 登录页 -->
+<!-- ═══ 登录页 ═══ -->
 <div id="loginPage">
-  <h1>博客管理后台</h1>
-  <p>平哥偶记 · 管理面板</p>
-  <div class="login-box">
-    <input type="password" id="tokenInput" placeholder="请输入访问令牌" autocomplete="off">
-    <button onclick="doLogin()">进入后台</button>
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <h1>博客管理后台</h1>
+      <p>平哥偶记 · 管理面板</p>
+    </div>
+    <div class="form-group">
+      <label>访问令牌</label>
+      <input type="password" id="tokenInput" placeholder="输入访问令牌" autocomplete="off">
+    </div>
+    <button class="login-btn" onclick="doLogin()">进入后台</button>
     <p class="login-error" id="loginError">令牌错误，请重试</p>
   </div>
 </div>
 
-<!-- 主应用 -->
+<!-- ═══ 主应用 ═══ -->
 <div id="app">
-  <header>
-    <div class="header-inner">
-      <span class="header-title">博客管理</span>
-      <div class="header-tabs">
-        <button class="tab-btn active" data-tab="images" onclick="switchTab('images')">图库</button>
-        <button class="tab-btn" data-tab="posts" onclick="switchTab('posts')">文章</button>
-        <button class="tab-btn" data-tab="taxonomies" onclick="switchTab('taxonomies')">分类/标签</button>
-        <button class="tab-btn" data-tab="wenhui" onclick="switchTab('wenhui')">文汇</button>
-        <button class="tab-btn" data-tab="links" onclick="switchTab('links')">友链</button>
-        <button class="tab-btn" data-tab="pages" onclick="switchTab('pages')">页面</button>
-        <button class="tab-btn" data-tab="comments" onclick="switchTab('comments')">评论</button>
-        <button class="tab-btn" data-tab="editor" onclick="switchTab('editor')" style="display:none" id="tabEditorBtn">编辑</button>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- ── 侧边栏 ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </div>
-      <div class="header-actions">
-        <span id="currentTokenDisplay" style="font-size:0.75rem;color:var(--muted);margin-right:8px;"></span>
-        <button class="btn btn-primary" onclick="triggerDeploy()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-          <span>发布</span>
-        </button>
-        <button class="btn" onclick="showSettings()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-          <span>设置</span>
-        </button>
+      <div>
+        <div class="brand-name">平哥偶记</div>
+        <div class="brand-sub">管理面板</div>
       </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">内容</div>
+      <button class="nav-item active" data-tab="images" onclick="switchTab('images')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+        图库
+      </button>
+      <button class="nav-item" data-tab="posts" onclick="switchTab('posts')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        文章
+      </button>
+      <button class="nav-item" data-tab="pages" onclick="switchTab('pages')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+        页面
+      </button>
+      <div class="nav-section-label" style="margin-top:8px;">分类管理</div>
+      <button class="nav-item" data-tab="taxonomies" onclick="switchTab('taxonomies')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 0 1 0 2.828l-7 7a2 2 0 0 1-2.828 0l-7-7A1.994 1.994 0 0 1 3 12V7a4 4 0 0 1 4-4z"/></svg>
+        分类 / 标签
+      </button>
+      <div class="nav-section-label" style="margin-top:8px;">站点</div>
+      <button class="nav-item" data-tab="comments" onclick="switchTab('comments')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        评论
+      </button>
+      <button class="nav-item" data-tab="wenhui" onclick="switchTab('wenhui')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        文汇 RSS
+      </button>
+      <button class="nav-item" data-tab="links" onclick="switchTab('links')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        友链
+      </button>
+      <div class="nav-section-label" style="margin-top:8px;">系统</div>
+      <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        设置
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 0 1 8 0v2"/></svg>
+      <span class="token-label" id="currentTokenDisplay">未登录</span>
+    </div>
+  </aside>
+
+  <!-- ── 顶栏 ── -->
+  <header class="topbar">
+    <button class="topbar-menu-btn" onclick="toggleSidebar()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="topbar-breadcrumb" id="topbarTitle">图库</div>
+    <div class="topbar-actions">
+      <a href="https://www.pgoj.top" target="_blank" class="btn btn-ghost btn-sm">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        查看博客
+      </a>
+      <button class="deploy-btn" onclick="triggerDeploy()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        发布
+      </button>
     </div>
   </header>
 
-  <main>
-    <!-- 图库 -->
-    <div id="tab-images" class="tab-content active">
-      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        <p>点击或拖拽上传图片到 R2</p>
-        <p class="hint">支持 jpg/png/gif/webp，单张不超过 10MB</p>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;padding:8px 12px;background:rgba(108,92,231,0.08);border:1px solid rgba(108,92,231,0.2);border-radius:8px;font-size:0.82rem;color:var(--accent2);">
-        <input type="checkbox" id="autoCompress" checked style="accent-color:var(--accent);width:15px;height:15px;cursor:pointer;">
-        <label for="autoCompress" style="cursor:pointer;flex:1;">自动处理：生成 orig + 800 + 300 三种尺寸 WebP（免费，无 Cloudflare 计费）</label>
-        <span id="uploadProgress" style="color:var(--muted);white-space:nowrap;"></span>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <h2 style="font-size:1rem;color:var(--accent2);">图库</h2>
-        <div style="display:flex;gap:8px;">
-          <button class="btn btn-sm" onclick="loadImages()">刷新</button>
-          <button class="btn btn-sm" id="batchDelBtn" style="display:none;" onclick="batchDelete()">删除选中</button>
-        </div>
-      </div>
-      <div id="imgStats" style="font-size:0.8rem;color:var(--muted);margin-bottom:10px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;"></div>
-      <div style="margin-bottom:12px;">
-        <input type="text" id="imgSearch" placeholder="搜索图片名称..." oninput="renderImages()" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--input-bg);color:var(--text);font-size:0.875rem;box-sizing:border-box;">
-      </div>
-      <!-- 文件夹导航 -->
-      <div id="folderNav" style="display:none;margin-bottom:14px;">
-        <div id="folderBreadcrumb" style="font-size:0.82rem;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;"></div>
-        <div id="folderList" style="display:flex;flex-wrap:wrap;gap:10px;"></div>
-      </div>
-      <div id="imgList"></div>
-    </div>
+  <!-- ── 主内容 ── -->
+  <main class="main-content">
+    <div class="page-body">
 
-    <!-- 文章 -->
-    <div id="tab-posts" class="tab-content">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <h2 style="font-size:1rem;color:var(--accent2);">文章列表</h2>
-          <select id="postSectionSel" onchange="switchSection(this.value)" style="padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;">
-            <option value="posts">博客文章</option>
-            <option value="math">数学题解</option>
-          </select>
-        </div>
-        <button class="btn btn-primary" onclick="newPost()">+ 新建文章</button>
-      </div>
-      <div id="postFolderNav" style="margin-bottom:12px;"></div>
-      <div id="postList"></div>
-    </div>
-
-    <!-- 评论管理 -->
-    <div id="tab-comments" class="tab-content">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-        <h2 style="font-size:1rem;color:var(--accent2);">评论管理</h2>
-        <div style="display:flex;gap:8px;">
-          <select id="commentFilter" onchange="loadComments()" style="padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;">
-            <option value="">全部</option>
-            <option value="approved">已批准</option>
-            <option value="waiting">待审核</option>
-          </select>
-          <button class="btn btn-sm" onclick="loadComments()">刷新</button>
-        </div>
-      </div>
-      <div id="commentList"></div>
-    </div>
-
-    <!-- 分类/标签 -->
-    <div id="tab-taxonomies" class="tab-content">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <h2 style="font-size:1rem;color:var(--accent2);">分类与标签</h2>
-          <select id="taxSectionSel" onchange="loadTaxonomies()" style="padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;">
-            <option value="posts">博客文章</option>
-            <option value="math">数学题解</option>
-          </select>
-        </div>
-      </div>
-      <div id="taxonomyContent">
-        <div class="loading"><div class="spinner"></div>加载中...</div>
-      </div>
-    </div>
-
-    <!-- 文汇 RSS 源管理 -->
-    <div id="tab-wenhui" class="tab-content">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-        <h2 style="font-size:1rem;color:var(--accent2);">📖 文汇 RSS 源</h2>
-        <button class="btn btn-primary" onclick="showWenhuiAddForm()">+ 添加 RSS 源</button>
-      </div>
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">
-        添加博客 RSS 地址，文汇页面会自动聚合所有文章。编辑完成后点击「保存并发布」即可更新。
-      </p>
-      <div id="wenhuiList"></div>
-      <div style="margin-top:16px;display:flex;gap:10px;">
-        <button class="btn btn-primary" onclick="saveWenhuiAndDeploy()">保存并发布</button>
-        <button class="btn" onclick="saveWenhui()">仅保存</button>
-      </div>
-      <!-- 添加/编辑 RSS 源表单 -->
-      <div id="wenhuiForm" style="display:none;margin-top:16px;padding:16px;background:rgba(108,92,231,0.06);border-radius:10px;border:1px solid rgba(108,92,231,0.15);">
-        <h3 id="wenhuiFormTitle" style="font-size:0.95rem;margin:0 0 12px 0;color:var(--accent2);">添加 RSS 源</h3>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div>
-            <label style="font-size:0.8rem;color:var(--muted);">博客名称</label>
-            <input type="text" id="wenhuiName" placeholder="如：平哥偶记" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
+      <!-- ▸ 图库 -->
+      <div id="tab-images" class="tab-content active">
+        <div class="page-header">
+          <div><h1>图库</h1><div class="page-meta">R2 对象存储 · img.pgoj.top</div></div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-sm btn-ghost" onclick="loadImages()">刷新</button>
+            <button class="btn btn-sm btn-danger" id="batchDelBtn" style="display:none;" onclick="batchDelete()">删除选中</button>
           </div>
-          <div>
-            <label style="font-size:0.8rem;color:var(--muted);">RSS 地址</label>
-            <input type="text" id="wenhuiUrl" placeholder="如：https://example.com/feed.xml" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
+        </div>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+          <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+          <p class="upload-title">点击或拖拽上传图片</p>
+          <p class="upload-hint">支持 jpg / png / gif / webp，单张不超过 10MB</p>
+        </div>
+        <div class="upload-options">
+          <input type="checkbox" id="autoCompress" checked>
+          <label for="autoCompress">自动处理：生成 orig + 800 + 300 三种尺寸 WebP（免费，无 Cloudflare 计费）</label>
+          <span id="uploadProgress" style="color:var(--muted);font-size:0.8rem;white-space:nowrap;"></span>
+        </div>
+        <div id="imgStats" style="font-size:0.8rem;color:var(--muted);margin-bottom:14px;display:flex;gap:16px;flex-wrap:wrap;"></div>
+        <div style="margin-bottom:14px;">
+          <input type="text" id="imgSearch" placeholder="🔍  搜索图片名称…" oninput="renderImages()"
+            style="width:100%;padding:9px 14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);font-size:0.875rem;outline:none;">
+        </div>
+        <div id="folderNav" style="display:none;margin-bottom:16px;">
+          <div id="folderBreadcrumb" style="font-size:0.82rem;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;"></div>
+          <div id="folderList" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+        </div>
+        <div id="imgList"></div>
+      </div>
+
+      <!-- ▸ 文章 -->
+      <div id="tab-posts" class="tab-content">
+        <div class="page-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <h1>文章</h1>
+            <select id="postSectionSel" onchange="switchSection(this.value)" style="padding:6px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.85rem;outline:none;">
+              <option value="posts">博客文章</option>
+              <option value="math">数学题解</option>
+            </select>
           </div>
-          <div>
-            <label style="font-size:0.8rem;color:var(--muted);">分类（可选）</label>
-            <input type="text" id="wenhuiCat" placeholder="如：博客/科技" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
+          <button class="btn btn-primary" onclick="newPost()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            新建文章
+          </button>
+        </div>
+        <div id="postFolderNav" style="margin-bottom:14px;"></div>
+        <div id="postList"></div>
+      </div>
+
+      <!-- ▸ 评论 -->
+      <div id="tab-comments" class="tab-content">
+        <div class="page-header">
+          <h1>评论管理</h1>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <select id="commentFilter" onchange="loadComments()" style="padding:7px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.85rem;outline:none;">
+              <option value="">全部</option>
+              <option value="approved">已批准</option>
+              <option value="waiting">待审核</option>
+            </select>
+            <button class="btn btn-sm btn-ghost" onclick="loadComments()">刷新</button>
           </div>
-          <div style="display:flex;gap:8px;margin-top:4px;">
+        </div>
+        <div id="commentList"></div>
+      </div>
+
+      <!-- ▸ 分类标签 -->
+      <div id="tab-taxonomies" class="tab-content">
+        <div class="page-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <h1>分类 / 标签</h1>
+            <select id="taxSectionSel" onchange="loadTaxonomies()" style="padding:6px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.85rem;outline:none;">
+              <option value="posts">博客文章</option>
+              <option value="math">数学题解</option>
+            </select>
+          </div>
+        </div>
+        <div id="taxonomyContent"><div class="loading"><div class="spinner"></div>加载中…</div></div>
+      </div>
+
+      <!-- ▸ 文汇 -->
+      <div id="tab-wenhui" class="tab-content">
+        <div class="page-header">
+          <div><h1>文汇 RSS 源</h1><div class="page-meta">添加 RSS 地址，文汇页面自动聚合所有文章</div></div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-primary" onclick="showWenhuiAddForm()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              添加 RSS 源
+            </button>
+            <button class="btn btn-success" onclick="saveWenhuiAndDeploy()">保存并发布</button>
+            <button class="btn" onclick="saveWenhui()">仅保存</button>
+          </div>
+        </div>
+        <div id="wenhuiList"></div>
+        <div class="inline-form" id="wenhuiForm">
+          <h3 id="wenhuiFormTitle">添加 RSS 源</h3>
+          <div class="form-field"><label>博客名称</label><input type="text" id="wenhuiName" placeholder="如：平哥偶记"></div>
+          <div class="form-field"><label>RSS 地址</label><input type="text" id="wenhuiUrl" placeholder="如：https://example.com/feed.xml"></div>
+          <div class="form-field"><label>分类（可选）</label><input type="text" id="wenhuiCat" placeholder="如：博客 / 科技"></div>
+          <div class="form-actions">
             <button class="btn btn-primary" onclick="wenhuiFormSubmit()">保存</button>
-            <button class="btn" onclick="hideWenhuiForm()">取消</button>
+            <button class="btn btn-ghost" onclick="hideWenhuiForm()">取消</button>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- 友链管理 -->
-    <div id="tab-links" class="tab-content">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-        <h2 style="font-size:1rem;color:var(--accent2);">🔗 友链管理</h2>
-        <div style="display:flex;gap:8px;">
-          <button class="btn btn-primary" onclick="showLinkAddCatForm()">+ 添加分类</button>
+      <!-- ▸ 友链 -->
+      <div id="tab-links" class="tab-content">
+        <div class="page-header">
+          <div><h1>友链管理</h1><div class="page-meta">管理侧边栏友情链接和博客聚合</div></div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-primary" onclick="showLinkAddCatForm()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              添加分类
+            </button>
+            <button class="btn btn-success" onclick="saveLinksAndDeploy()">保存并发布</button>
+            <button class="btn" onclick="saveLinks()">仅保存</button>
+          </div>
         </div>
-      </div>
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">
-        管理侧边栏的友情链接和博客聚合。支持两个分类：友情链接（带 RSS 可选项）和博客聚合。编辑完成后点击「保存并发布」即可更新。
-      </p>
-      <div id="linksList"></div>
-      <div style="margin-top:16px;display:flex;gap:10px;">
-        <button class="btn btn-primary" onclick="saveLinksAndDeploy()">保存并发布</button>
-        <button class="btn" onclick="saveLinks()">仅保存</button>
-      </div>
-      <!-- 添加/编辑链接表单 -->
-      <div id="linkForm" style="display:none;margin-top:16px;padding:16px;background:rgba(108,92,231,0.06);border-radius:10px;border:1px solid rgba(108,92,231,0.15);">
-        <h3 id="linkFormTitle" style="font-size:0.95rem;margin:0 0 12px 0;color:var(--accent2);">添加链接</h3>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div>
-            <label style="font-size:0.8rem;color:var(--muted);">所属分类</label>
-            <select id="linkFormCat" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;"></select>
-          </div>
-          <div>
-            <label style="font-size:0.8rem;color:var(--muted);">链接名称</label>
-            <input type="text" id="linkFormName" placeholder="如：边境研究所" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
-          </div>
-          <div>
-            <label style="font-size:0.8rem;color:var(--muted);">链接地址</label>
-            <input type="text" id="linkFormUrl" placeholder="如：https://szhshp.org" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
-          </div>
-          <div>
-            <label style="font-size:0.8rem;color:var(--muted);">RSS 地址（可选）</label>
-            <input type="text" id="linkFormRss" placeholder="如：https://szhshp.org/rss.xml" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
-          </div>
-          <div style="display:flex;gap:8px;margin-top:4px;">
+        <div id="linksList"></div>
+        <div class="inline-form" id="linkForm">
+          <h3 id="linkFormTitle">添加链接</h3>
+          <div class="form-field"><label>所属分类</label><select id="linkFormCat"></select></div>
+          <div class="form-field"><label>链接名称</label><input type="text" id="linkFormName" placeholder="如：边境研究所"></div>
+          <div class="form-field"><label>链接地址</label><input type="text" id="linkFormUrl" placeholder="如：https://szhshp.org"></div>
+          <div class="form-field"><label>RSS 地址（可选）</label><input type="text" id="linkFormRss" placeholder="如：https://szhshp.org/rss.xml"></div>
+          <div class="form-actions">
             <button class="btn btn-primary" onclick="linkFormSubmit()">保存</button>
-            <button class="btn" onclick="hideLinkForm()">取消</button>
+            <button class="btn btn-ghost" onclick="hideLinkForm()">取消</button>
           </div>
         </div>
-      </div>
-      <!-- 添加/编辑分类表单 -->
-      <div id="linkCatForm" style="display:none;margin-top:16px;padding:16px;background:rgba(108,92,231,0.06);border-radius:10px;border:1px solid rgba(108,92,231,0.15);">
-        <h3 id="linkCatFormTitle" style="font-size:0.95rem;margin:0 0 12px 0;color:var(--accent2);">添加分类</h3>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div>
-            <label style="font-size:0.8rem;color:var(--muted);">分类名称</label>
-            <input type="text" id="linkCatFormName" placeholder="如：工具箱" style="width:100%;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:rgba(0,0,0,0.2);color:var(--text);font-size:0.9rem;box-sizing:border-box;">
-          </div>
-          <div style="display:flex;gap:8px;margin-top:4px;">
+        <div class="inline-form" id="linkCatForm">
+          <h3 id="linkCatFormTitle">添加分类</h3>
+          <div class="form-field"><label>分类名称</label><input type="text" id="linkCatFormName" placeholder="如：工具箱"></div>
+          <div class="form-actions">
             <button class="btn btn-primary" onclick="linkCatFormSubmit()">保存</button>
-            <button class="btn" onclick="hideLinkCatForm()">取消</button>
+            <button class="btn btn-ghost" onclick="hideLinkCatForm()">取消</button>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- 页面 -->
-    <div id="tab-pages" class="tab-content">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-        <h2 style="font-size:1rem;color:var(--accent2);">单独页面</h2>
-        <button class="btn btn-primary" onclick="newPage()">+ 新建页面</button>
-      </div>
-      <div id="pageList"></div>
-    </div>
-
-    <!-- 页面编辑器 -->
-    <div id="tab-pageEditor" class="tab-content">
-      <button class="btn" onclick="backToPages()" style="margin-bottom:12px;">← 返回页面列表</button>
-      <div class="editor-header">
-        <input type="text" class="editor-title-input" id="pageTitle" placeholder="页面标题">
-        <div class="editor-meta">
-          <input type="text" class="meta-input" id="pageSlug" placeholder="slug（文件名，如 about）" style="flex:1;">
+      <!-- ▸ 页面 -->
+      <div id="tab-pages" class="tab-content">
+        <div class="page-header">
+          <h1>独立页面</h1>
+          <button class="btn btn-primary" onclick="newPage()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            新建页面
+          </button>
         </div>
+        <div id="pageList"></div>
       </div>
-      <textarea class="editor-textarea" id="pageContent" placeholder="页面内容，支持 Markdown..." style="min-height:300px;"></textarea>
-      <div style="margin-top:12px;display:flex;gap:8px;">
-        <button class="btn btn-primary" onclick="savePage()">保存页面</button>
-        <button class="btn btn-danger" id="deletePageBtn" onclick="deletePage()" style="display:none;">删除</button>
-      </div>
-    </div>
 
-    <!-- 回复模态框 -->
-    <div class="modal" id="replyModal" onclick="if(event.target===this)closeReplyModal()">
-      <div style="background:var(--card);border-radius:12px;width:90%;max-width:600px;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;">
-        <div style="padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);">
-          <span style="font-weight:500;">回复评论</span>
-          <button class="btn btn-sm" onclick="closeReplyModal()">关闭</button>
+      <!-- ▸ 页面编辑器 -->
+      <div id="tab-pageEditor" class="tab-content">
+        <div class="page-header">
+          <button class="btn btn-ghost" onclick="backToPages()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
+            返回页面列表
+          </button>
         </div>
-        <div style="padding:16px;overflow-y:auto;flex:1;">
-          <div id="replyToInfo" style="background:var(--bg);padding:12px;border-radius:8px;margin-bottom:16px;font-size:0.85rem;color:var(--muted);"></div>
-          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
-            <input type="text" id="replyNick" placeholder="昵称" value="平哥" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;">
-            <input type="email" id="replyMail" placeholder="邮箱" value="wuliwuju@126.com" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;">
-            <input type="url" id="replyLink" placeholder="网址" value="https://www.pgoj.top" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;">
+        <div class="editor-wrap">
+          <div class="editor-meta-bar">
+            <input type="text" class="editor-title-input" id="pageTitle" placeholder="页面标题">
+            <div class="editor-fields">
+              <input type="text" class="meta-input" id="pageSlug" placeholder="slug（如 about）" style="flex:1;">
+            </div>
           </div>
-          <textarea id="replyContent" placeholder="回复内容..." style="width:100%;min-height:120px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;line-height:1.6;resize:vertical;outline:none;"></textarea>
-        </div>
-        <div style="padding:12px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;">
-          <button class="btn" onclick="closeReplyModal()">取消</button>
-          <button class="btn btn-primary" onclick="submitReply()">发送回复</button>
+          <div class="editor-toolbar"><span style="font-size:0.78rem;color:var(--muted);padding:5px 4px;">Markdown</span></div>
+          <textarea class="editor-textarea" id="pageContent" placeholder="页面内容，支持 Markdown…"></textarea>
+          <div class="editor-actions">
+            <button class="btn btn-primary" onclick="savePage()">保存页面</button>
+            <button class="btn btn-danger" id="deletePageBtn" onclick="deletePage()" style="display:none;">删除</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- 编辑器 -->
-    <div id="tab-editor" class="tab-content">
-      <button class="btn" onclick="backToList()" style="margin-bottom:12px;">← 返回列表</button>
-      <div style="background:rgba(108,92,231,0.1);border:1px solid rgba(108,92,231,0.3);border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:0.85rem;color:var(--accent2);">
-        插入图片：点击工具栏「图库选图」选择尺寸插入，或直接写 <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-size:0.8rem;">@image:图片名称-300.webp</code>
-      </div>
-      <div class="editor-header">
-        <input type="text" class="editor-title-input" id="postTitle" placeholder="文章标题">
-        <div class="editor-meta">
-          <input type="text" class="meta-input" id="postDate" placeholder="日期 2026-05-06">
-          <input type="text" class="meta-input" id="postCategory" placeholder="点击下方选择分类" style="width:160px;">
-          <input type="text" class="meta-input" id="postTags" placeholder="点击下方选择标签" style="width:200px;">
-          <input type="text" class="meta-input" id="postSlug" placeholder="slug">
-          <input type="text" class="meta-input" id="postCover" placeholder="封面图" style="flex:1;min-width:200px;">
-          <button class="btn btn-sm" onclick="showCoverPicker()">选封面</button>
+      <!-- ▸ 文章编辑器 -->
+      <div id="tab-editor" class="tab-content">
+        <div class="page-header">
+          <button class="btn btn-ghost" onclick="backToList()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
+            返回列表
+          </button>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-primary" onclick="savePost()">保存</button>
+            <button class="btn btn-success" onclick="saveAndPublish()">保存并发布</button>
+            <button class="btn btn-danger" id="deletePostBtn" onclick="deletePost()" style="display:none;">删除</button>
+          </div>
         </div>
-        <!-- 分类/标签可点击列表 -->
-        <div id="catChips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div>
-        <div id="tagChips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div>
+        <div class="editor-hint" style="margin-bottom:16px;">插入图片：点击工具栏「图库选图」，或直接写 <code>@image:图片名称-300.webp</code></div>
+        <div class="editor-wrap">
+          <div class="editor-meta-bar">
+            <input type="text" class="editor-title-input" id="postTitle" placeholder="文章标题">
+            <div class="editor-fields">
+              <input type="text" class="meta-input" id="postDate" placeholder="日期 2026-05-06" style="width:180px;">
+              <input type="text" class="meta-input" id="postCategory" placeholder="点击下方选择分类" style="width:150px;">
+              <input type="text" class="meta-input" id="postTags" placeholder="点击下方选择标签" style="width:190px;">
+              <input type="text" class="meta-input" id="postSlug" placeholder="slug" style="width:130px;">
+              <input type="text" class="meta-input" id="postCover" placeholder="封面图" style="flex:1;min-width:180px;">
+              <button class="btn btn-sm" onclick="showCoverPicker()">选封面</button>
+            </div>
+            <div id="catChips" class="editor-chips"></div>
+            <div id="tagChips" class="editor-chips"></div>
+          </div>
+          <div class="editor-toolbar">
+            <button class="toolbar-btn" onclick="insertAtLine('---')">— 分割线</button>
+            <button class="toolbar-btn" onclick="insertAtLine('**粗体**')"><b>B</b></button>
+            <button class="toolbar-btn" onclick="insertAtLine('*斜体*')"><i>I</i></button>
+            <button class="toolbar-btn" onclick="insertAtLine('\`代码\`')">代码</button>
+            <button class="toolbar-btn" onclick="insertAtLine('\n\`\`\`\n\n\`\`\`')">代码块</button>
+            <button class="toolbar-btn" onclick="insertAtLine('\n> ')">引用</button>
+            <button class="toolbar-btn" onclick="insertAtLine('\n- ')">列表</button>
+            <button class="toolbar-btn" onclick="insertAtLine('\n1. ')">数字列表</button>
+            <button class="toolbar-btn" onclick="showImagePicker()" style="color:var(--accent);border-color:rgba(24,119,242,0.3);">🖼 图库选图</button>
+          </div>
+          <textarea class="editor-textarea" id="postContent" placeholder="开始写文章…"></textarea>
+        </div>
       </div>
-      <div class="editor-toolbar">
-        <button class="toolbar-btn" onclick="insertAtLine('---')" title="分割线">分割线</button>
-        <button class="toolbar-btn" onclick="insertAtLine('**粗体**')" title="粗体">B</button>
-        <button class="toolbar-btn" onclick="insertAtLine('*斜体*')" title="斜体"><i>I</i></button>
-        <button class="toolbar-btn" onclick="insertAtLine('`代码`')" title="行内代码">代码</button>
-        <button class="toolbar-btn" onclick="insertAtLine('\n```\n\n```')" title="代码块">代码块</button>
-        <button class="toolbar-btn" onclick="insertAtLine('\n> ')">引用</button>
-        <button class="toolbar-btn" onclick="insertAtLine('\n- ')">列表</button>
-        <button class="toolbar-btn" onclick="insertAtLine('\n1. ')">数字列表</button>
-        <button class="toolbar-btn" onclick="showImagePicker()">图库选图</button>
-      </div>
-      <textarea class="editor-textarea" id="postContent" placeholder="开始写文章..."></textarea>
-      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn btn-primary" onclick="savePost()">保存文章</button>
-        <button class="btn btn-primary" onclick="saveAndPublish()">保存并发布</button>
-        <button class="btn btn-danger" id="deletePostBtn" onclick="deletePost()" style="display:none;">删除</button>
-      </div>
-    </div>
 
+      <!-- ▸ 设置 -->
+      <div id="tab-settings" class="tab-content">
+        <div class="page-header"><h1>系统设置</h1></div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-header"><h2>连接状态</h2></div>
+          <div class="card-body">
+            <div class="setting-row"><span class="setting-label">API 连接</span><span class="setting-value api-status"><span class="status-dot" id="apiDot"></span> <span id="apiStatus">检测中…</span></span></div>
+            <div class="setting-row"><span class="setting-label">GitHub 仓库</span><span class="setting-value">youquyoulai/blog</span></div>
+            <div class="setting-row"><span class="setting-label">R2 图库</span><span class="setting-value">imgpg → img.pgoj.top</span></div>
+            <div class="setting-row"><span class="setting-label">Waline API</span><span class="setting-value">waline.pgoj.top</span></div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-header"><h2>图片处理说明</h2></div>
+          <div class="card-body">
+            <div class="setting-row"><span class="setting-label">处理方式</span><span class="setting-value">前端 Canvas 多尺寸生成</span></div>
+            <div class="setting-row"><span class="setting-label">生成版本</span><span class="setting-value">orig (最大1920) / 800 (文章配图) / 300 (缩略图)</span></div>
+            <div class="setting-row"><span class="setting-label">格式</span><span class="setting-value">全部转为 WebP</span></div>
+            <div class="setting-row"><span class="setting-label">质量</span><span class="setting-value">85%</span></div>
+            <div class="setting-row"><span class="setting-label">费用</span><span class="setting-value" style="color:var(--green);">完全免费，无 Cloudflare 计费</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h2>使用说明</h2></div>
+          <div class="card-body" style="font-size:0.875rem;color:var(--muted);line-height:2.2;">
+            1. 图库：上传图片自动到 R2，展开图片组可复制链接<br>
+            2. 图片：自动生成 orig / 800 / 300 三种尺寸的 WebP，全部免费<br>
+            3. 文章：用 @image:图片名.png 语法插入图片<br>
+            4. 发布：点击顶栏「发布」按钮触发博客重新构建<br>
+            5. 评论：前往 <a href="https://waline.pgoj.top/manage" target="_blank">Waline 后台</a> 管理评论
+          </div>
+        </div>
+      </div>
 
-
-    <!-- 设置 -->
-    <div id="tab-settings" class="tab-content">
-      <h2 style="font-size:1rem;color:var(--accent2);margin-bottom:16px;">设置</h2>
-      <div class="settings-group">
-        <h3>连接状态</h3>
-        <div class="setting-row">
-          <span class="setting-label">API 连接</span>
-          <span class="setting-value api-status"><span class="status-dot" id="apiDot"></span> <span id="apiStatus">检测中...</span></span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label">GitHub 仓库</span>
-          <span class="setting-value">youquyoulai/blog</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label">R2 图库</span>
-          <span class="setting-value">imgpg → img.pgoj.top</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label">Waline API</span>
-          <span class="setting-value">waline.pgoj.top</span>
-        </div>
-      </div>
-      <div class="settings-group">
-        <h3>使用说明</h3>
-        <p style="font-size:0.85rem;color:var(--muted);line-height:1.8;">
-          1. 图库：上传图片自动到 R2，点击图片可复制链接<br>
-          2. 图片上传：自动生成 orig / 800 / 300 三种尺寸的 WebP 版本，全部免费无额外费用；插入时用 <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-size:0.8rem;">-800.webp</code> 是文章配图，<code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-size:0.8rem;">-300.webp</code> 是缩略图；可取消勾选"自动压缩"上传原图<br>
-          3. 文章：用 @image:图片名.png 语法插入图片<br>
-          4. 发布：点击"发布"按钮触发博客重新构建<br>
-          5. 评论：前往 <a href="https://waline.pgoj.top/manage" target="_blank" style="color:var(--accent);">Waline 后台</a> 管理评论
-        </p>
-      </div>
-      <div class="settings-group">
-        <h3>图片处理说明</h3>
-        <div class="setting-row">
-          <span class="setting-label">处理方式</span>
-          <span class="setting-value">前端 Canvas 多尺寸生成</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label">生成版本</span>
-          <span class="setting-value">orig (最大1920) / 800 (文章配图) / 300 (缩略图)</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label">格式</span>
-          <span class="setting-value">全部转为 WebP</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label">质量</span>
-          <span class="setting-value">85%</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label">费用</span>
-          <span class="setting-value" style="color:var(--green);">完全免费，无 Cloudflare 计费</span>
-        </div>
-      </div>
-    </div>
+    </div><!-- /page-body -->
   </main>
 
-  <!-- 底部导航 -->
-  <nav class="bottom-nav">
-    <div class="bottom-nav-inner">
-      <button class="nav-item active" data-tab="images" onclick="switchTab('images')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
-        <span>图库</span>
-      </button>
-      <button class="nav-item" data-tab="posts" onclick="switchTab('posts')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        <span>文章</span>
-      </button>
-      <button class="nav-item" data-tab="comments" onclick="switchTab('comments')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <span>评论</span>
-      </button>
-      <button class="nav-item" data-tab="taxonomies" onclick="switchTab('taxonomies')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 0 1 0 2.828l-7 7a2 2 0 0 1-2.828 0l-7-7A1.994 1.994 0 0 1 3 12V7a4 4 0 0 1 4-4z"/></svg>
-        <span>分类</span>
-      </button>
-      <button class="nav-item" data-tab="wenhui" onclick="switchTab('wenhui')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        <span>文汇</span>
-      </button>
-      <button class="nav-item" data-tab="links" onclick="switchTab('links')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-        <span>友链</span>
-      </button>
-      <button class="nav-item" data-tab="pages" onclick="switchTab('pages')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-        <span>页面</span>
-      </button>
-      <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-        <span>设置</span>
-      </button>
-    </div>
-  </nav>
-</div>
+</div><!-- /app -->
 
-<!-- 图片预览模态框 -->
+<!-- ── 图片预览模态框 ── -->
 <div class="modal" id="imgModal" onclick="closeModal()">
   <img id="modalImg" src="" alt="">
   <div class="modal-info" id="modalInfo"></div>
   <div class="modal-actions">
     <button class="btn btn-sm" onclick="copyUrl300(event)">缩略图</button>
-    <button class="btn" onclick="copyUrl(event)">原图</button>
-    <button class="btn" onclick="copyMarkdown(event)">复制MD</button>
-    <button class="btn btn-danger" onclick="deleteImg(event)">删除</button>
+    <button class="btn btn-sm" onclick="copyUrl(event)">原图</button>
+    <button class="btn btn-sm" onclick="copyMarkdown(event)">复制 MD</button>
+    <button class="btn btn-sm btn-danger" onclick="deleteImg(event)">删除</button>
   </div>
 </div>
 
-<!-- 图库选择模态框 -->
+<!-- ── 图库选择模态框 ── -->
 <div class="modal" id="pickerModal" onclick="if(event.target===this)closePicker()">
-  <div style="background:var(--card);border-radius:12px;width:90%;max-width:800px;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;">
-    <div style="padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);">
-      <span style="font-weight:500;" id="pickerTitle">选择图片插入</span>
-      <button class="btn btn-sm" onclick="closePicker()">关闭</button>
+  <div class="modal-card" style="max-width:860px;">
+    <div class="modal-header">
+      <h3 id="pickerTitle">选择图片</h3>
+      <button class="btn btn-sm btn-ghost" onclick="closePicker()">关闭</button>
     </div>
-    <div id="sizeSelector" style="display:none;"></div>
-    <div id="pickerGrid" style="flex:1;overflow-y:auto;padding:12px;"></div>
-    <div style="padding:12px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;">
-      <button class="btn" onclick="closePicker()">取消</button>
+    <div id="sizeSelector" style="padding:0 20px;"></div>
+    <div id="pickerGrid" style="flex:1;overflow-y:auto;padding:16px;"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closePicker()">取消</button>
       <button class="btn btn-primary" onclick="confirmPicker()" id="confirmBtn">插入选中</button>
     </div>
   </div>
 </div>
 
-<!-- 隐藏的input -->
+<!-- ── 回复评论模态框 ── -->
+<div class="modal" id="replyModal" onclick="if(event.target===this)closeReplyModal()">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3>回复评论</h3>
+      <button class="btn btn-sm btn-ghost" onclick="closeReplyModal()">关闭</button>
+    </div>
+    <div class="modal-body">
+      <div id="replyToInfo" style="background:var(--input-bg);padding:12px;border-radius:var(--radius);margin-bottom:16px;font-size:0.85rem;color:var(--muted);"></div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;">
+        <input type="text" id="replyNick" placeholder="昵称" value="平哥" style="padding:9px 12px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.9rem;outline:none;">
+        <input type="email" id="replyMail" placeholder="邮箱" value="wuliwuju@126.com" style="padding:9px 12px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.9rem;outline:none;">
+        <input type="url" id="replyLink" placeholder="网址" value="https://www.pgoj.top" style="padding:9px 12px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.9rem;outline:none;">
+      </div>
+      <textarea id="replyContent" placeholder="回复内容…" style="width:100%;min-height:120px;padding:12px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.9rem;line-height:1.6;resize:vertical;outline:none;"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeReplyModal()">取消</button>
+      <button class="btn btn-primary" onclick="submitReply()">发送回复</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── 隐藏元素 ── -->
 <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)" style="display:none">
 <input type="file" id="folderInput" webkitdirectory onchange="handleFiles(this.files)" style="display:none">
-<div class="toast" id="toast"></div>
+<div id="toast"></div>
 
 <script>
 const API_BASE = 'https://api.pgoj.top/wgpjyhxlxn';
@@ -665,6 +690,19 @@ let currentPostPrefix = '';
 let currentSection = 'posts';
 let pickerPrefix = '';          // 选图器当前文件夹前缀
 
+
+/* ===== 侧边栏控制（移动端） ===== */
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  var ov = document.getElementById('sidebarOverlay');
+  if (ov) ov.classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  var ov = document.getElementById('sidebarOverlay');
+  if (ov) ov.classList.remove('open');
+}
+
 /* ===== 初始化 ===== */
 function init() {
   if (token) { showApp(); checkApi(); } else { showLogin(); }
@@ -678,8 +716,10 @@ function showLogin() {
 function showApp() {
   document.getElementById('loginPage').style.display = 'none';
   document.getElementById('app').style.display = 'block';
+  // Token 显示在侧边栏底部
   var t = token.substring(0, 8);
-  document.getElementById('currentTokenDisplay').textContent = t + '...';
+  var te = document.getElementById('currentTokenDisplay');
+  if (te) te.textContent = 'Token: ' + t + '...';
 }
 
 function doLogin() {
@@ -856,6 +896,15 @@ function switchTab(name) {
   if (name === 'pages') loadPages();
   if (name === 'settings') checkApi();
   if (name === 'editor') loadTaxonomyHints();
+
+  // 同步顶栏标题
+  var titles = {
+    'images':'图库', 'posts':'文章', 'comments':'评论', 'taxonomies':'分类 / 标签',
+    'wenhui':'文汇 RSS', 'links':'友链', 'pages':'独立页面', 'settings':'系统设置',
+    'editor':'编辑文章', 'pageEditor':'编辑页面'
+  };
+  var titleEl = document.getElementById('topbarTitle');
+  if (titleEl) titleEl.textContent = titles[name] || name;
 }
 
 /* ===== 工具函数 ===== */
@@ -1259,7 +1308,7 @@ async function loadPosts(prefix) {
     var allPosts = Array.isArray(data) ? data : (data.posts || []);
 
     // 按年月分组（文件名格式: YYYY-MM-DD-slug.md）
-    var groups = {};
+    var groups = {}; // key: 'YYYY-MM'
     allPosts.forEach(function(p) {
       var m = p.name.match(/^(\d{4})-(\d{2})-/);
       if (!m) return;
@@ -1268,40 +1317,74 @@ async function loadPosts(prefix) {
       groups[key].push(p);
     });
 
-    // 按年月降序排序
-    var sortedKeys = Object.keys(groups).sort().reverse();
-    var totalPosts = allPosts.length;
+    // 按年分组
+    var yearGroups = {}; // key: 'YYYY', value: { months: {...}, count: N }
+    Object.keys(groups).forEach(function(ym) {
+      var year = ym.split('-')[0];
+      if (!yearGroups[year]) yearGroups[year] = { months: {}, count: 0 };
+      yearGroups[year].months[ym] = groups[ym];
+      yearGroups[year].count += groups[ym].length;
+    });
 
-    // 渲染文件夹导航
+    var totalPosts = allPosts.length;
     var navEl = document.getElementById('postFolderNav');
+
+    // 解析 prefix 层级: '' = 根, 'YYYY/' = 年级, 'YYYY-MM/' = 月级
+    var yearMatch = prefix ? prefix.match(/^(\d{4})\/$/) : null;
+    var monthMatch = prefix ? prefix.match(/^(\d{4})-(\d{2})\/$/) : null;
+
     if (!prefix) {
-      // 根目录：显示年月文件夹
+      // ── 根目录：显示年份文件夹 ──
+      var sortedYears = Object.keys(yearGroups).sort().reverse();
       var navHtml = '<div style="margin-bottom:12px;">' +
         '<span style="color:var(--muted);font-size:0.85rem;">共 ' + totalPosts + ' 篇</span>';
-      if (sortedKeys.length > 0) {
+      if (sortedYears.length > 0) {
         navHtml += ' <span style="color:var(--muted);font-size:0.85rem;">·</span> ';
-        sortedKeys.forEach(function(key) {
-          navHtml += '<button class="btn btn-sm" style="margin-right:6px;margin-bottom:6px;" onclick="loadPosts(\'' + key + '/\')">📁 ' + key + ' (' + groups[key].length + ')</button>';
+        sortedYears.forEach(function(year) {
+          navHtml += '<button class="btn btn-sm" style="margin-right:6px;margin-bottom:6px;" onclick="loadPosts(\'' + year + '/\')">📁 ' + year + '年 (' + yearGroups[year].count + ')</button>';
         });
       }
       navHtml += '</div>';
       navEl.innerHTML = navHtml;
       el.innerHTML = '';
-    } else {
-      // 文件夹内：显示面包屑 + 该月文章
-      var parts = prefix.replace(/\/$/, '').split('-');
-      var year = parts[0], month = parts[1];
+
+    } else if (yearMatch) {
+      // ── 年级目录：显示该年各月文件夹 ──
+      var year = yearMatch[1];
+      var yg = yearGroups[year] || { months: {}, count: 0 };
+      var sortedMonths = Object.keys(yg.months).sort().reverse();
       var navHtml = '<div style="margin-bottom:12px;">' +
-        '<span style="cursor:pointer;color:var(--accent);" onclick="loadPosts(\'\')">📁 根目录</span>' +
+        '<span style="cursor:pointer;color:var(--accent);" onclick="loadPosts(\'\')">📁 全部</span>' +
         ' <span style="color:var(--muted);">›</span> ' +
-        '<span style="color:var(--accent2);font-weight:500;">' + year + '年 ' + month + '月</span>' +
-        ' <span style="color:var(--muted);font-size:0.85rem;">(' + groups[prefix.replace(/\/$/,'')]?.length + ' 篇)</span>' +
+        '<span style="color:var(--accent2);font-weight:500;">' + year + '年</span>' +
+        ' <span style="color:var(--muted);font-size:0.85rem;">(' + yg.count + ' 篇)</span>';
+      if (sortedMonths.length > 0) {
+        navHtml += ' <span style="color:var(--muted);font-size:0.85rem;margin-left:10px;">·</span> ';
+        sortedMonths.forEach(function(ym) {
+          var month = ym.split('-')[1];
+          navHtml += '<button class="btn btn-sm" style="margin-right:6px;margin-bottom:6px;" onclick="loadPosts(\'' + ym + '/\')">📁 ' + month + '月 (' + yg.months[ym].length + ')</button>';
+        });
+      }
+      navHtml += '</div>';
+      navEl.innerHTML = navHtml;
+      el.innerHTML = '';
+
+    } else if (monthMatch) {
+      // ── 月级目录：显示该月文章列表 ──
+      var year = monthMatch[1], month = monthMatch[2];
+      var ym = year + '-' + month;
+      var posts = groups[ym] || [];
+      posts.sort(function(a, b) { return b.name.localeCompare(a.name); });
+      var navHtml = '<div style="margin-bottom:12px;">' +
+        '<span style="cursor:pointer;color:var(--accent);" onclick="loadPosts(\'\')">📁 全部</span>' +
+        ' <span style="color:var(--muted);">›</span> ' +
+        '<span style="cursor:pointer;color:var(--accent);" onclick="loadPosts(\'' + year + '/\')">' + year + '年</span>' +
+        ' <span style="color:var(--muted);">›</span> ' +
+        '<span style="color:var(--accent2);font-weight:500;">' + month + '月</span>' +
+        ' <span style="color:var(--muted);font-size:0.85rem;">(' + posts.length + ' 篇)</span>' +
         '</div>';
       navEl.innerHTML = navHtml;
 
-      // 渲染该月文章
-      var posts = groups[prefix.replace(/\/$/, '')] || [];
-      posts.sort(function(a, b) { return b.name.localeCompare(a.name); });
       var html = '<div class="post-list">';
       posts.forEach(function(p) {
         html += '<div class="post-item" onclick="editPost(\'' + encodeURIComponent(p.name) + '\')">' +

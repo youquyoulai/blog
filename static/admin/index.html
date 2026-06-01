@@ -772,6 +772,8 @@ let editingFile = null;
 let pickerMode = false;
 let coverPickerMode = false;
 let currentPrefix = '';
+let currentImageYear = '';   // 图片库年份视图
+let allImageFolders = [];  // 缓存所有文件夹供前端分组
 let currentFolderName = '';
 let currentPostPrefix = '';
 let currentSection = 'posts';
@@ -1017,6 +1019,7 @@ async function loadImages(prefix) {
   // prefix: 文件夹前缀，如 "2026-05/"；传 null/undefined 则回到根目录
   if (prefix !== undefined) {
     currentPrefix = prefix || '';
+    if (!currentPrefix) currentImageYear = ''; // 回到根目录时重置年份视图
   }
   var el = document.getElementById('imgList');
   var folderNav = document.getElementById('folderNav');
@@ -1034,6 +1037,7 @@ async function loadImages(prefix) {
 
     // 渲染文件夹导航
     var folders = data.folders || [];
+    allImageFolders = folders; // 缓存供前端分组使用
     if (currentPrefix || folders.length > 0) {
       folderNav.style.display = 'block';
       renderFolderBreadcrumb(folderBreadcrumb);
@@ -1050,12 +1054,20 @@ async function loadImages(prefix) {
 }
 
 function renderFolderBreadcrumb(el) {
+  if (!currentPrefix && !currentImageYear) {
+    el.innerHTML = '<span style="color:var(--accent2);font-weight:600;">📁 全部图片</span>';
+    return;
+  }
+  if (!currentPrefix && currentImageYear) {
+    el.innerHTML = '<span style="cursor:pointer;color:var(--accent);" onclick="backToImageYears()">📁 全部</span> / <span style="color:var(--accent2);font-weight:600;">' + currentImageYear + ' 年</span>';
+    return;
+  }
   if (!currentPrefix) {
-    el.innerHTML = '<span style="color:var(--accent2);font-weight:600;">📁 根目录（所有月份）</span>';
+    el.innerHTML = '<span style="color:var(--accent2);font-weight:600;">📁 ' + escHtml(currentPrefix.replace(/\/$/,'')) + '</span>';
     return;
   }
   var parts = currentPrefix.replace(/\/$/, '').split('/').filter(Boolean);
-  var html = '<span style="cursor:pointer;color:var(--accent);" onclick="loadImages(\'\')">📁 根目录</span>';
+  var html = '<span style="cursor:pointer;color:var(--accent);" onclick="loadImages(\'\')">📁 全部</span>';
   var built = '';
   for (var i = 0; i < parts.length; i++) {
     built += parts[i] + '/';
@@ -1067,17 +1079,71 @@ function renderFolderBreadcrumb(el) {
 }
 
 function renderFolders(el, folders) {
-  if (!folders || folders.length === 0) { el.innerHTML = ''; return; }
-  var html = '';
-  for (var i = 0; i < folders.length; i++) {
-    var f = folders[i];
-    html += '<div style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:0.85rem;hover:border-color:var(--accent);" onclick="loadImages(\'' + escAttr(f.prefix) + '\')">📁 ' + escHtml(f.name) + '</div>';
+  // 根目录 + 已选年份 → 显示该年份的月份文件夹
+  if (!currentPrefix && currentImageYear) {
+    var yearFolders = (allImageFolders || []).filter(function(f) {
+      return (f.name || '').startsWith(currentImageYear + '-');
+    });
+    var html = '<button class="folder-btn" onclick="backToImageYears()" style="margin-right:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg> 返回</button>';
+    for (var i = 0; i < yearFolders.length; i++) {
+      var f = yearFolders[i];
+      html += '<div class="folder-btn" onclick="loadImages(\'' + escAttr(f.prefix) + '\')">📁 ' + escHtml(f.name) + '</div>';
+    }
+    el.innerHTML = html;
+    return;
   }
-  el.innerHTML = html;
+  // 根目录 + 未选年份 → 按年份聚合显示
+  if (!currentPrefix && !currentImageYear) {
+    var yearMap = {};
+    (allImageFolders || []).forEach(function(f) {
+      var m = (f.name || '').match(/^(\d{4})-/);
+      if (m) {
+        if (!yearMap[m[1]]) yearMap[m[1]] = 0;
+        yearMap[m[1]]++;
+      }
+    });
+    var years = Object.keys(yearMap).sort().reverse();
+    if (years.length === 0) { el.innerHTML = ''; return; }
+    var html2 = '';
+    for (var j = 0; j < years.length; j++) {
+      var y = years[j];
+      html2 += '<div class="folder-btn" onclick="clickImageYear(\'' + y + '\')">📁 ' + y + ' 年 <span style="color:var(--muted);font-size:0.75rem;">(' + yearMap[y] + ')</span></div>';
+    }
+    el.innerHTML = html2;
+    return;
+  }
+  // 已进入某个文件夹 → 显示子文件夹（原有逻辑）
+  if (!folders || folders.length === 0) { el.innerHTML = ''; return; }
+  var html3 = '';
+  for (var k = 0; k < folders.length; k++) {
+    var ff = folders[k];
+    html3 += '<div class="folder-btn" onclick="loadImages(\'' + escAttr(ff.prefix) + '\')">📁 ' + escHtml(ff.name) + '</div>';
+  }
+  el.innerHTML = html3;
 }
 
 function escAttr(s) {
   return String(s).replace(/&/g,'&amp;').replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+}
+
+/* 图片库年份视图 */
+function clickImageYear(year) {
+  currentImageYear = year;
+  var folderNav = document.getElementById('folderNav');
+  var folderBreadcrumb = document.getElementById('folderBreadcrumb');
+  var folderList = document.getElementById('folderList');
+  folderNav.style.display = 'block';
+  renderFolderBreadcrumb(folderBreadcrumb);
+  renderFolders(folderList, []);
+}
+function backToImageYears() {
+  currentImageYear = '';
+  var folderNav = document.getElementById('folderNav');
+  var folderBreadcrumb = document.getElementById('folderBreadcrumb');
+  var folderList = document.getElementById('folderList');
+  folderNav.style.display = 'block';
+  renderFolderBreadcrumb(folderBreadcrumb);
+  renderFolders(folderList, []);
 }
 
 // 上传：获取当前目标前缀

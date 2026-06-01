@@ -108,7 +108,24 @@
     .btn-danger:hover { background:var(--red); color:white; }
     .btn-ghost { border-color:transparent; background:transparent; }
     .btn-ghost:hover { background:var(--input-bg); border-color:var(--border); color:var(--text); }
+    .btn-warning { border-color:var(--orange); color:var(--orange); }
+    .btn-warning:hover { background:var(--orange); color:white; }
     .btn-sm { padding:5px 11px; font-size:0.8rem; }
+    .btn-xs { padding:3px 8px; font-size:0.72rem; border-radius:6px; gap:3px; }
+    /* 胶囊操作按钮（评论/列表项） */
+    .action-btn { display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border-radius:100px; font-size:0.75rem; font-weight:500; cursor:pointer; border:1px solid var(--border); background:var(--surface); color:var(--muted); transition:all 0.15s; white-space:nowrap; }
+    .action-btn:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-bg); }
+    .action-btn svg { width:12px; height:12px; }
+    .action-btn.approve { border-color:rgba(0,164,0,0.3); color:var(--green); }
+    .action-btn.approve:hover { background:rgba(0,164,0,0.1); border-color:var(--green); }
+    .action-btn.spam { border-color:rgba(245,158,11,0.3); color:var(--orange); }
+    .action-btn.spam:hover { background:rgba(245,158,11,0.1); border-color:var(--orange); }
+    .action-btn.reply { border-color:rgba(24,119,242,0.3); color:var(--accent); }
+    .action-btn.reply:hover { background:var(--accent-bg); border-color:var(--accent); }
+    .action-btn.del { border-color:rgba(228,30,63,0.2); color:var(--red); }
+    .action-btn.del:hover { background:rgba(228,30,63,0.08); border-color:var(--red); }
+    .action-btn.edit { border-color:rgba(66,184,131,0.3); color:var(--accent2); }
+    .action-btn.edit:hover { background:rgba(66,184,131,0.08); border-color:var(--accent2); }
     .deploy-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 18px; border-radius:var(--radius); font-size:0.875rem; font-weight:600; cursor:pointer; background:var(--accent); color:white; border:none; transition:0.15s; box-shadow:0 1px 3px rgba(24,119,242,0.4); }
     .deploy-btn:hover { background:#166fe5; }
     .deploy-btn svg { width:14px; height:14px; }
@@ -176,6 +193,23 @@
     .post-list { display:flex; flex-direction:column; gap:8px; }
     .post-item { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:14px 18px; cursor:pointer; transition:all 0.15s; display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
     .post-item:hover { border-color:var(--accent); box-shadow:0 2px 8px rgba(24,119,242,0.08); }
+    /* 评论卡片 */
+    .comment-card { cursor:default; }
+    .comment-card .comment-actions { display:flex; gap:6px; flex-shrink:0; align-items:center; flex-wrap:wrap; }
+    /* 列表卡片（文汇/友链项） */
+    .list-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:14px 18px; transition:all 0.15s; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .list-card:hover { border-color:var(--accent); box-shadow:0 2px 8px rgba(24,119,242,0.08); }
+    .list-card-info { flex:1; min-width:0; }
+    .list-card-title { font-size:0.9rem; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .list-card-sub { font-size:0.75rem; color:var(--muted); margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .list-card-badge { display:inline-flex; align-items:center; gap:3px; font-size:0.7rem; padding:2px 8px; border-radius:100px; font-weight:500; margin-top:4px; }
+    .list-card-badge.rss { background:rgba(245,158,11,0.1); color:var(--orange); }
+    .list-card-badge.cat { background:rgba(66,184,131,0.1); color:var(--accent2); }
+    .list-card-actions { display:flex; gap:6px; flex-shrink:0; }
+    /* 友链分类头 */
+    .link-cat-header { display:flex; justify-content:space-between; align-items:center; padding:10px 16px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); margin-bottom:8px; }
+    .link-cat-header h3 { font-size:0.9rem; font-weight:600; color:var(--accent2); display:flex; align-items:center; gap:6px; margin:0; }
+    .link-cat-header h3 svg { width:15px; height:15px; }
     .post-item-main { flex:1; min-width:0; }
     .post-item-title { font-size:0.95rem; font-weight:600; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .post-item-meta { font-size:0.78rem; color:var(--muted); display:flex; gap:12px; flex-wrap:wrap; }
@@ -365,8 +399,14 @@
         <div class="page-header">
           <div><h1>图库</h1><div class="page-meta">R2 对象存储 · img.pgoj.top</div></div>
           <div style="display:flex;gap:8px;">
-            <button class="btn btn-sm btn-ghost" onclick="loadImages()">刷新</button>
-            <button class="btn btn-sm btn-danger" id="batchDelBtn" style="display:none;" onclick="batchDelete()">删除选中</button>
+            <button class="btn btn-sm btn-ghost" onclick="loadImages()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              刷新
+            </button>
+            <button class="btn btn-sm btn-danger" id="batchDelBtn" style="display:none;" onclick="batchDelete()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"/></svg>
+              删除选中
+            </button>
           </div>
         </div>
         <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
@@ -416,11 +456,14 @@
           <h1>评论管理</h1>
           <div style="display:flex;gap:8px;align-items:center;">
             <select id="commentFilter" onchange="loadComments()" style="padding:7px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.85rem;outline:none;">
-              <option value="">全部</option>
+              <option value="">全部评论</option>
               <option value="approved">已批准</option>
               <option value="waiting">待审核</option>
             </select>
-            <button class="btn btn-sm btn-ghost" onclick="loadComments()">刷新</button>
+            <button class="btn btn-sm btn-ghost" onclick="loadComments()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              刷新
+            </button>
           </div>
         </div>
         <div id="commentList"></div>
@@ -449,8 +492,11 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               添加 RSS 源
             </button>
-            <button class="btn btn-success" onclick="saveWenhuiAndDeploy()">保存并发布</button>
-            <button class="btn" onclick="saveWenhui()">仅保存</button>
+            <button class="btn btn-success" onclick="saveWenhuiAndDeploy()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              保存并发布
+            </button>
+            <button class="btn btn-ghost" onclick="saveWenhui()">仅保存</button>
           </div>
         </div>
         <div id="wenhuiList"></div>
@@ -460,7 +506,10 @@
           <div class="form-field"><label>RSS 地址</label><input type="text" id="wenhuiUrl" placeholder="如：https://example.com/feed.xml"></div>
           <div class="form-field"><label>分类（可选）</label><input type="text" id="wenhuiCat" placeholder="如：博客 / 科技"></div>
           <div class="form-actions">
-            <button class="btn btn-primary" onclick="wenhuiFormSubmit()">保存</button>
+            <button class="btn btn-primary" onclick="wenhuiFormSubmit()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>
+              保存
+            </button>
             <button class="btn btn-ghost" onclick="hideWenhuiForm()">取消</button>
           </div>
         </div>
@@ -475,8 +524,11 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               添加分类
             </button>
-            <button class="btn btn-success" onclick="saveLinksAndDeploy()">保存并发布</button>
-            <button class="btn" onclick="saveLinks()">仅保存</button>
+            <button class="btn btn-success" onclick="saveLinksAndDeploy()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              保存并发布
+            </button>
+            <button class="btn btn-ghost" onclick="saveLinks()">仅保存</button>
           </div>
         </div>
         <div id="linksList"></div>
@@ -487,7 +539,10 @@
           <div class="form-field"><label>链接地址</label><input type="text" id="linkFormUrl" placeholder="如：https://szhshp.org"></div>
           <div class="form-field"><label>RSS 地址（可选）</label><input type="text" id="linkFormRss" placeholder="如：https://szhshp.org/rss.xml"></div>
           <div class="form-actions">
-            <button class="btn btn-primary" onclick="linkFormSubmit()">保存</button>
+            <button class="btn btn-primary" onclick="linkFormSubmit()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>
+              保存
+            </button>
             <button class="btn btn-ghost" onclick="hideLinkForm()">取消</button>
           </div>
         </div>
@@ -495,7 +550,10 @@
           <h3 id="linkCatFormTitle">添加分类</h3>
           <div class="form-field"><label>分类名称</label><input type="text" id="linkCatFormName" placeholder="如：工具箱"></div>
           <div class="form-actions">
-            <button class="btn btn-primary" onclick="linkCatFormSubmit()">保存</button>
+            <button class="btn btn-primary" onclick="linkCatFormSubmit()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>
+              保存
+            </button>
             <button class="btn btn-ghost" onclick="hideLinkCatForm()">取消</button>
           </div>
         </div>
@@ -531,8 +589,14 @@
           <div class="editor-toolbar"><span style="font-size:0.78rem;color:var(--muted);padding:5px 4px;">Markdown</span></div>
           <textarea class="editor-textarea" id="pageContent" placeholder="页面内容，支持 Markdown…"></textarea>
           <div class="editor-actions">
-            <button class="btn btn-primary" onclick="savePage()">保存页面</button>
-            <button class="btn btn-danger" id="deletePageBtn" onclick="deletePage()" style="display:none;">删除</button>
+            <button class="btn btn-primary" onclick="savePage()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
+              保存页面
+            </button>
+            <button class="btn btn-danger" id="deletePageBtn" onclick="deletePage()" style="display:none;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"/></svg>
+              删除
+            </button>
           </div>
         </div>
       </div>
@@ -545,12 +609,24 @@
             返回列表
           </button>
           <div style="display:flex;gap:8px;">
-            <button class="btn btn-primary" onclick="savePost()">保存</button>
-            <button class="btn btn-success" onclick="saveAndPublish()">保存并发布</button>
-            <button class="btn btn-danger" id="deletePostBtn" onclick="deletePost()" style="display:none;">删除</button>
+            <button class="btn btn-primary" onclick="savePost()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
+              保存
+            </button>
+            <button class="btn btn-success" onclick="saveAndPublish()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              保存并发布
+            </button>
+            <button class="btn btn-danger" id="deletePostBtn" onclick="deletePost()" style="display:none;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"/></svg>
+              删除
+            </button>
           </div>
         </div>
-        <div class="editor-hint" style="margin-bottom:16px;">插入图片：点击工具栏「图库选图」，或直接写 <code>@image:图片名称-300.webp</code></div>
+        <div class="editor-hint" style="margin-bottom:16px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          插入图片：点击工具栏「图库选图」，或直接写 <code>@image:图片名称-300.webp</code>
+        </div>
         <div class="editor-wrap">
           <div class="editor-meta-bar">
             <input type="text" class="editor-title-input" id="postTitle" placeholder="文章标题">
@@ -560,21 +636,30 @@
               <input type="text" class="meta-input" id="postTags" placeholder="点击下方选择标签" style="width:190px;">
               <input type="text" class="meta-input" id="postSlug" placeholder="slug" style="width:130px;">
               <input type="text" class="meta-input" id="postCover" placeholder="封面图" style="flex:1;min-width:180px;">
-              <button class="btn btn-sm" onclick="showCoverPicker()">选封面</button>
+              <button class="btn btn-sm" onclick="showCoverPicker()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+                选封面
+              </button>
             </div>
             <div id="catChips" class="editor-chips"></div>
             <div id="tagChips" class="editor-chips"></div>
           </div>
           <div class="editor-toolbar">
-            <button class="toolbar-btn" onclick="insertAtLine('---')">— 分割线</button>
-            <button class="toolbar-btn" onclick="insertAtLine('**粗体**')"><b>B</b></button>
-            <button class="toolbar-btn" onclick="insertAtLine('*斜体*')"><i>I</i></button>
-            <button class="toolbar-btn" onclick="insertAtLine('\`代码\`')">代码</button>
-            <button class="toolbar-btn" onclick="insertAtLine('\n\`\`\`\n\n\`\`\`')">代码块</button>
-            <button class="toolbar-btn" onclick="insertAtLine('\n> ')">引用</button>
-            <button class="toolbar-btn" onclick="insertAtLine('\n- ')">列表</button>
-            <button class="toolbar-btn" onclick="insertAtLine('\n1. ')">数字列表</button>
-            <button class="toolbar-btn" onclick="showImagePicker()" style="color:var(--accent);border-color:rgba(24,119,242,0.3);">🖼 图库选图</button>
+            <button class="toolbar-btn" onclick="insertAtLine('---')" title="分割线">—</button>
+            <button class="toolbar-btn" onclick="insertAtLine('**粗体**')" title="粗体"><b>B</b></button>
+            <button class="toolbar-btn" onclick="insertAtLine('*斜体*')" title="斜体"><i>I</i></button>
+            <button class="toolbar-btn" onclick="insertAtLine('\`代码\`')" title="行内代码">&lt;/&gt;</button>
+            <button class="toolbar-btn" onclick="insertAtLine('\n\`\`\`\n\n\`\`\`')" title="代码块">{ }</button>
+            <button class="toolbar-btn" onclick="insertAtLine('\n> ')" title="引用">❝</button>
+            <button class="toolbar-btn" onclick="insertAtLine('\n- ')" title="列表">• 列表</button>
+            <button class="toolbar-btn" onclick="insertAtLine('\n1. ')" title="数字列表">1.</button>
+            <button class="toolbar-btn" onclick="insertAtLine('\n## ')" title="二级标题">H2</button>
+            <button class="toolbar-btn" onclick="insertAtLine('\n### ')" title="三级标题">H3</button>
+            <span style="flex:1;"></span>
+            <button class="toolbar-btn" onclick="showImagePicker()" style="color:var(--accent);border-color:rgba(24,119,242,0.3);background:var(--accent-bg);font-weight:500;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+              图库选图
+            </button>
           </div>
           <textarea class="editor-textarea" id="postContent" placeholder="开始写文章…"></textarea>
         </div>
@@ -1773,17 +1858,17 @@ function renderWenhuiList() {
     el.innerHTML = '<div class="empty-state"><p>暂无 RSS 源，点击上方「添加 RSS 源」开始</p></div>';
     return;
   }
-  var html = '<div class="settings-group">';
+  var html = '<div class="post-list" style="gap:8px;">';
   _wenhuiFeeds.forEach(function(f, i) {
-    html += '<div class="setting-row" style="cursor:default;">' +
-      '<div style="flex:1;min-width:0;">' +
-        '<div style="font-size:0.9rem;font-weight:500;">' + escHtml(f.name) + '</div>' +
-        '<div style="font-size:0.75rem;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escHtml(f.url) + '</div>' +
-        (f.category ? '<div style="font-size:0.72rem;color:var(--accent2);margin-top:2px;">分类: ' + escHtml(f.category) + '</div>' : '') +
+    html += '<div class="list-card">' +
+      '<div class="list-card-info">' +
+        '<div class="list-card-title">' + escHtml(f.name) + '</div>' +
+        '<div class="list-card-sub">' + escHtml(f.url) + '</div>' +
+        (f.category ? '<span class="list-card-badge cat">' + escHtml(f.category) + '</span>' : '') +
       '</div>' +
-      '<div style="display:flex;gap:6px;flex-shrink:0;margin-left:12px;">' +
-        '<button class="btn btn-sm" onclick="wenhuiEdit(' + i + ')">编辑</button>' +
-        '<button class="btn btn-sm btn-danger" onclick="wenhuiDelete(' + i + ')">删除</button>' +
+      '<div class="list-card-actions">' +
+        '<button class="action-btn edit" onclick="wenhuiEdit(' + i + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>编辑</button>' +
+        '<button class="action-btn del" onclick="wenhuiDelete(' + i + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"/></svg>删除</button>' +
       '</div>' +
     '</div>';
   });
@@ -1893,32 +1978,35 @@ function renderLinksList() {
   }
   var html = '';
   _linksData.forEach(function(cat, ci) {
-    html += '<div class="settings-group" style="margin-bottom:16px;">';
-    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:8px 0;">';
-    html += '<h3 style="font-size:0.95rem;color:var(--accent2);margin:0;">' + escHtml(cat.category) + '</h3>';
-    html += '<div style="display:flex;gap:6px;">';
-    html += '<button class="btn btn-sm btn-primary" onclick="showLinkAddForm(' + ci + ')">+ 添加链接</button>';
-    html += '<button class="btn btn-sm" onclick="linkCatEdit(' + ci + ')">重命名</button>';
-    html += '<button class="btn btn-sm btn-danger" onclick="linkCatDelete(' + ci + ')">删除分类</button>';
-    html += '</div></div>';
+    html += '<div style="margin-bottom:20px;">';
+    html += '<div class="link-cat-header">' +
+      '<h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>' + escHtml(cat.category) + ' <span style="font-size:0.75rem;font-weight:400;color:var(--muted);">(' + (cat.links || []).length + ')</span></h3>' +
+      '<div class="list-card-actions">' +
+        '<button class="action-btn edit" onclick="showLinkAddForm(' + ci + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>添加链接</button>' +
+        '<button class="action-btn" onclick="linkCatEdit(' + ci + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>重命名</button>' +
+        '<button class="action-btn del" onclick="linkCatDelete(' + ci + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"/></svg>删除分类</button>' +
+      '</div>' +
+    '</div>';
     var links = cat.links || [];
     if (links.length === 0) {
-      html += '<div style="padding:12px;color:var(--muted);font-size:0.85rem;">此分类下暂无链接</div>';
-    }
-    links.forEach(function(link, li) {
-      html += '<div class="setting-row" style="cursor:default;">';
-      html += '<div style="flex:1;min-width:0;">';
-      html += '<div style="font-size:0.9rem;font-weight:500;">' + escHtml(link.name) + '</div>';
-      html += '<div style="font-size:0.75rem;color:var(--muted);margin-top:2px;">' + escHtml(link.url) + '</div>';
-      if (link.rss) {
-        html += '<div style="font-size:0.72rem;color:var(--green);margin-top:2px;">RSS: ' + escHtml(link.rss) + '</div>';
-      }
+      html += '<div style="padding:16px;color:var(--muted);font-size:0.85rem;text-align:center;background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius);">此分类下暂无链接</div>';
+    } else {
+      html += '<div class="post-list" style="gap:6px;">';
+      links.forEach(function(link, li) {
+        html += '<div class="list-card">' +
+          '<div class="list-card-info">' +
+            '<div class="list-card-title">' + escHtml(link.name) + '</div>' +
+            '<div class="list-card-sub">' + escHtml(link.url) + '</div>' +
+            (link.rss ? '<span class="list-card-badge rss"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>RSS</span>' : '') +
+          '</div>' +
+          '<div class="list-card-actions">' +
+            '<button class="action-btn edit" onclick="linkEdit(' + ci + ',' + li + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>编辑</button>' +
+            '<button class="action-btn del" onclick="linkDelete(' + ci + ',' + li + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"/></svg>删除</button>' +
+          '</div>' +
+        '</div>';
+      });
       html += '</div>';
-      html += '<div style="display:flex;gap:6px;flex-shrink:0;margin-left:12px;">';
-      html += '<button class="btn btn-sm" onclick="linkEdit(' + ci + ',' + li + ')">编辑</button>';
-      html += '<button class="btn btn-sm btn-danger" onclick="linkDelete(' + ci + ',' + li + ')">删除</button>';
-      html += '</div></div>';
-    });
+    }
     html += '</div>';
   });
   el.innerHTML = html;

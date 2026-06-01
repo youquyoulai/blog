@@ -60,10 +60,10 @@ function renderComments() {
   var total = commentMeta.total || 0;
   var totalPages = Math.ceil(total / pageSize);
   if (totalPages > 1) {
-    html += '<div style="display:flex;justify-content:center;align-items:center;gap:8px;padding:16px;flex-wrap:wrap;">';
-    html += '<button class="btn btn-sm" onclick="commentPrevPage()" ' + (currentPage <= 1 ? 'disabled' : '') + '>上一页</button>';
-    html += '<span style="font-size:0.85rem;color:var(--muted);">第 ' + currentPage + ' / ' + totalPages + ' 页，共 ' + total + ' 条</span>';
-    html += '<button class="btn btn-sm" onclick="commentNextPage()" ' + (currentPage >= totalPages ? 'disabled' : '') + '>下一页</button>';
+    html += '<div style="display:flex;justify-content:center;align-items:center;gap:12px;padding:20px;flex-wrap:wrap;">';
+    html += '<button class="btn btn-sm" onclick="commentPrevPage()" ' + (currentPage <= 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + '><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg> 上一页</button>';
+    html += '<span style="font-size:0.82rem;color:var(--muted);padding:6px 12px;background:var(--surface);border:1px solid var(--border);border-radius:100px;">第 ' + currentPage + ' / ' + totalPages + ' 页 · 共 ' + total + ' 条</span>';
+    html += '<button class="btn btn-sm" onclick="commentNextPage()" ' + (currentPage >= totalPages ? 'disabled style="opacity:0.4;cursor:default;"' : '') + '>下一页 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9,18 15,12 9,6"/></svg></button>';
     html += '</div>';
   }
   el.innerHTML = html;
@@ -83,28 +83,28 @@ function renderCommentCard(comment, depth) {
   var borderColor = depth > 0 ? 'var(--accent)' : 'transparent';
   var indentStyle = depth > 0 ? 'margin-left:' + (depth * 20) + 'px;' : '';
   var statusColor = comment.status === 'waiting' ? 'var(--orange)' : 'var(--green)';
+  var statusLabel = comment.status === 'waiting' ? '待审核' : (comment.status === 'spam' ? '垃圾' : '已批准');
   var time = formatCommentTime(comment.time);
   var pageUrl = comment.url || '';
   var children = (Array.isArray(currentComments) ? currentComments : []).filter(function(c) { return c.pid == comment.id || c.pid == comment.objectId; });
   children.sort(function(a, b) { return (a.time || 0) - (b.time || 0); });
 
   var html = '<div class="post-item comment-card" style="border-left:3px solid ' + borderColor + ';' + indentStyle + '">' +
-    '<div style="display:flex;justify-content:space-between;align-items:flex-start;">' +
-      '<div style="flex:1;min-width:0;">' +
-        '<div style="font-weight:500;font-size:0.9rem;">' + escHtml(comment.nick) +
-          ' <span style="font-size:0.75rem;color:' + statusColor + ';">● ' + (comment.status || 'approved') + '</span>' +
-        '</div>' +
-        '<div style="font-size:0.8rem;color:var(--muted);margin-top:4px;">' + time +
-          (pageUrl ? ' · <a href="' + escHtml(pageUrl) + '" target="_blank" style="color:var(--accent2);">' + escHtml(pageUrl) + '</a>' : '') +
-        '</div>' +
-        '<div style="margin-top:8px;font-size:0.85rem;line-height:1.6;color:var(--text);word-break:break-word;">' + stripTags(comment.comment || '').substring(0, 200) + '</div>' +
+    '<div style="flex:1;min-width:0;">' +
+      '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+        '<span style="font-weight:600;font-size:0.9rem;">' + escHtml(comment.nick) + '</span>' +
+        '<span style="font-size:0.72rem;padding:2px 8px;border-radius:100px;font-weight:500;background:' + (comment.status === 'waiting' ? 'rgba(245,158,11,0.1)' : comment.status === 'spam' ? 'rgba(228,30,63,0.08)' : 'rgba(0,164,0,0.08)') + ';color:' + statusColor + ';">' + statusLabel + '</span>' +
       '</div>' +
-      '<div style="display:flex;gap:4px;flex-shrink:0;flex-direction:column;align-items:flex-end;">' +
-        (comment.status === 'waiting' ? '<button class="btn btn-sm" onclick="approveComment(' + comment.id + ')" style="color:var(--green);border-color:var(--green);font-size:0.75rem;padding:4px 8px;">批准</button>' : '') +
-        (comment.status !== 'spam' ? '<button class="btn btn-sm" onclick="spamComment(' + comment.id + ')" style="color:var(--orange);border-color:var(--orange);font-size:0.75rem;padding:4px 8px;">垃圾</button>' : '') +
-        '<button class="btn btn-sm" onclick="replyComment(' + comment.id + ')" style="color:var(--accent);border-color:var(--accent);font-size:0.75rem;padding:4px 8px;">回复</button>' +
-        '<button class="btn btn-sm btn-danger" onclick="deleteComment(' + comment.id + ')" style="font-size:0.75rem;padding:4px 8px;">删除</button>' +
+      '<div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">' + time +
+        (pageUrl ? ' · <a href="' + escHtml(pageUrl) + '" target="_blank" style="color:var(--accent);">' + escHtml(pageUrl) + '</a>' : '') +
       '</div>' +
+      '<div style="margin-top:8px;font-size:0.85rem;line-height:1.6;color:var(--text);word-break:break-word;">' + stripTags(comment.comment || '').substring(0, 200) + '</div>' +
+    '</div>' +
+    '<div class="comment-actions">' +
+      (comment.status === 'waiting' ? '<button class="action-btn approve" onclick="approveComment(' + comment.id + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>批准</button>' : '') +
+      (comment.status !== 'spam' ? '<button class="action-btn spam" onclick="spamComment(' + comment.id + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>垃圾</button>' : '') +
+      '<button class="action-btn reply" onclick="replyComment(' + comment.id + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,17 4,12 9,7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>回复</button>' +
+      '<button class="action-btn del" onclick="deleteComment(' + comment.id + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"/></svg>删除</button>' +
     '</div>' +
   '</div>';
   for (var i = 0; i < children.length; i++) {

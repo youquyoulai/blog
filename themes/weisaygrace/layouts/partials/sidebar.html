@@ -16,9 +16,12 @@
     <a href="/feed.xml" title="RSS订阅" aria-label="RSS订阅" target="_blank" rel="noopener">
         <svg width="20" height="20" fill="currentColor"><use href="#icon-rss"></use></svg>
     </a>
-    <a href="mailto:blog@pgoj.top" title="给我发邮件" aria-label="给我发邮件">
-        <svg width="20" height="20" fill="currentColor"><use href="#icon-email"></use></svg>
+    {{ $reading := site.GetPage "/pages/reading" }}
+    {{ if $reading }}
+    <a href="{{ $reading.Permalink }}" title="阅读" aria-label="阅读">
+        <svg width="20" height="20" fill="currentColor"><use href="#icon-book"></use></svg>
     </a>
+    {{ end }}
 </div>
 
 {{/* 微语 - 使用 where 函数高效过滤 weibo 分类 */}}

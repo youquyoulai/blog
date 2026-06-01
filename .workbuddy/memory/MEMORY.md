@@ -39,6 +39,17 @@
 - MutationObserver 只监听 head/body childList
 - 添加 robots.txt 模板
 
+## 阅读统计页面（2026-06-01 新增）
+- 访问地址：`https://www.pgoj.top/reading/`，内容页面：`content/pages/reading.md`
+- 专属模板：`layouts/pages/reading.html`（layout: reading）
+- DATA 数据存储在 `static/js/reading-data.js`（103KB），页面通过 `<script>` 加载
+- 更新方式：微信读书导出新数据后，替换 `static/js/reading-data.js` 中的 DATA 对象
+- Chart.js 通过 CDN 引入（`cdn.jsdelivr.net/npm/chart.js@4.4.0`）
+- **入口在侧边栏工具栏**（`sidebar.html`），书本图标 `icon-book`，替换掉了原来的邮箱按钮
+- 顶部导航菜单中无「阅读」项
+- 各模块（标题、统计、分类分布、排行榜、偏好、书架）均用 `.rp-card` 卡片样式，与文章列表 `.post` 一致
+- CSS 使用主题 CSS 变量（`--color_link`, `--color_border` 等），自动适配暗色模式
+
 ## Admin 后台管理（2026-05-27 新增友链 Tab）
 - 地址：`https://www.pgoj.top/admin/`，文件位于 `static/admin/`
 - Worker API 部署在 `api.pgoj.top`（`static/admin/worker.js`）

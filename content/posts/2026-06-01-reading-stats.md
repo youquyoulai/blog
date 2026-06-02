@@ -1,10 +1,11 @@
 ---
 title: "2018-2026微信读书阅读记录"
 date: 2026-06-01T19:00:00+08:00
-categories: jilu
+cover: "@image:2026slt/tu05.webp"
+categories: [jilu]
 tags: ["reading", "weread"]
+slug: "reading-stats"
 ---
-
 <style>
 .reading-page { font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif; color: var(--text); line-height: 1.7; }
 .reading-page .rp-wrap { max-width: 960px; margin: 0 auto; padding: 0.25rem 1.5rem; }

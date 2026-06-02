@@ -2,159 +2,89 @@
 {{ partial "breadcrumbs.html" . }}
 
 <style>
-.reading-page { font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif; color: var(--text); line-height: 1.7; }
-.reading-page .rp-wrap { max-width: 960px; margin: 0 auto; padding: 0.25rem 1.5rem; }
-.reading-page .rp-header { text-align: center; padding: 2rem 0 1.5rem; }
-.reading-page .rp-header h1 { font-size: 1.8rem; font-weight: 700; }
-.reading-page .rp-header .rp-subtitle { color: var(--color_text_minor, #888); margin-top: 0.4rem; font-size: 0.92rem; }
-
-/* Card shell - matches .post article card style */
-.reading-page .rp-card { background: var(--bg, #fff); border-radius: .375rem; border-bottom: 3px solid var(--color_border, #e5e5e5); padding: 1rem; margin-bottom: 1rem; box-shadow: 0 0 4px rgba(205,220,230,.5); position: relative; }
-
-/* Stats cards inside card */
-.reading-page .rp-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.8rem; margin-bottom: 0; }
-.reading-page .rp-stat { border: 1px solid var(--color_border, #e5e5e5); border-radius: 10px; padding: 1rem 0.8rem; text-align: center; background: var(--bg_2, #f9f9f9); }
-.reading-page .rp-stat .rp-val { font-size: 1.6rem; font-weight: 700; color: var(--color_link); }
-.reading-page .rp-stat .rp-lbl { font-size: 0.78rem; color: var(--color_text_minor, #888); margin-top: 0.2rem; }
-
-/* Section inside card */
-.reading-page .rp-sec { margin-bottom: 0; }
-.reading-page .rp-sec h2 { font-size: 1.15rem; font-weight: 600; padding-bottom: 0.5rem; border-bottom: 2px solid var(--color_link); margin-bottom: 1rem; margin-top: 0; }
-
-/* Chart - no extra bg, card already provides it */
-.reading-page .rp-chart { overflow-x: auto; padding: 0; }
-
-/* Top books */
-.reading-page .rp-toplist { list-style: none; }
-.reading-page .rp-toplist li { display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 0; border-bottom: 1px solid var(--color_border, #e5e5e5); }
-.reading-page .rp-toplist .rp-rank { font-size: 1rem; font-weight: 700; color: var(--color_link); min-width: 1.6rem; }
-.reading-page .rp-toplist .rp-info { flex: 1; min-width: 0; }
-.reading-page .rp-toplist .rp-info .rp-t { font-weight: 500; font-size: 0.9rem; }
-.reading-page .rp-toplist .rp-info .rp-a { font-size: 0.75rem; color: var(--color_text_minor, #888); }
-.reading-page .rp-toplist .rp-time { font-size: 0.8rem; color: var(--color_text_minor, #888); white-space: nowrap; }
-.reading-page .rp-toplist .rp-tag { display: inline-block; font-size: 0.68rem; background: var(--bg_2, #f5f5f5); color: var(--color_link); padding: 1px 5px; border-radius: 6px; margin-left: 4px; }
-
-/* Pref grid */
-.reading-page .rp-pref { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.7rem; }
-.reading-page .rp-pref-item { border: 1px solid var(--color_border, #e5e5e5); border-radius: 8px; padding: 0.8rem; background: var(--bg_2, #f9f9f9); }
-.reading-page .rp-pref-item .rp-name { font-weight: 600; font-size: 0.88rem; }
-.reading-page .rp-pref-item .rp-detail { font-size: 0.75rem; color: var(--color_text_minor, #888); margin-top: 0.15rem; }
-
-/* Book grid */
-.reading-page .rp-books { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.7rem; }
-.reading-page .rp-book { text-align: center; cursor: pointer; transition: transform 0.2s; text-decoration: none; color: inherit; }
-.reading-page .rp-book:hover { transform: translateY(-3px); }
-.reading-page .rp-book img { width: 100%; aspect-ratio: 3/4; border-radius: 5px; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-.reading-page .rp-book .rp-placeholder { width: 100%; aspect-ratio: 3/4; border-radius: 5px; background: var(--bg_2, #f5f5f5); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--color_text_minor, #888); }
-.reading-page .rp-book .rp-title { font-size: 0.72rem; margin-top: 0.3rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.3; }
-
-/* Filter */
-.reading-page .rp-filter { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
-.reading-page .rp-filter button { padding: 0.25rem 0.75rem; border: 1px solid var(--color_border, #e5e5e5); border-radius: 16px; background: var(--bg_2, #f9f9f9); color: var(--color_text_minor, #888); font-size: 0.78rem; cursor: pointer; transition: all 0.2s; }
-.reading-page .rp-filter button:hover, .reading-page .rp-filter button.active { background: var(--color_link); color: #fff; border-color: var(--color_link); }
-
-/* Footer */
-.reading-page .rp-footer { text-align: center; padding: 1.5rem 0; color: var(--color_text_minor, #888); font-size: 0.78rem; }
-.reading-page .rp-footer a { color: var(--color_link); text-decoration: none; }
+.article-content h1.reading-page-title:before { margin-top: 0; }
+.article-content h1.reading-page-title { margin-bottom: 1.5rem; }
+.article-content h2.post-title:before { margin-top: 0; }
+.reading-page .post {
+  background: var(--color_card, #fff);
+  border: 1px solid var(--color_border, #e5e7eb);
+  border-radius: 10px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.reading-page .post:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
 </style>
 
-<div class="reading-page">
-<div class="rp-wrap">
-  <div class="rp-card">
-    <div class="rp-header">
-      <h1>📚 我的阅读记录</h1>
-      <p class="rp-subtitle">数据来源：微信读书 · 更新于 2026-06-01 18:55</p>
+<div class="article">
+<div class="article-content reading-page">
+
+<h1 class="reading-page-title" style="font-size:1.6rem;font-weight:700;">{{ .Title }}</h1>
+
+{{ $pages := index .Site.Taxonomies.tags "weread" }}
+{{ if $pages }}
+  {{ range $i, $page := $pages.Pages.ByDate.Reverse }}
+  <div class="post" style="display:flex;flex-direction:column;">
+    <h2 class="post-title" itemprop="headline">
+      <a href="{{ $page.Permalink }}" rel="bookmark" title="{{ $page.Title }}" itemprop="url">{{ $page.Title }}</a>
+    </h2>
+    <div class="post-body" style="display:flex;align-items:flex-start;">
+      <div class="post-content" itemprop="description" style="flex:1;min-height:117px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;">
+        {{ if $page.Summary }}
+        <p style="margin:0;font-size:1rem;line-height:1.875rem;">{{ $page.Summary | plainify | truncate 360 }}</p>
+        {{ else }}
+        <p style="margin:0;font-size:1rem;line-height:1.875rem;">{{ $page.Content | plainify | truncate 360 }}</p>
+        {{ end }}
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="post-info">
+      <span class="date info-icon" itemprop="datePublished" content="{{ $page.Date.Format "2006-01-02T15:04:05Z07:00" }}">
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-calendar"/></svg>{{ $page.Date.Format "2006-01-02" }}
+      </span>
+      {{ if reflect.IsSlice $page.Params.categories }}
+      <span class="category info-icon" itemprop="articleSection">
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg>
+        {{ range $j, $cat := $page.Params.categories }}{{ if $j }}, {{ end }}<a href="{{ "/categories/" | relURL }}{{ $cat | urlize }}">{{ partial "cat-names.html" $cat }}</a>{{ end }}
+      </span>
+      {{ else if $page.Params.categories }}
+      <span class="category info-icon" itemprop="articleSection">
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg>
+        <a href="{{ "/categories/" | relURL }}{{ $page.Params.categories | urlize }}">{{ partial "cat-names.html" $page.Params.categories }}</a>
+      </span>
+      {{ end }}
+      {{ if reflect.IsSlice $page.Params.tags }}
+      <span class="tags info-icon" itemprop="keywords">
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg>
+        {{ range $j, $tag := $page.Params.tags }}{{ if $j }}, {{ end }}<a href="{{ "/tags/" | relURL }}{{ $tag | urlize }}">{{ partial "tag-names.html" (dict "tag" $tag) }}</a>{{ end }}
+      </span>
+      {{ else if $page.Params.tags }}
+      <span class="tags info-icon" itemprop="keywords">
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg>
+        <a href="{{ "/tags/" | relURL }}{{ $page.Params.tags | urlize }}">{{ partial "tag-names.html" (dict "tag" $page.Params.tags) }}</a>
+      </span>
+      {{ end }}
+    </div>
+    <div class="read-more">
+      <a class="read-more-icon" href="{{ $page.Permalink }}" title="{{ $page.Title }}" rel="nofollow">阅读全文<span></span></a>
     </div>
   </div>
-  <div class="rp-card"><div class="rp-stats" id="rpStats"></div></div>
-  <div class="rp-card"><div class="rp-sec"><h2>📊 分类分布</h2><div class="rp-chart"><canvas id="rpCatChart" height="280"></canvas></div></div></div>
-  <div class="rp-card"><div class="rp-sec"><h2>🔥 读得最多的书</h2><ul class="rp-toplist" id="rpTopList"></ul></div></div>
-  <div class="rp-card"><div class="rp-sec"><h2>🎯 偏好分类</h2><div class="rp-pref" id="rpPrefGrid"></div></div></div>
-  <div class="rp-card"><div class="rp-sec">
-    <h2>📖 全部书架</h2>
-    <div class="rp-filter" id="rpFilter">
-      <button class="active" data-f="all">全部</button>
-      <button data-f="finished">已读完</button>
-      <button data-f="reading">在读</button>
-    </div>
-    <div class="rp-books" id="rpBookGrid"></div>
-  </div></div>
-  <div class="rp-footer">
-    Powered by <a href="https://weread.qq.com" target="_blank">微信读书</a> ·
-    <a href="{{ .Site.BaseURL }}">返回首页</a>
-  </div>
-</div>
+  <div class="clear"></div>
+  {{ end }}
+{{ else }}
+  <p style="color:var(--color_text_minor, #888);text-align:center;padding:2rem;">暂无阅读记录。</p>
+{{ end }}
+
 </div>
 
-<script src="/js/reading-data.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script>
-(function() {
-  var s = DATA.stats, r = DATA.reading;
-  var cards = [
-    {v: s.total_books, l: '书架总数'}, {v: s.finished, l: '已读完'},
-    {v: s.in_progress, l: '在读'}, {v: r.total_hours.toFixed(0)+'h', l: '总阅读时长'},
-    {v: r.read_days, l: '阅读天数'}, {v: r.read_stat['笔记']||'423条', l: '笔记划线'}
-  ];
-  document.getElementById('rpStats').innerHTML = cards.map(function(c){
-    return '<div class="rp-stat"><div class="rp-val">'+c.v+'</div><div class="rp-lbl">'+c.l+'</div></div>';
-  }).join('');
-})();
-
-(function() {
-  var cats = DATA.categories.slice(0,12);
-  new Chart(document.getElementById('rpCatChart'), {
-    type: 'bar', data: {
-      labels: cats.map(function(c){return c.name;}),
-      datasets: [{label:'本数', data: cats.map(function(c){return c.count;}),
-        backgroundColor: cats.map(function(_,i){return 'hsla(210,50%,'+(55-i*2)+'%,0.7)';}),
-        borderRadius: 5, borderSkipped: false}]
-    },
-    options: { indexAxis:'y', responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:false}},
-      scales:{x:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{stepSize:10}},y:{grid:{display:false},ticks:{font:{size:11}}}}
-    }
-  });
-})();
-
-(function() {
-  document.getElementById('rpTopList').innerHTML = DATA.top_books.map(function(b,i){
-    var tags = (b.tags||[]).map(function(t){return '<span class="rp-tag">'+t+'</span>';}).join('');
-    return '<li><span class="rp-rank">#'+(i+1)+'</span><div class="rp-info"><div class="rp-t">'+b.title+tags+'</div><div class="rp-a">'+b.author+'</div></div><span class="rp-time">'+b.time_fmt+'</span></li>';
-  }).join('');
-})();
-
-(function() {
-  document.getElementById('rpPrefGrid').innerHTML = DATA.pref_categories.map(function(c){
-    return '<div class="rp-pref-item"><div class="rp-name">'+c.name+'</div><div class="rp-detail">'+c.time_fmt+' · '+c.count+'本</div></div>';
-  }).join('');
-})();
-
-(function() {
-  var grid = document.getElementById('rpBookGrid');
-  var shelf = DATA.shelf_books;
-  var filter = 'all';
-  function render() {
-    var items = shelf;
-    if (filter === 'finished') items = shelf.filter(function(b){return b.finished;});
-    if (filter === 'reading') items = shelf.filter(function(b){return !b.finished && b.last_read;});
-    grid.innerHTML = items.slice(0,200).map(function(b){
-      var link = b.title ? 'https://weread.qq.com/web/search/book/'+encodeURIComponent(b.title) : '#';
-      var cover = b.cover
-        ? '<img src="'+b.cover+'" alt="'+b.title+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
-        : '';
-      return '<a class="rp-book" href="'+link+'" target="_blank" title="'+b.title+' · '+b.author+'">'+cover+'<div class="rp-placeholder" style="'+(b.cover?'display:none':'')+'">📖</div><div class="rp-title">'+b.title+'</div></a>';
-    }).join('');
-  }
-  document.getElementById('rpFilter').addEventListener('click', function(e){
-    if (!e.target.tagName === 'BUTTON') return;
-    this.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});
-    e.target.classList.add('active');
-    filter = e.target.dataset.f;
-    render();
-  });
-  render();
-})();
-</script>
-
+{{ if .Site.Params.waline.serverURL }}
+{{ partial "waline.html" (dict "ctx" $ "serverURL" .Site.Params.waline.serverURL "el" "waline" "path" ($.Permalink | relURL) "label" "评论") }}
+{{ end }}
+</div>
 {{ end }}

@@ -1082,12 +1082,13 @@ function renderFolders(el, folders) {
   // 根目录 + 已选年份 → 显示该年份的月份文件夹
   if (!currentPrefix && currentImageYear) {
     var yearFolders = (allImageFolders || []).filter(function(f) {
-      return (f.name || '').startsWith(currentImageYear + '-');
+      return (f.name || '').startsWith(currentImageYear) && f.name.length === 6;
     });
     var html = '<button class="folder-btn" onclick="backToImageYears()" style="margin-right:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg> 返回</button>';
     for (var i = 0; i < yearFolders.length; i++) {
       var f = yearFolders[i];
-      html += '<div class="folder-btn" onclick="loadImages(\'' + escAttr(f.prefix) + '\')">📁 ' + escHtml(f.name) + '</div>';
+      var mm = (f.name || '').slice(4);
+      html += '<div class="folder-btn" onclick="loadImages(\'' + escAttr(f.prefix) + '\')">📁 ' + mm + ' 月</div>';
     }
     el.innerHTML = html;
     return;
@@ -1096,7 +1097,7 @@ function renderFolders(el, folders) {
   if (!currentPrefix && !currentImageYear) {
     var yearMap = {};
     (allImageFolders || []).forEach(function(f) {
-      var m = (f.name || '').match(/^(\d{4})-/);
+      var m = (f.name || '').match(/^(\d{4})(\d{2})$/);
       if (m) {
         if (!yearMap[m[1]]) yearMap[m[1]] = 0;
         yearMap[m[1]]++;

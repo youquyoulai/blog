@@ -75,17 +75,31 @@
 </div>
 
 <style>
+/* 所有侧边栏组件卡片样式 */
+.widget {
+    background: #fff;
+    border-radius: 0.375rem;
+    border-bottom: 3px solid #e5e5e5;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 4px rgba(205, 220, 230, .5);
+}
+
+/* 组件标题样式 */
+.widget-title {
+    padding: 0.75rem 1rem;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+}
+
 /* 工具栏横排样式 */
 .widget-toolbar {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
     padding: 0.75rem 0;
-    background: #fff;
-    border-radius: 0.375rem;
-    border-bottom: 3px solid #e5e5e5;
-    margin-bottom: 1rem;
-    box-shadow: 0 0 4px rgba(205, 220, 230, .5);
 }
 .widget-toolbar a,
 .widget-toolbar button {
@@ -172,5 +186,111 @@
     border-color: var(--color_link);
     color: #fff;
     text-decoration: none;
+}
+
+/* 移动端侧边栏样式 */
+@media (max-width: 767px) {
+    /* 移动端侧边栏背景与博客背景一致 */
+    .sidebar,
+    .sidebar > div,
+    #sidebar-drawer .sidebar,
+    #sidebar-drawer .sidebar > div {
+        background: #eef1f4 !important;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* 移动端所有组件使用卡片样式 */
+    .sidebar .widget,
+    #sidebar-drawer .widget {
+        background: #fff !important;
+        border-radius: 0.375rem !important;
+        border-bottom: 3px solid #e5e5e5 !important;
+        margin-bottom: 0.75rem !important;
+        padding: 0 !important;
+        box-shadow: 0 0 4px rgba(205, 220, 230, .5) !important;
+    }
+    
+    /* 移动端组件标题样式 */
+    .sidebar .widget-title,
+    #sidebar-drawer .widget-title {
+        color: #333 !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+        padding: 0.75rem 1rem !important;
+        margin-bottom: 0 !important;
+    }
+    
+    /* 移动端工具栏样式 */
+    .sidebar .widget-toolbar,
+    #sidebar-drawer .widget-toolbar {
+        background: #fff !important;
+        border-radius: 0.375rem !important;
+        margin-bottom: 0.75rem !important;
+        padding: 0.75rem 0 !important;
+        border-bottom: 3px solid #e5e5e5 !important;
+        box-shadow: 0 0 4px rgba(205, 220, 230, .5) !important;
+    }
+    
+    .sidebar .widget-toolbar a,
+    .sidebar .widget-toolbar button,
+    #sidebar-drawer .widget-toolbar a,
+    #sidebar-drawer .widget-toolbar button {
+        background: #f5f7f8 !important;
+        color: #555 !important;
+    }
+    
+    .sidebar .widget-toolbar a:hover,
+    .sidebar .widget-toolbar button:hover,
+    #sidebar-drawer .widget-toolbar a:hover,
+    #sidebar-drawer .widget-toolbar button:hover {
+        background: var(--color_link) !important;
+        color: #fff !important;
+    }
+    
+    /* 移动端微语样式 */
+    .sidebar .widget-memos .weibo-content,
+    #sidebar-drawer .widget-memos .weibo-content {
+        color: #555 !important;
+    }
+    
+    .sidebar .widget-memos .weibo-meta,
+    #sidebar-drawer .widget-memos .weibo-meta {
+        color: #aaa !important;
+    }
+    
+    .sidebar .widget-memos .weibo-more,
+    #sidebar-drawer .widget-memos .weibo-more {
+        color: var(--color_link) !important;
+    }
+    
+    /* 移动端标签样式 */
+    .sidebar .tag-item,
+    #sidebar-drawer .tag-item {
+        background: #f5f7f8 !important;
+        border-color: #e5e5e5 !important;
+        color: #555 !important;
+    }
+    
+    .sidebar .tag-item:hover,
+    #sidebar-drawer .tag-item:hover {
+        background: var(--color_link) !important;
+        border-color: var(--color_link) !important;
+        color: #fff !important;
+    }
+    
+    /* 移动端友情链接样式 */
+    .sidebar .friend-link-item,
+    #sidebar-drawer .friend-link-item {
+        background: #f5f7f8 !important;
+        border-color: #e5e5e5 !important;
+        color: #555 !important;
+    }
+    
+    .sidebar .friend-link-item:hover,
+    #sidebar-drawer .friend-link-item:hover {
+        background: var(--color_link) !important;
+        border-color: var(--color_link) !important;
+        color: #fff !important;
+    }
 }
 </style>

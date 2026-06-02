@@ -1,14 +1,11 @@
 ---
-url: /archives/wechat-reading-report.html
-
 title: "2018-2026微信读书阅读笔记总结"
-description: "从2018年注册至今，两千多个日夜，五千多小时，一百二十九本做了笔记的书——整理回顾自己的微信读书数据，既是对过往阅读旅程的一次盘点，也是一份私人阅读偏好的坦白。"
-date: 2026-06-02
-slug: "wechat-reading-report"
-categories: jilu
+date: 2026-06-02T08:00:00+08:00
+cover: "@image:2026slt/tu14.webp"
+categories: [jilu]
 tags: ["reading", "weread"]
+slug: "wechat-reading-report"
 ---
-
 虽然我用微信读书时间很长，但上面的笔记不多，主要是因为很多东西随手写在了手机备忘录里。昨天让AI拉取了这些年阅读记录，今天就想将阅读笔记也提取下。于是，就得到了下面的总结。
 
 ## 📊 总体数据

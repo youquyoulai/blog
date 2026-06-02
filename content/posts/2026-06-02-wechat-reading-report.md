@@ -1,7 +1,7 @@
 ---
 title: "2018-2026微信读书阅读笔记总结"
 date: 2026-06-02T08:00:00+08:00
-cover: "@image:2026slt/tu14.webp"
+cover: "@image:2026slt/tu27.webp"
 categories: [jilu]
 tags: ["reading", "weread"]
 slug: "wechat-reading-report"

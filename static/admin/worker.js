@@ -23,8 +23,9 @@ const SECURITY_HEADERS = {
 };
 
 function getCorsHeaders(origin) {
+  // 使用 '*' 通配符：API 请求跨域且不携带 Cookie，checkOrigin 已做来源验证
   return {
-    'Access-Control-Allow-Origin': origin || ALLOWED_ORIGIN,
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Token',
     'Access-Control-Max-Age': '86400',

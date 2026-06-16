@@ -1,0 +1,23 @@
+name = "blog-admin-api"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# 禁用 workers.dev 子域名，仅通过自定义域名访问
+workers_dev = false
+preview_urls = false
+
+# 自定义域名路由
+[[routes]]
+pattern = "api.pgoj.top"
+zone_name = "pgoj.top"
+custom_domain = true
+
+# R2 存储桶绑定
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "imgpg"
+
+# 非敏感环境变量（敏感信息请用 wrangler secret put 设置）
+[vars]
+R2_PUBLIC_URL = "https://img.pgoj.top"

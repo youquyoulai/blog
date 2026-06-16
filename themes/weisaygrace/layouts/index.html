@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{- $posts := where .Site.RegularPages "Section" "posts" -}}
+{{- $posts := where .Site.RegularPages "Section" "math" -}}
 {{- $filtered := slice -}}
 {{- range $posts -}}
   {{- if not (in .Params.categories "weibo") -}}

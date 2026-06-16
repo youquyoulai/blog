@@ -40,51 +40,6 @@
         });
     }
 
-    // Mobile Sidebar: clone desktop sidebar content (avoid duplicate HTML rendering)
-    var desktopSidebar = document.getElementById('desktopSidebar');
-    var sidebarDrawerBody = document.getElementById('sidebarDrawerBody');
-    if (desktopSidebar && sidebarDrawerBody && !sidebarDrawerBody.hasChildNodes()) {
-        Array.from(desktopSidebar.childNodes).forEach(function (child) {
-            sidebarDrawerBody.appendChild(child.cloneNode(true));
-        });
-    }
-
-    // Sidebar Drawer Toggle
-    var sidebarToggle = document.getElementById('sidebar-toggle');
-    var sidebarDrawer = document.getElementById('sidebar-drawer');
-    var sidebarOverlay = document.getElementById('sidebar-drawer-overlay');
-    var sidebarClose = document.getElementById('sidebar-drawer-close');
-
-    function openSidebar() {
-        if (sidebarDrawer) sidebarDrawer.classList.add('open');
-        if (sidebarOverlay) sidebarOverlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        if (sidebarToggle) sidebarToggle.setAttribute('aria-expanded', 'true');
-    }
-
-    function closeSidebar() {
-        if (sidebarDrawer) sidebarDrawer.classList.remove('open');
-        if (sidebarOverlay) sidebarOverlay.classList.remove('open');
-        document.body.style.overflow = '';
-        if (sidebarToggle) sidebarToggle.setAttribute('aria-expanded', 'false');
-    }
-
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', function (e) {
-            e.preventDefault();
-            sidebarDrawer.classList.contains('open') ? closeSidebar() : openSidebar();
-        });
-    }
-    if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
-    if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
-
-    // Close sidebar when clicking links inside
-    if (sidebarDrawer) {
-        sidebarDrawer.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', closeSidebar);
-        });
-    }
-
     // Image Lightbox
     function createLightbox(imgSrc, imgAlt) {
         var overlay = document.createElement('div');
@@ -173,7 +128,7 @@
     window.addEventListener('resize', function () {
         if (window.innerWidth > 991) {
             closeMenu();
-            closeSidebar();
+            
         }
     });
 
@@ -196,14 +151,14 @@
 
     if (darkModeToggle) {
         darkModeToggle.addEventListener('click', function () {
-            closeSidebar(); // 关闭侧边栏抽屉
+             // 关闭侧边栏抽屉
             closeMenu();    // 关闭汉堡菜单
             toggleDarkMode();
         });
     }
     if (darkModeToggleMobile) {
         darkModeToggleMobile.addEventListener('click', function () {
-            closeSidebar(); // 关闭侧边栏抽屉
+             // 关闭侧边栏抽屉
             closeMenu();    // 关闭汉堡菜单
             toggleDarkMode();
         });

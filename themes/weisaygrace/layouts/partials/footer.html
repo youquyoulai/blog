@@ -42,17 +42,6 @@
 </ul>
 </nav>
 
-{{- /* 移动端侧边栏抽屉（内容由 JS 从桌面端克隆，避免 HTML 重复渲染） */ -}}
-<div id="sidebar-drawer-overlay"></div>
-<div id="sidebar-drawer">
-<button id="sidebar-drawer-close" aria-label="关闭侧边栏">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-</button>
-<div class="sidebar-panel-header">
-    <span class="sidebar-panel-title">侧边栏</span>
-</div>
-<div class="sidebar-drawer-body" id="sidebarDrawerBody"></div>
-</div>
 
 <style>
 /* 汉堡菜单内的搜索框 */
@@ -89,83 +78,6 @@
 }
 .mm-search-btn:hover { opacity: 0.8; }
 
-/* 侧边栏抽屉 */
-#sidebar-drawer-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 9998;
-    -webkit-tap-highlight-color: transparent;
-}
-#sidebar-drawer-overlay.open {
-    display: block;
-}
-#sidebar-drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: min(80vw, 320px);
-    height: 100%;
-    background: #eef1f4;
-    color: #333;
-    z-index: 9999;
-    overflow-y: auto;
-    padding: 1rem 0.875rem 2rem;
-    box-shadow: -3px 0 16px rgba(0,0,0,0.15);
-    transform: translateX(100%);
-    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-    box-sizing: border-box;
-}
-#sidebar-drawer.open {
-    transform: translateX(0);
-}
-#sidebar-drawer-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    background: #e5e5e5;
-    border: none;
-    cursor: pointer;
-    color: #666;
-    margin-left: auto;
-    margin-bottom: 0.5rem;
-    opacity: 0.8;
-    padding: 0;
-    border-radius: 50%;
-    transition: background 0.2s ease;
-}
-#sidebar-drawer-close:hover { 
-    opacity: 1; 
-    background: #d5d5d5;
-}
-.sidebar-panel-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #e5e5e5;
-}
-.sidebar-panel-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #333;
-}
-#sidebar-drawer .sidebar,
-#sidebar-drawer .sidebar-drawer-inner {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    float: none !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-@media screen and (min-width: 992px) {
-    #sidebar-drawer, #sidebar-drawer-overlay { display: none !important; }
-}
 /* 分页居中 */
 .pagination {
     text-align: center !important;

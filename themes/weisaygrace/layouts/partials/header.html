@@ -22,7 +22,7 @@
                     <li><a href="{{ .Page.Permalink }}">{{ $catName }}</a></li>
                     {{ end }}
                     {{ end }}
-                    {{ $navPages := slice (dict "name" "links" "label" "文汇") (dict "name" "guestbook" "label" "留言") }}
+                    {{ $navPages := slice (dict "name" "guestbook" "label" "留言") }}
                     {{ range $navPages }}
                         {{ $page := site.GetPage (printf "/pages/%s" .name) }}
                         {{ if $page }}

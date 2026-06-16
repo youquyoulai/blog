@@ -16,10 +16,6 @@
   {{- end -}}
 {{- end -}}
 {{- $pages = $cleanPages -}}
-{{- /* 首页 RSS 过滤掉 math section 的文章，但 math 自己的 RSS 不受影响 */ -}}
-{{- if $.IsHome }}
-{{- $pages = where $pages "Section" "!=" "math" -}}
-{{- end }}
 {{- $limit := site.Config.Services.RSS.Limit }}
 {{- if ge $limit 1 }}
 {{- $pages = $pages | first $limit }}

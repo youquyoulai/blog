@@ -1,7 +1,7 @@
 baseURL = 'https://math.pgoj.top/'
 languageCode = 'zh-cn'
 defaultContentLanguage = 'zh'
-title = '平哥解数学'
+title = '平哥数学'
 theme = 'weisaygrace'
 
 hasCJKLanguage = true
@@ -16,7 +16,7 @@ capitalizeListTitles = false
   author = '平哥'
   description = '数学题目解析与题解收藏，分享解题思路与方法'
   keywords = '数学,题解,高考数学,模拟题,解析'
-  logo = '平哥解数学'
+  logo = '平哥数学'
   builtYear = '2026'
   email = 'wuliwuju@126.com'
   favicon = '/favicon.ico'

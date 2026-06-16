@@ -2,7 +2,7 @@
 <div class="footer" id="footers">
 <div class="footer-horizontal container">
 <div class="footer-left">
-<p>© {{ now.Year }} {{ .Site.Title }}. Powered by <a href="https://gohugo.io/" rel="external">Hugo</a>. Theme by <a href="https://www.weisay.com/" target="_blank" rel="external nofollow">Weisay Grace</a>. <a href="https://www.travellings.cn/go.html" target="_blank" rel="noopener" title="开往-友链接力">开往-友链接力</a>&nbsp;&nbsp;&nbsp;<a href="https://webteleporter.top" target="_blank" rel="noopener" title="独立博客传送门">独立博客传送门</a></p>
+<p>© {{ now.Year }} {{ .Site.Title }}. Powered by <a href="https://gohugo.io/" rel="external">Hugo</a>. Theme by <a href="https://www.weisay.com/" target="_blank" rel="external nofollow">Weisay Grace</a>. <a href="/sitemap.xml" title="网站地图">网站地图</a>&nbsp;&nbsp;&nbsp;<a href="/feed.xml" title="RSS订阅">RSS订阅</a></p>
 </div>
 <div class="footer-right">
 <p><span class="mobile-hide">{{ with .Site.Params.beian }}<a href="https://beian.miit.gov.cn/" rel="external nofollow">{{ . }}</a>.{{ end }}</span></p>
@@ -32,7 +32,7 @@
 {{ range .Site.Menus.main }}
 <li><a href="{{ .URL }}">{{ .Name }}</a></li>
 {{ end }}
-{{ $navPages := slice (dict "name" "links" "label" "文汇") (dict "name" "guestbook" "label" "留言") }}
+{{ $navPages := slice (dict "name" "guestbook" "label" "留言") }}
 {{ range $navPages }}
     {{ $page := site.GetPage (printf "/pages/%s" .name) }}
     {{ if $page }}

@@ -367,7 +367,7 @@ async function replaceImageRefs(content, env) {
 const GITHUB_API = 'https://api.github.com';
 const GITHUB_REPO = 'youquyoulai/blog';
 const CONTENT_DIR = 'content';
-const DEFAULT_SECTION = 'posts';
+const DEFAULT_SECTION = 'math';
 
 function githubHeaders(token) {
   return {
@@ -590,7 +590,7 @@ async function getTaxonomies(request, env) {
   // posts section: 使用 Hugo 生成的 taxonomies.json（覆盖大多数场景，快）
   if (section === DEFAULT_SECTION) {
     try {
-      const res = await fetch('https://www.pgoj.top/taxonomies.json');
+      const res = await fetch('https://math.pgoj.top/taxonomies.json');
       if (res.ok) {
         const data = await res.json();
         return corsResponse(JSON.stringify(data));

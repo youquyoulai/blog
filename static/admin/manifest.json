@@ -1,7 +1,7 @@
 {
-  "name": "博客管理后台",
-  "short_name": "博客管理",
-  "description": "平哥偶记博客管理后台",
+  "name": "数学博客管理后台",
+  "short_name": "数学博客",
+  "description": "平哥解数学博客管理后台",
   "start_url": "/admin/",
   "display": "standalone",
   "background_color": "#0f0f1a",

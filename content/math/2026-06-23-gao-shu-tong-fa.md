@@ -2,7 +2,7 @@
 title: "高中数学该重视的是通性通法"
 date: 2021-08-01T15:09:00+08:00
 cover: "@image:202606/daoshugaoyi.webp"
-categories: [math-solutions]
+categories: [teaching-chatter]
 tags: ["mock-exam"]
 slug: "gao-shu-tong-fa"
 ---

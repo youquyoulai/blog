@@ -2,7 +2,7 @@
 title: "关于数学题解这个栏目的缘起"
 date: 2026-05-25T06:32:00+08:00
 cover: "@image:2026slt/sxtj.webp"
-categories: [math-solutions]
+categories: [teaching-chatter]
 tags: ["mock-exam"]
 slug: "shu-xye-ti-yuan-qi"
 ---

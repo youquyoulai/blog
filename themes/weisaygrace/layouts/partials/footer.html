@@ -24,7 +24,7 @@
 </li>
 <li><a href="{{ .Site.BaseURL }}">首页</a></li>
 {{ range .Site.Taxonomies.categories }}
-{{ if not (in (slice "shuxue" "math-solutions" "exam-analysis") .Page.Title) }}
+{{ if not (in (slice "shuxue") .Page.Title) }}
 {{ $catName := partial "cat-names.html" .Page.Title }}
 <li><a href="{{ .Page.Permalink }}">{{ $catName }}</a></li>
 {{ end }}

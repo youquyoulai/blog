@@ -605,7 +605,7 @@ async function getTaxonomies(request, env) {
   // 预设的 section taxonomy（即使没有文章也能显示）
   const SECTION_TAXONOMY_PRESETS = {
     'math': {
-      categories: ['math-solutions', 'exam-analysis'],
+      categories: ['math-solutions', 'teaching-chatter', 'exam-analysis'],
       tags: ['gaokao-math', 'mock-exam'],
     },
   };

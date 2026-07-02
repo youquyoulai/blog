@@ -1,5 +1,5 @@
 ---
-title: "高考数学"大招"与"必杀技"的真相"
+title: "高考数学大招与必杀技的真相"
 date: 2026-07-02T09:27:00+08:00
 cover: "@image:2026slt/sxtj.webp"
 categories: [teaching-chatter]

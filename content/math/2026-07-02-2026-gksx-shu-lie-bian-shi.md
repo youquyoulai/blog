@@ -1,5 +1,5 @@
 ---
-title: "2026高考数学I卷第14题：如何迅速抓住关键——三项分组突破法与变式训练"
+title: "2026高考数学I卷第14题：如何迅速抓住关键(三项分组突破法与变式训练)"
 date: 2026-07-02T15:11:00+08:00
 cover: "@image:2026slt/sxtj.webp"
 categories: [math-solutions]

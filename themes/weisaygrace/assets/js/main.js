@@ -148,6 +148,17 @@
         localStorage.setItem('theme', theme);
     }
 
+    // 监听系统主题变化
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+            if (e.matches) {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+        }
+    });
+
     if (darkModeToggleMobile) {
         darkModeToggleMobile.addEventListener('click', function () {
              // 关闭侧边栏抽屉

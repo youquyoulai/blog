@@ -16,18 +16,18 @@
 {{ if le $total 7 }}
     {{ range $pagers }}
         {{ if eq .PageNumber $current }}
-<span class="current">{{ .PageNumber }}</span>
+<span class="current" aria-current="page">{{ .PageNumber }}</span>
         {{ else }}
-<a href="{{ .URL }}">{{ .PageNumber }}</a>
+<a href="{{ .URL }}" aria-label="第 {{ .PageNumber }} 页">{{ .PageNumber }}</a>
         {{ end }}
     {{ end }}
 {{ else }}
     {{/* 显示前 2 页 */}}
     {{ range first 2 $pagers }}
         {{ if eq .PageNumber $current }}
-<span class="current">{{ .PageNumber }}</span>
+<span class="current" aria-current="page">{{ .PageNumber }}</span>
         {{ else }}
-<a href="{{ .URL }}">{{ .PageNumber }}</a>
+<a href="{{ .URL }}" aria-label="第 {{ .PageNumber }} 页">{{ .PageNumber }}</a>
         {{ end }}
     {{ end }}
 
@@ -41,7 +41,7 @@
         {{ $pageNum := $p.PageNumber }}
         {{ if and (gt $pageNum 2) (lt $pageNum (sub $total 1)) (or (eq $pageNum (sub $current 1)) (eq $pageNum $current) (eq $pageNum (add $current 1))) }}
             {{ if eq $pageNum $current }}
-<span class="current">{{ $pageNum }}</span>
+<span class="current" aria-current="page">{{ $pageNum }}</span>
             {{ else }}
 <a href="{{ $p.URL }}">{{ $pageNum }}</a>
             {{ end }}
@@ -56,9 +56,9 @@
     {{/* 显示后 2 页 */}}
     {{ range last 2 $pagers }}
         {{ if eq .PageNumber $current }}
-<span class="current">{{ .PageNumber }}</span>
+<span class="current" aria-current="page">{{ .PageNumber }}</span>
         {{ else }}
-<a href="{{ .URL }}">{{ .PageNumber }}</a>
+<a href="{{ .URL }}" aria-label="第 {{ .PageNumber }} 页">{{ .PageNumber }}</a>
         {{ end }}
     {{ end }}
 {{ end }}

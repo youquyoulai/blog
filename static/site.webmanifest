@@ -1,13 +1,13 @@
 {
-  "name": "平哥偶记",
-  "short_name": "平哥偶记",
-  "description": "记录日常观感，分享生活随笔",
+  "name": "平哥集录",
+  "short_name": "平哥集录",
+  "description": "平哥集录 — 数学、文学、历史、哲学、科学与生活的笔记与思考",
   "start_url": "/",
   "display": "standalone",
   "icons": [
     { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" }
   ],
-  "theme_color": "#2c5faa",
+  "theme_color": "#434a54",
   "background_color": "#ffffff"
 }

@@ -1,26 +1,6 @@
 {{ define "main" }}
 {{ partial "breadcrumbs.html" . }}
 
-<style>
-.article-content h1.reading-page-title:before { margin-top: 0; }
-.article-content h1.reading-page-title { margin-bottom: 1.5rem; }
-.article-content h2.post-title:before { margin-top: 0; }
-.reading-page .post {
-  background: var(--color_card, #fff);
-  border: 1px solid var(--color_border, #e5e7eb);
-  border-radius: 10px;
-  padding: 1.5rem 1.75rem;
-  margin-bottom: 1.25rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-  position: relative;
-  overflow: hidden;
-}
-.reading-page .post:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-  transform: translateY(-2px);
-}
-</style>
 
 <div class="article">
 <div class="article-content reading-page">
@@ -56,18 +36,18 @@
       {{ else if $page.Params.categories }}
       <span class="category info-icon" itemprop="articleSection">
         <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg>
-        <a href="{{ "/categories/" | relURL }}{{ $page.Params.categories | urlize }}">{{ partial "cat-names.html" $page.Params.categories }}</a>
+        <a href="{{ "/categories/" | relURL }}{{ $page.Params.categories | urlize }}">{{ $page.Params.categories }}</a>
       </span>
       {{ end }}
       {{ if reflect.IsSlice $page.Params.tags }}
       <span class="tags info-icon" itemprop="keywords">
         <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg>
-        {{ range $j, $tag := $page.Params.tags }}{{ if $j }}, {{ end }}<a href="{{ "/tags/" | relURL }}{{ $tag | urlize }}">{{ partial "tag-names.html" (dict "tag" $tag) }}</a>{{ end }}
+        {{ range $j, $tag := $page.Params.tags }}{{ if $j }}, {{ end }}<a href="{{ "/tags/" | relURL }}{{ $tag | urlize }}">{{ $tag }}</a>{{ end }}
       </span>
       {{ else if $page.Params.tags }}
       <span class="tags info-icon" itemprop="keywords">
         <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg>
-        <a href="{{ "/tags/" | relURL }}{{ $page.Params.tags | urlize }}">{{ partial "tag-names.html" (dict "tag" $page.Params.tags) }}</a>
+        <a href="{{ "/tags/" | relURL }}{{ $page.Params.tags | urlize }}">{{ $page.Params.tags }}</a>
       </span>
       {{ end }}
     </div>

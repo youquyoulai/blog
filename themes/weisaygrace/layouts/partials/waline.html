@@ -45,9 +45,3 @@ var walineObserver = new IntersectionObserver(function(entries) {
 }, { rootMargin: '200px' });
 walineObserver.observe(document.getElementById('{{ .el }}-wrap'));
 </script>
-<style>
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-</style>

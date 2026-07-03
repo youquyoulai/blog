@@ -2,9 +2,9 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Waline JS/CSS 缓存 1 年（文件名固定，但内容不常变）
+# Waline JS/CSS 缓存 1 天（文件名无 hash）
 /js/waline/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400
 
 # 图片缓存 30 天
 /*.webp

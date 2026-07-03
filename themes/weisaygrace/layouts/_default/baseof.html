@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}"><script>!function(){try{var e=document.documentElement;var t=localStorage.getItem('theme');var dark=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(dark){e.classList.add('dark');e.style.backgroundColor='#1a1d21';e.style.colorScheme='dark';}else{e.style.backgroundColor='#eef1f4';e.style.colorScheme='light';}}catch(e){}}();</script>
+<html lang="{{ .Site.LanguageCode }}"><script>!function(){try{var e=document.documentElement;var t=localStorage.getItem('theme');var dark=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(dark){e.classList.add('dark');e.style.backgroundColor='#1a1d21';e.style.colorScheme='dark';}else{e.style.backgroundColor='#434a54';e.style.colorScheme='light';}}catch(e){}}();</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,19 +16,23 @@
     {{ end }}
 
     {{ if .Site.Params.favicon }}
-    <link rel="shortcut icon" href="{{ .Site.Params.favicon }}" type="image/x-icon">
-    <link rel="icon" href="{{ .Site.Params.favicon }}">
+    <link rel="icon" href="{{ .Site.Params.favicon }}" sizes="32x32">
     {{ end }}
+    <link rel="manifest" href="/site.webmanifest">
 
     {{ with .Site.Params.waline.serverURL }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
     <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
-    {{ with .Site.Params.waline.serverURL }}<link rel="dns-prefetch" href="{{ . }}">{{ end }}
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
     {{ $css := resources.Get "css/style.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">
     {{ $darkCss := resources.Get "css/dark.css" | minify | fingerprint }}
     <link rel="preload" as="style" href="{{ $darkCss.RelPermalink }}" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="{{ $darkCss.RelPermalink }}"></noscript>
+    {{ $pagesCss := resources.Get "css/pages.css" | minify | fingerprint }}
+    <link rel="preload" as="style" href="{{ $pagesCss.RelPermalink }}" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ $pagesCss.RelPermalink }}"></noscript>
 
     <!-- SVG Sprite (icons used across theme) -->
     <svg style="display:none">
@@ -117,16 +121,32 @@
             "@type": "WebPage",
             "@id": "{{ .Permalink | safeURL }}"
         },
+        "author": {
+            "@type": "Person",
+            "name": "{{ .Params.author | default .Site.Params.author | default .Site.Title }}"
+        },
         "publisher": {
             "@type": "Person",
             "name": "{{ .Site.Params.author | default .Site.Title }}"
         }{{ with .Params.thumbnail }},
-        "image": "{{ . | absURL }}"
+        "image": "{{ . | absLangURL }}"
         {{ end }}
     }
     </script>
     {{ end }}
     {{ end }}
+
+    <!-- JSON-LD: WebSite -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "{{ .Site.Title }}",
+        "url": "{{ .Site.BaseURL | safeURL }}",
+        "description": "{{ .Site.Params.description | default "" }}"
+        {{ with .Site.Params.author }},{"author":{"@type":"Person","name":"{{ . }}"}} {{ end }}
+    }
+    </script>
 
     <!-- SEO -->
     <link rel="canonical" href="{{ .Permalink }}">
@@ -156,7 +176,7 @@
     {{ if (findRE "^@image:" $ogImg) }}
     <meta property="og:image" content="{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}">
     {{ else if (findRE "^/" $ogImg) }}
-    <meta property="og:image" content="{{ $ogImg | absURL }}">
+    <meta property="og:image" content="{{ $ogImg | absLangURL }}">
     {{ else }}
     <meta property="og:image" content="{{ $ogImg }}">
     {{ end }}
@@ -171,7 +191,7 @@
     {{ if (findRE "^@image:" $ogImg) }}
     <meta name="twitter:image" content="{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}">
     {{ else if (findRE "^/" $ogImg) }}
-    <meta name="twitter:image" content="{{ $ogImg | absURL }}">
+    <meta name="twitter:image" content="{{ $ogImg | absLangURL }}">
     {{ else }}
     <meta name="twitter:image" content="{{ $ogImg }}">
     {{ end }}
@@ -179,33 +199,43 @@
 
     {{ hugo.Generator }}
 
-    {{ if .Params.math -}}
     <!-- MathJax 3 -->
     <script>
       window.MathJax = {
         tex: {
-          inlineMath: [['$', '$'], ['\$', '\$']],
-          displayMath: [['$$', '$$'], ['\$$', '\$$']],
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
           processEscapes: true,
           processEnvironments: true
         },
         options: {
-          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          ignoreHtmlClass: 'no-mathjax'
+        },
+        startup: {
+          ready: function() {
+            MathJax.startup.defaultReady();
+            MathJax.startup.promise.then(function() {
+              document.querySelectorAll('.MathJax').forEach(function(el) {
+                el.style.visibility = 'visible';
+              });
+            });
+          }
         }
       };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.min.js"></script>
-    {{- end }}
 </head>
 <body>
+<a href="#main-content" class="skip-link" style="position:absolute;top:-100%;left:0;background:var(--color_link);color:#fff;padding:.5rem 1rem;z-index:99999;">跳到主内容</a>
 
 {{ partial "header.html" . }}
 
-<div class="container" id="main-content">
+<div class="container main-wrapper"><main id="main-content">
     <div class="main">
         {{ block "main" . }}{{ end }}
     </div>
-</div>
+</main></div>
 
 {{ partial "footer.html" . }}
 

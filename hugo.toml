@@ -28,7 +28,6 @@ capitalizeListTitles = false
 
 [permalinks]
   math = '/archives/:slug.html'
-  posts = '/archives/:slug.html'
   literature = '/:sections/:slug.html'
   history = '/:sections/:slug.html'
   philosophy = '/:sections/:slug.html'
@@ -83,3 +82,9 @@ capitalizeListTitles = false
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+[security]
+  [security.exec]
+    allow = ['^dart-sass-embedded$', '^go$', '^npx$', '^node$']
+  [security.funcs]
+    getenv = ['^HUGO_', '^CI$']

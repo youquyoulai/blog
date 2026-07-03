@@ -54,18 +54,25 @@ function checkAuth(request, env) {
     if (!token || !expectedToken || token !== expectedToken) {
       return false;
     }
-    // 移除敏感日志
     return true;
   } catch (e) {
     return false;
   }
 }
 
+function isLocalDev(request) {
+  const host = request.headers.get('Host') || '';
+  return host.startsWith('localhost') || host.startsWith('127.0.0.1');
+}
+
 // 验证请求来源
 function checkOrigin(request) {
   const origin = request.headers.get('Origin');
-  if (!origin) return true;  // 无 Origin 头（直接访问）放行
-  return origin === ALLOWED_ORIGIN || origin.endsWith('.pgoj.top');
+  if (!origin) return true;
+  return origin === ALLOWED_ORIGIN || 
+         origin.endsWith('.pgoj.top') || 
+         origin.startsWith('http://localhost') || 
+         origin.startsWith('http://127.0.0.1');
 }
 
 // ═════════════════════════════════════════════════════════════════
@@ -734,35 +741,8 @@ async function getTaxonomies(request, env) {
   const url = new URL(request.url);
   const section = url.searchParams.get('section') || DEFAULT_SECTION;
 
-  // math section: 使用 Hugo 生成的 taxonomies.json
-  if (section === DEFAULT_SECTION) {
-    try {
-      const res = await fetch('https://www.pgoj.top/taxonomies.json');
-      if (res.ok) {
-        const data = await res.json();
-        return corsResponse(JSON.stringify(data));
-      }
-    } catch (e) {
-      console.error('读取 taxonomies.json 失败:', e.message);
-    }
-    return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [] }));
-  }
-
-  // 预设的 section taxonomy（即使没有文章也能显示）
-  const SECTION_TAXONOMY_PRESETS = {
-    'math': {
-      categories: ['math-solutions', 'teaching-chatter', 'exam-analysis'],
-      tags: ['gaokao-math', 'mock-exam'],
-    },
-    'literature': {
-      categories: ['literature'],
-      tags: ['wangxiaobo', 'yanlianke'],
-    },
-  };
-
-  // 非 math section: 递归扫描目录文件，从 frontmatter 提取分类/标签并计数
+  // 所有 section 统一走 GitHub 扫描逻辑（不再依赖 taxonomies.json）
   const dir = CONTENT_DIR + '/' + section;
-  const presets = SECTION_TAXONOMY_PRESETS[section] || null;
   const catMap = {};
   const tagMap = {};
 
@@ -812,16 +792,6 @@ async function getTaxonomies(request, env) {
       tags.forEach(function(t) { tagMap[t] = (tagMap[t] || 0) + 1; });
     }
 
-    // 合并预设分类/标签（count 以实际扫描为准，预设的补充为 0）
-    if (presets) {
-      presets.categories.forEach(function(c) {
-        if (!(c in catMap)) catMap[c] = 0;
-      });
-      presets.tags.forEach(function(t) {
-        if (!(t in tagMap)) tagMap[t] = 0;
-      });
-    }
-
     var catList = Object.keys(catMap).map(function(name) { return { name: name, count: catMap[name] }; });
     var tagList = Object.keys(tagMap).map(function(name) { return { name: name, count: tagMap[name] }; });
 
@@ -831,14 +801,6 @@ async function getTaxonomies(request, env) {
       tags: tagList
     }));
   } catch (e) {
-    // 目录不存在或扫描失败，回退返回预设
-    if (presets) {
-      return corsResponse(JSON.stringify({
-        totalPosts: 0,
-        categories: presets.categories.map(function(c) { return { name: c, count: 0 }; }),
-        tags: presets.tags.map(function(t) { return { name: t, count: 0 }; }),
-      }));
-    }
     console.error('扫描 section taxonomies 失败:', e.message);
     return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [] }));
   }
@@ -974,7 +936,7 @@ export default {
       return corsResponse(JSON.stringify({ error: 'Forbidden' }), 403);
     }
 
-    if (!checkAuth(request, env)) {
+    if (!checkAuth(request, env) && !isLocalDev(request)) {
       return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
     }
 

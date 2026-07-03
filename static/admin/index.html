@@ -742,15 +742,17 @@
             <input type="text" class="editor-title-input" id="postTitle" placeholder="文章标题">
             <div class="editor-fields">
               <input type="text" class="meta-input" id="postDate" placeholder="日期 2026-05-06" style="width:180px;">
-              <input type="text" class="meta-input" id="postCategory" placeholder="点击下方选择分类" style="width:150px;">
-              <input type="text" class="meta-input" id="postTags" placeholder="点击下方选择标签" style="width:190px;">
-              <input type="text" class="meta-input" id="postSlug" placeholder="slug" style="width:130px;">
-              <input type="text" class="meta-input" id="postCover" placeholder="封面图" style="flex:1;min-width:180px;">
+              <input type="text" class="meta-input" id="postSubsection" placeholder="所属专题" style="width:140px;" readonly onclick="toggleSubSectionDropdown()" style="cursor:pointer;">
+              <input type="text" class="meta-input" id="postCategory" placeholder="点击下方选择分类" style="width:130px;">
+              <input type="text" class="meta-input" id="postTags" placeholder="点击下方选择标签" style="width:170px;">
+              <input type="text" class="meta-input" id="postSlug" placeholder="slug" style="width:110px;">
+              <input type="text" class="meta-input" id="postCover" placeholder="封面图" style="flex:1;min-width:150px;">
               <button class="btn btn-sm" onclick="showCoverPicker()">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
                 选封面
               </button>
             </div>
+            <div id="subChips" class="editor-chips"></div>
             <div id="catChips" class="editor-chips"></div>
             <div id="tagChips" class="editor-chips"></div>
           </div>
@@ -989,6 +991,7 @@ var _taxonomyHintsLoaded = false;
 var _taxonomyHintsSection = 'math';
 var _allCategories = [];
 var _allTags = [];
+var _allSubSections = [];  // 当前 section 下的子专题列表
 
 // 各 section 的兜底分类/标签（API 失败时使用）
 var _FALLBACK_TAXONOMIES = {
@@ -1011,10 +1014,15 @@ async function loadTaxonomyHints() {
   // section 变了就重新加载
   if (_taxonomyHintsLoaded && _taxonomyHintsSection === section) { renderChips(); return; }
   try {
-    var data = await api('/api/taxonomies?section=' + section);
-    _allCategories = data.categories || [];
-    _allTags = data.tags || [];
-    // API 返回空时用兜底数据补充
+    // 并行加载 taxonomies 和 subsections
+    var [taxData, subData] = await Promise.all([
+      api('/api/taxonomies?section=' + section),
+      api('/api/subsections?section=' + section)
+    ]);
+    _allCategories = taxData.categories || [];
+    _allTags = taxData.tags || [];
+    _allSubSections = subData.subsections || [];
+    // API 返回空时用兜底数据补充分类/标签
     if (_allCategories.length === 0 && _allTags.length === 0) {
       var fb = _FALLBACK_TAXONOMIES[section] || {categories:[],tags:[]};
       _allCategories = fb.categories;
@@ -1024,11 +1032,12 @@ async function loadTaxonomyHints() {
     _taxonomyHintsSection = section;
     renderChips();
   } catch(e) {
-    console.error('加载分类/标签失败，使用兜底数据:', e);
+    console.error('加载分类/标签/专题失败，使用兜底数据:', e);
     // 兜底：使用预设分类/标签
     var fb = _FALLBACK_TAXONOMIES[section] || {categories:[],tags:[]};
     _allCategories = fb.categories;
     _allTags = fb.tags;
+    _allSubSections = [];
     _taxonomyHintsLoaded = true;
     _taxonomyHintsSection = section;
     renderChips();
@@ -1036,6 +1045,9 @@ async function loadTaxonomyHints() {
 }
 
 function renderChips() {
+  // ── 渲染所属专题（子分类）──
+  renderSubChips();
+
   // 渲染分类标签
   var catEl = document.getElementById('catChips');
   catEl.innerHTML = '<span style="font-size:0.78rem;color:var(--muted);margin-right:4px;">分类：</span>';
@@ -1052,9 +1064,7 @@ function renderChips() {
     span.onmouseenter = function(){ this.style.borderColor='var(--accent)';this.style.color='var(--accent)'; };
     span.onmouseleave = function(){ if(!this.classList.contains('active')){ this.style.borderColor='var(--border)';this.style.color='var(--muted)';this.style.background='var(--surface)';} };
     span.onclick = function() {
-      // 写入 slug，不是中文名
       document.getElementById('postCategory').value = this.dataset.slug;
-      // 高亮当前选中
       document.querySelectorAll('.cat-chip').forEach(function(el){ el.classList.remove('active'); el.style.background='var(--surface)'; el.style.color='var(--muted)'; });
       this.classList.add('active');
       this.style.background='rgba(108,92,231,0.12)';
@@ -1079,11 +1089,9 @@ function renderChips() {
     span.onmouseenter = function(){ this.style.borderColor='var(--accent)';this.style.color='var(--accent)'; };
     span.onmouseleave = function(){ if(!this.classList.contains('active')){ this.style.borderColor='var(--border)';this.style.color='var(--muted)';this.style.background='var(--surface)';} };
     span.onclick = function() {
-      // 写入 slug，不是中文名
       var current = document.getElementById('postTags').value;
       var newVal = current ? current + ', ' + this.dataset.slug : this.dataset.slug;
       document.getElementById('postTags').value = newVal;
-      // 视觉反馈
       this.classList.add('active');
       this.style.background='rgba(108,92,231,0.12)';
       this.style.color='var(--accent2)';
@@ -1097,7 +1105,58 @@ function renderChips() {
   syncChipActiveState();
 }
 
+// ── 渲染所属专题 chip（子分类）──
+function renderSubChips() {
+  var el = document.getElementById('subChips');
+  var section = document.getElementById('postSectionSel').value;
+  el.innerHTML = '<span style="font-size:0.78rem;color:var(--muted);margin-right:4px;">所属专题：</span>';
+
+  if (_allSubSections.length === 0) {
+    // 添加「根目录」选项
+    var rootSpan = createSubChip('(根目录)', '', 0);
+    el.appendChild(rootSpan);
+    el.innerHTML += '<span style="font-size:0.78rem;color:var(--muted);margin-left:6px;">(该分类暂无专题)</span>';
+    return;
+  }
+
+  _allSubSections.forEach(function(s) {
+    var display = (s.icon ? s.icon + ' ' : '') + s.title + ' (' + s.count + ')';
+    var span = createSubChip(display, s.name, s.count);
+    el.appendChild(span);
+  });
+
+  // 始终添加「根目录」作为选项
+  var rootSpan = createSubChip('⊙ 根目录', '', -1);
+  el.appendChild(rootSpan);
+}
+
+function createSubChip(display, slug, count) {
+  var span = document.createElement('span');
+  span.className = 'sub-chip';
+  span.textContent = display;
+  span.dataset.slug = slug || '';
+  span.style.cssText = 'cursor:pointer;font-size:0.78rem;padding:3px 10px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--muted);transition:0.15s;user-select:none;display:inline-block;';
+  span.onmouseenter = function(){ this.style.borderColor='var(--accent2)';this.style.color='var(--accent2)'; };
+  span.onmouseleave = function(){ if(!this.classList.contains('active')){ this.style.borderColor='var(--border)';this.style.color='var(--muted)';this.style.background='var(--surface)';} };
+  span.onclick = function() {
+    document.getElementById('postSubsection').value = this.dataset.slug;  // 空字符串=根目录
+    document.querySelectorAll('.sub-chip').forEach(function(el){ el.classList.remove('active'); el.style.background='var(--surface)'; el.style.color='var(--muted)'; });
+    this.classList.add('active');
+    this.style.background='rgba(66,184,131,0.12)';
+    this.style.color='var(--accent2)';
+  };
+  return span;
+}
+
 function syncChipActiveState() {
+  // 所属专题高亮
+  var subVal = (document.getElementById('postSubsection').value || '').trim();
+  document.querySelectorAll('.sub-chip').forEach(function(el) {
+    var isMatch = (el.dataset.slug === subVal);
+    el.classList.toggle('active', isMatch);
+    el.style.background = isMatch ? 'rgba(66,184,131,0.12)' : 'var(--surface)';
+    el.style.color = isMatch ? 'var(--accent2)' : 'var(--muted)';
+  });
   // 分类高亮
   var catVal = (document.getElementById('postCategory').value || '').trim();
   document.querySelectorAll('.cat-chip').forEach(function(el) {
@@ -1711,6 +1770,7 @@ function newPost() {
   document.getElementById('postDate').value = localTime.toISOString().slice(0,16);
   document.getElementById('postCategory').value = 'jilu';
   document.getElementById('postTags').value = '';
+  document.getElementById('postSubsection').value = '';  // 所属专题默认空（根目录）
   document.getElementById('postSlug').value = '';
   document.getElementById('postCover').value = '';
     document.getElementById('postContent').value = '';
@@ -1745,6 +1805,7 @@ async function editPost(filename, subSection) {
     document.getElementById('postTags').value = extractFM(content, 'tags') ? extractFM(content, 'tags').split(',').map(function(t){ return t.trim(); }).join(', ') : '';
     document.getElementById('postSlug').value = extractFM(content, 'slug') || filename.replace('.md','').replace(/^\d{4}-\d{2}-\d{2}-/,'');
     document.getElementById('postCover').value = extractFM(content, 'cover') || '';
+    document.getElementById('postSubsection').value = subSection || '';  // 所属专题
     document.getElementById('postContent').value = extractBody(content);
     document.getElementById('deletePostBtn').style.display = 'inline-flex';
     switchTab('editor');
@@ -1804,6 +1865,8 @@ async function savePost(silent) {
   var tags = document.getElementById('postTags').value.trim().split(',').map(function(t){ return t.trim(); }).filter(Boolean).join(',');
   var slug = document.getElementById('postSlug').value.trim();
   var cover = document.getElementById('postCover').value.trim();
+  // 所属专题（从输入框读取当前值）
+  var subSec = (document.getElementById('postSubsection').value || '').trim();
   var body = document.getElementById('postContent').value;
   if (!title || !date) { toast('标题和日期不能为空', 'error'); return; }
   var frontmatter = buildFM(title, date, category, tags, slug, cover);
@@ -1813,13 +1876,13 @@ async function savePost(silent) {
   var filename = editingFile ? editingFile.filename : dateOnly + '-' + (slug || title.replace(/[^\w\u4e00-\u9fa5-]/g,'-').toLowerCase()) + '.md';
   try {
     if (editingFile) {
-      var subSec = editingFile.subSection || '';
       await api('/api/posts/' + encodeURIComponent(filename) + '?section=' + currentSection + (subSec ? '&subsection=' + encodeURIComponent(subSec) : ''), 'PUT', { content: content, sha: editingFile.sha });
     } else {
-      await api('/api/posts', 'POST', { filename: filename, content: content, section: currentSection });
+      // 新建文章：传入所属专题
+      await api('/api/posts', 'POST', { filename: filename, content: content, section: currentSection, subsection: subSec || undefined });
     }
     if (!silent) { toast('文章已保存', 'success'); backToList(); }
-    editingFile = { filename: filename, sha: editingFile ? editingFile.sha : undefined };
+    editingFile = { filename: filename, sha: editingFile ? editingFile.sha : undefined, subSection: subSec };
   } catch (e) {
     toast('保存失败: ' + e.message, 'error');
   }

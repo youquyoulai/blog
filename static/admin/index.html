@@ -1046,7 +1046,7 @@ async function loadTaxonomyHints() {
   if (_taxonomyHintsLoaded && _taxonomyHintsSection === section) { renderChips(); return; }
   try {
     var subData = await api('/api/subsections?section=' + section);
-    _allSubSections = subData.subsections || [];
+    _allSubSections = Array.isArray(subData) ? subData : (subData.subsections || []);
     _taxonomyHintsLoaded = true;
     _taxonomyHintsSection = section;
     renderChips();
@@ -1079,7 +1079,7 @@ function renderSubChips() {
   }
 
   _allSubSections.forEach(function(s) {
-    var display = (s.icon ? s.icon + ' ' : '') + s.title + ' (' + s.count + ')';
+    var display = (s.icon ? s.icon + ' ' : '') + s.title + ' (' + (s.articleCount || s.count || 0) + ')';
     var span = createSubChip(display, s.name, s.count);
     el.appendChild(span);
   });

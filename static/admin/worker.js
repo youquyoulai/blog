@@ -430,31 +430,172 @@ function extractFrontmatterField(content, field) {
   return [];
 }
 
+// 从 frontmatter 提取单值字段
+function extractFMValue(content, field) {
+  const match = content.match(/^---\s*\n([\s\S]*?)\n---/);
+  if (!match) return '';
+  const fm = match[1];
+  const m = fm.match(new RegExp(field + ':\\s*"?([^"\\n]*)"'));
+  return m ? m[1].trim() : '';
+}
+
+// 从 frontmatter 提取数组字段
+function extractFMArray(content, field) {
+  const match = content.match(/^---\s*\n([\s\S]*?)\n---/);
+  if (!match) return [];
+  const fm = match[1];
+  const arrMatch = fm.match(new RegExp(field + ':\\s*\\[([^\\]]*)\\]'));
+  if (arrMatch) {
+    return arrMatch[1].split(',').map(function(s) { return s.trim().replace(/^['"]|['"]$/g, ''); }).filter(Boolean);
+  }
+  // YAML block list format: field:\n  - item1\n  - item2
+  const blockMatch = fm.match(new RegExp(field + ':\\s*\\n((?:\\s+-\\s+.+\\n?)+)'));
+  if (blockMatch) {
+    return blockMatch[1].match(/\s+-\s+(.+)/g).map(function(s) { return s.replace(/^\s+-\s+/, '').trim().replace(/^['"]|['"]$/g, ''); });
+  }
+  return [];
+}
+
+// 提取 frontmatter 之后的正文
+function extractBody(content) {
+  const match = content.match(/^---\s*\n[\s\S]*?\n---\s*\n?([\s\S]*)$/);
+  return match ? match[1].trim() : '';
+}
+
+async function listSubSections(request, env) {
+  const authToken = request.headers.get('X-Admin-Token');
+  if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
+  const url = new URL(request.url);
+  const section = url.searchParams.get('section') || DEFAULT_SECTION;
+  const dir = CONTENT_DIR + '/' + section;
+
+  const data = await githubFetch(
+    '/repos/' + GITHUB_REPO + '/contents/' + dir,
+    'GET',
+    env.GITHUB_TOKEN
+  );
+
+  const subSections = [];
+  for (const item of data) {
+    if (item.type !== 'dir') continue;
+    let info = { name: item.name, path: item.path, title: item.name, description: '', icon: '', layout: '', image: '', birth: '', death: '', era: '', achievements: [], articleCount: 0, sha: '' };
+    try {
+      const idxData = await githubFetch(
+        '/repos/' + GITHUB_REPO + '/contents/' + item.path + '/_index.md',
+        'GET',
+        env.GITHUB_TOKEN
+      );
+      const content = base64ToUtf8(idxData.content);
+      info.sha = idxData.sha;
+      info.title = extractFMValue(content, 'title') || item.name;
+      info.description = extractFMValue(content, 'description');
+      info.icon = extractFMValue(content, 'icon');
+      info.layout = extractFMValue(content, 'layout');
+      info.image = extractFMValue(content, 'image');
+      info.birth = extractFMValue(content, 'birth');
+      info.death = extractFMValue(content, 'death');
+      info.era = extractFMValue(content, 'era');
+      info.achievements = extractFMArray(content, 'achievements');
+    } catch (e) { /* _index.md might not exist */ }
+    // count articles
+    try {
+      const subData = await githubFetch(
+        '/repos/' + GITHUB_REPO + '/contents/' + item.path,
+        'GET',
+        env.GITHUB_TOKEN
+      );
+      info.articleCount = subData.filter(function(f) { return f.type === 'file' && f.name.endsWith('.md') && f.name !== '_index.md'; }).length;
+    } catch (e) {}
+    subSections.push(info);
+  }
+
+  return corsResponse(JSON.stringify(subSections));
+}
+
+async function createSubSection(request, env) {
+  const authToken = request.headers.get('X-Admin-Token');
+  if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
+  const body = await request.json();
+  const { section, subsection, title, description, icon, layout, image, birth, death, era, achievements, content } = body;
+  if (!section || !subsection) return corsResponse(JSON.stringify({ error: 'Missing section or subsection' }), 400);
+
+  // Build frontmatter
+  var lines = ['---'];
+  lines.push('title: "' + (title || subsection) + '"');
+  if (description) lines.push('description: "' + description + '"');
+  if (icon) lines.push('icon: "' + icon + '"');
+  if (layout) lines.push('layout: "' + layout + '"');
+  if (image) lines.push('image: "' + image + '"');
+  if (birth) lines.push('birth: ' + birth);
+  if (death) lines.push('death: ' + death);
+  if (era) lines.push('era: "' + era + '"');
+  if (achievements && achievements.length > 0) {
+    lines.push('achievements:');
+    achievements.forEach(function(a) { lines.push('  - "' + a + '"'); });
+  }
+  lines.push('---');
+  lines.push('');
+  if (content) lines.push(content);
+
+  var fullContent = lines.join('\n');
+  var encoded = utf8ToBase64(fullContent);
+  var dir = CONTENT_DIR + '/' + section + '/' + subsection;
+  var data = await githubFetch(
+    '/repos/' + GITHUB_REPO + '/contents/' + dir + '/_index.md',
+    'PUT',
+    env.GITHUB_TOKEN,
+    { message: 'Create subsection ' + subsection, content: encoded }
+  );
+  return corsResponse(JSON.stringify({ ok: true, commit: data.commit }));
+}
+
 async function listPosts(request, env) {
   const authToken = request.headers.get('X-Admin-Token');
   if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
   const url = new URL(request.url);
   const section = url.searchParams.get('section') || DEFAULT_SECTION;
   const dir = CONTENT_DIR + '/' + section;
+
+  const posts = [];
+
+  // Get top-level contents
   const data = await githubFetch(
     '/repos/' + GITHUB_REPO + '/contents/' + dir,
     'GET',
     env.GITHUB_TOKEN
   );
-  const posts = data
-    .filter(function(f) { return f.name.endsWith('.md'); })
-    .map(function(f) {
-      const name = f.name;
-      const slug = name.replace(/\.md$/, '');
-      return { name: name, slug: slug, sha: f.sha, path: f.path };
-    });
+
+  for (const f of data) {
+    if (f.type === 'file' && f.name.endsWith('.md') && f.name !== '_index.md') {
+      posts.push({ name: f.name, slug: f.name.replace(/\.md$/, ''), sha: f.sha, path: f.path, subSection: '' });
+    } else if (f.type === 'dir') {
+      // Recursively fetch subdirectory contents
+      try {
+        const subData = await githubFetch(
+          '/repos/' + GITHUB_REPO + '/contents/' + f.path,
+          'GET',
+          env.GITHUB_TOKEN
+        );
+        for (const sf of subData) {
+          if (sf.type === 'file' && sf.name.endsWith('.md') && sf.name !== '_index.md') {
+            posts.push({ name: sf.name, slug: sf.name.replace(/\.md$/, ''), sha: sf.sha, path: sf.path, subSection: f.name });
+          }
+        }
+      } catch (e) {
+        console.error('Failed to list subdir ' + f.path + ':', e.message);
+      }
+    }
+  }
+
   return corsResponse(JSON.stringify(posts));
 }
 
 async function getPost(filename, request, env) {
   const url = new URL(request.url);
   const section = url.searchParams.get('section') || DEFAULT_SECTION;
-  const dir = CONTENT_DIR + '/' + section;
+  const subSection = url.searchParams.get('subsection') || '';
+  let dir = CONTENT_DIR + '/' + section;
+  if (subSection) dir += '/' + subSection;
   const token = env.GITHUB_TOKEN;
   const data = await githubFetch(
     '/repos/' + GITHUB_REPO + '/contents/' + dir + '/' + filename,
@@ -469,10 +610,11 @@ async function createPost(request, env) {
   const authToken = request.headers.get('X-Admin-Token');
   if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
   const body = await request.json();
-  const { filename, content, section } = body;
+  const { filename, content, section, subsection } = body;
   if (!filename || !content) return corsResponse(JSON.stringify({ error: 'Missing fields' }), 400);
 
-  const dir = CONTENT_DIR + '/' + (section || DEFAULT_SECTION);
+  let dir = CONTENT_DIR + '/' + (section || DEFAULT_SECTION);
+  if (subsection) dir += '/' + subsection;
   // 替换 @image:xxx 为 Markdown 图片语法
   const processedContent = await replaceImageRefs(content, env);
   const encoded = utf8ToBase64(processedContent);
@@ -490,11 +632,13 @@ async function updatePost(slug, request, env) {
   if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
   const url = new URL(request.url);
   const section = url.searchParams.get('section') || DEFAULT_SECTION;
+  const subSection = url.searchParams.get('subsection') || '';
   const body = await request.json();
   const { content, sha } = body;
   if (!content || !sha) return corsResponse(JSON.stringify({ error: 'Missing fields' }), 400);
 
-  const dir = CONTENT_DIR + '/' + section;
+  let dir = CONTENT_DIR + '/' + section;
+  if (subSection) dir += '/' + subSection;
   // 替换 @image:xxx 为 Markdown 图片语法
   const processedContent = await replaceImageRefs(content, env);
   const encoded = utf8ToBase64(processedContent);
@@ -513,11 +657,13 @@ async function deletePost(slug, request, env) {
   if (authToken !== env.ADMIN_TOKEN) return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
   const url = new URL(request.url);
   const section = url.searchParams.get('section') || DEFAULT_SECTION;
+  const subSection = url.searchParams.get('subsection') || '';
   const body = await request.json();
   const sha = body.sha;
   if (!sha) return corsResponse(JSON.stringify({ error: 'Missing sha' }), 400);
 
-  const dir = CONTENT_DIR + '/' + section;
+  let dir = CONTENT_DIR + '/' + section;
+  if (subSection) dir += '/' + subSection;
   const filename = slug.endsWith('.md') ? slug : slug + '.md';
   await githubFetch(
     '/repos/' + GITHUB_REPO + '/contents/' + dir + '/' + filename,
@@ -588,10 +734,10 @@ async function getTaxonomies(request, env) {
   const url = new URL(request.url);
   const section = url.searchParams.get('section') || DEFAULT_SECTION;
 
-  // posts section: 使用 Hugo 生成的 taxonomies.json（覆盖大多数场景，快）
+  // math section: 使用 Hugo 生成的 taxonomies.json
   if (section === DEFAULT_SECTION) {
     try {
-      const res = await fetch('https://math.pgoj.top/taxonomies.json');
+      const res = await fetch('https://www.pgoj.top/taxonomies.json');
       if (res.ok) {
         const data = await res.json();
         return corsResponse(JSON.stringify(data));
@@ -608,26 +754,54 @@ async function getTaxonomies(request, env) {
       categories: ['math-solutions', 'teaching-chatter', 'exam-analysis'],
       tags: ['gaokao-math', 'mock-exam'],
     },
+    'literature': {
+      categories: ['literature'],
+      tags: ['wangxiaobo', 'yanlianke'],
+    },
   };
 
-  // 非 posts section: 扫描目录文件，从 frontmatter 提取分类/标签并计数
+  // 非 math section: 递归扫描目录文件，从 frontmatter 提取分类/标签并计数
   const dir = CONTENT_DIR + '/' + section;
   const presets = SECTION_TAXONOMY_PRESETS[section] || null;
   const catMap = {};
   const tagMap = {};
 
   try {
+    // 获取顶层目录内容
     const data = await githubFetch(
       '/repos/' + GITHUB_REPO + '/contents/' + dir,
       'GET',
       env.GITHUB_TOKEN
     );
-    const mdFiles = data.filter(function(f) { return f.name.endsWith('.md') && f.name !== '_index.md'; });
+
+    // 收集所有需要扫描的 .md 文件（含子目录）
+    const mdFiles = [];
+    for (const f of data) {
+      if (f.type === 'file' && f.name.endsWith('.md') && f.name !== '_index.md') {
+        mdFiles.push(f);
+      } else if (f.type === 'dir') {
+        // 递归获取子目录内容
+        try {
+          const subData = await githubFetch(
+            '/repos/' + GITHUB_REPO + '/contents/' + f.path,
+            'GET',
+            env.GITHUB_TOKEN
+          );
+          for (const sf of subData) {
+            if (sf.type === 'file' && sf.name.endsWith('.md') && sf.name !== '_index.md') {
+              mdFiles.push(sf);
+            }
+          }
+        } catch (e) {
+          console.error('扫描子目录失败 ' + f.path + ':', e.message);
+        }
+      }
+    }
 
     for (var i = 0; i < mdFiles.length; i++) {
       var f = mdFiles[i];
       var fileData = await githubFetch(
-        '/repos/' + GITHUB_REPO + '/contents/' + dir + '/' + f.name,
+        '/repos/' + GITHUB_REPO + '/contents/' + f.path,
         'GET',
         env.GITHUB_TOKEN
       );
@@ -846,6 +1020,14 @@ export default {
       if (path.startsWith('/wgpjyhxlxn/api/post/') && request.method === 'GET') {
         const filename = decodeURIComponent(path.replace('/wgpjyhxlxn/api/post/', ''));
         return await getPost(filename, request, env);
+      }
+
+      // ─── 专题管理 API ────────────────────────────────────────────
+      if (path === '/wgpjyhxlxn/api/subsections' && request.method === 'GET') {
+        return await listSubSections(request, env);
+      }
+      if (path === '/wgpjyhxlxn/api/subsection' && request.method === 'POST') {
+        return await createSubSection(request, env);
       }
 
       // ─── 分类/标签 API ──────────────────────────────────────────

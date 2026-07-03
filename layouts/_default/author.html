@@ -1,0 +1,137 @@
+{{ define "main" }}
+{{ $parent := .Parent }}
+
+<style>
+/* Author page breadcrumbs */
+.kb-crumb{background:#fff;border-radius:.375rem;border-bottom:3px solid #e5e5e5;padding:.625rem .875rem;margin-bottom:1rem;box-shadow:0 0 4px rgba(205,220,230,.5);font-size:.875rem;}
+.kb-crumb ol{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;}
+.kb-crumb li{display:inline-flex;align-items:center;}
+.kb-crumb li:not(:last-child)::after{content:'>';margin-left:.5rem;color:#999;}
+.kb-crumb a{color:var(--color_link,#ed5565);text-decoration:none;}
+.kb-crumb a:hover{text-decoration:underline;}
+.kb-crumb span{color:#333;}
+.dark .kb-crumb{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
+.dark .kb-crumb a{color:#da4d5b;}
+.dark .kb-crumb span{color:#b4b7bb;}
+
+/* Author header */
+.kb-author-header{display:flex;gap:1.5rem;background:#fff;border-radius:.5rem;border-bottom:3px solid #e5e5e5;padding:1.5rem;box-shadow:0 0 4px rgba(205,220,230,.5);margin-bottom:1rem;}
+.kb-author-photo{flex-shrink:0;width:7rem;height:7rem;border-radius:.5rem;overflow:hidden;background:var(--color_border,#f6dfdf);}
+.kb-author-photo img{width:100%;height:100%;object-fit:cover;}
+.kb-author-photo-placeholder{flex-shrink:0;width:7rem;height:7rem;border-radius:.5rem;background:var(--color_border,#f6dfdf);display:flex;align-items:center;justify-content:center;font-size:3rem;color:var(--color_link,#ed5565);}
+.kb-author-info{flex:1;min-width:0;}
+.kb-author-info h1{font-size:1.5rem;font-weight:600;color:#333;margin:0 0 .25rem;}
+.kb-author-meta{font-size:.875rem;color:#999;margin:0 0 .625rem;}
+.kb-author-bio{font-size:.9375rem;color:#555;line-height:1.7;margin:0 0 .625rem;}
+.kb-author-achievements{margin-top:.625rem;}
+.kb-author-achievements h3{font-size:.875rem;font-weight:600;color:#666;margin:0 0 .375rem;}
+.kb-author-achievements ul{list-style:none;padding:0;margin:0;}
+.kb-author-achievements li{font-size:.8125rem;color:#777;line-height:1.8;padding-left:1rem;position:relative;}
+.kb-author-achievements li::before{content:'';position:absolute;left:0;top:.7rem;width:.25rem;height:.25rem;border-radius:50%;background:var(--color_link,#ed5565);}
+.dark .kb-author-header{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
+.dark .kb-author-info h1{color:#dadde1;}
+.dark .kb-author-meta{color:#8a8e94;}
+.dark .kb-author-bio{color:#b4b7bb;}
+.dark .kb-author-achievements h3{color:#8a8e94;}
+.dark .kb-author-achievements li{color:#8a8e94;}
+
+/* Author detailed content */
+.kb-author-content{background:#fff;border-radius:.5rem;border-bottom:3px solid #e5e5e5;padding:1.25rem 1.5rem;box-shadow:0 0 4px rgba(205,220,230,.5);margin-bottom:1rem;font-size:.9375rem;line-height:1.8;color:#555;}
+.kb-author-content h2{font-size:1.125rem;font-weight:600;color:#333;margin:1rem 0 .5rem;}
+.dark .kb-author-content{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);color:#b4b7bb;}
+.dark .kb-author-content h2{color:#dadde1;}
+
+/* Works list */
+.kb-works{background:#fff;border-radius:.5rem;border-bottom:3px solid #e5e5e5;padding:1.25rem 1.5rem;box-shadow:0 0 4px rgba(205,220,230,.5);}
+.kb-works h2{font-size:1.125rem;font-weight:600;color:#333;margin:0 0 1rem;padding-bottom:.625rem;border-bottom:1px solid #eee;}
+.kb-work-card{display:block;text-decoration:none;padding:.75rem 0;border-bottom:1px dashed #f0f0f0;transition:padding-left .2s;}
+.kb-work-card:last-child{border-bottom:none;}
+.kb-work-card:hover{padding-left:.5rem;text-decoration:none;}
+.kb-work-card h3{font-size:1rem;font-weight:500;color:#333;margin:0 0 .25rem;}
+.kb-work-card:hover h3{color:var(--color_hover,#da4453);}
+.kb-work-card p{font-size:.8125rem;color:#999;line-height:1.6;margin:0 0 .25rem;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
+.kb-work-card .kb-work-date{font-size:.75rem;color:#bbb;}
+.kb-empty{text-align:center;color:#999;padding:2rem 0;font-size:.9375rem;}
+.dark .kb-works{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
+.dark .kb-works h2{color:#dadde1;border-bottom-color:#3a3f45;}
+.dark .kb-work-card{border-bottom-color:#2a2e35;}
+.dark .kb-work-card h3{color:#b4b7bb;}
+.dark .kb-work-card p{color:#8a8e94;}
+
+@media(max-width:480px){
+  .kb-author-header{flex-direction:column;align-items:center;text-align:center;padding:1.25rem;}
+  .kb-author-photo,.kb-author-photo-placeholder{width:5rem;height:5rem;}
+  .kb-author-achievements li{text-align:left;}
+}
+</style>
+
+<nav class="kb-crumb" aria-label="breadcrumb">
+<ol>
+<li><a href="{{ .Site.BaseURL }}">首页</a></li>
+{{ with $parent }}
+<li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+{{ end }}
+<li><span aria-current="page">{{ .Title }}</span></li>
+</ol>
+</nav>
+
+<div class="kb-author-header">
+  {{ with .Params.image }}
+  <div class="kb-author-photo"><img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy"></div>
+  {{ else }}
+  <div class="kb-author-photo-placeholder">{{ substr .Title 0 1 }}</div>
+  {{ end }}
+  <div class="kb-author-info">
+    <h1>{{ .Title }}</h1>
+    {{ $metaParts := slice }}
+    {{ with .Params.birth }}{{ $metaParts = $metaParts | append (print . " 年生") }}{{ end }}
+    {{ with .Params.death }}{{ $metaParts = $metaParts | append (print . " 年逝") }}{{ end }}
+    {{ with .Params.era }}{{ $metaParts = $metaParts | append . }}{{ end }}
+    {{ if $metaParts }}
+    <p class="kb-author-meta">{{ delimit $metaParts " · " }}</p>
+    {{ end }}
+    {{ with .Description }}
+    <p class="kb-author-bio">{{ . }}</p>
+    {{ end }}
+    {{ with .Params.achievements }}
+    <div class="kb-author-achievements">
+      <h3>主要成就</h3>
+      <ul>
+        {{ if (reflect.IsSlice .) }}
+          {{ range . }}<li>{{ . }}</li>{{ end }}
+        {{ else }}
+          <li>{{ . }}</li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+  </div>
+</div>
+
+{{ if .Content }}
+<div class="kb-author-content">
+  {{ .Content }}
+</div>
+{{ end }}
+
+<div class="kb-works">
+  <h2>作品评价</h2>
+  {{ $works := .Pages }}
+  {{ if $works }}
+  {{ range $works }}
+  <a href="{{ .Permalink }}" class="kb-work-card">
+    <h3>{{ .Title }}</h3>
+    {{ with .Description }}
+    <p>{{ . | truncate 120 }}</p>
+    {{ else }}
+    <p>{{ .Summary | plainify | truncate 120 }}</p>
+    {{ end }}
+    <span class="kb-work-date">{{ .Date.Format "2006-01-02" }}</span>
+  </a>
+  {{ end }}
+  {{ else }}
+  <p class="kb-empty">暂无作品评价，敬请期待</p>
+  {{ end }}
+</div>
+
+{{ end }}

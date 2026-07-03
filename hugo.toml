@@ -1,12 +1,12 @@
 baseURL = 'https://math.pgoj.top/'
 languageCode = 'zh-cn'
 defaultContentLanguage = 'zh'
-title = '平哥数学'
+title = '平哥集录'
 theme = 'weisaygrace'
 
 hasCJKLanguage = true
 buildFuture = true
-mainSections = ['math']
+mainSections = ['math', 'literature', 'history', 'philosophy', 'science', 'life']
 capitalizeListTitles = false
 
 [pagination]
@@ -14,9 +14,9 @@ capitalizeListTitles = false
 
 [params]
   author = '平哥'
-  description = '数学题目解析与题解收藏，分享解题思路与方法'
-  keywords = '数学,题解,高考数学,模拟题,解析'
-  logo = '平哥数学'
+  description = '平哥集录 — 数学、文学、历史、哲学、科学与生活的笔记与思考'
+  keywords = '数学,文学,历史,哲学,科学,生活,知识库,高考数学,题解'
+  logo = '平哥集录'
   builtYear = '2026'
   email = 'wuliwuju@126.com'
   favicon = '/favicon.ico'
@@ -33,6 +33,11 @@ capitalizeListTitles = false
 [permalinks]
   math = '/archives/:slug.html'
   posts = '/archives/:slug.html'
+  literature = '/:sections/:slug.html'
+  history = '/:sections/:slug.html'
+  philosophy = '/:sections/:slug.html'
+  science = '/:sections/:slug.html'
+  life = '/:sections/:slug.html'
 
 [taxonomies]
   tag = 'tags'

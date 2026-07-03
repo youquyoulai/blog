@@ -303,7 +303,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </div>
       <h1>博客管理后台</h1>
-      <p>平哥解数学 · 管理面板</p>
+      <p>平哥集录 · 管理面板</p>
     </div>
     <div class="form-group">
       <label>访问令牌</label>
@@ -326,7 +326,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </div>
       <div>
-        <div class="brand-name">平哥解数学</div>
+        <div class="brand-name">平哥集录</div>
         <div class="brand-sub">管理面板</div>
       </div>
     </div>
@@ -339,6 +339,10 @@
       <button class="nav-item" data-tab="posts" onclick="switchTab('posts')">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         文章
+      </button>
+      <button class="nav-item" data-tab="subsections" onclick="switchTab('subsections')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        专题
       </button>
       <button class="nav-item" data-tab="pages" onclick="switchTab('pages')">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
@@ -381,7 +385,7 @@
     </button>
     <div class="topbar-breadcrumb" id="topbarTitle">图库</div>
     <div class="topbar-actions">
-      <a href="https://math.pgoj.top" target="_blank" class="btn btn-ghost btn-sm">
+      <a href="https://www.pgoj.top" target="_blank" class="btn btn-ghost btn-sm">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         查看博客
       </a>
@@ -439,8 +443,12 @@
           <div style="display:flex;align-items:center;gap:12px;">
             <h1>文章</h1>
             <select id="postSectionSel" onchange="switchSection(this.value)" style="padding:6px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.85rem;outline:none;">
-              <option value="math">数学题解</option>
-              <option value="posts">博客文章</option>
+              <option value="math">数学</option>
+              <option value="literature">文学</option>
+              <option value="history">历史</option>
+              <option value="philosophy">哲学</option>
+              <option value="science">科学</option>
+              <option value="life">生活</option>
             </select>
           </div>
           <button class="btn btn-primary" onclick="newPost()">
@@ -450,6 +458,102 @@
         </div>
         <div id="postFolderNav" style="margin-bottom:14px;"></div>
         <div id="postList"></div>
+      </div>
+
+      <!-- ▸ 专题管理 -->
+      <div id="tab-subsections" class="tab-content">
+        <div class="page-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <h1>专题管理</h1>
+            <select id="subSectionSel" onchange="loadSubSections()" style="padding:6px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.85rem;outline:none;">
+              <option value="math">数学</option>
+              <option value="literature">文学</option>
+              <option value="history">历史</option>
+              <option value="philosophy">哲学</option>
+              <option value="science">科学</option>
+              <option value="life">生活</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="newSubSection()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            新建专题
+          </button>
+        </div>
+        <div id="subSectionList"><div class="loading"><div class="spinner"></div>加载中…</div></div>
+      </div>
+
+      <!-- ▸ 专题编辑器 -->
+      <div id="tab-subsection-editor" class="tab-content">
+        <div class="page-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <button class="btn btn-sm btn-ghost" onclick="switchTab('subsections')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              返回
+            </button>
+            <h1 id="subEditorTitle">编辑专题</h1>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-success" onclick="saveSubSection()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+              保存
+            </button>
+          </div>
+        </div>
+        <div style="max-width:700px;">
+          <div class="form-field">
+            <label>专题名称 *</label>
+            <input type="text" id="subTitle" placeholder="如：2026高考真题" style="width:100%;">
+          </div>
+          <div class="form-field">
+            <label>目录名 * <span style="color:var(--muted);font-size:0.8rem;">（英文/拼音，URL路径用，创建后不可改）</span></label>
+            <input type="text" id="subSlug" placeholder="如：2026-gaokao" style="width:100%;">
+          </div>
+          <div class="form-field">
+            <label>描述</label>
+            <input type="text" id="subDescription" placeholder="一句话描述专题内容" style="width:100%;">
+          </div>
+          <div style="display:flex;gap:16px;">
+            <div class="form-field" style="flex:1;">
+              <label>图标（Emoji）</label>
+              <input type="text" id="subIcon" placeholder="如：📝" style="width:100%;" maxlength="4">
+            </div>
+            <div class="form-field" style="flex:1;">
+              <label>布局类型</label>
+              <select id="subLayout" onchange="toggleAuthorFields()" style="width:100%;padding:8px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.875rem;">
+                <option value="">普通（文章列表）</option>
+                <option value="author">作者页（照片+生平+作品）</option>
+              </select>
+            </div>
+          </div>
+          <div id="authorFields" style="display:none;">
+            <div class="form-field">
+              <label>照片 URL</label>
+              <input type="text" id="subImage" placeholder="如：https://img.pgoj.top/xxx.webp" style="width:100%;">
+            </div>
+            <div style="display:flex;gap:16px;">
+              <div class="form-field" style="flex:1;">
+                <label>生年</label>
+                <input type="number" id="subBirth" placeholder="如：1952" style="width:100%;">
+              </div>
+              <div class="form-field" style="flex:1;">
+                <label>卒年</label>
+                <input type="number" id="subDeath" placeholder="留空表示在世" style="width:100%;">
+              </div>
+              <div class="form-field" style="flex:1;">
+                <label>年代</label>
+                <input type="text" id="subEra" placeholder="如：当代" style="width:100%;">
+              </div>
+            </div>
+            <div class="form-field">
+              <label>文学成就 <span style="color:var(--muted);font-size:0.8rem;">（每行一条）</span></label>
+              <textarea id="subAchievements" rows="4" placeholder="每行一条成就" style="width:100%;font-family:inherit;"></textarea>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>正文内容 <span style="color:var(--muted);font-size:0.8rem;">（Markdown，显示在专题页面）</span></label>
+            <textarea id="subContent" rows="8" style="width:100%;font-family:monospace;font-size:0.85rem;" placeholder="专题/作者的介绍正文..."></textarea>
+          </div>
+        </div>
       </div>
 
       <!-- ▸ 评论 -->
@@ -477,8 +581,12 @@
           <div style="display:flex;align-items:center;gap:12px;">
             <h1>分类 / 标签</h1>
             <select id="taxSectionSel" onchange="loadTaxonomies()" style="padding:6px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.85rem;outline:none;">
-              <option value="math">数学题解</option>
-              <option value="posts">博客文章</option>
+              <option value="math">数学</option>
+              <option value="literature">文学</option>
+              <option value="history">历史</option>
+              <option value="philosophy">哲学</option>
+              <option value="science">科学</option>
+              <option value="life">生活</option>
             </select>
           </div>
         </div>
@@ -848,7 +956,8 @@ function api(path, method, body) {
 // 分类中文名映射（key = slug, value = 显示名）
 var _catDisplayNames = {
   'guanwu': '观感', 'jilu': '记录',
-  'math-solutions': '数学题解', 'teaching-chatter': '数学闲话', 'exam-analysis': '试题评析'
+  'math-solutions': '数学题解', 'teaching-chatter': '数学闲话', 'exam-analysis': '试题评析',
+  'literature': '文学', 'history': '历史', 'philosophy': '哲学', 'science': '科学', 'life': '生活'
 };
 function catDisplayName(slug) {
   return _catDisplayNames[slug] || slug;
@@ -859,9 +968,10 @@ var _tagDisplayNames = {
   'education': '教育', 'cognition': '认知', 'literature': '文艺',
   'reading': '阅读', 'blog': '博客', 'daily': '日常', 'emotion': '情感',
   'shopping': '购物', 'holiday': '节日', 'math': '数学', 'solution': '题解',
-  'wangxiaobo': '王小波', 'ai': 'AI', 'software': '软件', 'rock': '摇滚',
+  'wangxiaobo': '王小波', 'yanlianke': '闫连科', 'ai': 'AI', 'software': '软件', 'rock': '摇滚',
   'travel': '出行', 'movies': '电影', 'sisyphus': '西西弗斯', 'phone': '手机',
-  'gaokao-math': '高考数学', 'mock-exam': '高三模拟'
+  'gaokao-math': '高考数学', 'mock-exam': '高三模拟',
+  'history': '历史', 'philosophy': '哲学', 'science': '科学', 'life': '生活'
 };
 function tagDisplayName(slug) {
   return _tagDisplayNames[slug] || slug;
@@ -978,6 +1088,7 @@ function switchTab(name) {
 
   if (name === 'images') loadImages();
   if (name === 'posts') { loadPosts(); }
+  if (name === 'subsections') loadSubSections();
   if (name === 'comments') loadComments();
   if (name === 'taxonomies') loadTaxonomies();
   if (name === 'wenhui') loadWenhui();
@@ -988,9 +1099,9 @@ function switchTab(name) {
 
   // 同步顶栏标题
   var titles = {
-    'images':'图库', 'posts':'文章', 'comments':'评论', 'taxonomies':'分类 / 标签',
+    'images':'图库', 'posts':'文章', 'subsections':'专题', 'comments':'评论', 'taxonomies':'分类 / 标签',
     'wenhui':'文汇 RSS', 'links':'友链', 'pages':'独立页面', 'settings':'系统设置',
-    'editor':'编辑文章', 'pageEditor':'编辑页面'
+    'editor':'编辑文章', 'pageEditor':'编辑页面', 'subsection-editor':'编辑专题'
   };
   var titleEl = document.getElementById('topbarTitle');
   if (titleEl) titleEl.textContent = titles[name] || name;
@@ -1541,7 +1652,7 @@ async function loadPosts(prefix) {
 
       var html = '<div class="post-list">';
       posts.forEach(function(p) {
-        html += '<div class="post-item" onclick="editPost(\'' + encodeURIComponent(p.name) + '\')">' +
+        html += '<div class="post-item" onclick="editPost(\'' + encodeURIComponent(p.name) + '\', \'' + encodeURIComponent(p.subSection || '') + '\')">' +
           '<div class="post-item-title">' + escHtml(p.name.replace('.md','')) + '</div>' +
           '<div class="post-item-meta"><span>' + escHtml(p.path) + '</span></div>' +
           '</div>';
@@ -1572,11 +1683,12 @@ function newPost() {
     switchTab('editor');
   }
 
-async function editPost(filename) {
+async function editPost(filename, subSection) {
   try {
     filename = decodeURIComponent(filename);
-    var data = await api('/api/post/' + encodeURIComponent(filename) + '?section=' + currentSection);
-    editingFile = { filename: filename, sha: data.sha };
+    subSection = subSection ? decodeURIComponent(subSection) : '';
+    var data = await api('/api/post/' + encodeURIComponent(filename) + '?section=' + currentSection + (subSection ? '&subsection=' + encodeURIComponent(subSection) : ''));
+    editingFile = { filename: filename, sha: data.sha, subSection: subSection };
     var content = data.content;
     document.getElementById('postTitle').value = extractFM(content, 'title') || filename.replace('.md','');
     var rawDate = extractFM(content, 'date') || '';
@@ -1664,7 +1776,8 @@ async function savePost(silent) {
   var filename = editingFile ? editingFile.filename : dateOnly + '-' + (slug || title.replace(/[^\w\u4e00-\u9fa5-]/g,'-').toLowerCase()) + '.md';
   try {
     if (editingFile) {
-      await api('/api/posts/' + encodeURIComponent(filename) + '?section=' + currentSection, 'PUT', { content: content, sha: editingFile.sha });
+      var subSec = editingFile.subSection || '';
+      await api('/api/posts/' + encodeURIComponent(filename) + '?section=' + currentSection + (subSec ? '&subsection=' + encodeURIComponent(subSec) : ''), 'PUT', { content: content, sha: editingFile.sha });
     } else {
       await api('/api/posts', 'POST', { filename: filename, content: content, section: currentSection });
     }
@@ -1686,7 +1799,8 @@ async function deletePost() {
   if (!editingFile) return;
   if (!confirm('确定删除这篇文章？')) return;
   try {
-    await api('/api/posts/' + encodeURIComponent(editingFile.filename) + '?section=' + currentSection, 'DELETE', { sha: editingFile.sha });
+    var subSec = editingFile.subSection || '';
+    await api('/api/posts/' + encodeURIComponent(editingFile.filename) + '?section=' + currentSection + (subSec ? '&subsection=' + encodeURIComponent(subSec) : ''), 'DELETE', { sha: editingFile.sha });
     toast('已删除', 'success');
     backToList();
   } catch (e) {
@@ -1695,6 +1809,168 @@ async function deletePost() {
 }
 
 function backToList() { switchTab('posts'); }
+
+// ═══ 专题管理 ═══
+var editingSubSection = null; // null = new, object = editing existing
+
+async function loadSubSections() {
+  var el = document.getElementById('subSectionList');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中…</div>';
+  try {
+    var section = document.getElementById('subSectionSel').value;
+    var data = await api('/api/subsections?section=' + section);
+    if (!data || data.length === 0) {
+      el.innerHTML = '<div class="empty-state"><p>该分类下还没有专题</p><p style="color:var(--muted);font-size:0.85rem;">点击右上角「新建专题」创建</p></div>';
+      return;
+    }
+    var html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;">';
+    data.forEach(function(s) {
+      var iconDisplay = s.icon || s.title.charAt(0);
+      html += '<div class="post-item" style="cursor:pointer;padding:16px;" onclick="editSubSection(\'' + encodeURIComponent(s.name) + '\')">' +
+        '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">' +
+        '<span style="font-size:1.8rem;">' + escHtml(iconDisplay) + '</span>' +
+        '<div><div class="post-item-title" style="font-size:1rem;">' + escHtml(s.title) + '</div>' +
+        '<div style="font-size:0.75rem;color:var(--muted);">' + escHtml(s.name) + '</div></div>' +
+        '</div>' +
+        (s.description ? '<div style="font-size:0.82rem;color:var(--muted);margin-bottom:6px;">' + escHtml(s.description) + '</div>' : '') +
+        '<div style="font-size:0.78rem;color:var(--accent);">' + (s.articleCount || 0) + ' 篇文章' +
+        (s.layout === 'author' ? ' · 作者页' : '') + '</div>' +
+        '</div>';
+    });
+    html += '</div>';
+    el.innerHTML = html;
+  } catch (e) {
+    el.innerHTML = '<div class="empty-state"><p>加载失败: ' + escHtml(e.message) + '</p></div>';
+  }
+}
+
+function newSubSection() {
+  editingSubSection = null;
+  document.getElementById('subEditorTitle').textContent = '新建专题';
+  document.getElementById('subTitle').value = '';
+  document.getElementById('subSlug').value = '';
+  document.getElementById('subSlug').disabled = false;
+  document.getElementById('subDescription').value = '';
+  document.getElementById('subIcon').value = '';
+  document.getElementById('subLayout').value = '';
+  document.getElementById('subImage').value = '';
+  document.getElementById('subBirth').value = '';
+  document.getElementById('subDeath').value = '';
+  document.getElementById('subEra').value = '';
+  document.getElementById('subAchievements').value = '';
+  document.getElementById('subContent').value = '';
+  toggleAuthorFields();
+  switchTab('subsection-editor');
+}
+
+async function editSubSection(name) {
+  name = decodeURIComponent(name);
+  try {
+    var section = document.getElementById('subSectionSel').value;
+    var data = await api('/api/subsections?section=' + section);
+    var sub = data.find(function(s) { return s.name === name; });
+    if (!sub) { toast('专题不存在', 'error'); return; }
+
+    // Fetch full _index.md content
+    var fileData = await api('/api/post/_index.md?section=' + section + '&subsection=' + encodeURIComponent(name));
+
+    editingSubSection = { name: name, sha: fileData.sha, section: section };
+    document.getElementById('subEditorTitle').textContent = '编辑: ' + sub.title;
+    document.getElementById('subTitle').value = sub.title;
+    document.getElementById('subSlug').value = name;
+    document.getElementById('subSlug').disabled = true;
+    document.getElementById('subDescription').value = sub.description || '';
+    document.getElementById('subIcon').value = sub.icon || '';
+    document.getElementById('subLayout').value = sub.layout || '';
+    document.getElementById('subImage').value = sub.image || '';
+    document.getElementById('subBirth').value = sub.birth || '';
+    document.getElementById('subDeath').value = sub.death || '';
+    document.getElementById('subEra').value = sub.era || '';
+    document.getElementById('subAchievements').value = (sub.achievements || []).join('\n');
+
+    // Extract body content (after frontmatter)
+    var content = fileData.content || '';
+    var bodyMatch = content.match(/^---\s*\n[\s\S]*?\n---\s*\n?([\s\S]*)$/);
+    document.getElementById('subContent').value = bodyMatch ? bodyMatch[1].trim() : '';
+
+    toggleAuthorFields();
+    switchTab('subsection-editor');
+  } catch (e) {
+    toast('加载失败: ' + e.message, 'error');
+  }
+}
+
+function toggleAuthorFields() {
+  var layout = document.getElementById('subLayout').value;
+  document.getElementById('authorFields').style.display = (layout === 'author') ? 'block' : 'none';
+}
+
+async function saveSubSection() {
+  var section = document.getElementById('subSectionSel').value;
+  var title = document.getElementById('subTitle').value.trim();
+  var slug = document.getElementById('subSlug').value.trim();
+  if (!title) { toast('请填写专题名称', 'error'); return; }
+  if (!slug) { toast('请填写目录名', 'error'); return; }
+
+  var description = document.getElementById('subDescription').value.trim();
+  var icon = document.getElementById('subIcon').value.trim();
+  var layout = document.getElementById('subLayout').value;
+  var image = document.getElementById('subImage').value.trim();
+  var birth = document.getElementById('subBirth').value.trim();
+  var death = document.getElementById('subDeath').value.trim();
+  var era = document.getElementById('subEra').value.trim();
+  var achievements = document.getElementById('subAchievements').value.split('\n').map(function(s) { return s.trim(); }).filter(Boolean);
+  var content = document.getElementById('subContent').value;
+
+  // Build frontmatter
+  var lines = ['---'];
+  lines.push('title: "' + title + '"');
+  if (description) lines.push('description: "' + description + '"');
+  if (icon) lines.push('icon: "' + icon + '"');
+  if (layout) lines.push('layout: "' + layout + '"');
+  if (image) lines.push('image: "' + image + '"');
+  if (birth) lines.push('birth: ' + birth);
+  if (death) lines.push('death: ' + death);
+  if (era) lines.push('era: "' + era + '"');
+  if (achievements.length > 0) {
+    lines.push('achievements:');
+    achievements.forEach(function(a) { lines.push('  - "' + a + '"'); });
+  }
+  lines.push('---');
+  lines.push('');
+  if (content) lines.push(content);
+  var fullContent = lines.join('\n');
+
+  try {
+    if (editingSubSection) {
+      // Update existing
+      await api('/api/posts/_index.md?section=' + section + '&subsection=' + encodeURIComponent(editingSubSection.name), 'PUT', { content: fullContent, sha: editingSubSection.sha });
+      toast('已保存', 'success');
+    } else {
+      // Create new
+      await api('/api/subsection', 'POST', {
+        section: section,
+        subsection: slug,
+        title: title,
+        description: description,
+        icon: icon,
+        layout: layout,
+        image: image,
+        birth: birth,
+        death: death,
+        era: era,
+        achievements: achievements,
+        content: content
+      });
+      toast('专题已创建', 'success');
+    }
+    switchTab('subsections');
+    loadSubSections();
+  } catch (e) {
+    toast('保存失败: ' + e.message, 'error');
+  }
+}
+// ═══ /专题管理 ═══
 
 function insertAtLine(text) {
   var ta = document.getElementById('postContent');
@@ -1868,7 +2144,7 @@ async function loadTaxonomies() {
   el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
   try {
     var sel = document.getElementById('taxSectionSel');
-    var section = sel ? sel.value : 'posts';
+    var section = sel ? sel.value : 'math';
     var data = await api('/api/taxonomies?section=' + section);
     var cats = data.categories || [];
     var tgs = data.tags || [];

@@ -1,0 +1,92 @@
+{{ define "main" }}
+
+<style>
+/* Breadcrumbs */
+.kb-crumb{background:#fff;border-radius:.375rem;border-bottom:3px solid #e5e5e5;padding:.625rem .875rem;margin-bottom:1rem;box-shadow:0 0 4px rgba(205,220,230,.5);font-size:.875rem;}
+.kb-crumb ol{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;}
+.kb-crumb li{display:inline-flex;align-items:center;}
+.kb-crumb li:not(:last-child)::after{content:'>';margin-left:.5rem;color:#999;}
+.kb-crumb a{color:var(--color_link,#ed5565);text-decoration:none;}
+.kb-crumb a:hover{text-decoration:underline;}
+.kb-crumb span{color:#333;}
+.dark .kb-crumb{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
+.dark .kb-crumb a{color:#da4d5b;}
+.dark .kb-crumb span{color:#b4b7bb;}
+
+.kb-section-header{background:#fff;border-radius:.5rem;border-bottom:3px solid #e5e5e5;padding:1.25rem 1.5rem;margin-bottom:1rem;box-shadow:0 0 4px rgba(205,220,230,.5);}
+.kb-section-header h1{font-size:1.5rem;font-weight:600;color:#333;margin:0 0 .25rem;}
+.kb-section-header p{font-size:.875rem;color:#888;margin:0;}
+.dark .kb-section-header{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
+.dark .kb-section-header h1{color:#dadde1;}
+.dark .kb-section-header p{color:#8a8e94;}
+
+.kb-section-content{background:#fff;border-radius:.5rem;border-bottom:3px solid #e5e5e5;padding:1rem 1.5rem;margin-bottom:1rem;box-shadow:0 0 4px rgba(205,220,230,.5);font-size:.9375rem;line-height:1.8;color:#555;}
+.dark .kb-section-content{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);color:#b4b7bb;}
+
+/* Topic/author card grid */
+.kb-author-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;}
+.kb-author-card{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;background:#fff;border-radius:.5rem;border-bottom:3px solid #e5e5e5;padding:1.5rem 1rem;box-shadow:0 0 4px rgba(205,220,230,.5);transition:transform .2s,box-shadow .2s;}
+.kb-author-card:hover{transform:translateY(-4px);box-shadow:0 4px 16px rgba(205,220,230,.8);text-decoration:none;}
+.kb-author-avatar{width:5rem;height:5rem;border-radius:50%;overflow:hidden;margin-bottom:.625rem;background:var(--color_border,#f6dfdf);}
+.kb-author-avatar img{width:100%;height:100%;object-fit:cover;}
+.kb-author-avatar-placeholder{width:5rem;height:5rem;border-radius:50%;margin-bottom:.625rem;background:var(--color_border,#f6dfdf);display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--color_link,#ed5565);}
+.kb-author-name{font-size:1.0625rem;font-weight:600;color:#333;margin-bottom:.25rem;}
+.kb-author-bio{font-size:.8125rem;color:#999;line-height:1.5;margin-bottom:.5rem;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
+.kb-author-count{font-size:.75rem;color:var(--color_link,#ed5565);background:var(--color_border,#f6dfdf);padding:.125rem .625rem;border-radius:.75rem;}
+.dark .kb-author-card{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
+.dark .kb-author-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.5);}
+.dark .kb-author-name{color:#dadde1;}
+.dark .kb-author-bio{color:#8a8e94;}
+
+@media(max-width:768px){.kb-author-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.kb-author-grid{grid-template-columns:1fr;}}
+</style>
+
+<nav class="kb-crumb" aria-label="breadcrumb">
+<ol>
+<li><a href="{{ .Site.BaseURL }}">首页</a></li>
+{{ with .Parent }}{{ if not .IsHome }}
+<li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+{{ end }}{{ end }}
+<li><span aria-current="page">{{ .Title }}</span></li>
+</ol>
+</nav>
+
+<div class="kb-section-header">
+  <h1>{{ .Title }}</h1>
+  {{ with .Description }}<p>{{ . }}</p>{{ end }}
+</div>
+
+{{ if .Content }}
+<div class="kb-section-content">{{ .Content }}</div>
+{{ end }}
+
+{{ if .Sections }}
+<div class="kb-author-grid">
+  {{ range .Sections }}
+  {{ $title := .Title }}
+  {{ $icon := .Params.icon }}
+  {{ $image := .Params.image }}
+  <a href="{{ .Permalink }}" class="kb-author-card">
+    {{ if $image }}
+    <div class="kb-author-avatar"><img src="{{ $image | relURL }}" alt="{{ $title }}" loading="lazy"></div>
+    {{ else if $icon }}
+    <div class="kb-author-avatar-placeholder">{{ $icon }}</div>
+    {{ else }}
+    <div class="kb-author-avatar-placeholder">{{ substr $title 0 1 }}</div>
+    {{ end }}
+    <div class="kb-author-name">{{ $title }}</div>
+    {{ with .Description }}<div class="kb-author-bio">{{ . }}</div>{{ end }}
+    <div class="kb-author-count">{{ len .RegularPages }} 篇文章</div>
+  </a>
+  {{ end }}
+</div>
+{{ else }}
+{{ $paginator := .Paginate .Pages }}
+{{ range $idx, $page := $paginator.Pages }}
+{{ partial "post-card.html" (dict "page" $page "idx" $idx "paginator" $paginator) }}
+{{ end }}
+{{ partial "pagination.html" $paginator }}
+{{ end }}
+
+{{ end }}

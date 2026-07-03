@@ -6,7 +6,8 @@
 - **Waline** 评论系统，服务端 `https://waline.pgoj.top`（weisaygrace 主题使用）
 
 ## URL 和 Permalink
-- permalink 规则: `posts = '/archives/:slug.html'`
+- permalink 规则: `posts = '/archives/:slug.html'`、`math = '/archives/:slug.html'`
+- 新分类 section 使用 `:sections` 变量: `literature = '/:sections/:slug.html'`（生成 `/literature/wang-xiaobo/slug.html`）
 - Cloudflare Pages 会 308 去掉 .html 后缀（平台内置行为，无法关闭）
 - 旧文章 frontmatter 手动写了 `url: /archives/xxx.html`，不能删除（否则无 slug 的文章会生成中文 URL）
 - 本地预览用 `hugo server -D --baseURL http://localhost:1313/`（因为有手动 url 字段）
@@ -29,6 +30,20 @@
 - baseof.html 中通过 `{{ if eq .Layout "search" }}` 决定是否加载 search.js
 - 各页面 frontmatter 的 `layout:` 字段必须对应 layouts/ 下的同名模板文件
 
+## 知识库改造（2026-07-03）
+- 站点名称：**平哥集录**（原名平哥数学→平哥知识库→平哥集录）
+- 博客首页从文章列表改为知识库分类卡片网格 + 最近更新
+- 6 个分类：数学📐、文学📚、历史🏛️、哲学🧠、科学🔬、生活🌿
+- 知识库层次：分类（section）→ 子专题/人物（sub-section）→ 作品/文章（regular page）
+- 任何分类都可用子专题卡片：建子目录 + `_index.md`（frontmatter 支持 `icon:` emoji 字段）
+- 数学分类已有 4 个子专题：2026-gaokao、mock-exam、problem-analysis、teaching
+- 子专题页面包屑：`section.html` 自定义 `.kb-crumb`（不用主题 breadcrumbs partial，因为后者不显示父级）
+- 文章移入子目录后 URL 不变（permalink 基于 `:slug`，与目录位置无关）
+- 卡片计数用 `.RegularPages`（排除子 section 的 _index.md）
+- Hugo 模板中访问带连字符的数据文件用 `(index .Site.Data "kb-categories")`
+- YAML 数值类型在模板中用 `print .` 而非 `printf "%s" .`
+- **Admin 后台支持专题管理**：侧边栏「专题」Tab，可新建/编辑子专题的 _index.md（表单式：名称/描述/图标/布局/正文），布局选 author 时展开作者字段
+
 ## 主题优化记录（weisaygrace）
 - CSS/JS 通过 Hugo pipeline minify + fingerprint
 - 分类名映射提取为 `partials/cat-names.html`
@@ -50,11 +65,16 @@
 - 各模块（标题、统计、分类分布、排行榜、偏好、书架）均用 `.rp-card` 卡片样式，与文章列表 `.post` 一致
 - CSS 使用主题 CSS 变量（`--color_link`, `--color_border` 等），自动适配暗色模式
 
-## Admin 后台管理（2026-05-27 新增友链 Tab）
+## Admin 后台管理（2026-05-27 新增友链 Tab，2026-07-03 修复 KB 兼容性）
 - 地址：`https://www.pgoj.top/admin/`，文件位于 `static/admin/`
 - Worker API 部署在 `api.pgoj.top`（`static/admin/worker.js`）
 - Tab 列表：图库、文章、分类/标签、文汇、**友链**、页面、评论、设置
 - 友链数据源：`themes/weisaygrace/data/links.yaml`（YAML 格式，通过 js-yaml 解析/序列化）
 - 文汇 RSS 源：`data/wenhui-feeds.json`
 - 修改 worker.js 后需重新部署到 Cloudflare Workers 才能生效（通过 Dashboard 或 wrangler）
+- **KB 兼容性修复（2026-07-03）**：
+  - worker.js listPosts/getPost/updatePost/deletePost/createPost/getTaxonomies 支持 `subsection` 参数，递归扫描子目录
+  - index.html 分类下拉改为 6 个 KB 分类（数学/文学/历史/哲学/科学/生活）
+  - 品牌名改为「平哥集录」，域名链接改为 `www.pgoj.top`
+  - `DEFAULT_SECTION` 仍为 `math`（taxonomies.json 从 www.pgoj.top 获取）
 

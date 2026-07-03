@@ -49,7 +49,7 @@ h3{font-size:1.125rem;font-weight:400}
 .floating-dark-toggle:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(0,0,0,.3)}
 .floating-dark-toggle:hover{color:#fff}
 
-.main{margin-top:1rem;overflow:hidden;max-width:56.25rem;margin-left:auto;margin-right:auto;flex:1;width:100%}
+.main{margin-top:1rem;max-width:56.25rem;margin-left:auto;margin-right:auto;width:calc(100% - 1.5rem)}
 .main .post,.main .type-page{background:#fff;border-radius:.375rem;border-bottom:3px solid #e5e5e5;padding:1rem;margin-bottom:1rem;box-shadow:0 0 4px rgba(205,220,230,.5);position:relative}
 .main .post .sticky-title{line-height:2rem}
 .main .post-title{line-height:2.25rem;padding:.325rem 0 .75rem}

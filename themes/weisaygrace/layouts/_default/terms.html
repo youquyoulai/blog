@@ -5,8 +5,8 @@
 <h1 class="post-title">{{ .Title }}</h1>
 <div class="tagcloud">
     {{ range .Pages }}
-    <a href="{{ .Permalink }}" style="font-size: {{ mul .Weight 2 | add 12 }}px;" title="{{ partial "tag-names.html" (dict "tag" .Data.Term) }} - {{ len .Data.Pages }} 篇文章">
-        {{ partial "tag-names.html" (dict "tag" .Data.Term) }} ({{ len .Data.Pages }})
+    <a href="{{ .Permalink }}" style="font-size: {{ mul .Weight 2 | add 12 }}px;" title="{{ .Data.Term }} - {{ len .Data.Pages }} 篇文章">
+        {{ .Data.Term }} ({{ len .Data.Pages }})
     </a>
     {{ end }}
 </div>

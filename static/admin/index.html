@@ -503,6 +503,18 @@
         </div>
         <div style="max-width:700px;">
           <div class="form-field">
+            <label>所属分类 *</label>
+            <select id="subSectionSel" style="width:100%;padding:8px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.875rem;">
+              <option value="">请选择分类</option>
+              <option value="math">数学</option>
+              <option value="literature">文学</option>
+              <option value="history">历史</option>
+              <option value="philosophy">哲学</option>
+              <option value="science">科学</option>
+              <option value="life">生活</option>
+            </select>
+          </div>
+          <div class="form-field">
             <label>专题名称 *</label>
             <input type="text" id="subTitle" placeholder="如：2026高考真题" style="width:100%;">
           </div>
@@ -1953,6 +1965,7 @@ async function saveSubSection() {
   var section = document.getElementById('subSectionSel').value;
   var title = document.getElementById('subTitle').value.trim();
   var slug = document.getElementById('subSlug').value.trim();
+  if (!section) { toast('请选择所属分类', 'error'); return; }
   if (!title) { toast('请填写专题名称', 'error'); return; }
   if (!slug) { toast('请填写目录名', 'error'); return; }
 

@@ -3,16 +3,21 @@
 {{- $sectionTitle := "" -}}
 {{- if .IsPage -}}
   {{- with .CurrentSection -}}
-    {{- $sectionTitle = partial "cat-names.html" .Title -}}
+    {{- $sectionTitle = .Title -}}
   {{- end -}}
 {{- end -}}
-{{/* 对分类 term 页面，尝试将 slug 映射为中文分类名 */}}
 {{- if eq .Kind "term" -}}
   {{- if .Parent -}}
     {{- if eq .Parent.Title "categories" -}}
-      {{- $title = partial "cat-names.html" .Title -}}
-    {{- else if eq .Parent.Title "tags" -}}
-      {{- /* 标签保持英文 */ -}}
+      {{- $termTitle := .Title -}}
+      {{- $cats := index hugo.Data "kb-categories" -}}
+      {{- if $cats -}}
+        {{- range $cats -}}
+          {{- if eq .name $termTitle -}}
+            {{- $title = .title -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

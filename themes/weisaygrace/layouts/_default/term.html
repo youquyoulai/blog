@@ -2,7 +2,7 @@
 {{ partial "breadcrumbs.html" . }}
 
 <div class="article">
-<h1 class="post-title">{{ partial "cat-names.html" .Data.Term }}</h1>
+<h1 class="post-title">{{ .Data.Term }}</h1>
 </div>
 
 {{ $paginator := .Paginate .Pages }}

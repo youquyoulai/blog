@@ -1,22 +1,20 @@
 <header class="header">
     <div class="header-navigation">
         <div class="container">
-            <!-- 移动端汉堡菜单按钮（桌面端隐藏） -->
             <div id="hamburger" aria-label="打开导航菜单" aria-expanded="false" aria-controls="menu"><span></span></div>
 
+            <div class="nav-sitename">
+                <a href="{{ .Site.BaseURL }}" title="{{ .Site.Title }}">{{ .Site.Title }}</a>
+            </div>
 
-
-
-
-
-            <!-- 桌面端导航链接（移动端隐藏，通过汉堡菜单展示） -->
             <nav class="main-nav">
                 <ul>
                     <li><a href="{{ .Site.BaseURL }}"{{ if .IsHome }} class="current_page_item"{{ end }}>首页</a></li>
-                    {{ range .Site.Taxonomies.categories }}
-                    {{ if not (in (slice "shuxue") .Page.Title) }}
-                    {{ $catName := partial "cat-names.html" .Page.Title }}
-                    <li><a href="{{ .Page.Permalink }}">{{ $catName }}</a></li>
+                    {{ $cats := (index .Site.Data "kb-categories") }}
+                    {{ range $cats }}
+                    {{ $sec := $.Site.GetPage (printf "/%s" .name) }}
+                    {{ if $sec }}
+                    <li><a href="{{ $sec.Permalink }}"{{ if eq $.Section .name }} class="current_page_item"{{ end }}>{{ .title }}</a></li>
                     {{ end }}
                     {{ end }}
                     {{ $navPages := slice (dict "name" "guestbook" "label" "留言") }}

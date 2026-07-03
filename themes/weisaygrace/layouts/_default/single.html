@@ -16,25 +16,29 @@
             <span class="fn"><svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-user"/></svg>{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}</span>
         </span>
         <span class="date info-icon" itemprop="datePublished" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
-            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-calendar"/></svg>{{ .Date.Format "2006-01-02" }} <span class="date-hi">{{ .Date.Format "15:04" }}</span>
+            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-calendar"/></svg>{{ .Date.Format "2006-01-02" }}
         </span>
-        {{ if reflect.IsSlice .Params.categories }}
+        {{ if .Section }}
+        {{ $catSection := .Section }}
+        {{ $catTitle := .Section }}
+        {{ $cats := index hugo.Data "kb-categories" }}
+        {{ if $cats }}
+          {{ range $cats }}
+            {{ if eq .name $catSection }}
+              {{ $catTitle = .title }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
         <span class="category info-icon" itemprop="articleSection">
-            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg>{{ range $i, $cat := .Params.categories }}{{ if $i }}, {{ end }}<a href="{{ "/categories/" | relURL }}{{ $cat | urlize }}">{{ partial "cat-names.html" $cat }}</a>{{ end }}
-        </span>
-        {{ else if .Params.categories }}
-        <span class="category info-icon" itemprop="articleSection">
-            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg><a href="{{ "/categories/" | relURL }}{{ .Params.categories | urlize }}">{{ partial "cat-names.html" .Params.categories }}</a>
+            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg><a href="{{ .Section | relURL }}">{{ $catTitle }}</a>
         </span>
         {{ end }}
-        {{ if reflect.IsSlice .Params.tags }}
-        <span class="tags info-icon" itemprop="keywords">
-            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg>{{ range $i, $tag := .Params.tags }}{{ if $i }}, {{ end }}<a href="{{ "/tags/" | relURL }}{{ $tag | urlize }}">{{ partial "tag-names.html" (dict "tag" $tag) }}</a>{{ end }}
+        {{ with .CurrentSection }}
+        {{ if ne .Name $.Section }}
+        <span class="subsection info-icon">
+            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg><a href="{{ .Permalink }}">{{ .Title }}</a>
         </span>
-        {{ else if .Params.tags }}
-        <span class="tags info-icon" itemprop="keywords">
-            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg><a href="{{ "/tags/" | relURL }}{{ .Params.tags | urlize }}">{{ partial "tag-names.html" (dict "tag" .Params.tags) }}</a>
-        </span>
+        {{ end }}
         {{ end }}
     </div>
 </div>

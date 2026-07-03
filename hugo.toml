@@ -22,10 +22,6 @@ capitalizeListTitles = false
   favicon = '/favicon.ico'
   imageCDN = 'https://img.pgoj.top'
 
-  # Twikoo 评论配置 (已停用)
-  #[params.twikoo]
-  #envId = 'https://twikoo.pgoj.top'
-
   # Waline 评论配置
   [params.waline]
   serverURL = 'https://waline.pgoj.top'

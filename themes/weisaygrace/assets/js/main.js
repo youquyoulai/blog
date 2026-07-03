@@ -133,7 +133,6 @@
     });
 
     // Dark Mode Toggle
-    var darkModeToggle = document.getElementById('dark-mode-toggle');
     var darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
     var htmlElement = document.documentElement;
 
@@ -149,13 +148,6 @@
         localStorage.setItem('theme', theme);
     }
 
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', function () {
-             // 关闭侧边栏抽屉
-            closeMenu();    // 关闭汉堡菜单
-            toggleDarkMode();
-        });
-    }
     if (darkModeToggleMobile) {
         darkModeToggleMobile.addEventListener('click', function () {
              // 关闭侧边栏抽屉

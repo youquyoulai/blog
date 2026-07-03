@@ -2,7 +2,7 @@
 
 ## 博客技术栈
 - Hugo 静态博客，主题 **weisaygrace**（xlxn 已弃用），源码在 GitHub `youquyoulai/blog`
-- Cloudflare Pages 自动构建部署，站点 `https://www.pgoj.top/`
+- Cloudflare Pages 自动构建部署，站点 `https://pgkb.pgoj.top/`（原名 www.pgoj.top 指向旧 Typecho 站"平哥偶记"）
 - **Waline** 评论系统，服务端 `https://waline.pgoj.top`（weisaygrace 主题使用）
 
 ## URL 和 Permalink
@@ -75,6 +75,8 @@
 - **KB 兼容性修复（2026-07-03）**：
   - worker.js listPosts/getPost/updatePost/deletePost/createPost/getTaxonomies 支持 `subsection` 参数，递归扫描子目录
   - index.html 分类下拉改为 6 个 KB 分类（数学/文学/历史/哲学/科学/生活）
-  - 品牌名改为「平哥集录」，域名链接改为 `www.pgoj.top`
+  - 品牌名改为「平哥集录」，域名链接改为 `pgkb.pgoj.top`
   - `DEFAULT_SECTION` 仍为 `math`（taxonomies.json 从 www.pgoj.top 获取）
+- **Worker 部署方式**：`npx wrangler deploy`（需先 `wrangler login` OAuth 授权），wrangler.toml 在 `static/admin/` 目录
+- Dashboard 中 workers_dev=false 的 Worker 需用 CLI 管理，不在常规 Workers 列表显示
 

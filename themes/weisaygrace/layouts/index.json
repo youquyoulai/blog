@@ -1,12 +1,7 @@
 [
-  {{- $pages := where .Site.RegularPages "Section" "posts" -}}
-  {{- $filtered := slice -}}
-  {{- range $p := $pages -}}
-    {{- if not (in $p.Params.categories "weibo") -}}
-      {{- $filtered = $filtered | append $p -}}
-    {{- end -}}
-  {{- end -}}
-  {{- range $i, $p := $filtered -}}
+  {{- $sections := .Site.Params.mainSections | default (slice "posts") -}}
+  {{- $pages := where .Site.RegularPages "Section" "in" $sections -}}
+  {{- range $i, $p := $pages -}}
   {{- if $i -}},{{- end -}}
   {
     "title": {{ $p.Title | jsonify }},

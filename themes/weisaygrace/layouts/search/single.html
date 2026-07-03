@@ -1,6 +1,5 @@
 {{ define "main" }}
-<!-- DEBUG: Search page template loaded -->
-<div class="article search-page" id="debug-search-page" style="padding: 0 .625rem !important;">
+<div class="article search-page" style="padding: 0 .625rem !important;">
 {{ partial "breadcrumbs.html" . }}
 <div class="search-form-wrapper">
     <form class="search-form" method="get" action="{{ .Site.BaseURL }}search">
@@ -13,10 +12,6 @@
 </div>
 
 <style>
-/* DEBUG: This style should turn body background yellow if loaded */
-.debug-search-page-loaded {
-    background-color: rgba(255, 255, 0, 0.1) !important;
-}
 .search-loading { color: #999; text-align: center; padding: 2rem 0; }
 
 /* Search page container with padding */
@@ -128,39 +123,6 @@
 {{ end }}
 
 {{ define "scripts" }}
-<script>
-// DEBUG: Check if search page styles are loaded
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== DEBUG: Search Page ===');
-    
-    // Check if the search page container exists
-    var searchPage = document.getElementById('debug-search-page');
-    if (searchPage) {
-        console.log('✓ Search page container found');
-        console.log('  Classes:', searchPage.className);
-    } else {
-        console.log('✗ Search page container NOT found');
-    }
-    
-    // Check if breadcrumbs exist
-    var breadcrumbs = document.querySelector('.article.search-page nav.breadcrumbs');
-    if (breadcrumbs) {
-        console.log('✓ Breadcrumbs found');
-        console.log('  Classes:', breadcrumbs.className);
-        // Check computed styles
-        var computedStyle = window.getComputedStyle(breadcrumbs);
-        console.log('  Computed background:', computedStyle.backgroundColor);
-        console.log('  Computed border-radius:', computedStyle.borderRadius);
-        console.log('  Computed box-shadow:', computedStyle.boxShadow);
-    } else {
-        console.log('✗ Breadcrumbs NOT found');
-    }
-    
-    // Add yellow background to body to indicate search page loaded
-    document.body.classList.add('debug-search-page-loaded');
-    console.log('✓ Added debug class to body');
-});
-</script>
 <script>
 (function() {
   var params = new URLSearchParams(window.location.search);

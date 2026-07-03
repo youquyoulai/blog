@@ -3,10 +3,6 @@ Allow: /
 Disallow: /page/*
 Disallow: /search/*
 Disallow: /*?*
-Disallow: /wp-content/*
-Disallow: /wp-admin/*
-Disallow: /vendor/*
-Disallow: /node_modules/*
 
 # Bing 爬虫专用规则
 User-agent: bingbot

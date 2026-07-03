@@ -990,6 +990,22 @@ var _taxonomyHintsSection = 'math';
 var _allCategories = [];
 var _allTags = [];
 
+// 各 section 的兜底分类/标签（API 失败时使用）
+var _FALLBACK_TAXONOMIES = {
+  'math': {
+    categories: [{name:'exam-analysis',count:6},{name:'teaching-chatter',count:3},{name:'math-solutions',count:5}],
+    tags: [{name:'gaokao-math',count:12},{name:'mock-exam',count:4},{name:'shuxue',count:3}]
+  },
+  'literature': {
+    categories: [{name:'literature',count:2}],
+    tags: [{name:'wangxiaobo',count:2},{name:'yanlianke',count:1}]
+  },
+  'history': { categories: [], tags: [] },
+  'philosophy': { categories: [], tags: [] },
+  'science': { categories: [], tags: [] },
+  'life': { categories: [], tags: [] }
+};
+
 async function loadTaxonomyHints() {
   var section = document.getElementById('postSectionSel').value;
   // section 变了就重新加载
@@ -998,30 +1014,48 @@ async function loadTaxonomyHints() {
     var data = await api('/api/taxonomies?section=' + section);
     _allCategories = data.categories || [];
     _allTags = data.tags || [];
+    // API 返回空时用兜底数据补充
+    if (_allCategories.length === 0 && _allTags.length === 0) {
+      var fb = _FALLBACK_TAXONOMIES[section] || {categories:[],tags:[]};
+      _allCategories = fb.categories;
+      _allTags = fb.tags;
+    }
     _taxonomyHintsLoaded = true;
     _taxonomyHintsSection = section;
     renderChips();
-  } catch(e) { console.error('加载分类/标签失败', e); }
+  } catch(e) {
+    console.error('加载分类/标签失败，使用兜底数据:', e);
+    // 兜底：使用预设分类/标签
+    var fb = _FALLBACK_TAXONOMIES[section] || {categories:[],tags:[]};
+    _allCategories = fb.categories;
+    _allTags = fb.tags;
+    _taxonomyHintsLoaded = true;
+    _taxonomyHintsSection = section;
+    renderChips();
+  }
 }
 
 function renderChips() {
   // 渲染分类标签
   var catEl = document.getElementById('catChips');
   catEl.innerHTML = '<span style="font-size:0.78rem;color:var(--muted);margin-right:4px;">分类：</span>';
+  if (_allCategories.length === 0) {
+    catEl.innerHTML += '<span style="font-size:0.78rem;color:var(--muted);">（暂无）</span>';
+  }
   _allCategories.forEach(function(c) {
     var display = catDisplayName(c.name) + ' (' + c.count + ')';
     var span = document.createElement('span');
     span.className = 'chip cat-chip';
     span.textContent = display;
     span.dataset.slug = c.name;
-    span.style.cssText = 'cursor:pointer;font-size:0.78rem;padding:3px 10px;border:1px solid var(--border);border-radius:12px;background:var(--card);transition:0.15s;user-select:none;';
+    span.style.cssText = 'cursor:pointer;font-size:0.78rem;padding:3px 10px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--muted);transition:0.15s;user-select:none;display:inline-block;';
     span.onmouseenter = function(){ this.style.borderColor='var(--accent)';this.style.color='var(--accent)'; };
-    span.onmouseleave = function(){ if(!this.classList.contains('active')){ this.style.borderColor='var(--border)';this.style.color='var(--muted)'; } };
+    span.onmouseleave = function(){ if(!this.classList.contains('active')){ this.style.borderColor='var(--border)';this.style.color='var(--muted)';this.style.background='var(--surface)';} };
     span.onclick = function() {
       // 写入 slug，不是中文名
       document.getElementById('postCategory').value = this.dataset.slug;
       // 高亮当前选中
-      document.querySelectorAll('.cat-chip').forEach(function(el){ el.classList.remove('active'); el.style.background='var(--card)'; el.style.color='var(--muted)'; });
+      document.querySelectorAll('.cat-chip').forEach(function(el){ el.classList.remove('active'); el.style.background='var(--surface)'; el.style.color='var(--muted)'; });
       this.classList.add('active');
       this.style.background='rgba(108,92,231,0.12)';
       this.style.color='var(--accent2)';
@@ -1032,15 +1066,18 @@ function renderChips() {
   // 渲染标签标签
   var tagEl = document.getElementById('tagChips');
   tagEl.innerHTML = '<span style="font-size:0.78rem;color:var(--muted);margin-right:4px;">标签：</span>';
+  if (_allTags.length === 0) {
+    tagEl.innerHTML += '<span style="font-size:0.78rem;color:var(--muted);">（暂无）</span>';
+  }
   _allTags.forEach(function(t) {
     var display = tagDisplayName(t.name) + ' (' + t.count + ')';
     var span = document.createElement('span');
     span.className = 'tag-chip';
     span.textContent = display;
     span.dataset.slug = t.name;
-    span.style.cssText = 'cursor:pointer;font-size:0.78rem;padding:3px 10px;border:1px solid var(--border);border-radius:12px;background:var(--card);color:var(--muted);transition:0.15s;user-select:none;';
+    span.style.cssText = 'cursor:pointer;font-size:0.78rem;padding:3px 10px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--muted);transition:0.15s;user-select:none;display:inline-block;';
     span.onmouseenter = function(){ this.style.borderColor='var(--accent)';this.style.color='var(--accent)'; };
-    span.onmouseleave = function(){ if(!this.classList.contains('active')){ this.style.borderColor='var(--border)';this.style.color='var(--muted)'; } };
+    span.onmouseleave = function(){ if(!this.classList.contains('active')){ this.style.borderColor='var(--border)';this.style.color='var(--muted)';this.style.background='var(--surface)';} };
     span.onclick = function() {
       // 写入 slug，不是中文名
       var current = document.getElementById('postTags').value;
@@ -1051,7 +1088,7 @@ function renderChips() {
       this.style.background='rgba(108,92,231,0.12)';
       this.style.color='var(--accent2)';
       var that = this;
-      setTimeout(function(){ that.classList.remove('active'); that.style.background='var(--card)'; that.style.color='var(--muted)'; },800);
+      setTimeout(function(){ that.classList.remove('active'); that.style.background='var(--surface)'; that.style.color='var(--muted)'; },800);
     };
     tagEl.appendChild(span);
   });
@@ -1066,7 +1103,7 @@ function syncChipActiveState() {
   document.querySelectorAll('.cat-chip').forEach(function(el) {
     var isMatch = (catDisplayName(el.dataset.slug) === catVal);
     el.classList.toggle('active', isMatch);
-    el.style.background = isMatch ? 'rgba(108,92,231,0.12)' : 'var(--card)';
+    el.style.background = isMatch ? 'rgba(108,92,231,0.12)' : 'var(--surface)';
     el.style.color = isMatch ? 'var(--accent2)' : 'var(--muted)';
   });
   // 标签高亮：输入框里存的是 slug，直接对比
@@ -1074,7 +1111,7 @@ function syncChipActiveState() {
   document.querySelectorAll('.tag-chip').forEach(function(el) {
     var isMatch = tagVal.indexOf(',' + el.dataset.slug + ',') !== -1;
     el.classList.toggle('active', isMatch);
-    el.style.background = isMatch ? 'rgba(108,92,231,0.12)' : 'var(--card)';
+    el.style.background = isMatch ? 'rgba(108,92,231,0.12)' : 'var(--surface)';
     el.style.color = isMatch ? 'var(--accent2)' : 'var(--muted)';
   });
 }

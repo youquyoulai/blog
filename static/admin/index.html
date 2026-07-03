@@ -225,7 +225,7 @@
     .editor-title-input { width:100%; padding:10px 0; background:transparent; border:none; border-bottom:2px solid var(--border); color:var(--text); font-size:1.25rem; font-weight:600; outline:none; transition:border-color 0.2s; }
     .editor-title-input:focus { border-bottom-color:var(--accent); }
     .editor-title-input::placeholder { color:var(--muted); font-weight:400; }
-    .editor-fields { display:flex; gap:10px; flex-wrap:wrap; }
+    .editor-fields { display:flex; gap:10px; flex-wrap:wrap; align-items:flex-start; }
     .meta-input { padding:7px 12px; background:var(--input-bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:0.85rem; outline:none; transition:border-color 0.2s; }
     .meta-input:focus { border-color:var(--accent); }
     .editor-chips { display:flex; flex-wrap:wrap; gap:6px; }
@@ -283,7 +283,9 @@
     }
     @media (max-width:600px) {
       .page-body { padding:16px; }
-      .editor-fields { flex-direction:column; }
+      .editor-fields { flex-direction:column; gap:10px; }
+      .editor-fields > div { width:100%!important; }
+      .editor-fields .meta-input { width:100%!important; }
       .editor-textarea { min-height:360px; }
       .topbar { padding:0 16px; }
       .comment-card { flex-direction:column; }
@@ -740,7 +742,7 @@
         <div class="editor-wrap">
           <div class="editor-meta-bar">
             <input type="text" class="editor-title-input" id="postTitle" placeholder="文章标题">
-            <div class="editor-fields" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+            <div class="editor-fields" style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;">
               <div style="display:flex;flex-direction:column;gap:2px;">
                 <span style="font-size:0.75rem;color:var(--muted);">日期</span>
                 <input type="text" class="meta-input" id="postDate" placeholder="2026-05-06" style="width:160px;">

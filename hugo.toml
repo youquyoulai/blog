@@ -1,4 +1,4 @@
-baseURL = 'https://math.pgoj.top/'
+baseURL = 'https://pgkb.pgoj.top/'
 languageCode = 'zh-cn'
 defaultContentLanguage = 'zh'
 title = '平哥集录'

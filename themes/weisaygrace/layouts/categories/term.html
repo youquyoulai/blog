@@ -60,8 +60,8 @@ document.querySelectorAll('.feed-text').forEach(function(el){
     var walineLoaded=false;
     function loadWaline(callback){
         if(walineLoaded&&typeof Waline!=='undefined'){callback();return;}
-        var css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/@waline/client@v2/dist/waline.css';document.head.appendChild(css);
-        var s=document.createElement('script');s.src='https://unpkg.com/@waline/client@v2/dist/waline.js';s.defer=true;s.onload=function(){walineLoaded=true;callback();};document.head.appendChild(s);
+        var css=document.createElement('link');css.rel='stylesheet';css.href='{{ $.Site.BaseURL }}js/waline/waline.css';document.head.appendChild(css);
+        var s=document.createElement('script');s.src='{{ $.Site.BaseURL }}js/waline/waline.js';s.onload=function(){walineLoaded=true;callback();};document.head.appendChild(s);
     }
     var inited={};
     document.querySelectorAll('.feed-reply-btn[data-target]').forEach(function(btn,i){
@@ -93,5 +93,169 @@ document.querySelectorAll('.feed-text').forEach(function(el){
 {{ end }}
 
 {{ partial "pagination.html" $paginator }}
+{{ end }}
+
+{{ if eq .Title "weibo" }}
+<style>
+/* ====== 微语朋友圈时间线样式 ====== */
+.weibo-feed { width: 100%; padding: 0; }
+.feed-item {
+    background: #fff;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    transition: box-shadow .25s, transform .2s;
+    border: 1px solid #eee;
+}
+.feed-item:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,.1);
+    transform: translateY(-2px);
+}
+.feed-info {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.feed-author {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #333;
+}
+.feed-time {
+    font-size: .8rem;
+    color: #999;
+}
+.feed-text {
+    font-size: .95rem;
+    line-height: 1.68;
+    color: #444;
+    word-break: break-word;
+    margin-bottom: 16px;
+}
+.feed-text p { margin: 0 0 10px; }
+.feed-text p:last-child { margin-bottom: 0; }
+.feed-images {
+    display: grid;
+    gap: 6px;
+    margin: 16px 0 8px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+.image-grid-1 { grid-template-columns: 1fr; }
+.image-grid-1 img { max-height: 420px; width: 100%; object-fit: cover; }
+.image-grid-2 { grid-template-columns: 1fr 1fr; }
+.image-grid-2 img { aspect-ratio: 1/1; object-fit: cover; }
+.image-grid-3 { grid-template-columns: 1fr 1fr; }
+.image-grid-3>a:first-child { grid-column: span 2; }
+.image-grid-3>a:first-child img { max-height: 280px; width: 100%; object-fit: cover; }
+.image-grid-3 img { aspect-ratio: 4/3; object-fit: cover; }
+.image-grid-4 { grid-template-columns: 1fr 1fr; }
+.image-grid-4 img { aspect-ratio: 1/1; object-fit: cover; }
+.feed-image-link {
+    display: block;
+    overflow: hidden;
+    cursor: zoom-in;
+}
+.feed-image-link img {
+    width: 100%; height: 100%;
+    transition: transform .3s ease;
+}
+.feed-image-link:hover img { transform: scale(1.03); }
+.feed-footer {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.feed-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.feed-tag {
+    display: inline-block;
+    font-size: .75rem;
+    color: #999;
+    background: #f5f5f5;
+    padding: 2px 10px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all .2s;
+}
+.feed-tag:hover { background: var(--color_link, #ed5565); color: #fff; }
+.feed-reply-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f9f9f9;
+    color: #666;
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: .75rem;
+    font-weight: 500;
+    border: 1px solid #e5e5e5;
+    cursor: pointer;
+    transition: all .2s;
+}
+.feed-reply-btn:hover {
+    background: var(--color_link, #ed5565);
+    color: #fff;
+    border-color: var(--color_link, #ed5565);
+}
+.feed-comments {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    font-size: .8rem;
+    display: none !important;
+    box-sizing: border-box;
+    overflow: visible;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.feed-comments.feed-comments-open { display: block !important; }
+.feed-comments:empty { display: none !important; }
+.feed-comments { --waline-avatar-size: 32px; --waline-m-avatar-size: 28px; }
+.feed-comments .wl-cards .wl-user { --avatar-size: 32px !important; width: 32px !important; height: 32px !important; flex-shrink: 0; }
+.feed-comments .wl-cards .wl-user img { width: 32px !important; height: 32px !important; border-radius: 50% !important; object-fit: cover; max-width: none !important; max-height: none !important; }
+.feed-comments .wl-editor, .feed-comments .wl-input, .feed-comments .wl-textarea { max-width: 100% !important; box-sizing: border-box; }
+
+@media (max-width: 600px) {
+    .weibo-feed { padding: 0; }
+    .feed-item { padding: 16px; border-radius: 14px; }
+    .feed-text { font-size: .95rem; }
+    .feed-author { font-size: 1rem; }
+    .feed-time { font-size: .75rem; }
+    .feed-footer { flex-wrap: wrap; gap: 8px; }
+    .feed-tags { flex: 1; min-width: 0; }
+    .feed-comments { padding: 8px 4px; }
+    .image-grid-1 img { max-height: 300px; }
+}
+
+/* 暗色模式 */
+[data-theme="dark"] .feed-item,
+.dark .feed-item {
+    background: #1e1e2e;
+    border-color: #333;
+}
+[data-theme="dark"] .feed-text,
+.dark .feed-text { color: #ccc; }
+[data-theme="dark"] .feed-author,
+.dark .feed-author { color: #eee; }
+[data-theme="dark"] .feed-footer,
+.dark .feed-footer { }
+[data-theme="dark"] .feed-tag,
+.dark .feed-tag { background: #2a2a3e; color: #aaa; }
+[data-theme="dark"] .feed-reply-btn,
+.dark .feed-reply-btn { background: #2a2a3e; color: #ccc; border-color: #444; }
+[data-theme="dark"] .feed-comments,
+.dark .feed-comments { background: #1a1a2a; }
+[data-theme="dark"] .feed-images,
+.dark .feed-images { background: #2a2a3a; }
+</style>
 {{ end }}
 {{ end }}

@@ -1634,15 +1634,11 @@ async function loadPosts(prefix) {
     var data = await api('/api/posts?section=' + section);
     var allPosts = Array.isArray(data) ? data : (data.posts || []);
 
-    // 按年月分组（支持两种文件名格式：YYYY-MM-DD-slug.md 和 slug.md）
+    // 按年月分组（文件名格式: YYYY-MM-DD-slug.md）
     var groups = {}; // key: 'YYYY-MM'
-    var otherPosts = []; // 不以日期开头的文章
     allPosts.forEach(function(p) {
       var m = p.name.match(/^(\d{4})-(\d{2})-/);
-      if (!m) {
-        otherPosts.push(p);
-        return;
-      }
+      if (!m) return;
       var key = m[1] + '-' + m[2];
       if (!groups[key]) groups[key] = [];
       groups[key].push(p);
@@ -1665,7 +1661,7 @@ async function loadPosts(prefix) {
     var monthMatch = prefix ? prefix.match(/^(\d{4})-(\d{2})\/$/) : null;
 
     if (!prefix) {
-      // ── 根目录：显示年份文件夹 + 其他文章 ──
+      // ── 根目录：显示年份文件夹 ──
       var sortedYears = Object.keys(yearGroups).sort().reverse();
       var navHtml = '<div style="margin-bottom:12px;">' +
         '<span style="color:var(--muted);font-size:0.85rem;">共 ' + totalPosts + ' 篇</span>';
@@ -1674,10 +1670,6 @@ async function loadPosts(prefix) {
         sortedYears.forEach(function(year) {
           navHtml += '<button class="btn btn-sm" style="margin-right:6px;margin-bottom:6px;" onclick="loadPosts(\'' + year + '/\')">📁 ' + year + '年 (' + yearGroups[year].count + ')</button>';
         });
-      }
-      if (otherPosts.length > 0) {
-        navHtml += ' <span style="color:var(--muted);font-size:0.85rem;">·</span> ';
-        navHtml += '<button class="btn btn-sm" style="margin-right:6px;margin-bottom:6px;" onclick="loadPosts(\'_other/\')">📄 其他 (' + otherPosts.length + ')</button>';
       }
       navHtml += '</div>';
       navEl.innerHTML = navHtml;
@@ -1722,27 +1714,6 @@ async function loadPosts(prefix) {
 
       var html = '<div class="post-list">';
       posts.forEach(function(p) {
-        html += '<div class="post-item" onclick="editPost(\'' + encodeURIComponent(p.name) + '\', \'' + encodeURIComponent(p.subSection || '') + '\')">' +
-          '<div class="post-item-title">' + escHtml(p.name.replace('.md','')) + '</div>' +
-          '<div class="post-item-meta"><span>' + escHtml(p.path) + '</span></div>' +
-          '</div>';
-      });
-      html += '</div>';
-      el.innerHTML = html;
-
-    } else if (prefix === '_other/') {
-      // ── 其他：显示非日期命名的文章列表 ──
-      var oPosts = otherPosts.slice().sort(function(a, b) { return b.name.localeCompare(a.name); });
-      var navHtml = '<div style="margin-bottom:12px;">' +
-        '<span style="cursor:pointer;color:var(--accent);" onclick="loadPosts(\'\')">📁 全部</span>' +
-        ' <span style="color:var(--muted);">›</span> ' +
-        '<span style="color:var(--accent2);font-weight:500;">其他</span>' +
-        ' <span style="color:var(--muted);font-size:0.85rem;">(' + oPosts.length + ' 篇)</span>' +
-        '</div>';
-      navEl.innerHTML = navHtml;
-
-      var html = '<div class="post-list">';
-      oPosts.forEach(function(p) {
         html += '<div class="post-item" onclick="editPost(\'' + encodeURIComponent(p.name) + '\', \'' + encodeURIComponent(p.subSection || '') + '\')">' +
           '<div class="post-item-title">' + escHtml(p.name.replace('.md','')) + '</div>' +
           '<div class="post-item-meta"><span>' + escHtml(p.path) + '</span></div>' +

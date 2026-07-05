@@ -21,7 +21,7 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
-<nav class="crumb breadcrumbs" aria-label="面包屑导航">
+<nav class="crumb breadcrumbs" aria-label="面包屑导航" style="background: #fff !important; border-radius: .375rem !important; border-bottom: 3px solid #e5e5e5 !important; padding: .625rem .875rem !important; margin-bottom: 1rem !important; box-shadow: 0 0 4px rgba(205,220,230,.5) !important;">
 <ol class="breadcrumb-list">
 <li><a href="{{ .Site.BaseURL }}">首页</a></li>
 {{- if .IsSection -}}
@@ -37,3 +37,65 @@
 </ol>
 </nav>
 {{- end -}}
+
+<style>
+.breadcrumbs {
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: #666;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    display: block !important;
+    visibility: visible !important;
+    overflow: visible;
+}
+/* Search page specific styles */
+.article.search-page .breadcrumbs,
+.article.search-page .crumb {
+    background: #fff !important;
+    border-radius: .375rem !important;
+    border-bottom: 3px solid #e5e5e5 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding: .625rem .875rem !important;
+    margin-bottom: 1rem !important;
+    box-shadow: 0 0 4px rgba(205,220,230,.5) !important;
+}
+.dark .article.search-page .breadcrumbs,
+.dark .article.search-page .crumb {
+    background: #21252c !important;
+    border-bottom-color: #161a20 !important;
+    box-shadow: 0 0 4px rgba(0,0,0,.3) !important;
+}
+.breadcrumb-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+.breadcrumb-list li {
+    display: inline-flex;
+    align-items: center;
+}
+.breadcrumb-list li:not(:last-child)::after {
+    content: '>';
+    margin-left: 0.5rem;
+    color: #999;
+}
+.breadcrumb-list a {
+    color: var(--color_link, #ed5565);
+    text-decoration: none;
+}
+.breadcrumb-list a:hover {
+    text-decoration: underline;
+}
+.breadcrumb-list span[aria-current="page"] {
+    color: #333;
+}
+</style>

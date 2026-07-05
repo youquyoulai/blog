@@ -1,4 +1,20 @@
 {{ define "main" }}
+
+<!-- 栏目卡片 -->
+{{- $cats := (index .Site.Data "kb-categories") -}}
+<div class="section-grid">
+{{- range $cats -}}
+{{- $sec := $.Site.GetPage (printf "/%s" .name) -}}
+{{- if $sec -}}
+<a href="{{ $sec.Permalink }}" class="section-card">
+  <div class="section-card-icon">{{ .icon }}</div>
+  <div class="section-card-title">{{ .title }}</div>
+  <div class="section-card-desc">{{ .description }}</div>
+</a>
+{{- end -}}
+{{- end -}}
+</div>
+
 {{- $posts := where .Site.RegularPages "Section" "math" -}}
 {{- $filtered := slice -}}
 {{- range $posts -}}

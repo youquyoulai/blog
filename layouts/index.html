@@ -13,13 +13,13 @@
 .dark .kb-hero p{color:#8a8e94;}
 
 /* Category grid */
-.kb-categories{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding:0 0 2rem;}
-.kb-cat-card{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;background:#fff;border-radius:.5rem;border-bottom:3px solid #e5e5e5;padding:1.75rem 1rem;box-shadow:0 0 4px rgba(205,220,230,.5);transition:transform .2s,box-shadow .2s;}
+.kb-categories{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:0 0 2rem;}
+.kb-cat-card{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;background:#fff;border-radius:.5rem;border-bottom:3px solid #e5e5e5;padding:1.25rem .75rem;box-shadow:0 0 4px rgba(205,220,230,.5);transition:transform .2s,box-shadow .2s;}
 .kb-cat-card:hover{transform:translateY(-4px);box-shadow:0 4px 16px rgba(205,220,230,.8);text-decoration:none;}
-.kb-cat-icon{font-size:2.5rem;line-height:1;margin-bottom:.625rem;}
-.kb-cat-title{font-size:1.125rem;font-weight:600;color:#333;margin-bottom:.25rem;}
-.kb-cat-desc{font-size:.8125rem;color:#999;line-height:1.5;margin-bottom:.625rem;}
-.kb-cat-count{font-size:.75rem;color:var(--color_link,#ed5565);background:var(--color_border,#f6dfdf);padding:.125rem .625rem;border-radius:.75rem;}
+.kb-cat-icon{font-size:2.25rem;line-height:1;margin-bottom:.5rem;}
+.kb-cat-title{font-size:1rem;font-weight:600;color:#333;margin-bottom:.25rem;}
+.kb-cat-desc{font-size:.75rem;color:#999;line-height:1.5;margin-bottom:.5rem;}
+.kb-cat-count{font-size:.7rem;color:var(--color_link,#ed5565);background:var(--color_border,#f6dfdf);padding:.125rem .5rem;border-radius:.75rem;}
 .dark .kb-cat-card{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
 .dark .kb-cat-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.5);}
 .dark .kb-cat-title{color:#dadde1;}
@@ -39,10 +39,10 @@
 .dark .kb-recent li a{color:#b4b7bb;}
 .kb-recent li .kb-date{font-size:.8125rem;color:#aaa;white-space:nowrap;}
 
-@media(max-width:768px){
+@media(max-width:991px){
   .kb-categories{grid-template-columns:repeat(2,1fr);}
 }
-@media(max-width:480px){
+@media(max-width:640px){
   .kb-categories{grid-template-columns:1fr;}
   .kb-hero{padding:1.5rem 1rem 1.5rem;}
   .kb-hero h1{font-size:1.5rem;}

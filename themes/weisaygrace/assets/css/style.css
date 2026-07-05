@@ -94,6 +94,23 @@ h3{font-size:1.125rem;font-weight:400}
 .post-card .post-meta{font-size:.785rem;color:#777;margin-top:.5rem;overflow:hidden;height:1.5rem;line-height:1.5rem}
 .post-card:has(.search-no){grid-template-columns:none}
 
+/* 首页栏目卡片网格 */
+.section-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.section-card{background:#fff;border-radius:.5rem;padding:1.25rem 1rem;text-align:center;border-bottom:3px solid #e5e5e5;box-shadow:0 0 4px rgba(205,220,230,.5);transition:transform .2s,box-shadow .2s,border-color .2s;display:flex;flex-direction:column;align-items:center;text-decoration:none}
+.section-card:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(205,220,230,.8);border-bottom-color:var(--color_link)}
+.section-card-icon{font-size:2rem;margin-bottom:.5rem;line-height:1}
+.section-card-title{font-size:1rem;font-weight:600;color:#333;margin-bottom:.375rem}
+.section-card-title a{color:#333;text-decoration:none}
+.section-card-desc{font-size:.8rem;color:#888;line-height:1.5}
+
+@media screen and (max-width:991px){
+.section-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media screen and (max-width:640px){
+.section-grid{grid-template-columns:1fr}
+}
+
 .article-content{position:relative;overflow:hidden;padding:1rem}
 .article-content p{padding:.5rem 0;line-height:1.875rem;word-break:break-all}
 .article-content table{width:100%;border-collapse:collapse;margin:1rem 0;word-break:break-all}

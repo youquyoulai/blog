@@ -12,26 +12,14 @@
   description: 作家作品评析与阅读笔记
   order: 2
 
-- name: history
-  title: 历史
-  icon: "\U0001F3DB\uFE0F"
-  description: 历史事件与人物解读
-  order: 3
-
 - name: philosophy
   title: 哲学
   icon: "\U0001F4AD"
   description: 哲学思想与思辨
+  order: 3
+
+- name: misc
+  title: 杂录
+  icon: "\U0001F4D6"
+  description: 科学知识、历史解读与生活随笔
   order: 4
-
-- name: science
-  title: 科学
-  icon: "\U0001F52C"
-  description: 科学知识与方法论
-  order: 5
-
-- name: life
-  title: 生活
-  icon: "\U0001F33F"
-  description: 生活随笔与日常感悟
-  order: 6

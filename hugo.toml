@@ -6,7 +6,7 @@ theme = 'weisaygrace'
 
 hasCJKLanguage = true
 buildFuture = true
-mainSections = ['math', 'literature', 'history', 'philosophy', 'science', 'life']
+mainSections = ['math', 'literature', 'philosophy', 'misc']
 capitalizeListTitles = false
 
 [pagination]
@@ -14,8 +14,8 @@ capitalizeListTitles = false
 
 [params]
   author = '平哥'
-  description = '平哥集录 — 数学、文学、历史、哲学、科学与生活的笔记与思考'
-  keywords = '数学,文学,历史,哲学,科学,生活,知识库,高考数学,题解'
+  description = '平哥集录 — 数学、文学、哲学与杂录的笔记与思考'
+  keywords = '数学,文学,哲学,杂录,知识库,高考数学,题解'
   logo = '平哥集录'
   builtYear = '2026'
   email = 'wuliwuju@126.com'
@@ -30,10 +30,8 @@ capitalizeListTitles = false
   math = '/archives/:slug.html'
   posts = '/archives/:slug.html'
   literature = '/:sections/:slug.html'
-  history = '/:sections/:slug.html'
   philosophy = '/:sections/:slug.html'
-  science = '/:sections/:slug.html'
-  life = '/:sections/:slug.html'
+  misc = '/:sections/:slug.html'
 
 [taxonomies]
   tag = 'tags'

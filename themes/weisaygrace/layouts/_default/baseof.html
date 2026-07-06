@@ -199,7 +199,19 @@
 
     {{ hugo.Generator }}
 
-    <!-- MathJax 3 -->
+    {{/* MathJax 3 - 仅在有数学公式的文章页面加载 */}}
+    {{ $needMath := false }}
+    {{ if .IsPage }}
+      {{ if .Params.math }}
+        {{ $needMath = true }}
+      {{ else }}
+        {{ $raw := .RawContent }}
+        {{ if or (findRE `\$\$` $raw) (findRE `\\\(` $raw) (findRE `\\\[` $raw) (findRE `\$[a-zA-Z\\]` $raw) }}
+          {{ $needMath = true }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    {{ if $needMath }}
     <script>
       window.MathJax = {
         tex: {
@@ -225,6 +237,7 @@
       };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.min.js"></script>
+    {{ end }}
 </head>
 <body>
 <a href="#main-content" class="skip-link" style="position:absolute;top:-100%;left:0;background:var(--color_link);color:#fff;padding:.5rem 1rem;z-index:99999;">跳到主内容</a>

@@ -1,32 +1,48 @@
 {{ define "main" }}
+{{ $cats := (index hugo.Data "kb-categories") }}
+{{ $catColor := "" }}
+{{ range $cats }}
+  {{ if eq .name .CurrentSection.Name }}
+    {{ if eq .name "math" }}{{ $catColor = "#C04B3D" }}{{ end }}
+    {{ if eq .name "literature" }}{{ $catColor = "#5E7253" }}{{ end }}
+    {{ if eq .name "philosophy" }}{{ $catColor = "#4A6274" }}{{ end }}
+    {{ if eq .name "misc" }}{{ $catColor = "#A67C52" }}{{ end }}
+  {{ end }}
+{{ end }}
 
 <style>
-.wyg-crumb{background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:.625rem .875rem;margin-bottom:1.5rem;font-size:.875rem;}
+.wyg-crumb{background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:.625rem .875rem;margin-bottom:1.5rem;font-size:.875rem;font-family:'Noto Serif SC',serif;}
 .wyg-crumb ol{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;}
 .wyg-crumb li{display:inline-flex;align-items:center;}
-.wyg-crumb li:not(:last-child)::after{content:'→';margin-left:.5rem;color:#AB9F96;font-family:'Noto Serif SC',serif;}
-.wyg-crumb a{color:#C04B3D;text-decoration:none;font-family:'Noto Serif SC',serif;}
+.wyg-crumb li:not(:last-child)::after{content:'→';margin-left:.5rem;color:#AB9F96;}
+.wyg-crumb a{color:#C04B3D;text-decoration:none;}
 .wyg-crumb a:hover{text-decoration:underline;}
-.wyg-crumb span{color:#3E3A39;font-family:'Noto Serif SC',serif;}
+.wyg-crumb span{color:#3E3A39;}
 
 .wyg-section-header{background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;}
 .wyg-section-header h1{font-family:'Noto Serif SC',serif;font-size:1.75rem;font-weight:600;color:#3E3A39;margin:0 0 .5rem;letter-spacing:.1em;}
-.wyg-section-header p{font-size:.875rem;color:#8B837B;margin:0;line-height:1.5;}
+.wyg-section-header .wyg-section-desc{font-size:.875rem;color:#8B837B;margin:0 0 1rem;line-height:1.5;}
+.wyg-section-header .wyg-section-content{font-size:.9375rem;line-height:1.8;color:#555;margin-top:0;}
 
-.wyg-section-content{background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;font-size:.9375rem;line-height:1.8;color:#555;}
-
-.wyg-topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:1.5rem;}
-.wyg-topic-card{display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:1.25rem;transition:all .2s;}
+.wyg-topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem;}
+.wyg-topic-card{display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:1.5rem;transition:all .2s;}
 .wyg-topic-card:hover{box-shadow:0 4px 16px rgba(62,58,57,.08);transform:translateY(-2px);}
-.wyg-topic-icon{width:56px;height:56px;border:2px solid #8B837B;border-radius:4px;display:flex;align-items:center;justify-content:center;margin-bottom:.75rem;flex-shrink:0;}
-.wyg-topic-icon svg{width:28px;height:28px;color:#8B837B;}
-.wyg-topic-icon-text{font-family:'Noto Serif SC',serif;font-size:1.25rem;color:#8B837B;}
-.wyg-topic-name{font-family:'Noto Serif SC',serif;font-size:1rem;font-weight:600;color:#3E3A39;margin-bottom:.25rem;letter-spacing:.05em;}
-.wyg-topic-bio{font-size:.8125rem;color:#8B837B;line-height:1.5;margin-bottom:.5rem;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
-.wyg-topic-count{font-size:.7rem;color:#AB9F96;border:1px solid #E8E4DD;padding:.125rem .5rem;border-radius:3px;margin-top:auto;width:fit-content;}
+.wyg-topic-card-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;}
+.wyg-topic-icon{width:70px;height:70px;border:2px solid currentColor;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:{{ $catColor }};}
+.wyg-topic-icon svg{width:32px;height:32px;}
+.wyg-topic-icon-text{font-family:'Noto Serif SC',serif;font-size:1.5rem;}
+.wyg-topic-title-area{flex:1;}
+.wyg-topic-name{font-family:'Noto Serif SC',serif;font-size:1.125rem;font-weight:600;color:#3E3A39;margin-bottom:.375rem;letter-spacing:.1em;}
+.wyg-topic-bio{font-size:.85rem;color:#8B837B;line-height:1.4;}
+.wyg-topic-body{flex:1;}
+.wyg-topic-stats{font-size:.75rem;color:#AB9F96;margin-bottom:.75rem;font-family:'Noto Serif SC',serif;}
+.wyg-topic-footer{display:flex;justify-content:space-between;align-items:center;margin-top:auto;}
+.wyg-topic-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.wyg-topic-tag{font-family:'Noto Serif SC',serif;font-size:.675rem;padding:2px 6px;border:1px solid {{ $catColor }};border-radius:2px;color:{{ $catColor }};}
+.wyg-topic-enter{font-family:'Noto Serif SC',serif;font-size:.75rem;padding:.25rem .75rem;border:1px solid {{ $catColor }};color:{{ $catColor }};text-decoration:none;border-radius:3px;transition:all .2s;flex-shrink:0;}
+.wyg-topic-enter:hover{background:{{ $catColor }};color:#FBF7F0;}
 
-@media(max-width:991px){.wyg-topic-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:640px){.wyg-topic-grid{grid-template-columns:1fr;}}
+@media(max-width:991px){.wyg-topic-grid{grid-template-columns:1fr;}}
 
 .dark .wyg-crumb{background:#211b1a;border-color:#4a3f3e;}
 .dark .wyg-crumb a{color:#d49590;}
@@ -34,16 +50,13 @@
 .dark .wyg-crumb li:not(:last-child)::after{color:#76706b;}
 .dark .wyg-section-header{background:#211b1a;border-color:#4a3f3e;}
 .dark .wyg-section-header h1{color:#e8e4dd;}
-.dark .wyg-section-header p{color:#8a847f;}
-.dark .wyg-section-content{background:#211b1a;border-color:#4a3f3e;color:#b4aeaa;}
+.dark .wyg-section-header .wyg-section-desc{color:#8a847f;}
+.dark .wyg-section-header .wyg-section-content{color:#b4aeaa;}
 .dark .wyg-topic-card{background:#211b1a;border-color:#4a3f3e;}
 .dark .wyg-topic-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.3);}
-.dark .wyg-topic-icon{border-color:#76706b;}
-.dark .wyg-topic-icon svg{color:#76706b;}
-.dark .wyg-topic-icon-text{color:#76706b;}
 .dark .wyg-topic-name{color:#e8e4dd;}
 .dark .wyg-topic-bio{color:#8a847f;}
-.dark .wyg-topic-count{color:#76706b;border-color:#4a3f3e;}
+.dark .wyg-topic-stats{color:#76706b;}
 </style>
 
 <nav class="wyg-crumb" aria-label="breadcrumb">
@@ -58,12 +71,11 @@
 
 <div class="wyg-section-header">
   <h1>{{ .Title }}</h1>
-  {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  {{ with .Description }}<p class="wyg-section-desc">{{ . }}</p>{{ end }}
+  {{ if .Content }}
+  <div class="wyg-section-content">{{ .Content }}</div>
+  {{ end }}
 </div>
-
-{{ if .Content }}
-<div class="wyg-section-content">{{ .Content }}</div>
-{{ end }}
 
 {{ if .Sections }}
 <div class="wyg-topic-grid">
@@ -71,19 +83,32 @@
   {{ $title := .Title }}
   {{ $icon := .Params.icon }}
   {{ $image := .Params.image }}
+  {{ $count := len .RegularPages }}
   <a href="{{ .Permalink }}" class="wyg-topic-card">
-    <div class="wyg-topic-icon">
-      {{ if $image }}
-      <img src="{{ $image | relURL }}" alt="{{ $title }}" loading="lazy" style="width:28px;height:28px;object-fit:contain;">
-      {{ else if $icon }}
-      <span class="wyg-topic-icon-text">{{ $icon }}</span>
-      {{ else }}
-      <span class="wyg-topic-icon-text">{{ substr $title 0 1 }}</span>
-      {{ end }}
+    <div class="wyg-topic-card-header">
+      <div class="wyg-topic-icon">
+        {{ if $image }}
+        <img src="{{ $image | relURL }}" alt="{{ $title }}" loading="lazy" style="width:32px;height:32px;object-fit:contain;">
+        {{ else if $icon }}
+        <span class="wyg-topic-icon-text">{{ $icon }}</span>
+        {{ else }}
+        <span class="wyg-topic-icon-text">{{ substr $title 0 1 }}</span>
+        {{ end }}
+      </div>
+      <div class="wyg-topic-title-area">
+        <div class="wyg-topic-name">{{ $title }}</div>
+        {{ with .Description }}<div class="wyg-topic-bio">{{ . }}</div>{{ end }}
+      </div>
     </div>
-    <div class="wyg-topic-name">{{ $title }}</div>
-    {{ with .Description }}<div class="wyg-topic-bio">{{ . }}</div>{{ end }}
-    <div class="wyg-topic-count">{{ len .RegularPages }} 篇文章</div>
+    <div class="wyg-topic-body">
+      <div class="wyg-topic-stats">{{ $count }} 篇文章</div>
+    </div>
+    <div class="wyg-topic-footer">
+      <div class="wyg-topic-tags">
+        <span class="wyg-topic-tag">#{{ $title }}</span>
+      </div>
+      <span class="wyg-topic-enter">[ 入 阁 ]</span>
+    </div>
   </a>
   {{ end }}
 </div>

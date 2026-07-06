@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方案二 - 思想实验室 极简学术风</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: #FFFFFF; color: #1A1A1A; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 3rem 2rem; }
+        .header { margin-bottom: 3rem; }
+        .site-title { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+        .site-slogan { font-size: 1.1rem; font-weight: 300; color: #666; font-style: italic; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+        .category-card { padding: 1.5rem; border: 2px solid; border-radius: 12px; cursor: pointer; transition: all 0.2s; }
+        .category-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .card-math { border-color: #5C7C99; }
+        .card-literature { border-color: #76937A; }
+        .card-philosophy { border-color: #6D5C7A; }
+        .card-misc { border-color: #8E8372; }
+        .category-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+        .category-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .category-desc { font-size: 0.9rem; font-weight: 300; color: #555; line-height: 1.5; margin-bottom: 1rem; }
+        .latest-note { font-size: 0.85rem; color: #888; font-weight: 400; }
+        .latest-note::before { content: '* '; color: #EAB308; font-weight: bold; }
+        .metadata-section { margin-top: 3rem; padding: 1.5rem; background: #FAFAFA; border-radius: 8px; }
+        .meta-title { font-size: 0.85rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+        .meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+        .meta-item { font-size: 0.9rem; }
+        .meta-label { font-weight: 600; color: #333; }
+        .meta-value { color: #666; font-weight: 300; }
+        .tag-cloud { margin-top: 2rem; }
+        .tag { display: inline-block; font-size: 0.85rem; padding: 4px 12px; background: #FAFAFA; border-radius: 20px; margin-right: 8px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; }
+        .tag:hover { background: #F0F0F0; }
+        .tag-math { color: #5C7C99; }
+        .tag-literature { color: #76937A; }
+        .tag-philosophy { color: #6D5C7A; }
+        .tag-misc { color: #8E8372; }
+        .footer { text-align: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #EEE; font-size: 0.85rem; color: #999; }
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .meta-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="site-title">思想实验室</h1>
+            <p class="site-slogan">以模型理解世界，用叙事安顿心灵。</p>
+        </div>
+        
+        <div class="dashboard-grid">
+            <div class="category-card card-math">
+                <div class="category-icon">📐</div>
+                <div class="category-title">数学语言</div>
+                <div class="category-desc">从公理到证明，抽象的结构之美。</div>
+                <div class="latest-note">线性代数直观理解</div>
+            </div>
+            
+            <div class="category-card card-literature">
+                <div class="category-icon">📖</div>
+                <div class="category-title">文学叙事</div>
+                <div class="category-desc">意象、节奏与人类处境的隐喻。</div>
+                <div class="latest-note">红楼梦人物形象分析</div>
+            </div>
+            
+            <div class="category-card card-philosophy">
+                <div class="category-icon">💡</div>
+                <div class="category-title">哲学思辨</div>
+                <div class="category-desc">追问本质，拆解预设。</div>
+                <div class="latest-note">暂无更新</div>
+            </div>
+            
+            <div class="category-card card-misc">
+                <div class="category-icon">🗃️</div>
+                <div class="category-title">杂录随记</div>
+                <div class="category-desc">逸闻、书摘、临时闪念的收容所。</div>
+                <div class="latest-note">暂无更新</div>
+            </div>
+        </div>
+        
+        <div class="metadata-section">
+            <div class="meta-title">知识库概览</div>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">文章总数</div>
+                    <div class="meta-value">28</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">专题数量</div>
+                    <div class="meta-value">6</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">最后更新</div>
+                    <div class="meta-value">2026-07-06</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">知识领域</div>
+                    <div class="meta-value">4</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tag-cloud">
+            <div class="meta-title">概念标签</div>
+            <span class="tag tag-math">#微积分</span>
+            <span class="tag tag-math">#线性代数</span>
+            <span class="tag tag-math">#概率统计</span>
+            <span class="tag tag-math">#高考真题</span>
+            <span class="tag tag-literature">#古典文学</span>
+            <span class="tag tag-literature">#红楼梦</span>
+            <span class="tag tag-literature">#名著导读</span>
+            <span class="tag tag-philosophy">#认识论</span>
+            <span class="tag tag-philosophy">#形而上学</span>
+            <span class="tag tag-misc">#读书札记</span>
+            <span class="tag tag-misc">#方法论</span>
+        </div>
+        
+        <div class="footer">
+            © 2026 思想实验室 · 以模型理解世界
+        </div>
+    </div>
+</body>
+</html>

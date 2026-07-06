@@ -18,7 +18,7 @@
             <!-- 桌面端导航链接（移动端隐藏，通过汉堡菜单展示） -->
             <nav class="main-nav">
                 <ul>
-                    <li><a href="{{ .Site.BaseURL }}"{{ if .IsHome }} class="current_page_item"{{ end }}>首页</a></li>
+                    <li><a href="{{ .Site.BaseURL }}"{{ if .IsHome }} class="current_page_item"{{ end }}>平哥集录</a></li>
                     {{ range (index hugo.Data "kb-categories") }}
                     <li><a href="{{ .name | relURL }}/"{{ if eq $.Section .name }} class="current_page_item"{{ end }}>{{ .title }}</a></li>
                     {{ end }}
@@ -32,9 +32,9 @@
             <!-- 搜索框（移动端隐藏，通过汉堡菜单展示） -->
             <div class="search" style="position:relative;">
                 <form method="get" action="/search" role="search">
-                    <input type="text" id="search-input" name="s" class="search-input" placeholder="搜索..." aria-label="搜索" style="height:32px;border:1px solid #ddd;border-radius:6px;padding:0 36px 0 10px;font-size:0.875rem;width:150px;outline:none;background:#f5f5f5;transition:border-color .2s,background .2s;" onfocus="this.style.borderColor='#999';this.style.background='#fff'" onblur="this.style.borderColor='#ddd';this.style.background='#f5f5f5'">
-                    <button type="submit" class="search-submit" aria-label="搜索" style="position:absolute;right:5px;top:50%;transform:translateY(-50%);background:#f0f0f0;border:1px solid #ddd;border-radius:4px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;color:#999;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#999">
+                    <input type="text" id="search-input" name="s" class="search-input" placeholder="搜索..." aria-label="搜索" style="height:32px;border:1px solid #D4CFC9;border-radius:6px;padding:0 36px 0 10px;font-size:0.875rem;width:150px;outline:none;background:#f5f5f5;transition:border-color .2s,background .2s;color:#3E3A39;" onfocus="this.style.borderColor='#8B837B';this.style.background='#fff'" onblur="this.style.borderColor='#D4CFC9';this.style.background='#f5f5f5'">
+                    <button type="submit" class="search-submit" aria-label="搜索" style="position:absolute;right:5px;top:50%;transform:translateY(-50%);background:#f5f5f5;border:1px solid #D4CFC9;border-radius:4px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;color:#8B837B;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#8B837B">
                         <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                     </svg>
                     </button>

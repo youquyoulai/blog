@@ -1,137 +1,75 @@
 {{ define "main" }}
 <style>
-/* 搜索页面容器 - 确保宽度正确 */
 .search-results-page{padding:1rem 0;}
-/* 确保所有子容器都有边距且不超出容器 */
-.container #main-content,
-.container #main-content .main,
-.container #main-content .main .search-results-page,
-#searchResults,
-.search-results-list,
-.search-card {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-}
-/* 搜索卡片整体内边距 - 与 .post-card 一致 */
-.search-card,
-.search-count-card,
-.search-breadcrumb,
-.search-results-header {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-}
-@media (max-width: 480px) {
-    .search-card,
-    .search-count-card,
-    .search-breadcrumb,
-    .search-results-header {
-        padding-left: 12px !important;
-        padding-right: 12px !important;
-    }
-}
-/* 面包屑卡片样式 */
-.search-breadcrumb{
-    background: #fff;
-    border-radius: .375rem;
-    border-bottom: 3px solid #e5e5e5;
-    padding: .625rem .875rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 0 4px rgba(205,220,230,.5);
-    font-size: .875rem;
-}
-.search-breadcrumb a{color: var(--color_link, #ed5565); text-decoration: none;}
-.search-breadcrumb a:hover{text-decoration: underline;}
-.search-breadcrumb span{color: #333;}
-/* 搜索头部 */
+.search-card{width:100%;}
+
+.search-breadcrumb{background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:.625rem .875rem;margin-bottom:1rem;font-size:.875rem;font-family:'Noto Serif SC',serif;}
+.search-breadcrumb ol{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;}
+.search-breadcrumb li{display:inline-flex;align-items:center;}
+.search-breadcrumb li:not(:last-child)::after{content:'→';margin-left:.5rem;color:#AB9F96;}
+.search-breadcrumb a{color:#C04B3D;text-decoration:none;}
+.search-breadcrumb a:hover{text-decoration:underline;}
+.search-breadcrumb span{color:#3E3A39;}
+
 .search-results-header{display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;}
-.search-results-header form{display:flex;align-items:center;flex:1;max-width:600px;border:1px solid #d8dae2;border-radius:0.5rem;background:#fff;overflow:hidden;border-bottom:3px solid #e5e5e5;box-shadow:0 0 4px rgba(205,220,230,.5);}
-.search-results-header input{flex:1;border:none;padding:0.75rem 1rem;font-size:1rem;outline:none;background:transparent;}
-.search-results-header button{border:none;background:#707377;color:#fff;padding:0.75rem 1rem;cursor:pointer;font-size:1rem;}
-.search-results-header button:hover{background:#5a5d62;}
-/* 搜索计数卡片样式 */
-.search-count-card{
-    display: block;
-    color: #666;
-    font-size: .875rem;
-    margin: 0 0 1rem 0;
-    padding: .625rem .875rem;
-    background: #fff;
-    border-radius: .375rem;
-    border-bottom: 3px solid #e5e5e5;
-    box-shadow: 0 0 4px rgba(205,220,230,.5);
-}
-.search-count-card span{color:#333;font-weight:600;}
+.search-results-header form{display:flex;align-items:center;flex:1;max-width:600px;border:1px solid #E8E4DD;border-radius:8px;background:#fff;overflow:hidden;}
+.search-results-header input{flex:1;border:none;padding:0.75rem 1rem;font-size:1rem;outline:none;background:transparent;color:#3E3A39;font-family:'Noto Serif SC',serif;}
+.search-results-header button{border:none;background:#3E3A39;color:#FBF7F0;padding:0.75rem 1rem;cursor:pointer;font-size:1rem;font-family:'Noto Serif SC',serif;}
+.search-results-header button:hover{background:#5E5855;}
 
-/* 搜索结果：与首页 .post-card 样式对齐 */
-.search-card{display:grid;grid-template-columns:1fr;gap:1rem;margin:0 !important;padding:0 !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;}
-.search-card .post{background:#fff;border-radius:0.375rem;border-bottom:3px solid #e5e5e5;padding:0;display:flex;flex-direction:column;margin-bottom:0;box-shadow:0 0 4px rgba(205,220,230,.5);position:relative;transition:box-shadow .3s;width:100% !important;max-width:100% !important;box-sizing:border-box !important;}
-.search-card .post:hover{box-shadow:0 2px 12px rgba(205,220,230,.8);}
-.search-card .post-thumbnail{position:relative;overflow:hidden;width:100%;aspect-ratio:1.4/1;border-radius:0.375rem 0.375rem 0 0;}
-.search-card .post-thumbnail img{width:100%;height:100%;object-fit:cover;display:block;transition:all .3s ease-out 0s;}
-.search-card .post-thumbnail img:hover{transform:scale(1.05);}
+.search-count-card{display:block;color:#8B837B;font-size:.875rem;margin:0 0 1rem 0;padding:.625rem .875rem;background:#fff;border:1px solid #E8E4DD;border-radius:8px;font-family:'Noto Serif SC',serif;}
+.search-count-card span{color:#3E3A39;font-weight:600;}
+
+.search-card .post{background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:0;display:flex;flex-direction:column;margin-bottom:1rem;transition:box-shadow .2s;width:100%;}
+.search-card .post:hover{box-shadow:0 4px 16px rgba(62,58,57,.06);}
+.search-card .post-thumbnail{position:relative;overflow:hidden;width:100%;aspect-ratio:1.4/1;border-radius:8px 8px 0 0;}
+.search-card .post-thumbnail img{width:100%;height:100%;object-fit:cover;display:block;}
 .search-card .card-item{padding:0.75rem 1rem;display:flex;flex-direction:column;flex-grow:1;}
-.search-card .post-title{font-size:1.25rem;flex-grow:1;padding:0.25rem 0;line-height:1.8rem;}
-.search-card .post-title a{color:#333;text-decoration:none;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
-.search-card .post-title a:hover{color:var(--color_hover);}
+.search-card .post-title{font-size:1.125rem;flex-grow:1;padding:0.25rem 0;line-height:1.8rem;font-family:'Noto Serif SC',serif;font-weight:600;}
+.search-card .post-title a{color:#3E3A39;text-decoration:none;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
+.search-card .post-title a:hover{color:#C04B3D;}
 .search-card .post-content{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;padding:0;}
-.search-card .post-content p{color:#555;line-height:2rem;font-size:0.95rem;word-wrap:break-word;word-break:break-all;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
+.search-card .post-content p{color:#555;line-height:1.8rem;font-size:0.95rem;word-wrap:break-word;word-break:break-all;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
 .search-card .post-content p:nth-child(n+2){display:none;}
-.search-card .post-meta{font-size:0.785rem;color:#777;margin-top:0.5rem;overflow:hidden;height:1.5rem;line-height:1.5rem;}
-.search-card .post-meta span{margin-right:0.3rem;}
-.search-card .post-meta .fn::after,.search-card .post-meta .views::before{content:"/";padding:0 0.325rem;}
-.search-card mark{background:#ffeb3b;padding:0 0.125rem;border-radius:0.125rem;}
+.search-card .post-meta{font-size:0.785rem;color:#AB9F96;margin-top:0.5rem;overflow:hidden;height:1.5rem;line-height:1.5rem;font-family:'Noto Serif SC',serif;}
+.search-card mark{background:#FFF3CD;color:#3E3A39;padding:0 0.125rem;border-radius:2px;}
 
-/* 始终单列，自适应宽度 */
-.search-card .post{width:100%;}
 .search-card .post.no-thumb .card-item{padding:1rem;}
-.search-card .post.no-thumb .post-title{font-size:1.125rem;}
 
-/* 搜索结果列表容器 */
-#searchResults, .search-results-list {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-/* 确保搜索卡片不超出容器 */
-.search-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    box-sizing: border-box !important;
-}
-.search-empty,.search-loading{color:#666;text-align:center;padding:2rem 0;font-size:1rem;}
+.search-empty,.search-loading{color:#8B837B;text-align:center;padding:2rem 0;font-size:1rem;font-family:'Noto Serif SC',serif;}
 
 @media(max-width:991px){
-  .search-card .post,.search-card .type-page{margin-bottom:0;}
+  .search-card .post,.search-card .type-page{margin-bottom:1rem;}
   .search-results-header form{max-width:none;}
   .search-card .post-title{font-size:1rem;}
 }
 
-/* 暗色模式 */
-[data-theme="dark"] .search-breadcrumb{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
-[data-theme="dark"] .search-breadcrumb a{color:#da4d5b;}
-[data-theme="dark"] .search-breadcrumb span{color:#b4b7bb;}
-[data-theme="dark"] .search-results-header form{background:#21252c;border-color:#3a3f45;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
-[data-theme="dark"] .search-results-header input{color:#b4b7bb;}
-[data-theme="dark"] .search-count-card{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);color:#8a8e94;}
-[data-theme="dark"] .search-count-card span{color:#c1c4c9;}
-[data-theme="dark"] .search-card .post{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
-[data-theme="dark"] .search-card .post-title a{color:#b4b7bb;}
-[data-theme="dark"] .search-card .post-content p{color:#8a8e94;}
-[data-theme="dark"] .search-card .post-meta{color:#8a8e94;}
+.dark .search-breadcrumb{background:#211b1a;border-color:#4a3f3e;}
+.dark .search-breadcrumb a{color:#d49590;}
+.dark .search-breadcrumb span{color:#e8e4dd;}
+.dark .search-breadcrumb li:not(:last-child)::after{color:#76706b;}
+.dark .search-results-header form{background:#211b1a;border-color:#4a3f3e;}
+.dark .search-results-header input{color:#e8e4dd;}
+.dark .search-results-header button{background:#2c2625;color:#e8e4dd;}
+.dark .search-results-header button:hover{background:#3a3332;}
+.dark .search-count-card{background:#211b1a;border-color:#4a3f3e;color:#76706b;}
+.dark .search-count-card span{color:#e8e4dd;}
+.dark .search-card .post{background:#211b1a;border-color:#4a3f3e;}
+.dark .search-card .post-title a{color:#e8e4dd;}
+.dark .search-card .post-title a:hover{color:#e8b5b0;}
+.dark .search-card .post-content p{color:#8a847f;}
+.dark .search-card .post-meta{color:#76706b;}
+.dark .search-card mark{background:#4a3f3e;color:#e8e4dd;}
+.dark .search-empty,.dark .search-loading{color:#76706b;}
 </style>
 <div class="container">
   <div class="main-content">
-    <div class="search-breadcrumb">
-      <a href="{{ .Site.BaseURL }}">首页</a> &gt; <span>搜索</span>
-    </div>
+    <nav class="search-breadcrumb" aria-label="breadcrumb">
+      <ol>
+        <li><a href="{{ .Site.BaseURL }}">平哥集录</a></li>
+        <li><span>搜索</span></li>
+      </ol>
+    </nav>
     <div class="search-results-page">
       <div id="searchResults" class="search-results-list">
         <p class="search-loading">搜索中...</p>

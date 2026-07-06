@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方案三 - 星野漫游 意象图谱风</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: #0F172A; color: #E2E8F0; overflow-x: hidden; }
+        .container { min-height: 100vh; position: relative; }
+        .stars-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .star { position: absolute; background: #EAB308; border-radius: 50%; animation: twinkle 3s infinite; }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .header { position: relative; z-index: 1; text-align: center; padding: 3rem 2rem; }
+        .site-title { font-size: 2.5rem; font-weight: 300; letter-spacing: 0.1em; color: #EAB308; margin-bottom: 0.5rem; }
+        .site-subtitle { font-size: 0.95rem; color: #64748B; font-weight: 300; }
+        .constellation-map { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 2rem; height: 500px; }
+        .constellation { position: absolute; text-align: center; transition: all 0.3s; cursor: pointer; }
+        .constellation:hover { transform: scale(1.05); }
+        .constellation-icon { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; animation: pulse 4s infinite; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .constellation-title { font-size: 1rem; font-weight: 500; margin-bottom: 0.25rem; }
+        .constellation-desc { font-size: 0.75rem; color: #64748B; }
+        .constellation-stats { font-size: 0.7rem; color: #475569; margin-top: 0.25rem; }
+        .constellation-math { color: #E2E8F0; top: 15%; left: 50%; transform: translateX(-50%); }
+        .constellation-literature { color: #FCD34D; top: 40%; left: 15%; }
+        .constellation-philosophy { color: #C4B5FD; top: 40%; right: 15%; }
+        .constellation-misc { color: #A7F3D0; bottom: 15%; left: 50%; transform: translateX(-50%); }
+        .connection-line { position: absolute; background: linear-gradient(90deg, rgba(234,179,8,0.3), rgba(234,179,8,0.1)); height: 1px; z-index: 0; }
+        .line-1 { top: 28%; left: 50%; width: 25%; transform-origin: left center; }
+        .line-2 { top: 40%; left: 38%; width: 24%; }
+        .line-3 { top: 55%; left: 50%; width: 25%; transform-origin: left center; }
+        .line-4 { top: 40%; left: 38%; width: 24%; transform: rotate(30deg); }
+        .category-detail { position: relative; z-index: 1; max-width: 800px; margin: 2rem auto; padding: 0 2rem; }
+        .detail-card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(234, 179, 8, 0.2); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+        .detail-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+        .detail-icon { font-size: 1.25rem; }
+        .detail-title { font-size: 1.125rem; font-weight: 500; }
+        .detail-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.75rem; }
+        .detail-tag { font-size: 0.75rem; padding: 3px 10px; border-radius: 12px; }
+        .tag-math { background: rgba(226, 232, 240, 0.15); color: #E2E8F0; }
+        .tag-literature { background: rgba(252, 211, 77, 0.15); color: #FCD34D; }
+        .tag-philosophy { background: rgba(196, 181, 253, 0.15); color: #C4B5FD; }
+        .tag-misc { background: rgba(167, 243, 208, 0.15); color: #A7F3D0; }
+        .detail-desc { font-size: 0.875rem; color: #94A3B8; line-height: 1.5; }
+        .footer { position: relative; z-index: 1; text-align: center; padding: 2rem; font-size: 0.85rem; color: #475569; margin-top: 2rem; }
+        @media (max-width: 600px) {
+            .site-title { font-size: 1.75rem; }
+            .constellation-map { height: 400px; }
+            .constellation-icon { font-size: 1.75rem; }
+            .constellation-title { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="stars-bg" id="stars"></div>
+        
+        <div class="header">
+            <h1 class="site-title">☆ 知识星图 ☆</h1>
+            <p class="site-subtitle">星野漫游 · 探索知识宇宙</p>
+        </div>
+        
+        <div class="constellation-map">
+            <div class="connection-line line-1"></div>
+            <div class="connection-line line-2"></div>
+            <div class="connection-line line-3"></div>
+            <div class="connection-line line-4"></div>
+            
+            <div class="constellation constellation-math">
+                <div class="constellation-icon">📐</div>
+                <div class="constellation-title">数学 · 永恒构型</div>
+                <div class="constellation-desc">稳定的几何星座</div>
+                <div class="constellation-stats">26 篇 · 5 专题</div>
+            </div>
+            
+            <div class="constellation constellation-literature">
+                <div class="constellation-icon">📜</div>
+                <div class="constellation-title">文学 · 故事星河</div>
+                <div class="constellation-desc">流动的银河叙事带</div>
+                <div class="constellation-stats">2 篇 · 1 专题</div>
+            </div>
+            
+            <div class="constellation constellation-philosophy">
+                <div class="constellation-icon">☯️</div>
+                <div class="constellation-title">哲学 · 存在谜洞</div>
+                <div class="constellation-desc">深空中的奇点问题</div>
+                <div class="constellation-stats">0 篇 · 0 专题</div>
+            </div>
+            
+            <div class="constellation constellation-misc">
+                <div class="constellation-icon">🗂️</div>
+                <div class="constellation-title">杂录 · 不定信标</div>
+                <div class="constellation-desc">飘浮的星际尘埃</div>
+                <div class="constellation-stats">0 篇 · 0 专题</div>
+            </div>
+        </div>
+        
+        <div class="category-detail">
+            <div class="detail-card">
+                <div class="detail-header">
+                    <div class="detail-icon">📐</div>
+                    <div class="detail-title">#星座/数学 · 线性代数直观理解</div>
+                </div>
+                <div class="detail-tags">
+                    <span class="detail-tag tag-math">#向量空间</span>
+                    <span class="detail-tag tag-math">#矩阵运算</span>
+                    <span class="detail-tag tag-math">#基变换</span>
+                </div>
+                <div class="detail-desc">通过几何直觉理解线性代数的核心概念，从向量到矩阵，从变换到特征值，构建完整的知识体系。</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="detail-header">
+                    <div class="detail-icon">📜</div>
+                    <div class="detail-title">#星座/文学 · 红楼梦人物形象分析</div>
+                </div>
+                <div class="detail-tags">
+                    <span class="detail-tag tag-literature">#古典文学</span>
+                    <span class="detail-tag tag-literature">#贾宝玉</span>
+                    <span class="detail-tag tag-literature">#林黛玉</span>
+                </div>
+                <div class="detail-desc">《红楼梦》中的人物形象鲜明，各具特色。本文选取主要人物进行深入分析，探讨其性格与命运的关系。</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            © 2026 星野漫游 · 在知识宇宙中探索
+        </div>
+    </div>
+    
+    <script>
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.width = Math.random() * 2 + 1 + 'px';
+            star.style.height = star.style.width;
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>

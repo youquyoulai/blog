@@ -1,18 +1,83 @@
 {{ define "main" }}
 
-<!-- 栏目卡片 -->
-{{- $cats := (index hugo.Data "kb-categories") -}}
-<div class="section-grid">
-{{- range $cats -}}
-{{- $sec := $.Site.GetPage (printf "/%s" .name) -}}
-{{- if $sec -}}
-<a href="{{ $sec.Permalink }}" class="section-card">
-  <div class="section-card-icon">{{ .icon }}</div>
-  <div class="section-card-title">{{ .title }}</div>
-  <div class="section-card-desc">{{ .description }}</div>
-</a>
-{{- end -}}
-{{- end -}}
+<div class="wyg-header">
+    <h1 class="wyg-site-title">文 渊 阁</h1>
+    <p class="wyg-site-subtitle">知识录</p>
+    <div class="wyg-divider"></div>
+</div>
+
+<div class="wyg-catalog-section">
+    <p class="wyg-catalog-title">── 分类索引 ──</p>
+    
+    <div class="section-grid">
+    {{- $cats := (index hugo.Data "kb-categories") -}}
+    {{- range $cats -}}
+    {{- $sec := $.Site.GetPage (printf "/%s" .name) -}}
+    {{- if $sec -}}
+    {{- $count := len (where $sec.RegularPages "Type" "page") -}}
+    {{- $sections := $sec.Sections -}}
+    {{- $sectionCount := len $sections -}}
+    <a href="{{ $sec.Permalink }}" class="section-card {{ .name }}">
+        <div class="section-card-header">
+            <div class="section-card-seal">
+                {{- if eq .name "math" -}}
+                <svg viewBox="0 0 48 48" fill="currentColor">
+                    <circle cx="12" cy="36" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M12 36 L12 20 L28 8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="28" cy="8" r="2" fill="currentColor"/>
+                    <path d="M32 44 L32 20 L44 20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M32 20 L44 32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </svg>
+                {{- else if eq .name "literature" -}}
+                <svg viewBox="0 0 48 48" fill="currentColor">
+                    <rect x="8" y="12" width="32" height="24" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="6" y="8" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="36" y="8" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="6" y="32" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="36" y="32" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M14 18 L34 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M14 22 L30 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M14 26 L26 26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M14 30 L22 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                {{- else if eq .name "philosophy" -}}
+                <svg viewBox="0 0 48 48" fill="currentColor">
+                    <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M24 4 L24 44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M24 4 A20 20 0 0 0 24 44 A10 10 0 0 1 24 24 A10 10 0 0 0 24 4" fill="currentColor" opacity="0.3"/>
+                    <circle cx="24" cy="14" r="3" fill="currentColor"/>
+                    <circle cx="24" cy="34" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                </svg>
+                {{- else if eq .name "misc" -}}
+                <svg viewBox="0 0 48 48" fill="currentColor">
+                    <rect x="10" y="24" width="28" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="14" y="18" width="28" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="18" y="12" width="28" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M30 28 L36 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M30 32 L34 32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M32 22 L38 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M34 16 L40 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                {{- end -}}
+            </div>
+            <div class="section-card-title-area">
+                <div class="section-card-title">{{ .title }}</div>
+                <div class="section-card-desc">{{ .description }}</div>
+            </div>
+        </div>
+        <div class="section-card-body">
+            <div class="section-card-stats">{{ $count }} 篇文章 · {{ $sectionCount }} 个专题</div>
+        </div>
+        <div class="section-card-footer">
+            <div class="section-card-tags">
+                <span class="section-card-tag">#{{ .title }}</span>
+            </div>
+            <span class="section-card-enter">[ 入 阁 ]</span>
+        </div>
+    </a>
+    {{- end -}}
+    {{- end -}}
+    </div>
 </div>
 
 {{- $posts := where .Site.RegularPages "Section" "math" -}}

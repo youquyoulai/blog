@@ -1,86 +1,145 @@
 {{ define "main" }}
 {{ $cats := (index hugo.Data "kb-categories") }}
-{{ $sections := slice }}
-{{ range $cats }}{{ $sections = $sections | append .name }}{{ end }}
 
 <style>
-.kb-home{padding:0;}
-/* Hero */
-.kb-hero{text-align:center;padding:2.5rem 1rem 2rem;}
-.kb-hero h1{font-size:2rem;font-weight:600;color:#333;margin-bottom:.5rem;}
-.kb-hero p{font-size:1rem;color:#888;margin:0;}
-.dark .kb-hero h1{color:#dadde1;}
-.dark .kb-hero p{color:#8a8e94;}
+.wyg-catalog-section{text-align:center;margin-bottom:2rem}
+.wyg-catalog-title{font-family:'Noto Serif SC',serif;font-size:1.1rem;color:#6B6560;letter-spacing:.3em;margin-bottom:2rem}
 
-/* Category grid */
-.kb-categories{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:0 0 2rem;}
-.kb-cat-card{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;background:#fff;border-radius:.5rem;border-bottom:3px solid #e5e5e5;padding:1.25rem .75rem;box-shadow:0 0 4px rgba(205,220,230,.5);transition:transform .2s,box-shadow .2s;}
-.kb-cat-card:hover{transform:translateY(-4px);box-shadow:0 4px 16px rgba(205,220,230,.8);text-decoration:none;}
-.kb-cat-icon{font-size:2.25rem;line-height:1;margin-bottom:.5rem;}
-.kb-cat-title{font-size:1rem;font-weight:600;color:#333;margin-bottom:.25rem;}
-.kb-cat-desc{font-size:.75rem;color:#999;line-height:1.5;margin-bottom:.5rem;}
-.kb-cat-count{font-size:.7rem;color:var(--color_link,#ed5565);background:var(--color_border,#f6dfdf);padding:.125rem .5rem;border-radius:.75rem;}
-.dark .kb-cat-card{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
-.dark .kb-cat-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.5);}
-.dark .kb-cat-title{color:#dadde1;}
-.dark .kb-cat-desc{color:#8a8e94;}
+.section-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem}
+.section-card{background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:1.5rem;display:flex;flex-direction:column;transition:all .2s;text-decoration:none;color:inherit}
+.section-card:hover{box-shadow:0 4px 16px rgba(62,58,57,.08);transform:translateY(-2px)}
+.section-card-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.section-card-seal{width:70px;height:70px;display:flex;align-items:center;justify-content:center;border:2px solid currentColor;border-radius:4px;flex-shrink:0}
+.section-card-seal svg{width:32px;height:32px}
+.section-card-title-area{flex:1}
+.section-card-title{font-family:'Noto Serif SC',serif;font-size:1.125rem;font-weight:600;letter-spacing:.1em;margin-bottom:.375rem;color:#3E3A39}
+.section-card-desc{font-size:.85rem;color:#8B837B;line-height:1.4}
+.section-card-body{flex:1}
+.section-card-stats{font-size:.75rem;color:#AB9F96;margin-bottom:.75rem}
+.section-card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+.section-card-tags{display:flex;flex-wrap:wrap;gap:4px}
+.section-card-tag{font-family:'Noto Serif SC',serif;font-size:.675rem;padding:2px 6px;border:1px solid;border-radius:2px}
+.section-card-enter{font-family:'Noto Serif SC',serif;font-size:.75rem;padding:.25rem .75rem;border:1px solid;color:currentColor;text-decoration:none;border-radius:3px;transition:all .2s;flex-shrink:0}
+.section-card-enter:hover{background:currentColor;color:#FBF7F0}
 
-/* Recent updates */
-.kb-recent{background:#fff;border-radius:.5rem;border-bottom:3px solid #e5e5e5;padding:1.25rem 1.5rem;box-shadow:0 0 4px rgba(205,220,230,.5);}
-.dark .kb-recent{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
-.kb-recent h2{font-size:1.125rem;font-weight:600;color:#333;margin-bottom:1rem;padding-bottom:.625rem;border-bottom:1px solid #eee;}
-.dark .kb-recent h2{color:#dadde1;border-bottom-color:#3a3f45;}
-.kb-recent ul{list-style:none;padding:0;margin:0;}
-.kb-recent li{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px dashed #f0f0f0;}
-.kb-recent li:last-child{border-bottom:none;}
-.dark .kb-recent li{border-bottom-color:#2a2e35;}
-.kb-recent li a{color:#555;text-decoration:none;font-size:.9375rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:1rem;}
-.kb-recent li a:hover{color:var(--color_hover,#da4453);}
-.dark .kb-recent li a{color:#b4b7bb;}
-.kb-recent li .kb-date{font-size:.8125rem;color:#aaa;white-space:nowrap;}
+.section-card.math .section-card-seal,.section-card.math .section-card-tag,.section-card.math .section-card-enter{color:#C04B3D}
+.section-card.literature .section-card-seal,.section-card.literature .section-card-tag,.section-card.literature .section-card-enter{color:#5E7253}
+.section-card.philosophy .section-card-seal,.section-card.philosophy .section-card-tag,.section-card.philosophy .section-card-enter{color:#4A6274}
+.section-card.misc .section-card-seal,.section-card.misc .section-card-tag,.section-card.misc .section-card-enter{color:#A67C52}
+
+.kb-recent{background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:1.5rem;box-shadow:0 0 4px rgba(205,220,230,.3)}
+.kb-recent h2{font-family:'Noto Serif SC',serif;font-size:1.125rem;font-weight:600;color:#3E3A39;margin-bottom:1rem;padding-bottom:.625rem;border-bottom:1px solid #E8E4DD}
+.kb-recent ul{list-style:none;padding:0;margin:0}
+.kb-recent li{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px dashed #E0DAD3}
+.kb-recent li:last-child{border-bottom:none}
+.kb-recent li a{color:#555;text-decoration:none;font-size:.9375rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:1rem}
+.kb-recent li a:hover{color:#A03B2D}
+.kb-recent li .kb-date{font-size:.8125rem;color:#AB9F96;white-space:nowrap}
 
 @media(max-width:991px){
-  .kb-categories{grid-template-columns:repeat(2,1fr);}
+  .section-grid{grid-template-columns:1fr}
 }
-@media(max-width:640px){
-  .kb-categories{grid-template-columns:1fr;}
-  .kb-hero{padding:1.5rem 1rem 1.5rem;}
-  .kb-hero h1{font-size:1.5rem;}
-  .kb-cat-card{padding:1.25rem 1rem;}
-}
+
+.dark .wyg-catalog-title{color:#76706b}
+.dark .section-card{background:#211b1a;border-color:#4a3f3e}
+.dark .section-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.dark .section-card-title{color:#e8e4dd}
+.dark .section-card-desc{color:#8a847f}
+.dark .section-card-stats{color:#76706b}
+.dark .kb-recent{background:#211b1a;border-color:#4a3f3e}
+.dark .kb-recent h2{color:#e8e4dd;border-bottom-color:#4a3f3e}
+.dark .kb-recent li{border-bottom-color:#2e2827}
+.dark .kb-recent li a{color:#b4aeaa}
+.dark .kb-recent li a:hover{color:#e8b5b0}
+.dark .kb-recent li .kb-date{color:#76706b}
 </style>
 
-<div class="kb-home">
-
-
-  <div class="kb-categories">
+<div class="wyg-catalog-section">
+    <p class="wyg-catalog-title">── 分类索引 ──</p>
+    
+    <div class="section-grid">
     {{ range $cats }}
     {{ $sec := $.Site.GetPage (printf "/%s" .name) }}
-    {{ $count := 0 }}
     {{ if $sec }}
-      {{ $pages := where $.Site.RegularPages "Section" .name }}
-      {{ $count = len $pages }}
-    {{ end }}
-    <a href="{{ .name | relURL }}/" class="kb-cat-card">
-      <div class="kb-cat-icon">{{ .icon }}</div>
-      <div class="kb-cat-title">{{ .title }}</div>
-      <div class="kb-cat-desc">{{ .description }}</div>
-      <div class="kb-cat-count">{{ $count }} 篇文章</div>
+    {{ $count := len (where $sec.RegularPages "Type" "page") }}
+    {{ $sections := $sec.Sections }}
+    {{ $sectionCount := len $sections }}
+    <a href="{{ $sec.Permalink }}" class="section-card {{ .name }}">
+        <div class="section-card-header">
+            <div class="section-card-seal">
+                {{- if eq .name "math" -}}
+                <svg viewBox="0 0 48 48" fill="currentColor">
+                    <circle cx="12" cy="36" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M12 36 L12 20 L28 8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="28" cy="8" r="2" fill="currentColor"/>
+                    <path d="M32 44 L32 20 L44 20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M32 20 L44 32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </svg>
+                {{- else if eq .name "literature" -}}
+                <svg viewBox="0 0 48 48" fill="currentColor">
+                    <rect x="8" y="12" width="32" height="24" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="6" y="8" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="36" y="8" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="6" y="32" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="36" y="32" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M14 18 L34 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M14 22 L30 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M14 26 L26 26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M14 30 L22 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                {{- else if eq .name "philosophy" -}}
+                <svg viewBox="0 0 48 48" fill="currentColor">
+                    <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M24 4 L24 44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M24 4 A20 20 0 0 0 24 44 A10 10 0 0 1 24 24 A10 10 0 0 0 24 4" fill="currentColor" opacity="0.3"/>
+                    <circle cx="24" cy="14" r="3" fill="currentColor"/>
+                    <circle cx="24" cy="34" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                </svg>
+                {{- else if eq .name "misc" -}}
+                <svg viewBox="0 0 48 48" fill="currentColor">
+                    <rect x="10" y="24" width="28" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="14" y="18" width="28" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="18" y="12" width="28" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M30 28 L36 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M30 32 L34 32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M32 22 L38 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M34 16 L40 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                {{- end -}}
+            </div>
+            <div class="section-card-title-area">
+                <div class="section-card-title">{{ .title }}</div>
+                <div class="section-card-desc">{{ .description }}</div>
+            </div>
+        </div>
+        <div class="section-card-body">
+            <div class="section-card-stats">{{ $count }} 篇文章 · {{ $sectionCount }} 个专题</div>
+        </div>
+        <div class="section-card-footer">
+            <div class="section-card-tags">
+                <span class="section-card-tag">#{{ .title }}</span>
+            </div>
+            <span class="section-card-enter">[ 入 阁 ]</span>
+        </div>
     </a>
     {{ end }}
-  </div>
+    {{ end }}
+    </div>
+</div>
 
-  <div class="kb-recent">
+<div class="kb-recent">
     <h2>最近更新</h2>
     <ul>
-      {{ $allPages := where .Site.RegularPages "Section" "in" $sections }}
-      {{ range first 8 $allPages }}
-      <li>
-        <a href="{{ .Permalink }}">{{ .Title | truncate 60 }}</a>
-        <span class="kb-date">{{ .Date.Format "2006-01-02" }}</span>
-      </li>
-      {{ end }}
+        {{ $sections := slice }}
+        {{ range $cats }}{{ $sections = $sections | append .name }}{{ end }}
+        {{ $allPages := where .Site.RegularPages "Section" "in" $sections }}
+        {{ range first 8 $allPages }}
+        <li>
+            <a href="{{ .Permalink }}">{{ .Title | truncate 60 }}</a>
+            <span class="kb-date">{{ .Date.Format "2006-01-02" }}</span>
+        </li>
+        {{ end }}
     </ul>
-  </div>
 </div>
+
 {{ end }}

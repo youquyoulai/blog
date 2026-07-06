@@ -20,36 +20,9 @@
 
 .dark .header-navigation{background:#252a30;}
 
-
-
-
-
-
-
 .dark .article h1 a:link,.dark .article h1 a:visited{color:#e8eaed;}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .dark .newicon{color:var(--color_link_dark);}
-
-
-
 
 .dark .main .post .edit{background:#3a3f45;}
 
@@ -127,30 +100,11 @@
 
 .dark .nav-item .nav-item-image::after{color:#21252c;}
 
-
-
-
-
 .dark .main .article h3.article-title{background:#252a30;color:#c1c4c9;}
-
-
-
-
-
-
-
-
-
 
 .dark .article-author{border-top:1px solid #32363c;}
 
 .dark .article-author-info p{color:#8a8e94}
-
-
-
-
-
-
 
 .dark .pagination span,.dark .pagination a{background:#2e333a;color:#9da1a7;}
 
@@ -159,33 +113,6 @@
 .dark .pagination .current{background:var(--color_hover_dark);color:#252a30;}
 
 .dark .pagination .dots,.dark .article .pagination .dots{background:transparent;}
-
-
-
-
- /* 微光灰 */
- /* 哑光灰 */
- /* 暗青铜 */
- /* 磨砂铜 */
- /* 赤铜 */
- /* 暗香金 */
- /* 古典金 */
- /* 柔光金 */
- /* 华贵金 */
- /* 流光金 */
- /* 暗紫金 */
- 
-
-
-
-
-
-
-
-
-
-
-
 
 .dark .comment-list li.comment{border-top:1px solid #32363c;}
 
@@ -223,8 +150,6 @@
 
 .dark .comment-list .comment-box .comment-content code{background:#2e333a;color:#c391b4;}
 
-
-
 .dark .comment-respond{border-top:1px solid #3a3f45;}
 
 .dark .comment-list .comment-respond{border-top:none;}
@@ -245,9 +170,6 @@
 
 .dark .comment-frame .comment-post .comment-author-info .comment-input input:focus{border:2px solid #767a80;outline:none;}
 
-
-
-
 .dark .comment-frame .comment-post textarea{background:#2c3138;color:#b4b7bb;border:2px solid #3a3f45;}
 
 .dark .comment-frame .comment-post textarea::-webkit-input-placeholder{color:#767a80;}
@@ -262,19 +184,11 @@
 
 .dark .widget-comment-commentator{color:#767a80;}
 
-
-
-
-
 .dark select#archive-selector{background:#2c3138;color:#b4b7bb;border:2px solid #454a50;}
 
 .dark select#archive-selector:focus{border:2px solid #767a80;outline:none;}
 
-
 .dark .archives-title,.dark .archive-count,.dark .car-list .cy-archive-count{color:#767a80;}
-
-
-
 
 .dark .page-tag .tag-index li{background:#32363c;color:#454a50;}
 
@@ -302,13 +216,6 @@
 
 .dark .page-tag .tag-cloud-item:hover .topicicon{color:var(--color_border_dark);}
 
-
-
-
-
-
-
-
 .dark #dark-mode-toggle{color:#9da1a7;}
 
 .dark #dark-mode-toggle:hover{color:#e8eaed;}
@@ -326,32 +233,6 @@
 .dark .footer p,.dark .footer a:link,.dark .footer a:visited{color:#767a80;}
 
 .dark img{filter:brightness(80%);}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .dark code[class*=language-],.dark pre[class*=language-]{text-shadow:none;color:#c1c4c9;background:0 0;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre-wrap;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;}
 .dark pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto;}
@@ -389,8 +270,6 @@
 
 .dark .main .article .article-content .code-toolbar code{background:transparent;}
 
-
-/* 侧边栏微语暗色 */
 .dark .widget-memos{background:#21252c;border-bottom-color:#161a20;}
 
 .dark .widget-memos .weibo-content{color:#c1c4c9;}
@@ -399,7 +278,6 @@
 
 .dark .widget-memos .weibo-more{color:var(--color_link_dark);}
 
-/* 侧边栏热门标签暗色 */
 .dark .widget-tags{background:#21252c;border-bottom-color:#161a20;}
 
 .dark .tag-cloud{padding:.75rem;}
@@ -408,7 +286,6 @@
 
 .dark .tag-item:hover{background:var(--color_link_dark);color:#e8eaed;border-color:var(--color_link_dark);}
 
-/* 侧边栏友情链接暗色 */
 .dark .widget-links{background:#21252c;border-bottom-color:#161a20;}
 
 .dark .friend-links-grid{padding:.75rem;}
@@ -417,9 +294,6 @@
 
 .dark .friend-link-item:hover{background:var(--color_link_dark);color:#e8eaed;border-color:var(--color_link_dark);}
 
-
-
-/* 搜索页面暗色 */
 .dark .search-breadcrumb{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);}
 
 .dark .search-breadcrumb a{color:#9da1a7;}
@@ -431,7 +305,6 @@
 .dark .search-count-card{background:#21252c;border-bottom-color:#161a20;box-shadow:0 0 4px rgba(0,0,0,.3);color:#8a8e94;}
 
 .dark .search-count-card span{color:#c1c4c9;}
-
 
 @media screen and (max-width:991px){
 
@@ -447,10 +320,7 @@
 
 .dark .nav-next{border-top:1px solid #32363c;}
 
-
 .dark .comment-frame .comment-post .comment-emoji .emoji-smilies:before{border-right:7px solid #21252c;}
-
-
 
 .dark .search-box input{background:#2c3138;border:2px solid #3a3f45;color:#b4b7bb;}
 

@@ -51,7 +51,7 @@
 <div class="article-author">
     <div class="article-author-item">
         <div class="article-author-avatar">
-            <img src="{{ .Site.Params.avatar | default "https://www.gravatar.com/avatar/" }}" alt="{{ .Site.Params.author }}" />
+            <img src="{{ .Site.Params.avatar | default "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23f6dfdf'/%3E%3Ctext x='50' y='58' font-size='40' text-anchor='middle' fill='%23ed5565'%3E%E4%BA%BA%3C/text%3E%3C/svg%3E" }}" alt="{{ .Site.Params.author }}" />
         </div>
         <div class="article-author-info">
             <p>{{ .Site.Params.author }}：{{ .Site.Params.description }}</p>

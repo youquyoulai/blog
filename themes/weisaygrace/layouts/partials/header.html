@@ -10,7 +10,7 @@
             <nav class="main-nav">
                 <ul>
                     <li><a href="{{ .Site.BaseURL }}"{{ if .IsHome }} class="current_page_item"{{ end }}>首页</a></li>
-                    {{ $cats := (index .Site.Data "kb-categories") }}
+                    {{ $cats := (index hugo.Data "kb-categories") }}
                     {{ range $cats }}
                     {{ $sec := $.Site.GetPage (printf "/%s" .name) }}
                     {{ if $sec }}

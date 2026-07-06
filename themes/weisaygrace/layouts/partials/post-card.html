@@ -6,24 +6,24 @@
 {{ $idx := .idx }}
 {{ $paginator := .paginator }}
 {{ $hideCategory := .hideCategory | default false }}
-<div class="post" {{ with $page.File }}id="post-{{ .UniqueID }}"{{ end }} itemscope itemtype="http://schema.org/Article" style="display:flex;flex-direction:column;">
+<div class="post" {{ with $page.File }}id="post-{{ .UniqueID }}"{{ end }} itemscope itemtype="http://schema.org/Article">
 <h2 class="post-title" itemprop="headline">
     <a href="{{ $page.Permalink }}" rel="bookmark" title="{{ $page.Title }}" itemprop="url">{{ $page.Title }}</a>
 </h2>
-<div class="post-body" style="display:flex;align-items:flex-start;">
+<div class="post-body">
 {{ partial "post-thumb.html" (dict "page" $page "idx" $idx "paginator" $paginator) }}
-<div class="post-content" itemprop="description" style="flex:1;min-height:117px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;">
+<div class="post-content" itemprop="description">
     {{ if $page.Summary }}
-    <p style="margin:0;font-size:1rem;line-height:1.875rem;">{{ $page.Summary | plainify | truncate 360 }}</p>
+    <p>{{ $page.Summary | plainify | truncate 360 }}</p>
     {{ else }}
-    <p style="margin:0;font-size:1rem;line-height:1.875rem;">{{ $page.Content | plainify | truncate 360 }}</p>
+    <p>{{ $page.Content | plainify | truncate 360 }}</p>
     {{ end }}
 </div>
 </div>
 <div class="clear"></div>
 <div class="post-info">
     <span class="date info-icon" itemprop="datePublished" content="{{ $page.Date.Format "2006-01-02T15:04:05Z07:00" }}">
-        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-calendar"/></svg>{{ $page.Date.Format "2006-01-02" }}
+        <svg class="posticon"><use href="#icon-calendar"/></svg>{{ $page.Date.Format "2006-01-02" }}
     </span>
     {{ if not $hideCategory }}
     {{ if $page.Section }}
@@ -38,7 +38,7 @@
       {{ end }}
     {{ end }}
     <span class="category info-icon" itemprop="articleSection">
-        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg><a href="{{ $page.Section | relURL }}">{{ $catTitle }}</a>
+        <svg class="posticon"><use href="#icon-category"/></svg><a href="{{ $page.Section | relURL }}">{{ $catTitle }}</a>
     </span>
     {{ end }}
     {{ end }}

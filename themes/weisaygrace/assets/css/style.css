@@ -83,8 +83,7 @@ h3{font-size:1.125rem;font-weight:400}
 .post-card .post-title{font-size:1.25rem;flex-grow:1;padding:.25rem 0}
 .post-card .post-title a{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
 .post-card .post-thumbnail{position:relative;overflow:hidden;width:100%;aspect-ratio:1.4/1;border-radius:.375rem .375rem 0 0}
-.post-card .post-thumbnail img{width:100%;height:100%;object-fit:cover;display:block;transition:all .3s ease-out 0s}
-.post-card .post-thumbnail img:hover{transform:scale(1.05)}
+.post-card .post-thumbnail img{width:100%;height:100%;object-fit:cover;display:block}
 .post-card .card-item{padding:.75rem 1rem;display:flex;flex-direction:column;flex-grow:1}
 .post-card .post-content p{line-height:2rem;word-wrap:break-word;word-break:break-all;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
 .post-card .post-content p:nth-child(n+2){display:none}
@@ -96,8 +95,8 @@ h3{font-size:1.125rem;font-weight:400}
 
 /* 首页栏目卡片网格 */
 .section-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
-.section-card{background:#fff;border-radius:.5rem;padding:1.25rem 1rem;text-align:center;border-bottom:3px solid #e5e5e5;box-shadow:0 0 4px rgba(205,220,230,.5);transition:transform .2s,box-shadow .2s,border-color .2s;display:flex;flex-direction:column;align-items:center;text-decoration:none}
-.section-card:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(205,220,230,.8);border-bottom-color:var(--color_link)}
+.section-card{background:#fff;border-radius:.5rem;padding:1.25rem 1rem;text-align:center;border-bottom:3px solid #e5e5e5;box-shadow:0 0 4px rgba(205,220,230,.5);display:flex;flex-direction:column;align-items:center;text-decoration:none}
+.section-card:hover{box-shadow:0 4px 12px rgba(205,220,230,.8);border-bottom-color:var(--color_link)}
 .section-card-icon{font-size:2rem;margin-bottom:.5rem;line-height:1}
 .section-card-title{font-size:1rem;font-weight:600;color:#333;margin-bottom:.375rem}
 .section-card-title a{color:#333;text-decoration:none}
@@ -111,7 +110,7 @@ h3{font-size:1.125rem;font-weight:400}
 .section-grid{grid-template-columns:1fr}
 }
 
-.article-content{position:relative;overflow:hidden;padding:1rem}
+.article-content{position:relative;padding:1rem}
 .article-content p{padding:.5rem 0;line-height:1.875rem;word-break:break-all}
 .article-content table{width:100%;border-collapse:collapse;margin:1rem 0;word-break:break-all}
 .article-content table th,.article-content table td{padding:.375rem .625rem;border:1px solid #ccc}
@@ -125,9 +124,7 @@ h3{font-size:1.125rem;font-weight:400}
 .article-content ul li:before{content:"";display:block;width:.375rem;height:.375rem;border-radius:.375rem;position:absolute;top:1rem;left:1rem;background:var(--color_hover)}
 .article-content ol li{line-height:1.625rem;list-style-position:inside;padding:.375rem 0 .375rem 1rem;position:relative}
 .article-content ul li{line-height:1.625rem;list-style-position:inside;padding:.375rem 0 .375rem 1.875rem;position:relative}
-.article-content h1,.article-content h2,.article-content h3,.article-content h4,.article-content h5,.article-content h6{font-weight:700;width:auto;display:inline;box-shadow:inset 0 -.5rem 0 0 var(--color_border)}
-.article-content h1:before,.article-content h2:before,.article-content h3:before,.article-content h4:before,.article-content h5:before,.article-content h6:before{content:"";display:block;margin-top:1.5rem}
-.article-content h1:after,.article-content h2:after,.article-content h3:after,.article-content h4:after,.article-content h5:after,.article-content h6:after{content:"";display:block;margin-bottom:.625rem}
+.article-content h1,.article-content h2,.article-content h3,.article-content h4,.article-content h5,.article-content h6{font-weight:700;width:auto;margin-top:1.5rem;margin-bottom:.625rem}
 .article-content h1{font-size:1.625rem;line-height:2.375rem}
 .article-content h2{font-size:1.5rem;line-height:2.25rem}
 .article-content h3{font-size:1.375rem;line-height:2.125rem}

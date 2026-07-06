@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ $cats := (index .Site.Data "kb-categories") }}
+{{ $cats := (index hugo.Data "kb-categories") }}
 {{ $sections := slice }}
 {{ range $cats }}{{ $sections = $sections | append .name }}{{ end }}
 

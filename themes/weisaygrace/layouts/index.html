@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 <!-- 栏目卡片 -->
-{{- $cats := (index .Site.Data "kb-categories") -}}
+{{- $cats := (index hugo.Data "kb-categories") -}}
 <div class="section-grid">
 {{- range $cats -}}
 {{- $sec := $.Site.GetPage (printf "/%s" .name) -}}

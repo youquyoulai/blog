@@ -25,8 +25,8 @@
 .wyg-section-header .wyg-section-content{font-size:.9375rem;line-height:1.8;color:#555;margin-top:0;}
 
 .wyg-topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem;}
-.wyg-topic-card{display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:1.5rem;transition:all .2s;}
-.wyg-topic-card:hover{box-shadow:0 4px 16px rgba(62,58,57,.08);transform:translateY(-2px);}
+.wyg-topic-card{display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:1.5rem;transition:box-shadow .2s;}
+.wyg-topic-card:hover{box-shadow:0 4px 16px rgba(62,58,57,.08);}
 .wyg-topic-card-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;}
 .wyg-topic-icon{width:70px;height:70px;border:2px solid currentColor;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:{{ $catColor }};}
 .wyg-topic-icon svg{width:32px;height:32px;}
@@ -42,7 +42,25 @@
 .wyg-topic-enter{font-family:'Noto Serif SC',serif;font-size:.75rem;padding:.25rem .75rem;border:1px solid {{ $catColor }};color:{{ $catColor }};text-decoration:none;border-radius:3px;transition:all .2s;flex-shrink:0;}
 .wyg-topic-enter:hover{background:{{ $catColor }};color:#FBF7F0;}
 
-@media(max-width:991px){.wyg-topic-grid{grid-template-columns:1fr;}}
+.wyg-article-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem;}
+.wyg-article-card{display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:1.5rem;transition:box-shadow .2s;}
+.wyg-article-card:hover{box-shadow:0 4px 16px rgba(62,58,57,.08);}
+.wyg-article-card-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;}
+.wyg-article-icon{width:70px;height:70px;border:2px solid {{ $catColor }};border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:{{ $catColor }};}
+.wyg-article-icon svg{width:32px;height:32px;}
+.wyg-article-icon-text{font-family:'Noto Serif SC',serif;font-size:1.5rem;}
+.wyg-article-title-area{flex:1;}
+.wyg-article-name{font-family:'Noto Serif SC',serif;font-size:1.125rem;font-weight:600;color:#3E3A39;margin-bottom:.375rem;letter-spacing:.1em;}
+.wyg-article-bio{font-size:.85rem;color:#8B837B;line-height:1.4;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;}
+.wyg-article-body{flex:1;}
+.wyg-article-stats{font-size:.75rem;color:#AB9F96;margin-bottom:.75rem;font-family:'Noto Serif SC',serif;}
+.wyg-article-footer{display:flex;justify-content:space-between;align-items:center;margin-top:auto;}
+.wyg-article-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.wyg-article-tag{font-family:'Noto Serif SC',serif;font-size:.675rem;padding:2px 6px;border:1px solid {{ $catColor }};border-radius:2px;color:{{ $catColor }};}
+.wyg-article-enter{font-family:'Noto Serif SC',serif;font-size:.75rem;padding:.25rem .75rem;border:1px solid {{ $catColor }};color:{{ $catColor }};text-decoration:none;border-radius:3px;transition:all .2s;flex-shrink:0;}
+.wyg-article-enter:hover{background:{{ $catColor }};color:#FBF7F0;}
+
+@media(max-width:991px){.wyg-topic-grid{grid-template-columns:1fr;}.wyg-article-grid{grid-template-columns:1fr;}}
 
 .dark .wyg-crumb{background:#211b1a;border-color:#4a3f3e;}
 .dark .wyg-crumb a{color:#d49590;}
@@ -57,6 +75,11 @@
 .dark .wyg-topic-name{color:#e8e4dd;}
 .dark .wyg-topic-bio{color:#8a847f;}
 .dark .wyg-topic-stats{color:#76706b;}
+.dark .wyg-article-card{background:#211b1a;border-color:#4a3f3e;}
+.dark .wyg-article-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.3);}
+.dark .wyg-article-name{color:#e8e4dd;}
+.dark .wyg-article-bio{color:#8a847f;}
+.dark .wyg-article-stats{color:#76706b;}
 </style>
 
 <nav class="wyg-crumb" aria-label="breadcrumb">
@@ -114,9 +137,35 @@
 </div>
 {{ else }}
 {{ $paginator := .Paginate .Pages }}
-{{ range $idx, $page := $paginator.Pages }}
-{{ partial "post-card.html" (dict "page" $page "idx" $idx "paginator" $paginator) }}
+<div class="wyg-article-grid">
+{{ range $paginator.Pages }}
+{{ $title := .Title }}
+{{ $summary := .Summary | plainify | truncate 100 }}
+{{ $date := .Date.Format "2006-01-02" }}
+{{ $tag := .Params.tags }}
+{{ if $tag }}{{ $tag = first 1 $tag }}{{ else }}{{ $tag = slice .Section }}{{ end }}
+<a href="{{ .Permalink }}" class="wyg-article-card">
+  <div class="wyg-article-card-header">
+    <div class="wyg-article-icon">
+      <span class="wyg-article-icon-text">{{ substr $title 0 1 }}</span>
+    </div>
+    <div class="wyg-article-title-area">
+      <div class="wyg-article-name">{{ $title }}</div>
+      {{ if $summary }}<div class="wyg-article-bio">{{ $summary }}</div>{{ end }}
+    </div>
+  </div>
+  <div class="wyg-article-body">
+    <div class="wyg-article-stats">{{ $date }}</div>
+  </div>
+  <div class="wyg-article-footer">
+    <div class="wyg-article-tags">
+      {{ range $tag }}<span class="wyg-article-tag">#{{ . }}</span>{{ end }}
+    </div>
+    <span class="wyg-article-enter">[ 阅 读 ]</span>
+  </div>
+</a>
 {{ end }}
+</div>
 {{ partial "pagination.html" $paginator }}
 {{ end }}
 

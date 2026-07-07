@@ -28,12 +28,6 @@
 
     {{ $css := resources.Get "css/style.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">
-    {{ $darkCss := resources.Get "css/dark.css" | minify | fingerprint }}
-    <link rel="preload" as="style" href="{{ $darkCss.RelPermalink }}" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ $darkCss.RelPermalink }}"></noscript>
-    {{ $pagesCss := resources.Get "css/pages.css" | minify | fingerprint }}
-    <link rel="preload" as="style" href="{{ $pagesCss.RelPermalink }}" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ $pagesCss.RelPermalink }}"></noscript>
 
     <!-- SVG Sprite (icons used across theme) -->
     <svg style="display:none">

@@ -10,14 +10,14 @@
   description: 哲学思想与思辨
   order: 2
 
+- name: misc
+  title: 博物
+  icon: "\U0001F4D6"
+  description: 科学知识、历史解读与生活随笔
+  order: 3
+
 - name: math
   title: 数学
   icon: "\U0001F4D0"
   description: 高中数学题解、试题评析与教学思考
-  order: 3
-
-- name: misc
-  title: 杂录
-  icon: "\U0001F4D6"
-  description: 科学知识、历史解读与生活随笔
   order: 4

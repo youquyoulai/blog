@@ -1,21 +1,19 @@
-# 知识库分类元数据
-# 每个分类对应 content/ 下的一个 section 目录
-- name: math
-  title: 数学
-  icon: "\U0001F4D0"
-  description: 高中数学题解、试题评析与教学思考
-  order: 1
-
 - name: literature
   title: 文学
   icon: "\U0001F4DA"
   description: 作家作品评析与阅读笔记
-  order: 2
+  order: 1
 
 - name: philosophy
   title: 哲学
   icon: "\U0001F4AD"
   description: 哲学思想与思辨
+  order: 2
+
+- name: math
+  title: 数学
+  icon: "\U0001F4D0"
+  description: 高中数学题解、试题评析与教学思考
   order: 3
 
 - name: misc

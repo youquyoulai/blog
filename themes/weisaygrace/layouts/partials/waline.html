@@ -44,4 +44,12 @@ var walineObserver = new IntersectionObserver(function(entries) {
     });
 }, { rootMargin: '200px' });
 walineObserver.observe(document.getElementById('{{ .el }}-wrap'));
+setTimeout(function() {
+    if (typeof Waline !== 'undefined') {
+        const el = document.getElementById('{{ .el }}-loading');
+        if (el && el.style.display !== 'none') {
+            initWaline();
+        }
+    }
+}, 2000);
 </script>

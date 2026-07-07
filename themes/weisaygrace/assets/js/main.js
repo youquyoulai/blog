@@ -199,4 +199,15 @@ var darkModeObserver = new MutationObserver(function(mutations) {
 
 darkModeObserver.observe(document.documentElement, { attributes: true });
 
+// Back to Top Button
+var backToTopBtn = document.getElementById('back-to-top');
+if (backToTopBtn) {
+    window.addEventListener('scroll', function() {
+        backToTopBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+    });
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
 })();

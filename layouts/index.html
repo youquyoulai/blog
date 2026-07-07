@@ -61,7 +61,9 @@
     {{ range $cats }}
     {{ $sec := $.Site.GetPage (printf "/%s" .name) }}
     {{ if $sec }}
-    {{ $count := len $sec.RegularPages }}
+    {{ $pages := $sec.RegularPages }}
+    {{ range $sec.Sections }}{{ $pages = $pages | append .RegularPages }}{{ end }}
+    {{ $count := len $pages }}
     {{ $sections := $sec.Sections }}
     {{ $sectionCount := len $sections }}
     <a href="{{ $sec.Permalink }}" class="section-card {{ .name }}">

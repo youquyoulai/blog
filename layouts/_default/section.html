@@ -103,8 +103,8 @@
 {{ if .Sections }}
 {{ $sections := .Sections }}
 {{ $sortedSections := sort $sections "Title" "asc" }}
-{{ $normalSections := where $sortedSections "Title" "!=" "闲话随记" }}
-{{ $lastSection := where $sortedSections "Title" "==" "闲话随记" }}
+{{ $normalSections := where $sortedSections "Title" "!=" "题型解析" }}
+{{ $lastSection := where $sortedSections "Title" "==" "题型解析" }}
 {{ $finalSections := append $normalSections $lastSection }}
 <div class="wyg-topic-grid">
   {{ range $finalSections }}

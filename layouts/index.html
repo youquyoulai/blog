@@ -61,7 +61,7 @@
     {{ range $cats }}
     {{ $sec := $.Site.GetPage (printf "/%s" .name) }}
     {{ if $sec }}
-    {{ $count := len (where $sec.RegularPages "Type" "page") }}
+    {{ $count := len $sec.RegularPages }}
     {{ $sections := $sec.Sections }}
     {{ $sectionCount := len $sections }}
     <a href="{{ $sec.Permalink }}" class="section-card {{ .name }}">
@@ -69,41 +69,39 @@
             <div class="section-card-seal">
                 {{- if eq .name "math" -}}
                 <svg viewBox="0 0 48 48" fill="currentColor">
-                    <circle cx="12" cy="36" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <path d="M12 36 L12 20 L28 8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="28" cy="8" r="2" fill="currentColor"/>
-                    <path d="M32 44 L32 20 L44 20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-                    <path d="M32 20 L44 32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M24 8 L24 40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M8 24 L40 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="24" cy="24" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M24 16 L24 20 L28 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M20 24 L28 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
                 {{- else if eq .name "literature" -}}
                 <svg viewBox="0 0 48 48" fill="currentColor">
-                    <rect x="8" y="12" width="32" height="24" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <rect x="6" y="8" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <rect x="36" y="8" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <rect x="6" y="32" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <rect x="36" y="32" width="6" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <path d="M14 18 L34 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M14 22 L30 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M14 26 L26 26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M14 30 L22 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M38 6 L42 10 L20 42 L6 42 L10 38 L38 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 42 L18 30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M22 36 L26 24" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M30 32 L34 20" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="38" cy="14" r="3" fill="currentColor"/>
                 </svg>
                 {{- else if eq .name "philosophy" -}}
                 <svg viewBox="0 0 48 48" fill="currentColor">
                     <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <path d="M24 4 L24 44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M24 4 A20 20 0 0 0 24 44 A10 10 0 0 1 24 24 A10 10 0 0 0 24 4" fill="currentColor" opacity="0.3"/>
-                    <circle cx="24" cy="14" r="3" fill="currentColor"/>
-                    <circle cx="24" cy="34" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M24 4 A20 20 0 0 1 24 44 A20 20 0 0 0 24 4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <circle cx="24" cy="14" r="6" stroke="currentColor" stroke-width="2" fill="currentColor"/>
+                    <circle cx="24" cy="34" r="6" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <circle cx="24" cy="14" r="2" fill="currentColor"/>
+                    <circle cx="24" cy="34" r="2" stroke="currentColor" stroke-width="2" fill="none"/>
                 </svg>
                 {{- else if eq .name "misc" -}}
                 <svg viewBox="0 0 48 48" fill="currentColor">
-                    <rect x="10" y="24" width="28" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <rect x="14" y="18" width="28" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <rect x="18" y="12" width="28" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <path d="M30 28 L36 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M30 32 L34 32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M32 22 L38 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M34 16 L40 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <rect x="8" y="16" width="32" height="28" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="6" y="12" width="36" height="8" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M24 12 L24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M24 24 L32 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M24 24 L16 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="16" cy="32" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <circle cx="32" cy="32" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <circle cx="24" cy="38" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
                 </svg>
                 {{- end -}}
             </div>

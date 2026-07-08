@@ -44,9 +44,9 @@
 {{ end }}
 
 {{ if $thumb }}
-<div class="thumbnail" style="flex-shrink:0;margin-right:12px;width:160px;height:117px;">
+<div class="thumbnail">
     <a href="{{ $page.Permalink }}" rel="nofollow" title="{{ $page.Title }}">
-        <img class="diagram" src="{{ $thumb }}" alt="{{ $page.Title }}" itemprop="image" {{ if $isLazy }}loading="lazy"{{ else }}fetchpriority="high"{{ end }} decoding="async" style="width:160px;height:117px;object-fit:cover;" />
+        <img class="diagram" src="{{ $thumb }}" alt="{{ $page.Title }}" itemprop="image" {{ if $isLazy }}loading="lazy"{{ else }}fetchpriority="high"{{ end }} decoding="async" />
     </a>
 </div>
 {{ end }}

@@ -1,5 +1,7 @@
 # 静态资源缓存 1 年（带 hash 指纹，可激进缓存）
-/assets/*
+/css/*.css
+  Cache-Control: public, max-age=31536000, immutable
+/js/*.js
   Cache-Control: public, max-age=31536000, immutable
 
 # Waline JS/CSS 缓存 1 天（文件名无 hash）

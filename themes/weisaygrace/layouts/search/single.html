@@ -1,125 +1,15 @@
 {{ define "main" }}
-<div class="article search-page" style="padding: 0 .625rem !important;">
+<div class="article search-page">
 {{ partial "breadcrumbs.html" . }}
 <div class="search-form-wrapper">
     <form class="search-form" method="get" action="{{ .Site.BaseURL }}search">
         <input class="search-input" required="" value="{{ .Params.s }}" type="text" name="s" placeholder="输入关键词搜索" />
-        <button aria-label="搜索" class="search-submit" type="submit"><svg class="icon-search" style="width:1em;height:1em;"><use href="#icon-search"/></svg></button>
+        <button aria-label="搜索" class="search-submit" type="submit"><svg class="posticon"><use href="#icon-search"/></svg></button>
     </form>
 </div>
 
 <div id="search-results"><p class="search-loading">搜索中...</p></div>
 </div>
-
-<style>
-.search-loading { color: #999; text-align: center; padding: 2rem 0; }
-
-/* Search page container with padding */
-.search-page {
-    padding: 0 .625rem !important;
-}
-
-/* Card style for breadcrumb on search page - high specificity to override breadcrumbs.html inline styles */
-.article.search-page > nav.breadcrumbs,
-.article.search-page > nav.crumb {
-    background: #fff !important;
-    border-radius: .375rem !important;
-    border-bottom: 3px solid #e5e5e5 !important;
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    padding: .625rem .875rem !important;
-    margin-bottom: 1rem !important;
-    box-shadow: 0 0 4px rgba(205,220,230,.5) !important;
-    display: block !important;
-    visibility: visible !important;
-}
-
-/* Search form as card */
-.search-form-wrapper {
-    margin: 0 0 1rem 0;
-    background: #fff;
-    border-radius: .375rem;
-    border-bottom: 3px solid #e5e5e5;
-    padding: .75rem;
-    box-shadow: 0 0 4px rgba(205,220,230,.5);
-}
-.search-form { display: flex; gap: .5rem; max-width: 100%; }
-.search-input { flex: 1; min-width: 0; padding: .75rem 1rem; border: 2px solid #ddd; border-radius: .375rem; font-size: 1rem; outline: none; transition: border-color .2s; background: #fff; }
-.search-input:focus { border-color: var(--color_link, #ed5565); }
-.search-submit { padding: .75rem 1.5rem; background: var(--color_link, #ed5565); color: white; border: none; border-radius: .375rem; cursor: pointer; font-size: 1rem; transition: background .2s; flex-shrink: 0; }
-.search-submit:hover { background: var(--color_hover, #da4453); }
-
-/* Search count card - high specificity */
-.article.search-page #search-results .search-count {
-    display: block !important;
-    color: #666 !important;
-    font-size: .875rem !important;
-    margin: 0 0 1rem 0 !important;
-    padding: .625rem .875rem !important;
-    background: #fff !important;
-    border-radius: .375rem !important;
-    border-bottom: 3px solid #e5e5e5 !important;
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    box-shadow: 0 0 4px rgba(205,220,230,.5) !important;
-}
-
-/* Search result items as cards */
-.search-result-item {
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background: #fff;
-    border-radius: .375rem;
-    border-bottom: 3px solid #e5e5e5;
-    box-shadow: 0 0 4px rgba(205,220,230,.5);
-}
-.search-result-item:last-child {
-    margin-bottom: 0;
-}
-.search-result-title { display: block; font-size: 1.1rem; font-weight: 600; color: var(--color_link, #ed5565); text-decoration: none; margin-bottom: .25rem; }
-.search-result-title:hover { text-decoration: underline; }
-.search-result-summary { color: #666; font-size: .9rem; line-height: 1.6; margin: .25rem 0; }
-.search-result-meta { font-size: .8rem; color: #999; }
-.search-result-item mark { background: #fff3cd; color: inherit; padding: 0 2px; border-radius: 2px; }
-
-/* Dark Mode Styles for Search */
-.dark .article.search-page > nav.breadcrumbs,
-.dark .article.search-page > nav.crumb,
-.dark .search-form-wrapper,
-.dark .article.search-page #search-results .search-count,
-.dark .search-result-item {
-    background: #21252c !important;
-    border-bottom-color: #161a20 !important;
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    box-shadow: 0 0 4px rgba(0,0,0,.3) !important;
-}
-.dark .search-input { background: #2c3138; border-color: #3a3f45; color: #b4b7bb; }
-.dark .search-input:focus { border-color: var(--color_link_dark, #da4d5b); }
-.dark .search-submit { background: var(--color_link_dark, #da4d5b); }
-.dark .search-submit:hover { background: var(--color_hover_dark, #ed5565); }
-.dark .search-result-summary, .dark .search-result-meta { color: #8a8e94; }
-.dark .search-result-item mark { background: #454a50; }
-.dark .search-count { color: #8a8e94; }
-
-/* Mobile */
-@media screen and (max-width: 767px) {
-    .article.search-page > nav.breadcrumbs,
-    .article.search-page > nav.crumb { 
-        padding: .5rem .75rem !important; 
-    }
-    .search-form-wrapper { padding: .625rem; }
-    .search-input { padding: .625rem .75rem; font-size: .875rem; }
-    .search-submit { padding: .625rem 1rem; }
-    .search-result-item { padding: .875rem; margin-bottom: .75rem; }
-    .search-result-item:last-child { margin-bottom: 0; }
-    .search-result-title { font-size: 1rem; }
-    .search-result-summary { font-size: .875rem; }
-}
-</style>
 {{ end }}
 
 {{ define "scripts" }}
@@ -175,7 +65,7 @@
         return;
       }
 
-      var html = '<p class="search-count" style="display: block !important; color: #666 !important; font-size: .875rem !important; margin: 0 0 1rem 0 !important; padding: .625rem .875rem !important; background: #fff !important; border-radius: .375rem !important; border-bottom: 3px solid #e5e5e5 !important; box-shadow: 0 0 4px rgba(205,220,230,.5) !important;">找到 ' + results.length + ' 篇相关文章</p>';
+      var html = '<p class="search-count">找到 ' + results.length + ' 篇相关文章</p>';
       for (var j = 0; j < results.length; j++) {
         var r = results[j];
         var catArray = toArray(r.categories);

@@ -1,5 +1,5 @@
 [
-  {{- $pages := where .Site.RegularPages "Section" "posts" -}}
+  {{- $pages := where .Site.RegularPages "Section" "!=" "pages" -}}
   {{- range $i, $p := $pages -}}
   {{- if $i -}},{{- end -}}
   {

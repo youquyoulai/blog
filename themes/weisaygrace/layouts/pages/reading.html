@@ -30,12 +30,12 @@
       </span>
       {{ if reflect.IsSlice $page.Params.categories }}
       <span class="category info-icon" itemprop="articleSection">
-        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg>
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-folder"/></svg>
         {{ range $j, $cat := $page.Params.categories }}{{ if $j }}, {{ end }}<a href="{{ "/categories/" | relURL }}{{ $cat | urlize }}">{{ partial "cat-names.html" $cat }}</a>{{ end }}
       </span>
       {{ else if $page.Params.categories }}
       <span class="category info-icon" itemprop="articleSection">
-        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg>
+        <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-folder"/></svg>
         <a href="{{ "/categories/" | relURL }}{{ $page.Params.categories | urlize }}">{{ $page.Params.categories }}</a>
       </span>
       {{ end }}

@@ -34,8 +34,21 @@ capitalizeListTitles = false
   misc = '/:sections/:slug.html'
 
 [taxonomies]
-  tag = 'tags'
-  category = 'categories'
+  tag = ''
+  category = ''
+
+[imaging]
+  resampleFilter = "Lanczos"
+  quality = 82
+  anchor = "Smart"
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
 
 [outputs]
   home = ['HTML', 'RSS', 'JSON']
@@ -68,16 +81,3 @@ capitalizeListTitles = false
     [minify.tdewolff.html]
       keepComments = false
       keepWhitespace = false
-
-[imaging]
-  resampleFilter = "Lanczos"
-  quality = 82
-  anchor = "Smart"
-
-[markup]
-  [markup.highlight]
-    noClasses = false
-    codeFences = true
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true

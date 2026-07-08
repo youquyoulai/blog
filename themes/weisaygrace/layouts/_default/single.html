@@ -13,10 +13,10 @@
 <div class="article-info">
     <div class="article-infomation">
         <span class="vcard author info-icon" itemprop="author" itemscope itemtype="https://schema.org/Person">
-            <span class="fn"><svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-user"/></svg>{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}</span>
+            <span class="fn"><svg class="posticon"><use href="#icon-user"/></svg>{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}</span>
         </span>
         <span class="date info-icon" itemprop="datePublished" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
-            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-calendar"/></svg>{{ .Date.Format "2006-01-02" }}
+            <svg class="posticon"><use href="#icon-calendar"/></svg>{{ .Date.Format "2006-01-02" }}
         </span>
         {{ if .Section }}
         {{ $catSection := .Section }}
@@ -30,13 +30,13 @@
           {{ end }}
         {{ end }}
         <span class="category info-icon" itemprop="articleSection">
-            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-category"/></svg><a href="{{ .Section | relURL }}">{{ $catTitle }}</a>
+            <svg class="posticon"><use href="#icon-folder"/></svg><a href="{{ .Section | relURL }}">{{ $catTitle }}</a>
         </span>
         {{ end }}
         {{ with .CurrentSection }}
         {{ if ne .Name $.Section }}
         <span class="subsection info-icon">
-            <svg class="posticon" style="width:1em;height:1em;vertical-align:middle;"><use href="#icon-tag"/></svg><a href="{{ .Permalink }}">{{ .Title }}</a>
+            <svg class="posticon"><use href="#icon-tag"/></svg><a href="{{ .Permalink }}">{{ .Title }}</a>
         </span>
         {{ end }}
         {{ end }}

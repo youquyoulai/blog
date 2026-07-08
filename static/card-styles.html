@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>卡片样式方案对比</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Serif SC',serif;background:#FBF7F0;color:#3E3A39;padding:2rem;max-width:1200px;margin:0 auto; }
+h1 { text-align:center;margin-bottom:3rem;font-size:2rem;letter-spacing:.2em;color:#3E3A39; }
+h2 { font-size:1.25rem;margin-bottom:1.5rem;color:#5E5855;border-bottom:2px solid #D4C5B0;padding-bottom:.5rem; }
+p.desc { color:#8A847F;margin-bottom:1.5rem;font-size:.875rem; }
+
+:root {
+    --color_math:#C9A227;
+    --color_literature:#8B4513;
+    --color_philosophy:#2F4F4F;
+    --color_misc:#8B7355;
+}
+
+.card-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:4rem; }
+.card { padding:1.5rem;border-radius:8px;text-decoration:none;color:inherit;transition:all .3s; }
+
+/* ====== 方案A：水墨意境 ====== */
+.style-a .card {
+    background:linear-gradient(145deg,#fff 0%,#F5F0E8 100%);
+    border:none;
+    box-shadow:0 2px 8px rgba(62,58,57,.06);
+    position:relative;
+    overflow:hidden;
+}
+.style-a .card:before {
+    content:'';
+    position:absolute;
+    top:-50%;
+    right:-50%;
+    width:100%;
+    height:100%;
+    background:radial-gradient(circle,rgba(212,197,176,.15) 0%,transparent 70%);
+}
+.style-a .card:hover {
+    transform:translateY(-3px);
+    box-shadow:0 8px 24px rgba(62,58,57,.12);
+}
+.style-a .card-header { display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem; }
+.style-a .card-seal {
+    width:65px;height:65px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;
+    background:linear-gradient(135deg,rgba(0,0,0,.02),rgba(0,0,0,.05));
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);
+    flex-shrink:0;
+}
+.style-a .card-seal svg { width:28px;height:28px; }
+.style-a .card-title-area { flex:1; }
+.style-a .card-title { font-size:1.125rem;font-weight:600;letter-spacing:.08em;margin-bottom:.375rem; }
+.style-a .card-desc { font-size:.825rem;color:#8A847F;line-height:1.5; }
+.style-a .card-body { margin-bottom:1rem; }
+.style-a .card-stats { font-size:.75rem;color:#AB9F96; }
+.style-a .card-footer { display:flex;justify-content:space-between;align-items:center; }
+.style-a .card-tags { display:flex;gap:6px; }
+.style-a .card-tag { font-size:.65rem;padding:2px 8px;border-radius:4px;background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.06); }
+.style-a .card-enter {
+    font-size:.75rem;padding:.3rem .875rem;border-radius:12px;
+    text-decoration:none;font-weight:500;
+    transition:all .2s;
+}
+.style-a .card.math .card-seal { border-color:var(--color_math); }
+.style-a .card.math .card-title,.style-a .card.math .card-seal svg,.style-a .card.math .card-tag { color:var(--color_math); }
+.style-a .card.math .card-enter { background:rgba(201,162,39,.1);color:var(--color_math);border:1px solid rgba(201,162,39,.2); }
+.style-a .card.math .card-enter:hover { background:var(--color_math);color:#fff; }
+.style-a .card.literature .card-seal { border-color:var(--color_literature); }
+.style-a .card.literature .card-title,.style-a .card.literature .card-seal svg,.style-a .card.literature .card-tag { color:var(--color_literature); }
+.style-a .card.literature .card-enter { background:rgba(139,69,19,.1);color:var(--color_literature);border:1px solid rgba(139,69,19,.2); }
+.style-a .card.literature .card-enter:hover { background:var(--color_literature);color:#fff; }
+.style-a .card.philosophy .card-seal { border-color:var(--color_philosophy); }
+.style-a .card.philosophy .card-title,.style-a .card.philosophy .card-seal svg,.style-a .card.philosophy .card-tag { color:var(--color_philosophy); }
+.style-a .card.philosophy .card-enter { background:rgba(47,79,79,.1);color:var(--color_philosophy);border:1px solid rgba(47,79,79,.2); }
+.style-a .card.philosophy .card-enter:hover { background:var(--color_philosophy);color:#fff; }
+.style-a .card.misc .card-seal { border-color:var(--color_misc); }
+.style-a .card.misc .card-title,.style-a .card.misc .card-seal svg,.style-a .card.misc .card-tag { color:var(--color_misc); }
+.style-a .card.misc .card-enter { background:rgba(139,115,85,.1);color:var(--color_misc);border:1px solid rgba(139,115,85,.2); }
+.style-a .card.misc .card-enter:hover { background:var(--color_misc);color:#fff; }
+
+/* ====== 方案B：古籍线装 ====== */
+.style-b .card {
+    background:#fff;
+    border:2px solid #3E3A39;
+    border-radius:0;
+    position:relative;
+    box-shadow:none;
+}
+.style-b .card:before {
+    content:'';
+    position:absolute;
+    top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,transparent 0%,#D4C5B0 20%,#D4C5B0 80%,transparent 100%);
+}
+.style-b .card:after {
+    content:'';
+    position:absolute;
+    bottom:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,transparent 0%,#D4C5B0 20%,#D4C5B0 80%,transparent 100%);
+}
+.style-b .card:hover {
+    transform:translateY(-2px);
+    box-shadow:4px 4px 0 rgba(62,58,57,.1);
+}
+.style-b .card-header { display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem; }
+.style-b .card-seal {
+    width:60px;height:60px;
+    display:flex;align-items:center;justify-content:center;
+    border:3px solid currentColor;
+    border-radius:2px;
+    flex-shrink:0;
+    position:relative;
+}
+.style-b .card-seal:after {
+    content:'';
+    position:absolute;
+    inset:4px;
+    border:1px solid currentColor;
+}
+.style-b .card-seal svg { width:24px;height:24px; }
+.style-b .card-title-area { flex:1; }
+.style-b .card-title { font-size:1.125rem;font-weight:700;letter-spacing:.15em;margin-bottom:.375rem;text-transform:uppercase; }
+.style-b .card-desc { font-size:.825rem;color:#8A847F;line-height:1.5;font-style:italic; }
+.style-b .card-body { margin-bottom:1rem;border-top:1px dashed #D4C5B0;padding-top:1rem; }
+.style-b .card-stats { font-size:.75rem;color:#AB9F96;letter-spacing:.05em; }
+.style-b .card-footer { display:flex;justify-content:space-between;align-items:center;border-top:1px dashed #D4C5B0;padding-top:1rem; }
+.style-b .card-tags { display:flex;gap:6px; }
+.style-b .card-tag { font-size:.65rem;padding:3px 8px;border:1px solid;color:#3E3A39;letter-spacing:.05em; }
+.style-b .card-enter {
+    font-size:.75rem;padding:.3rem .875rem;border:2px solid;
+    text-decoration:none;font-weight:700;letter-spacing:.1em;
+    transition:all .2s;
+}
+.style-b .card.math .card-seal,.style-b .card.math .card-tag,.style-b .card.math .card-enter { color:var(--color_math); }
+.style-b .card.math .card-enter:hover { background:var(--color_math);color:#fff; }
+.style-b .card.literature .card-seal,.style-b .card.literature .card-tag,.style-b .card.literature .card-enter { color:var(--color_literature); }
+.style-b .card.literature .card-enter:hover { background:var(--color_literature);color:#fff; }
+.style-b .card.philosophy .card-seal,.style-b .card.philosophy .card-tag,.style-b .card.philosophy .card-enter { color:var(--color_philosophy); }
+.style-b .card.philosophy .card-enter:hover { background:var(--color_philosophy);color:#fff; }
+.style-b .card.misc .card-seal,.style-b .card.misc .card-tag,.style-b .card.misc .card-enter { color:var(--color_misc); }
+.style-b .card.misc .card-enter:hover { background:var(--color_misc);color:#fff; }
+
+/* ====== 方案C：雅致浮雕 ====== */
+.style-c .card {
+    background:linear-gradient(145deg,#FFFFFF 0%,#F8F4ED 100%);
+    border:1px solid #E8E0D5;
+    border-radius:12px;
+    box-shadow:
+        0 1px 3px rgba(62,58,57,.05),
+        inset 0 1px 0 rgba(255,255,255,.8);
+    position:relative;
+}
+.style-c .card:before {
+    content:'';
+    position:absolute;
+    inset:1px;
+    border-radius:11px;
+    background:linear-gradient(180deg,rgba(255,255,255,.5) 0%,transparent 50%);
+    pointer-events:none;
+}
+.style-c .card:hover {
+    transform:translateY(-3px);
+    box-shadow:
+        0 10px 30px rgba(62,58,57,.1),
+        0 1px 4px rgba(62,58,57,.05),
+        inset 0 1px 0 rgba(255,255,255,.8);
+}
+.style-c .card-header { display:flex;align-items:flex-start;gap:1.25rem;margin-bottom:1rem; }
+.style-c .card-seal {
+    width:68px;height:68px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:8px;
+    flex-shrink:0;
+    box-shadow:
+        0 2px 4px rgba(0,0,0,.05),
+        inset 0 1px 0 rgba(255,255,255,.4);
+}
+.style-c .card-seal svg { width:28px;height:28px; }
+.style-c .card-title-area { flex:1; }
+.style-c .card-title { font-size:1.125rem;font-weight:600;letter-spacing:.06em;margin-bottom:.375rem; }
+.style-c .card-desc { font-size:.825rem;color:#8A847F;line-height:1.5; }
+.style-c .card-body { margin-bottom:1rem; }
+.style-c .card-stats { font-size:.75rem;color:#AB9F96; }
+.style-c .card-footer { display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid #E8E0D5; }
+.style-c .card-tags { display:flex;gap:6px; }
+.style-c .card-tag { font-size:.65rem;padding:3px 10px;border-radius:12px;font-weight:500; }
+.style-c .card-enter {
+    font-size:.75rem;padding:.35rem 1rem;border-radius:20px;
+    text-decoration:none;font-weight:600;
+    transition:all .2s;
+}
+.style-c .card.math .card-seal { background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.15); }
+.style-c .card.math .card-title,.style-c .card.math .card-seal svg { color:var(--color_math); }
+.style-c .card.math .card-tag { background:rgba(201,162,39,.1);color:var(--color_math);border:1px solid rgba(201,162,39,.15); }
+.style-c .card.math .card-enter { background:var(--color_math);color:#fff;box-shadow:0 2px 8px rgba(201,162,39,.3); }
+.style-c .card.math .card-enter:hover { box-shadow:0 4px 12px rgba(201,162,39,.4);transform:translateY(-1px); }
+.style-c .card.literature .card-seal { background:rgba(139,69,19,.08);border:1px solid rgba(139,69,19,.15); }
+.style-c .card.literature .card-title,.style-c .card.literature .card-seal svg { color:var(--color_literature); }
+.style-c .card.literature .card-tag { background:rgba(139,69,19,.1);color:var(--color_literature);border:1px solid rgba(139,69,19,.15); }
+.style-c .card.literature .card-enter { background:var(--color_literature);color:#fff;box-shadow:0 2px 8px rgba(139,69,19,.3); }
+.style-c .card.literature .card-enter:hover { box-shadow:0 4px 12px rgba(139,69,19,.4);transform:translateY(-1px); }
+.style-c .card.philosophy .card-seal { background:rgba(47,79,79,.08);border:1px solid rgba(47,79,79,.15); }
+.style-c .card.philosophy .card-title,.style-c .card.philosophy .card-seal svg { color:var(--color_philosophy); }
+.style-c .card.philosophy .card-tag { background:rgba(47,79,79,.1);color:var(--color_philosophy);border:1px solid rgba(47,79,79,.15); }
+.style-c .card.philosophy .card-enter { background:var(--color_philosophy);color:#fff;box-shadow:0 2px 8px rgba(47,79,79,.3); }
+.style-c .card.philosophy .card-enter:hover { box-shadow:0 4px 12px rgba(47,79,79,.4);transform:translateY(-1px); }
+.style-c .card.misc .card-seal { background:rgba(139,115,85,.08);border:1px solid rgba(139,115,85,.15); }
+.style-c .card.misc .card-title,.style-c .card.misc .card-seal svg { color:var(--color_misc); }
+.style-c .card.misc .card-tag { background:rgba(139,115,85,.1);color:var(--color_misc);border:1px solid rgba(139,115,85,.15); }
+.style-c .card.misc .card-enter { background:var(--color_misc);color:#fff;box-shadow:0 2px 8px rgba(139,115,85,.3); }
+.style-c .card.misc .card-enter:hover { box-shadow:0 4px 12px rgba(139,115,85,.4);transform:translateY(-1px); }
+
+@media (max-width:768px) {
+    .card-grid { grid-template-columns:1fr; }
+    h1 { font-size:1.5rem; }
+}
+</style>
+</head>
+<body>
+<h1>卡片样式方案对比</h1>
+
+<div class="style-a">
+<h2>方案A：水墨意境</h2>
+<p class="desc">采用柔和的渐变背景、圆形印章、圆角标签和按钮，营造如山水画般的淡雅意境。整体风格轻盈通透，适合古典与现代融合的审美。</p>
+<div class="card-grid">
+    <a href="#" class="card math">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="5"/><line x1="1" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="23" y2="12"/><line x1="12" y1="19" x2="12" y2="23"/><path d="M9 7l3 3 3-3"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">数学</div>
+                <div class="card-desc">高中数学题解、试题评析与教学思考</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">7篇文章 · 4个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#数学</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+    <a href="#" class="card literature">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">文学</div>
+                <div class="card-desc">作家作品评析与阅读笔记</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">15篇文章 · 6个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#文学</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+    <a href="#" class="card philosophy">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">哲学</div>
+                <div class="card-desc">哲学思想与思辨</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">12篇文章 · 5个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#哲学</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+    <a href="#" class="card misc">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">博物</div>
+                <div class="card-desc">博闻强识，格物致知</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">8篇文章 · 3个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#博物</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+</div>
+</div>
+
+<div class="style-b">
+<h2>方案B：古籍线装</h2>
+<p class="desc">采用直角边框、双层印章、虚线分割线，模仿古籍线装书的排版风格。标题使用大写字母间距，营造古朴庄重的书卷气息。</p>
+<div class="card-grid">
+    <a href="#" class="card math">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="5"/><line x1="1" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="23" y2="12"/><line x1="12" y1="19" x2="12" y2="23"/><path d="M9 7l3 3 3-3"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">数学</div>
+                <div class="card-desc">高中数学题解、试题评析与教学思考</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">7篇文章 · 4个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#数学</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+    <a href="#" class="card literature">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">文学</div>
+                <div class="card-desc">作家作品评析与阅读笔记</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">15篇文章 · 6个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#文学</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+    <a href="#" class="card philosophy">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">哲学</div>
+                <div class="card-desc">哲学思想与思辨</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">12篇文章 · 5个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#哲学</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+    <a href="#" class="card misc">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">博物</div>
+                <div class="card-desc">博闻强识，格物致知</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">8篇文章 · 3个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#博物</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+</div>
+</div>
+
+<div class="style-c">
+<h2>方案C：雅致浮雕</h2>
+<p class="desc">采用多层阴影和渐变营造立体浮雕效果，印章和标签有轻微背景色，按钮使用实色背景。整体风格精致现代，兼具古典韵味。</p>
+<div class="card-grid">
+    <a href="#" class="card math">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="5"/><line x1="1" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="23" y2="12"/><line x1="12" y1="19" x2="12" y2="23"/><path d="M9 7l3 3 3-3"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">数学</div>
+                <div class="card-desc">高中数学题解、试题评析与教学思考</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">7篇文章 · 4个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#数学</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+    <a href="#" class="card literature">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">文学</div>
+                <div class="card-desc">作家作品评析与阅读笔记</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">15篇文章 · 6个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#文学</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+    <a href="#" class="card philosophy">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">哲学</div>
+                <div class="card-desc">哲学思想与思辨</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">12篇文章 · 5个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#哲学</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+    <a href="#" class="card misc">
+        <div class="card-header">
+            <div class="card-seal">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            </div>
+            <div class="card-title-area">
+                <div class="card-title">博物</div>
+                <div class="card-desc">博闻强识，格物致知</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">8篇文章 · 3个专题</div>
+        </div>
+        <div class="card-footer">
+            <div class="card-tags"><span class="card-tag">#博物</span></div>
+            <a href="#" class="card-enter">入阁</a>
+        </div>
+    </a>
+</div>
+</div>
+
+</body>
+</html>

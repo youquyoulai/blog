@@ -110,31 +110,39 @@ h3{font-size:1.125rem;font-weight:400}
 .wyg-catalog-section{text-align:center;margin-bottom:2rem}
 .wyg-catalog-title{font-family:'Noto Serif SC',serif;font-size:1.1rem;color:#6B6560;letter-spacing:.3em;margin-bottom:2rem}
 
-/* 首页栏目卡片网格 - 文渊阁风格 */
+/* 首页栏目卡片网格 - 水墨意境风格 */
 .section-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem}
-.section-card{background:#fff;border:1px solid var(--color_border);border-radius:8px;padding:1.5rem;display:flex;flex-direction:column;transition:all .2s;text-decoration:none;color:inherit}
-.section-card:hover{box-shadow:0 4px 16px rgba(62,58,57,.08);transform:translateY(-2px)}
+.section-card{background:linear-gradient(145deg,#fff 0%,#F5F0E8 100%);border:none;border-radius:8px;padding:1.5rem;display:flex;flex-direction:column;transition:all .3s;text-decoration:none;color:inherit;position:relative;overflow:hidden}
+.section-card:before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(circle,rgba(212,197,176,.15) 0%,transparent 70%)}
+.section-card:hover{box-shadow:0 8px 24px rgba(62,58,57,.12);transform:translateY(-3px)}
 .section-card-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
-.section-card-seal{width:70px;height:70px;display:flex;align-items:center;justify-content:center;border:2px solid currentColor;border-radius:4px;flex-shrink:0}
-.section-card-seal svg{width:32px;height:32px}
+.section-card-seal{width:65px;height:65px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:linear-gradient(135deg,rgba(0,0,0,.02),rgba(0,0,0,.05));box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);flex-shrink:0}
+.section-card-seal svg{width:28px;height:28px}
 .section-card-title-area{flex:1}
-.section-card-title{font-family:'Noto Serif SC',serif;font-size:1.125rem;font-weight:600;letter-spacing:.1em;margin-bottom:.375rem;color:var(--color_text)}
-.section-card-desc{font-size:.85rem;color:var(--color_text_light);line-height:1.4}
+.section-card-title{font-family:'Noto Serif SC',serif;font-size:1.125rem;font-weight:600;letter-spacing:.08em;margin-bottom:.375rem;color:var(--color_text)}
+.section-card-desc{font-size:.825rem;color:#6B6560;line-height:1.5}
 .section-card-body{flex:1}
-.section-card-stats{font-size:.75rem;color:#AB9F96;margin-bottom:.75rem}
+.section-card-stats{font-size:.75rem;color:#8B837B;margin-bottom:.75rem}
 .section-card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
-.section-card-tags{display:flex;flex-wrap:wrap;gap:4px}
-.section-card-tag{font-family:'Noto Serif SC',serif;font-size:.675rem;padding:2px 6px;border:1px solid;border-radius:2px}
-.section-card-enter{font-family:'Noto Serif SC',serif;font-size:.75rem;padding:.25rem .75rem;border:1px solid;color:currentColor;text-decoration:none;border-radius:3px;transition:all .2s;flex-shrink:0}
-.section-card-enter:hover{background:currentColor;color:#FBF7F0}
-.section-card.math{--card-color:var(--color_math)}
-.section-card.literature{--card-color:var(--color_literature)}
-.section-card.philosophy{--card-color:var(--color_philosophy)}
-.section-card.misc{--card-color:var(--color_misc)}
-.section-card.math .section-card-seal,.section-card.math .section-card-tag,.section-card.math .section-card-enter{color:var(--color_math)}
-.section-card.literature .section-card-seal,.section-card.literature .section-card-tag,.section-card.literature .section-card-enter{color:var(--color_literature)}
-.section-card.philosophy .section-card-seal,.section-card.philosophy .section-card-tag,.section-card.philosophy .section-card-enter{color:var(--color_philosophy)}
-.section-card.misc .section-card-seal,.section-card.misc .section-card-tag,.section-card.misc .section-card-enter{color:var(--color_misc)}
+.section-card-tags{display:flex;flex-wrap:wrap;gap:6px}
+.section-card-tag{font-size:.65rem;padding:2px 8px;border-radius:4px;background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.06)}
+.section-card-enter{font-size:.75rem;padding:.3rem .875rem;border-radius:12px;text-decoration:none;font-weight:500;transition:all .2s;flex-shrink:0}
+.section-card.math .section-card-seal{border-color:var(--color_math)}
+.section-card.math .section-card-title,.section-card.math .section-card-seal svg,.section-card.math .section-card-tag{color:var(--color_math)}
+.section-card.math .section-card-enter{background:rgba(201,162,39,.1);color:var(--color_math);border:1px solid rgba(201,162,39,.2)}
+.section-card.math .section-card-enter:hover{background:var(--color_math);color:#fff}
+.section-card.literature .section-card-seal{border-color:var(--color_literature)}
+.section-card.literature .section-card-title,.section-card.literature .section-card-seal svg,.section-card.literature .section-card-tag{color:var(--color_literature)}
+.section-card.literature .section-card-enter{background:rgba(94,114,83,.1);color:var(--color_literature);border:1px solid rgba(94,114,83,.2)}
+.section-card.literature .section-card-enter:hover{background:var(--color_literature);color:#fff}
+.section-card.philosophy .section-card-seal{border-color:var(--color_philosophy)}
+.section-card.philosophy .section-card-title,.section-card.philosophy .section-card-seal svg,.section-card.philosophy .section-card-tag{color:var(--color_philosophy)}
+.section-card.philosophy .section-card-enter{background:rgba(47,79,79,.1);color:var(--color_philosophy);border:1px solid rgba(47,79,79,.2)}
+.section-card.philosophy .section-card-enter:hover{background:var(--color_philosophy);color:#fff}
+.section-card.misc .section-card-seal{border-color:var(--color_misc)}
+.section-card.misc .section-card-title,.section-card.misc .section-card-seal svg,.section-card.misc .section-card-tag{color:var(--color_misc)}
+.section-card.misc .section-card-enter{background:rgba(139,115,85,.1);color:var(--color_misc);border:1px solid rgba(139,115,85,.2)}
+.section-card.misc .section-card-enter:hover{background:var(--color_misc);color:#fff}
 
 @media screen and (max-width:991px){
 .section-grid{grid-template-columns:1fr}

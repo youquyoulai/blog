@@ -450,7 +450,7 @@
               <option value="history">历史</option>
               <option value="philosophy">哲学</option>
               <option value="science">科学</option>
-              <option value="life">生活</option>
+              <option value="misc">艺术</option>
             </select>
           </div>
           <button class="btn btn-primary" onclick="newPost()">
@@ -473,7 +473,7 @@
               <option value="history">历史</option>
               <option value="philosophy">哲学</option>
               <option value="science">科学</option>
-              <option value="life">生活</option>
+              <option value="misc">艺术</option>
             </select>
           </div>
           <button class="btn btn-primary" onclick="newSubSection()">
@@ -511,7 +511,7 @@
               <option value="history">历史</option>
               <option value="philosophy">哲学</option>
               <option value="science">科学</option>
-              <option value="life">生活</option>
+              <option value="misc">艺术</option>
             </select>
           </div>
           <div class="form-field">
@@ -600,7 +600,7 @@
               <option value="history">历史</option>
               <option value="philosophy">哲学</option>
               <option value="science">科学</option>
-              <option value="life">生活</option>
+              <option value="misc">艺术</option>
             </select>
           </div>
         </div>
@@ -768,7 +768,7 @@
                   <option value="history">历史</option>
                   <option value="philosophy">哲学</option>
                   <option value="science">科学</option>
-                  <option value="life">生活</option>
+                  <option value="misc">艺术</option>
                 </select>
               </div>
               <div style="display:flex;flex-direction:column;gap:2px;">
@@ -1008,7 +1008,7 @@ function api(path, method, body) {
 
 var _SECTION_DISPLAY = {
   'math': '数学', 'literature': '文学', 'history': '历史',
-  'philosophy': '哲学', 'science': '科学', 'life': '生活'
+  'philosophy': '哲学', 'science': '科学', 'misc': '艺术'
 };
 function sectionDisplayName(slug) {
   return _SECTION_DISPLAY[slug] || slug;
@@ -1022,35 +1022,31 @@ var _allSubSections = [];  // 当前 section 下的子专题列表
 
 var _FALLBACK_SUBSECTIONS = {
   'math': [
-    {name:'2026-gaokao',title:'2026高考真题',icon:'📝',count:7},
-    {name:'topic-analysis',title:'题型解析',icon:'✏️',count:5},
-    {name:'teaching-notes',title:'教学随笔',icon:'💡',count:3},
-    {name:'mock-exams',title:'模拟试题',icon:'📋',count:4}
+    {name:'2026-gaokao',title:'高考真题',icon:'📝',count:12},
+    {name:'mock-exam',title:'模拟试题',icon:'📋',count:4},
+    {name:'problem-analysis',title:'题型解析',icon:'✏️',count:7},
+    {name:'teaching',title:'闲话随记',icon:'💡',count:6}
   ],
   'literature': [
-    {name:'novels',title:'小说',icon:'📖',count:0},
-    {name:'poetry',title:'诗歌',icon:'🎭',count:0},
-    {name:'prose',title:'散文',icon:'✍️',count:0}
-  ],
-  'history': [
-    {name:'ancient-china',title:'中国古代史',icon:'🏛️',count:0},
-    {name:'modern-china',title:'中国近现代史',icon:'📜',count:0},
-    {name:'world-history',title:'世界历史',icon:'🌍',count:0}
+    {name:'jie-yu2',title:'孑与2',icon:'📚',count:8},
+    {name:'lu-xun',title:'鲁迅',icon:'✒️',count:7},
+    {name:'lu-yao',title:'路遥',icon:'📖',count:4},
+    {name:'wang-xiaobo',title:'王小波',icon:'🖊️',count:15},
+    {name:'xie-ying',title:'撷英',icon:'✨',count:6},
+    {name:'yan-lianke',title:'阎连科',icon:'📝',count:6}
   ],
   'philosophy': [
-    {name:'western',title:'西方哲学',icon:'🧠',count:0},
-    {name:'chinese',title:'中国哲学',icon:'⚖️',count:0}
+    {name:'jia-miu',title:'加缪',icon:'🇫🇷',count:4},
+    {name:'ni-cai',title:'尼采',icon:'⚡',count:4},
+    {name:'sa-te',title:'萨特',icon:'🚬',count:5},
+    {name:'shu-ben-hua',title:'叔本华',icon:'🦉',count:3}
   ],
-  'science': [
-    {name:'physics',title:'物理学',icon:'⚛️',count:0},
-    {name:'biology',title:'生物学',icon:'🧬',count:0},
-    {name:'tech',title:'科技',icon:'💻',count:0}
+  'misc': [
+    {name:'music',title:'歌曲',icon:'🎸',count:11},
+    {name:'qu-yi',title:'曲艺',icon:'🎭',count:6}
   ],
-  'life': [
-    {name:'daily',title:'日常',icon:'☕',count:0},
-    {name:'travel',title:'旅行',icon:'🚀',count:0},
-    {name:'food',title:'美食',icon:'🍜',count:0}
-  ]
+  'science': [],
+  'history': []
 };
 
 

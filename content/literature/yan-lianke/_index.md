@@ -1,5 +1,5 @@
 ---
-title: "闫连科"
+title: "阎连科"
 layout: author
 description: "中国当代重要作家，以现实主义与神实主义交织的叙事风格著称，代表作有《受活》《日熄》《炸裂志》等。"
 birth: 1958

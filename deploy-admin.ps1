@@ -53,7 +53,7 @@ if (-not $WorkerOnly) {
 Write-Step "Step 2/3: Deploying Cloudflare Worker API"
 Push-Location $PSScriptRoot
 try {
-    $result = cmd /c "npx wrangler deploy admin/worker.js --config admin/wrangler-admin.toml 2>&1" | Out-String
+    $result = cmd /c "npx wrangler deploy static/admin/worker.js --config static/admin/wrangler-admin.toml 2>&1" | Out-String
     if ($LASTEXITCODE -eq 0) {
         Write-Host "Worker deployed!" -ForegroundColor Green
     } else {
@@ -86,6 +86,6 @@ Write-Host "  Blog:  https://www.pgoj.top" -ForegroundColor Cyan
 Write-Host "  Admin: https://www.pgoj.top/admin/" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "IMPORTANT: Set secrets before first use:" -ForegroundColor Yellow
-Write-Host "  npx wrangler secret put ADMIN_TOKEN --config admin/wrangler-admin.toml" -ForegroundColor Gray
-Write-Host "  npx wrangler secret put GITHUB_TOKEN --config admin/wrangler-admin.toml" -ForegroundColor Gray
+Write-Host "  npx wrangler secret put ADMIN_TOKEN --config static/admin/wrangler-admin.toml" -ForegroundColor Gray
+Write-Host "  npx wrangler secret put GITHUB_TOKEN --config static/admin/wrangler-admin.toml" -ForegroundColor Gray
 Write-Host ""

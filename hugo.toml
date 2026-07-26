@@ -52,6 +52,9 @@ capitalizeListTitles = false
     [markup.goldmark.renderer]
       unsafe = true
 
+[frontmatter]
+  lastmod = ['lastmod', ':git', 'date', 'publishDate']
+
 [outputs]
   home = ['HTML', 'RSS', 'JSON']
   section = ['HTML', 'RSS']
@@ -64,6 +67,13 @@ capitalizeListTitles = false
   baseName = "searchindex"
   isPlainText = true
   notAlternative = true
+
+[build]
+  writeStats = true
+  [build.cachebusters]
+    [build.cachebusters.static]
+      source = "assets/.*\\.(js|css|scss)$"
+      target = "static"
 
 [services.rss]
   limit = 20

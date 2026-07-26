@@ -21,6 +21,8 @@
 function initWaline() {
     const el = document.getElementById('{{ .el }}');
     const loading = document.getElementById('{{ .el }}-loading');
+    if (window.__waline_inited) return;
+    window.__waline_inited = true;
     Waline.init({
         el: '#{{ .el }}',
         serverURL: '{{ $serverURL }}',

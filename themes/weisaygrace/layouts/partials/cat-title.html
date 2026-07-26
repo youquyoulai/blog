@@ -1,0 +1,11 @@
+{{- $name := . -}}
+{{- $title := $name -}}
+{{- $cats := index hugo.Data "kb-categories" -}}
+{{- if $cats -}}
+  {{- range $cats -}}
+    {{- if eq .name $name -}}
+      {{- $title = .title -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $title -}}

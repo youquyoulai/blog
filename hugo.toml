@@ -6,7 +6,7 @@ theme = 'weisaygrace'
 
 hasCJKLanguage = true
 buildFuture = true
-mainSections = ['math', 'literature', 'philosophy', 'misc']
+mainSections = ['math', 'literature', 'philosophy', 'misc', 'science', 'history']
 capitalizeListTitles = false
 
 [pagination]
@@ -32,6 +32,8 @@ capitalizeListTitles = false
   literature = '/:sections/:slug.html'
   philosophy = '/:sections/:slug.html'
   misc = '/:sections/:slug.html'
+  science = '/:sections/:slug.html'
+  history = '/:sections/:slug.html'
 
 [taxonomies]
   tag = ''

@@ -1,23 +1,35 @@
 - name: literature
   title: 文学
-  icon: "\U0001F4DA"
+  icon: "📚"
   description: 作家作品评析与阅读笔记
   order: 1
 
 - name: philosophy
   title: 哲学
-  icon: "\U0001F4AD"
+  icon: "💬"
   description: 哲学思想与思辨
   order: 2
 
-- name: misc
-  title: 博物
-  icon: "\U0001F4D6"
-  description: 科学知识、历史解读与生活随笔
-  order: 3
-
 - name: math
   title: 数学
-  icon: "\U0001F4D0"
+  icon: "📐"
   description: 高中数学题解、试题评析与教学思考
+  order: 3
+
+- name: misc
+  title: 艺术
+  icon: "🎨"
+  description: 歌曲、电影、相声
   order: 4
+
+- name: science
+  title: 科学
+  icon: "🔬"
+  description: 科学知识、科普文章与方法论探讨
+  order: 5
+
+- name: history
+  title: 历史
+  icon: "📜"
+  description: 历史事件分析、历史人物解读与历史思考
+  order: 6

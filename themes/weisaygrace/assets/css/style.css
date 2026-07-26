@@ -12,6 +12,8 @@
     --color_literature:#5E7253;
     --color_philosophy:#4A6274;
     --color_misc:#A67C52;
+    --color_science:#2B7A9E;
+    --color_history:#6B4E37;
 }
 
 *{border:0;margin:0;padding:0}
@@ -141,6 +143,14 @@ h3{font-size:1.125rem;font-weight:400}
 .section-card.misc .section-card-title,.section-card.misc .section-card-seal svg,.section-card.misc .section-card-tag{color:var(--color_misc)}
 .section-card.misc .section-card-enter{background:rgba(139,115,85,.1);color:var(--color_misc);border:1px solid rgba(139,115,85,.2)}
 .section-card.misc .section-card-enter:hover{background:var(--color_misc);color:#fff}
+.section-card.science .section-card-seal{border-color:var(--color_science)}
+.section-card.science .section-card-title,.section-card.science .section-card-seal svg,.section-card.science .section-card-tag{color:var(--color_science)}
+.section-card.science .section-card-enter{background:rgba(43,122,158,.1);color:var(--color_science);border:1px solid rgba(43,122,158,.2)}
+.section-card.science .section-card-enter:hover{background:var(--color_science);color:#fff}
+.section-card.history .section-card-seal{border-color:var(--color_history)}
+.section-card.history .section-card-title,.section-card.history .section-card-seal svg,.section-card.history .section-card-tag{color:var(--color_history)}
+.section-card.history .section-card-enter{background:rgba(107,78,55,.1);color:var(--color_history);border:1px solid rgba(107,78,55,.2)}
+.section-card.history .section-card-enter:hover{background:var(--color_history);color:#fff}
 
 @media screen and (max-width:991px){
 .section-grid{grid-template-columns:1fr}

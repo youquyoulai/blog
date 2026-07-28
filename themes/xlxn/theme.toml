@@ -1,12 +1,12 @@
-name = "xlxn"
-license = "MIT"
-licenselink = "https://github.com/youqu/xlxn/blob/main/LICENSE"
-description = "A clean, minimal Hugo blog theme with dark mode, responsive design, and Weisay-inspired aesthetics."
-homepage = "https://pgoj.top"
-tags = ["blog", "minimal", "responsive", "dark-mode", "personal"]
-features = ["responsive", "dark-mode", "search", "sidebar", "archive", "links", "weibo-feed", "lightbox"]
-min_version = "0.120.0"
+[theme]
+  name = "xlxn"
+  license = "MIT"
+  description = "1:1 conversion of Typecho xlxn theme to Hugo"
+  homepage = "https://www.pgoj.top"
+  tags = ["blog", "minimal", "dark-mode", "responsive"]
+  features = ["dark-mode", "search", "image-lightbox"]
+  min_version = "0.120.0"
 
-[author]
-  name = "youqu"
-  homepage = "https://pgoj.top"
+  [author]
+    name = "平哥"
+    homepage = "https://www.pgoj.top"

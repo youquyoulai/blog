@@ -8,7 +8,7 @@
 // 配置
 // ═════════════════════════════════════════════════════════════════
 const R2_ORIGIN = 'https://img.pgoj.top';
-const ALLOWED_ORIGIN = 'https://www.pgoj.top';  // 只允许自己的域名
+const ALLOWED_ORIGIN = 'https://www.pgoj.top';  // 兼容旧域名
 const API_PREFIX = '/wgpjyhxlxn';  // API 路径前缀
 
 // ═════════════════════════════════════════════════════════════════
@@ -69,10 +69,13 @@ function isLocalDev(request) {
 function checkOrigin(request) {
   const origin = request.headers.get('Origin');
   if (!origin) return true;
-  return origin === ALLOWED_ORIGIN || 
-         origin.endsWith('.pgoj.top') || 
-         origin.startsWith('http://localhost') || 
-         origin.startsWith('http://127.0.0.1');
+  // 允许所有 pgoj.top 子域名（pgkb / www / blog / api 等）
+  if (origin.includes('.pgoj.top') || origin === 'https://pgoj.top') return true;
+  // 允许 Cloudflare Pages 预览部署（xxx.pages.dev）
+  if (origin.includes('.pages.dev')) return true;
+  // 允许本地开发
+  if (origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) return true;
+  return false;
 }
 
 // ═════════════════════════════════════════════════════════════════

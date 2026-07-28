@@ -1,6 +1,40 @@
-# 友情链接配置
-# 格式示例：
-# - category: 博客
-#   links:
-#     - name: 示例博客
-#       url: https://example.com
+- category: "友情链接"
+  items:
+    - name: "边境研究所"
+      url: "https://szhshp.org"
+    - name: "徐建伟"
+      url: "http://xulog.cn"
+    - name: "崔话记"
+      url: "https://cuixiping.com/"
+    - name: "沈罗记"
+      url: "https://nzw025.top"
+    - name: "fengcs Blog"
+      url: "https://fengcblog.880200.xyz"
+    - name: "荒野菲克"
+      url: "https://ficor.net"
+    - name: "秋記Autumn"
+      url: "https://www.zhyok.cn"
+- category: "博客聚合"
+  items:
+    - name: "笔墨迹"
+      url: "https://blogscn.fun/"
+    - name: "BlogFinder"
+      url: "https://bf.zzxworld.com/"
+    - name: "博友圈"
+      url: "https://www.boyouquan.com/"
+    - name: "博客之家"
+      url: "https://www.perass.com/"
+    - name: "集博栈"
+      url: "https://www.zhblogs.net/list"
+    - name: "个站商店"
+      url: "https://storeweb.cn/"
+    - name: "博客集"
+      url: "https://bloginc.cn"
+    - name: "博客星球"
+      url: "https://www.blogplanet.cn/"
+    - name: "BlogsClub"
+      url: "https://www.blogsclub.org"
+    - name: "开往"
+      url: "https://www.travellings.cn"
+    - name: "博客说"
+      url: "https://www.blogtalk.org"

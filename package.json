@@ -1,8 +1,8 @@
 {
   "name": "blog",
   "version": "1.0.0",
-  "description": "由 Hugo + PaperMod 主题生成的静态博客，部署在 Cloudflare Pages。",
-  "main": "_check_comment.js",
+  "description": "由 Hugo + weisaygrace 主题生成的静态博客，部署在 Cloudflare Pages。",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

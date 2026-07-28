@@ -29,9 +29,8 @@
                 </ul>
             </nav>
 
-            <!-- 搜索框（移动端隐藏，通过汉堡菜单展示） -->
             <div class="search" style="position:relative;">
-                <form method="get" action="/search" role="search">
+                <form method="get" action="{{ "/search/" | relURL }}" role="search">
                     <input type="text" id="search-input" name="s" class="search-input" placeholder="搜索..." aria-label="搜索" style="height:32px;border:1px solid #D4CFC9;border-radius:6px;padding:0 36px 0 10px;font-size:0.875rem;width:150px;outline:none;background:#f5f5f5;transition:border-color .2s,background .2s;color:#3E3A39;" onfocus="this.style.borderColor='#8B837B';this.style.background='#fff'" onblur="this.style.borderColor='#D4CFC9';this.style.background='#f5f5f5'">
                     <button type="submit" class="search-submit" aria-label="搜索" style="position:absolute;right:5px;top:50%;transform:translateY(-50%);background:#f5f5f5;border:1px solid #D4CFC9;border-radius:4px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;color:#8B837B;">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="#8B837B">
@@ -40,6 +39,6 @@
                     </button>
                 </form>
             </div>
+
         </div>
     </div>
-</header>

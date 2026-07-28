@@ -46,7 +46,7 @@
 {{ if $thumb }}
 <div class="thumbnail">
     <a href="{{ $page.Permalink }}" rel="nofollow" title="{{ $page.Title }}">
-        <img class="diagram" src="{{ $thumb }}" alt="{{ $page.Title }}" itemprop="image" {{ if $isLazy }}loading="lazy"{{ else }}fetchpriority="high"{{ end }} decoding="async" />
+        <img class="diagram" src="{{ $thumb }}" alt="{{ $page.Title }}" itemprop="image" width="160" height="117" {{ if $isLazy }}loading="lazy"{{ else }}fetchpriority="high"{{ end }} decoding="async" />
     </a>
 </div>
 {{ end }}

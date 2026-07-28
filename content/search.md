@@ -1,5 +1,6 @@
 ---
-title: "搜索" 
+title: "搜索"
+type: "page"
 layout: "search"
-placeholder: "输入搜索关键词..."
+url: "/search/"
 ---

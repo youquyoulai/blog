@@ -1,0 +1,125 @@
+{{ define "main" }}
+<style>
+.search-results-page{padding:1rem 0}
+.search-breadcrumb{background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:.625rem .875rem;margin-bottom:1rem;font-size:.875rem;font-family:'Noto Serif SC',serif}
+.search-breadcrumb ol{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
+.search-breadcrumb li{display:inline-flex;align-items:center}
+.search-breadcrumb li:not(:last-child)::after{content:'→';margin-left:.5rem;color:#AB9F96}
+.search-breadcrumb a{color:#C04B3D;text-decoration:none}
+.search-breadcrumb span{color:#3E3A39}
+.search-results-header{margin-bottom:1rem}
+.search-results-header form{display:flex;align-items:center;max-width:600px;border:1px solid #E8E4DD;border-radius:8px;background:#fff;overflow:hidden}
+.search-results-header input{flex:1;border:none;padding:.75rem 1rem;font-size:1rem;outline:none;background:transparent;color:#3E3A39;font-family:'Noto Serif SC',serif}
+.search-results-header button{border:none;background:#3E3A39;color:#FBF7F0;padding:.75rem 1rem;cursor:pointer;font-size:1rem;font-family:'Noto Serif SC',serif}
+.search-count-card{color:#8B837B;font-size:.875rem;margin:0 0 1rem;padding:.625rem .875rem;background:#fff;border:1px solid #E8E4DD;border-radius:8px;font-family:'Noto Serif SC',serif}
+.search-count-card span{color:#3E3A39;font-weight:600}
+.search-card .post{background:#fff;border:1px solid #E8E4DD;border-radius:8px;padding:1rem;margin-bottom:1rem;transition:box-shadow .2s}
+.search-card .post:hover{box-shadow:0 4px 16px rgba(62,58,57,.06)}
+.search-card .post-title{font-size:1.125rem;line-height:1.8rem;font-family:'Noto Serif SC',serif;font-weight:600;padding:0 0 .25rem}
+.search-card .post-title a{color:#3E3A39;text-decoration:none}
+.search-card .post-title a:hover{color:#C04B3D}
+.search-card .post-content p{color:#555;line-height:1.8rem;font-size:.95rem;margin:0}
+.search-card .post-meta{font-size:.785rem;color:#AB9F96;margin-top:.5rem;font-family:'Noto Serif SC',serif;display:flex;gap:1rem;flex-wrap:wrap}
+.search-card mark{background:#FFF3CD;color:#3E3A39;padding:0 .125rem;border-radius:2px}
+.search-empty,.search-loading{color:#8B837B;text-align:center;padding:2rem 0;font-size:1rem;font-family:'Noto Serif SC',serif}
+@media(max-width:991px){.search-results-header form{max-width:none}.search-card .post-title{font-size:1rem}}
+</style>
+
+<nav class="search-breadcrumb" aria-label="breadcrumb">
+  <ol>
+    <li><a href="{{ .Site.BaseURL }}">平哥集录</a></li>
+    <li><span>搜索</span></li>
+  </ol>
+</nav>
+
+<div class="search-results-header">
+  <form method="get" action="{{ "/search/" | relURL }}" role="search">
+    <input type="text" id="search-page-input" name="s" placeholder="输入关键词搜索" aria-label="搜索">
+    <button type="submit">搜索</button>
+  </form>
+</div>
+
+<div class="search-results-page">
+  <div id="searchResults" class="search-results-list">
+    <p class="search-loading">搜索中...</p>
+  </div>
+</div>
+
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var query = (params.get('s') || '').trim();
+  var input = document.getElementById('search-page-input');
+  var container = document.getElementById('searchResults');
+  if (input) input.value = query;
+
+  if (!query) {
+    container.innerHTML = '<p class="search-empty">请输入搜索关键词</p>';
+    return;
+  }
+
+  function toArray(val) {
+    if (Array.isArray(val)) return val;
+    if (typeof val === 'string' && val.trim()) return [val.trim()];
+    return [];
+  }
+
+  fetch('{{ "searchindex.json" | relURL }}')
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      var results = [];
+      var q = query.toLowerCase();
+      for (var i = 0; i < data.length; i++) {
+        var post = data[i];
+        var tags = toArray(post.tags);
+        var categories = toArray(post.categories);
+        var text = (post.title + ' ' + post.summary + ' ' + tags.join(' ') + ' ' + categories.join(' ')).toLowerCase();
+        if (text.indexOf(q) !== -1) results.push(post);
+      }
+
+      if (results.length === 0) {
+        container.innerHTML = '<p class="search-empty">没有找到与 "' + escapeHtml(query) + '" 相关的文章</p>';
+        return;
+      }
+
+      var html = '<div class="search-count-card"><span>找到 ' + results.length + ' 篇相关文章</span></div><div class="search-card">';
+      for (var j = 0; j < results.length; j++) {
+        var r = results[j];
+        var catArray = toArray(r.categories);
+        html += '<div class="post">';
+        html += '<h2 class="post-title"><a href="' + escapeHtml(r.url) + '">' + highlight(r.title, query) + '</a></h2>';
+        if (r.summary) html += '<div class="post-content"><p>' + highlight(truncate(r.summary, 180), query) + '</p></div>';
+        html += '<div class="post-meta"><span>' + (catArray.join(', ') || r.section || '未分类') + '</span><span>' + (r.date || '') + '</span></div>';
+        html += '</div>';
+      }
+      html += '</div>';
+      container.innerHTML = html;
+    })
+    .catch(function(err) {
+      console.error('搜索失败:', err);
+      container.innerHTML = '<p class="search-empty">搜索失败，请稍后重试</p>';
+    });
+
+  function truncate(str, len) {
+    var plain = str.replace(/<[^>]*>/g, '');
+    return plain.length > len ? plain.substring(0, len) + '...' : plain;
+  }
+
+  function highlight(text, q) {
+    if (!q) return escapeHtml(text);
+    var safe = escapeHtml(text);
+    var regex = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    return safe.replace(regex, '<mark>$1</mark>');
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str || ''));
+    return div.innerHTML;
+  }
+})();
+</script>
+{{ end }}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
 <head>
-    <style>html{background:#FBF7F0}</style>
+    <style>html,body{background:#FBF7F0;color:#3E3A39}.header-navigation{background:#3E3A39}</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -23,9 +23,7 @@
     {{ end }}
     <link rel="manifest" href="/site.webmanifest">
 
-    {{ with .Site.Params.waline.serverURL }}<link rel="preconnect" href="{{ . }}" crossorigin>{{ end }}
     <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
     {{ $css := resources.Get "css/style.css" | minify | fingerprint }}

@@ -1,13 +1,10 @@
 # Hugo 博客
 
-由 Hugo + PaperMod 主题生成的静态博客，部署在 Cloudflare Pages。
+由 Hugo + weisaygrace 主题生成的静态博客，部署在 Cloudflare Pages。
 
 ## 本地开发
 
 ```bash
-# 安装主题 submodule
-git submodule init && git submodule update
-
 # 本地预览
 hugo server
 

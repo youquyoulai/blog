@@ -1,0 +1,17 @@
+{{- $sections := slice "math" "literature" "philosophy" "misc" "science" "history" -}}
+{{- $pages := where .Site.RegularPages "Section" "in" $sections -}}
+[
+{{- range $i, $p := $pages -}}
+  {{- if $i }},{{ end }}
+  {
+    "title": {{ $p.Title | jsonify }},
+    "url": {{ $p.RelPermalink | jsonify }},
+    "summary": {{ $p.Summary | plainify | jsonify }},
+    "date": {{ $p.Date.Format "2006-01-02" | jsonify }},
+    "section": {{ $p.Section | jsonify }},
+    "categories": {{ $p.Params.categories | default (slice) | jsonify }},
+    "tags": {{ $p.Params.tags | default (slice) | jsonify }},
+    "thumbnail": {{ $p.Params.thumbnail | default "" | jsonify }}
+  }
+{{- end -}}
+]

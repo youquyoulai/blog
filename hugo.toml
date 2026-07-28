@@ -8,6 +8,8 @@ hasCJKLanguage = true
 buildFuture = true
 mainSections = ['math', 'literature', 'philosophy', 'misc', 'science', 'history']
 capitalizeListTitles = false
+disableKinds = ['taxonomy', 'term']
+ignoreFiles = ['content/pages/(about|links|reading)\\.md$', 'content/taxonomies\\.md$']
 
 [pagination]
   pagerSize = 10
@@ -20,11 +22,8 @@ capitalizeListTitles = false
   builtYear = '2026'
   email = 'wuliwuju@126.com'
   favicon = '/favicon.ico'
+  themeColor = '#3E3A39'
   imageCDN = 'https://img.pgoj.top'
-
-  # Waline 评论配置
-  [params.waline]
-  serverURL = 'https://waline.pgoj.top'
 
 [permalinks]
   math = '/archives/:slug.html'
@@ -34,10 +33,6 @@ capitalizeListTitles = false
   misc = '/:sections/:slug.html'
   science = '/:sections/:slug.html'
   history = '/:sections/:slug.html'
-
-[taxonomies]
-  tag = ''
-  category = ''
 
 [imaging]
   resampleFilter = "Lanczos"
@@ -58,8 +53,6 @@ capitalizeListTitles = false
 [outputs]
   home = ['HTML', 'RSS', 'JSON']
   section = ['HTML', 'RSS']
-  taxonomy = ['HTML', 'RSS']
-  term = ['HTML', 'RSS']
   page = ['HTML']
 
 [outputFormats.JSON]

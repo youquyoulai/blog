@@ -98,13 +98,7 @@
 </div>
 
 {{- $posts := where .Site.RegularPages "Section" "math" -}}
-{{- $filtered := slice -}}
-{{- range $posts -}}
-  {{- if not (in .Params.categories "weibo") -}}
-    {{- $filtered = $filtered | append . -}}
-  {{- end -}}
-{{- end -}}
-{{ $paginator := .Paginate $filtered }}
+{{ $paginator := .Paginate $posts }}
 {{ range $idx, $page := $paginator.Pages }}
 {{ partial "post-card.html" (dict "page" $page "idx" $idx "paginator" $paginator) }}
 {{ end }}

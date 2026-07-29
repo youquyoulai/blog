@@ -1,0 +1,42 @@
+{{ $page := .page }}
+{{ $idx := .idx | default 0 }}
+{{ $paginator := .paginator }}
+{{ $isLazy := not (and $paginator (eq $paginator.PageNumber 1) (eq $idx 0)) }}
+
+{{ $thumb := $page.Params.thumbnail }}
+
+{{ if not $thumb }}
+    {{ $thumb = $page.Resources.GetMatch "*thumb*" }}
+{{ end }}
+
+{{ if not $thumb }}
+    {{ with $page.Params.images }}
+        {{ $thumb = index . 0 }}
+    {{ end }}
+{{ end }}
+
+{{ if not $thumb }}
+    {{ with $page.Params.cover }}
+        {{ $coverVal := . }}
+        {{ if (findRE "^@image:" $coverVal) }}
+            {{ $imgName := (replace $coverVal "@image:" "") }}
+            {{ $thumb = printf "https://img.pgoj.top/%s" $imgName }}
+        {{ else }}
+            {{ $thumb = $coverVal }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ if not $thumb }}
+    {{ $imgs := slice "/images/thumbs/tu01.webp" "/images/thumbs/tu02.webp" "/images/thumbs/tu03.webp" "/images/thumbs/tu04.webp" "/images/thumbs/tu05.webp" "/images/thumbs/tu06.webp" "/images/thumbs/tu07.webp" "/images/thumbs/tu08.webp" "/images/thumbs/tu09.webp" "/images/thumbs/tu10.webp" "/images/thumbs/tu11.webp" "/images/thumbs/tu12.webp" "/images/thumbs/tu13.webp" }}
+    {{ $thumbIdx := mod $page.Date.Unix (len $imgs) }}
+    {{ $thumb = index $imgs $thumbIdx }}
+{{ end }}
+
+{{ if $thumb }}
+<div class="thumbnail">
+    <a href="{{ $page.Permalink }}" rel="nofollow" title="{{ $page.Title }}">
+        <img class="diagram" src="{{ $thumb }}" alt="{{ $page.Title }}" itemprop="image" width="160" height="117" {{ if $isLazy }}loading="lazy"{{ else }}fetchpriority="high"{{ end }} decoding="async" />
+    </a>
+</div>
+{{ end }}

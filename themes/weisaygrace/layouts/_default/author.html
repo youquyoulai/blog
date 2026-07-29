@@ -1,0 +1,73 @@
+{{ define "main" }}
+{{ $parent := .Parent }}
+
+<nav class="wyg-crumb" aria-label="breadcrumb">
+<ol>
+<li><a href="{{ .Site.BaseURL }}">平哥集录</a></li>
+{{ with $parent }}
+<li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+{{ end }}
+<li><span aria-current="page">{{ .Title }}</span></li>
+</ol>
+</nav>
+
+<div class="kb-author-header">
+  {{ with .Params.image }}
+  <div class="kb-author-photo"><img src="{{ . | relURL }}" alt="{{ $.Title }}" width="112" height="112" loading="lazy" decoding="async"></div>
+  {{ else }}
+  <div class="kb-author-photo-placeholder">{{ substr .Title 0 1 }}</div>
+  {{ end }}
+  <div class="kb-author-info">
+    <h1>{{ .Title }}</h1>
+    {{ $metaParts := slice }}
+    {{ with .Params.birth }}{{ $metaParts = $metaParts | append (print . " 年生") }}{{ end }}
+    {{ with .Params.death }}{{ $metaParts = $metaParts | append (print . " 年逝") }}{{ end }}
+    {{ with .Params.era }}{{ $metaParts = $metaParts | append . }}{{ end }}
+    {{ if $metaParts }}
+    <p class="kb-author-meta">{{ delimit $metaParts " · " }}</p>
+    {{ end }}
+    {{ with .Description }}
+    <p class="kb-author-bio">{{ . }}</p>
+    {{ end }}
+    {{ with .Params.achievements }}
+    <div class="kb-author-achievements">
+      <h3>主要成就</h3>
+      <ul>
+        {{ if (reflect.IsSlice .) }}
+          {{ range . }}<li>{{ . }}</li>{{ end }}
+        {{ else }}
+          <li>{{ . }}</li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+  </div>
+</div>
+
+{{ if .Content }}
+<div class="kb-author-content">
+  {{ .Content }}
+</div>
+{{ end }}
+
+<div class="kb-works">
+  <h2>作品评价</h2>
+  {{ $works := .Pages }}
+  {{ if $works }}
+  {{ range $works }}
+  <a href="{{ .Permalink }}" class="kb-work-card">
+    <h3>{{ .Title }}</h3>
+    {{ with .Description }}
+    <p>{{ . | truncate 120 }}</p>
+    {{ else }}
+    <p>{{ .Summary | plainify | truncate 120 }}</p>
+    {{ end }}
+    <span class="kb-work-date">{{ .Date.Format "2006-01-02" }}</span>
+  </a>
+  {{ end }}
+  {{ else }}
+  <p class="kb-empty">暂无作品评价，敬请期待</p>
+  {{ end }}
+</div>
+
+{{ end }}

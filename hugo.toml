@@ -9,7 +9,21 @@ buildFuture = true
 mainSections = ['math', 'literature', 'philosophy', 'misc', 'science', 'history']
 capitalizeListTitles = false
 disableKinds = ['taxonomy', 'term']
-ignoreFiles = ['content/pages/(about|links|reading)\\.md$', 'content/taxonomies\\.md$']
+ignoreFiles = [
+  'content/pages/(about|links|reading)\.md$',
+  'content/taxonomies\.md$',
+  'content/archives\.md$',
+  'content/archives\.md',
+  'archives\.md',
+  'content/math/2026-06-29-2026-gksx-ping-jia\.md$',
+  'content/math/2026-06-30-2026-gksx-2027-bkjy\.md$',
+  'content/math/2026-06-30-2026-gksx-zhen-ti\.md$',
+  'content/math/2026-07-01-gai-shu-dan-feng-han-shu\.md$',
+  'content/math/2026-07-01-gai-shu-ji-zhi-dian\.md$',
+  'content/math/2026-07-02-2026-gksx-shu-lie-bian-shi\.md$',
+  'content/math/2026-07-02-gao-kao-math-bi-sha\.md$',
+  'content/math/2026-gaokao/2026-07-02-gao-kao-math-bi-sha\.md$'
+]
 
 [pagination]
   pagerSize = 10

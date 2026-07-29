@@ -9,5 +9,6 @@ User-agent: bingbot
 Allow: /
 Disallow: /page/*
 Disallow: /search/*
+Disallow: /*?*
 
 Sitemap: {{ trim .Site.BaseURL "/" }}/sitemap.xml

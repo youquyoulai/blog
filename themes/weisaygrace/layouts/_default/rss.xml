@@ -7,15 +7,8 @@
 {{- else }}
 {{- $pages = $pctx.Pages }}
 {{- end }}
-{{- /* 过滤掉 weibo 分类的文章，以及手动标记 hiddenInRss 的文章 */ -}}
+{{- /* 过滤手动标记 hiddenInRss 的文章 */ -}}
 {{- $pages = where $pages "Params.hiddenInRss" "!=" true -}}
-{{- $cleanPages := slice -}}
-{{- range $pages -}}
-  {{- if not (in .Params.categories "weibo") -}}
-    {{- $cleanPages = $cleanPages | append . -}}
-  {{- end -}}
-{{- end -}}
-{{- $pages = $cleanPages -}}
 {{- $limit := site.Config.Services.RSS.Limit }}
 {{- if ge $limit 1 }}
 {{- $pages = $pages | first $limit }}
@@ -34,7 +27,7 @@
     {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
     {{- end }}
     {{- range $pages }}
-    {{- if and (ne .Layout "search") (ne .Layout "archives") }}
+    {{- if ne .Layout "search" }}
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>

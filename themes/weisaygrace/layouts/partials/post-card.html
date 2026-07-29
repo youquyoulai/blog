@@ -20,23 +20,13 @@
     {{ end }}
 </div>
 </div>
-<div class="clear"></div>
 <div class="post-info">
     <span class="date info-icon" itemprop="datePublished" content="{{ $page.Date.Format "2006-01-02T15:04:05Z07:00" }}">
         <svg class="posticon"><use href="#icon-calendar"/></svg>{{ $page.Date.Format "2006-01-02" }}
     </span>
     {{ if not $hideCategory }}
     {{ if $page.Section }}
-    {{ $catSection := $page.Section }}
-    {{ $catTitle := $page.Section }}
-    {{ $cats := index hugo.Data "kb-categories" }}
-    {{ if $cats }}
-      {{ range $cats }}
-        {{ if eq .name $catSection }}
-          {{ $catTitle = .title }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
+    {{ $catTitle := partial "cat-title.html" $page.Section }}
     <span class="category info-icon" itemprop="articleSection">
         <svg class="posticon"><use href="#icon-folder"/></svg><a href="{{ $page.Section | relURL }}">{{ $catTitle }}</a>
     </span>
@@ -47,4 +37,3 @@
     <a class="read-more-icon" href="{{ $page.Permalink }}" title="{{ $page.Title }}" rel="nofollow">阅读全文<span></span></a>
 </div>
 </div>
-<div class="clear"></div>

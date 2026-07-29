@@ -1,0 +1,24 @@
+---
+title: 折腾了一个博客聚合程序
+date: '2026-06-27T08:29:00+08:00'
+lastmod: '2026-06-27T15:53:29+08:00'
+slug: blog-php-wu-shu-ju
+categories:
+- jilu
+tags:
+- 博客
+comments: true
+---
+
+<!--markdown-->为了逛独立博客使用，这两天一直在折腾一个聚合程序。
+
+
+
+开始想的是托管到cloudfare，绑定一个二级域名。写完后发现两个问题不好处理：一个是定时抓取并缓存，缓存好说但是定时抓取总是失败。另一个是D1数据库每日写入行数限制，免费版的每日最多100k。当博客数量比较大时，很容易超出限制。
+
+
+
+于是我转向了现在用的虚拟主机。考虑到将来打包方便，让AI写了个不用数据库的php程序。因为是自用，所以前台界面与后台管理尽可能简洁。经过几次调试整改，终于跑了起来，目前看还不错。
+
+![screenshot_20260627_052643_com.huawei.hmos.browser.png](https://img.pgoj.top/202606/screenshot_20260627_052643_com.huawei.hmos.browser-yftez.webp)
+

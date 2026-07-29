@@ -10,31 +10,17 @@
 </footer>
 
 {{- /* 移动端导航菜单 */ -}}
-<div id="menu-overlay"></div>
-<nav id="menu">
+<div id="menu-overlay" aria-hidden="true"></div>
+<nav id="menu" aria-label="移动端导航" aria-hidden="true">
 <ul>
 <li class="mm-search">
   <form method="get" action="{{ "/search/" | relURL }}" class="mm-search-form">
     <button type="submit" class="mm-search-btn" aria-label="搜索">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><use href="#icon-search"/></svg>
     </button>
     <input type="text" name="s" placeholder="搜索..." class="mm-search-input" aria-label="搜索" />
   </form>
 </li>
-<li><a href="{{ .Site.BaseURL }}">首页</a></li>
-{{ $cats := (index hugo.Data "kb-categories") }}
-{{ range $cats }}
-{{ $sec := $.Site.GetPage (printf "/%s" .name) }}
-{{ if $sec }}
-<li><a href="{{ $sec.Permalink }}">{{ .title }}</a></li>
-{{ end }}
-{{ end }}
-{{ $navPages := slice (dict "name" "guestbook" "label" "留言") }}
-{{ range $navPages }}
-    {{ $page := site.GetPage (printf "/pages/%s" .name) }}
-    {{ if $page }}
-<li><a href="{{ $page.Permalink }}">{{ .label }}</a></li>
-    {{ end }}
-{{ end }}
+{{ partial "nav-items.html" (dict "current" .) }}
 </ul>
 </nav>

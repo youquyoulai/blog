@@ -1,21 +1,11 @@
 {{ define "main" }}
-
-{{/* ====== 归档页 ====== */}}
-{{ if eq .Params._pagetype "archive" }}
-{{ partial "archive.html" . }}
-
-{{/* ====== 普通文章/页面 ====== */}}
-{{ else }}
 {{ partial "breadcrumbs.html" . }}
 
 <div {{ with .File }}id="post-{{ .UniqueID }}"{{ end }} class="article" itemscope itemtype="http://schema.org/Article">
 <header class="article-hero">
     <h1 class="post-title" itemprop="headline">{{ .Title }}</h1>
-    {{ with .Params.description | default (.Summary | plainify) }}
-    <p class="article-summary">{{ . | truncate 120 }}</p>
-    {{ end }}
     <div class="article-info">
-        <div class="article-infomation">
+        <div class="article-information">
             <span class="vcard author info-icon" itemprop="author" itemscope itemtype="https://schema.org/Person">
                 <span class="fn"><svg class="posticon"><use href="#icon-user"/></svg>{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}</span>
             </span>
@@ -26,16 +16,7 @@
                 <svg class="posticon"><use href="#icon-book"/></svg>{{ .WordCount }} 字 · 约 {{ .ReadingTime }} 分钟
             </span>
             {{ if .Section }}
-            {{ $catSection := .Section }}
-            {{ $catTitle := .Section }}
-            {{ $cats := index hugo.Data "kb-categories" }}
-            {{ if $cats }}
-              {{ range $cats }}
-                {{ if eq .name $catSection }}
-                  {{ $catTitle = .title }}
-                {{ end }}
-              {{ end }}
-            {{ end }}
+            {{ $catTitle := partial "cat-title.html" .Section }}
             <span class="category info-icon" itemprop="articleSection">
                 <svg class="posticon"><use href="#icon-folder"/></svg><a href="{{ .Section | relURL }}">{{ $catTitle }}</a>
             </span>
@@ -97,7 +78,5 @@
 <div class="nav-item nav-next nav-item-empty"><div class="nav-item-content">已是最新的文章了</div></div>
 {{ end }}
 </div>
-
-{{ end }}
 
 {{ end }}

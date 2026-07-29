@@ -3,6 +3,7 @@ languageCode = 'zh-cn'
 defaultContentLanguage = 'zh'
 title = '平哥集录'
 theme = 'weisaygrace'
+uglyURLs = true
 
 hasCJKLanguage = true
 buildFuture = true
@@ -40,13 +41,13 @@ ignoreFiles = [
   imageCDN = 'https://img.pgoj.top'
 
 [permalinks]
-  math = '/archives/:slug.html'
-  posts = '/archives/:slug.html'
-  literature = '/:sections/:slug.html'
-  philosophy = '/:sections/:slug.html'
-  misc = '/:sections/:slug.html'
-  science = '/:sections/:slug.html'
-  history = '/:sections/:slug.html'
+  math = '/archives/:slug'
+  posts = '/archives/:slug'
+  literature = '/:sections/:slug'
+  philosophy = '/:sections/:slug'
+  misc = '/:sections/:slug'
+  science = '/:sections/:slug'
+  history = '/:sections/:slug'
 
 [imaging]
   resampleFilter = "Lanczos"

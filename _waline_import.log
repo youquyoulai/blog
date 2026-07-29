@@ -1,0 +1,92 @@
+[20:38:46] === Waline Comment Import ===
+[20:38:46] Total: 1064 | Top-level: 624 | Replies: 440
+[20:38:46] --- Step 1: Top-level ---
+[20:39:35]   [20/624] ok=20 fail=0
+[20:40:32]   [40/624] ok=40 fail=0
+[20:41:18]   [60/624] ok=60 fail=0
+[20:42:07]   [80/624] ok=80 fail=0
+[20:42:53]   [100/624] ok=100 fail=0
+[20:43:57]   [120/624] ok=120 fail=0
+[20:44:44]   [140/624] ok=140 fail=0
+[20:45:21]   [160/624] ok=160 fail=0
+[20:46:13]   [180/624] ok=180 fail=0
+[20:47:09]   [200/624] ok=200 fail=0
+[20:47:50]   [220/624] ok=220 fail=0
+[20:48:41]   [240/624] ok=240 fail=0
+[20:49:42]   FAIL #257 ty_1015: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[20:49:49]   [260/624] ok=259 fail=1
+[20:50:28]   [280/624] ok=279 fail=1
+[20:51:23]   [300/624] ok=299 fail=1
+[20:52:09]   [320/624] ok=319 fail=1
+[20:53:06]   [340/624] ok=339 fail=1
+[20:54:10]   [360/624] ok=359 fail=1
+[20:55:02]   FAIL #379 ty_1080: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[20:55:03]   [380/624] ok=378 fail=2
+[20:55:31]   FAIL #387 ty_384: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[20:55:53]   FAIL #390 ty_1085: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[20:56:14]   [400/624] ok=396 fail=4
+[20:56:44]   FAIL #403 ty_1095: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[20:57:22]   [420/624] ok=415 fail=5
+[20:57:44]   FAIL #424 ty_2365: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[20:59:06]   [440/624] ok=434 fail=6
+[21:00:25]   FAIL #460 ty_2439: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:00:25]   [460/624] ok=453 fail=7
+[21:01:24]   [480/624] ok=473 fail=7
+[21:01:45]   FAIL #481 ty_2477: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:02:34]   [500/624] ok=492 fail=8
+[21:03:38]   [520/624] ok=512 fail=8
+[21:04:30]   [540/624] ok=532 fail=8
+[21:05:45]   [560/624] ok=552 fail=8
+[21:06:49]   [580/624] ok=572 fail=8
+[21:07:39]   [600/624] ok=592 fail=8
+[21:08:19]   [620/624] ok=612 fail=8
+[21:08:31] Top-level done: 616 ok, 8 fail
+[21:08:31] --- Step 2: Replies ---
+[21:09:49]   [20/440] ok=20 fail=0 skip=0
+[21:10:51]   [40/440] ok=40 fail=0 skip=0
+[21:11:47]   [60/440] ok=60 fail=0 skip=0
+[21:12:38]   FAIL reply #75 ty_2156: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:12:46]   [80/440] ok=79 fail=1 skip=0
+[21:13:40]   [100/440] ok=99 fail=1 skip=0
+[21:14:53]   FAIL reply #117 ty_2207: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:15:01]   [120/440] ok=118 fail=2 skip=0
+[21:15:59]   FAIL reply #130 ty_223: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:16:17]   FAIL reply #132 ty_2219: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:16:41]   [140/440] ok=136 fail=4 skip=0
+[21:17:05]   FAIL reply #143 ty_235: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:17:39]   [160/440] ok=155 fail=5 skip=0
+[21:18:41]   [180/440] ok=175 fail=5 skip=0
+[21:19:26]   FAIL reply #191 ty_307: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:19:49]   [200/440] ok=194 fail=6 skip=0
+[21:21:07]   FAIL reply #215 ty_339: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:21:14]   [220/440] ok=213 fail=7 skip=0
+[21:22:05]   [240/440] ok=233 fail=7 skip=0
+[21:22:10]   SKIP #243 ty_2327: parent ty_2331 unmapped
+[21:22:54]   [260/440] ok=252 fail=7 skip=1
+[21:22:56]   SKIP #262 ty_2368: parent ty_2365 unmapped
+[21:23:13]   FAIL reply #264 ty_2372: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:24:01]   [280/440] ok=270 fail=8 skip=2
+[21:24:41]   SKIP #299 ty_2442: parent ty_2439 unmapped
+[21:24:43]   [300/440] ok=289 fail=8 skip=3
+[21:24:43]   SKIP #301 ty_2448: parent ty_2442 unmapped
+[21:25:09]   FAIL reply #307 ty_2458: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:25:34]   SKIP #316 ty_2479: parent ty_2477 unmapped
+[21:25:40]   [320/440] ok=306 fail=9 skip=5
+[21:26:28]   [340/440] ok=326 fail=9 skip=5
+[21:27:21]   [360/440] ok=346 fail=9 skip=5
+[21:27:46]   FAIL reply #363 ty_2592: HTTPSConnectionPool(host='waline.pgoj.top', port=443): Read timed out. (read tim
+[21:28:28]   [380/440] ok=365 fail=10 skip=5
+[21:29:33]   [400/440] ok=385 fail=10 skip=5
+[21:30:46]   [420/440] ok=405 fail=10 skip=5
+[21:31:51]   [440/440] ok=425 fail=10 skip=5
+[21:31:51] 
+============================================================
+[21:31:51] IMPORT FINISHED
+[21:31:51] Top-level: 616 ok, 8 fail
+[21:31:51] Replies:   425 ok, 10 fail, 5 skip
+[21:31:51] Total ok:  1041
+[21:31:51] Total fail/skip: 23
+[21:31:51] ID mappings: 1041
+[21:31:51] Failed comments saved to E:/blog/_waline_failed.json
+[21:31:51] 
+Next: Login to https://waline.pgoj.top/ui/ to approve all comments (status=waiting)

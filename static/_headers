@@ -1,6 +1,6 @@
-# 静态资源缓存 1 年（带 hash 指纹，可激进缓存）
+# CSS 使用固定文件名，更新后必须重新验证
 /css/*.css
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=0, must-revalidate
 /js/*.js
   Cache-Control: public, max-age=31536000, immutable
 

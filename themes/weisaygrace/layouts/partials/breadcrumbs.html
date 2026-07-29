@@ -9,15 +9,7 @@
 {{- if eq .Kind "term" -}}
   {{- if .Parent -}}
     {{- if eq .Parent.Title "categories" -}}
-      {{- $termTitle := .Title -}}
-      {{- $cats := index hugo.Data "kb-categories" -}}
-      {{- if $cats -}}
-        {{- range $cats -}}
-          {{- if eq .name $termTitle -}}
-            {{- $title = .title -}}
-          {{- end -}}
-        {{- end -}}
-      {{- end -}}
+      {{- $title = partial "cat-title.html" .Title -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

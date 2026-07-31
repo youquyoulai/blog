@@ -26,3 +26,7 @@ content/pages/about.md
 content/pages/links.md
 content/pages/reading.md
 content/taxonomies.md
+
+# 构建产物 / 优化报告
+public_new/
+hugo-blog-optimization/

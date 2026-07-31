@@ -1,0 +1,11 @@
+{{- /* 图片渲染钩子：自动添加 lazy loading、decoding async、无 alt 时补默认值 */ -}}
+{{- $src := .Destination -}}
+{{- $alt := .Text | default "配图" -}}
+{{- $title := .Title -}}
+
+{{- /* 处理 @image: 前缀的 R2 图片 */ -}}
+{{- if hasPrefix $src "@image:" -}}
+  {{- $src = printf "https://img.pgoj.top/%s" (strings.TrimPrefix "@image:" $src) -}}
+{{- end -}}
+
+<img src="{{ $src | safeURL }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async"{{ if not (findRE "^(https?:)?//" $src) }} data-img-local="true"{{ end }}>

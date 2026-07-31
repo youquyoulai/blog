@@ -5,15 +5,18 @@ lastmod: {{ .Date }}
 draft: true
 description: ""
 slug: "{{ .File.ContentBaseName }}"
-tags: []
-categories: []
+tags: ["数学"]
+categories: ["数学"]
 author: "平哥"
 summary: ""
 cover: ""
+difficulty: "中等"
+source: ""
+knowledge_points: []
 ---
 
-## 引言
+## 题目
 
-## 正文
+## 分析与解答
 
-## 总结
+## 方法总结

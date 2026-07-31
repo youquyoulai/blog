@@ -5,15 +5,18 @@ lastmod: {{ .Date }}
 draft: true
 description: ""
 slug: "{{ .File.ContentBaseName }}"
-tags: []
-categories: []
+tags: ["哲学"]
+categories: ["哲学"]
 author: "平哥"
 summary: ""
 cover: ""
+philosopher: ""
+school: ""
+core_concepts: []
 ---
 
-## 引言
+## 思想背景
 
-## 正文
+## 核心观点
 
-## 总结
+## 当代意义

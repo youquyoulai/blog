@@ -5,15 +5,18 @@ lastmod: {{ .Date }}
 draft: true
 description: ""
 slug: "{{ .File.ContentBaseName }}"
-tags: []
-categories: []
+tags: ["文学"]
+categories: ["文学"]
 author: "平哥"
 summary: ""
 cover: ""
+book_author: ""
+book_title: ""
+genre: ""
 ---
 
-## 引言
+## 作品概述
 
-## 正文
+## 内容分析
 
-## 总结
+## 个人感悟

@@ -3,19 +3,18 @@ languageCode = 'zh-cn'
 defaultContentLanguage = 'zh'
 title = '平哥集录'
 theme = 'weisaygrace'
-uglyURLs = true
 
 hasCJKLanguage = true
 buildFuture = true
 mainSections = ['math', 'literature', 'philosophy', 'misc', 'science', 'history']
 capitalizeListTitles = false
-disableKinds = ['taxonomy', 'term']
+enableRobotsTXT = true
+enableEmoji = true
+
 ignoreFiles = [
   'content/pages/(about|links|reading)\.md$',
   'content/taxonomies\.md$',
   'content/archives\.md$',
-  'content/archives\.md',
-  'archives\.md',
   'content/math/2026-06-29-2026-gksx-ping-jia\.md$',
   'content/math/2026-06-30-2026-gksx-2027-bkjy\.md$',
   'content/math/2026-06-30-2026-gksx-zhen-ti\.md$',
@@ -25,6 +24,10 @@ ignoreFiles = [
   'content/math/2026-07-02-gao-kao-math-bi-sha\.md$',
   'content/math/2026-gaokao/2026-07-02-gao-kao-math-bi-sha\.md$'
 ]
+
+[taxonomies]
+  tag = 'tags'
+  category = 'categories'
 
 [pagination]
   pagerSize = 10
@@ -39,15 +42,24 @@ ignoreFiles = [
   favicon = '/favicon.ico'
   themeColor = '#3E3A39'
   imageCDN = 'https://img.pgoj.top'
+  defaultOgImage = '/img/og-default.png'
+
+  [params.defaultCovers]
+    literature = '/img/cover-literature.png'
+    philosophy = '/img/cover-philosophy.png'
+    math = '/img/cover-math.png'
+    misc = '/img/cover-misc.png'
+    science = '/img/cover-science.png'
+    history = '/img/cover-history.png'
 
 [permalinks]
-  math = '/archives/:slug'
-  posts = '/archives/:slug'
-  literature = '/:sections/:slug'
-  philosophy = '/:sections/:slug'
-  misc = '/:sections/:slug'
-  science = '/:sections/:slug'
-  history = '/:sections/:slug'
+  math = '/archives/:slug/'
+  posts = '/archives/:slug/'
+  literature = '/:sections/:slug/'
+  philosophy = '/:sections/:slug/'
+  misc = '/:sections/:slug/'
+  science = '/:sections/:slug/'
+  history = '/:sections/:slug/'
 
 [imaging]
   resampleFilter = "Lanczos"
@@ -58,9 +70,16 @@ ignoreFiles = [
   [markup.highlight]
     noClasses = false
     codeFences = true
+    lineNos = false
+    guessSyntax = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+    [markup.goldmark.extensions]
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
 
 [frontmatter]
   lastmod = ['lastmod', ':git', 'date', 'publishDate']
@@ -69,6 +88,8 @@ ignoreFiles = [
   home = ['HTML', 'RSS', 'JSON']
   section = ['HTML', 'RSS']
   page = ['HTML']
+  taxonomy = ['HTML', 'RSS']
+  term = ['HTML', 'RSS']
 
 [outputFormats.JSON]
   mediatype = "application/json"

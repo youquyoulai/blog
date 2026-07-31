@@ -5,15 +5,17 @@ lastmod: {{ .Date }}
 draft: true
 description: ""
 slug: "{{ .File.ContentBaseName }}"
-tags: []
-categories: []
+tags: ["历史"]
+categories: ["历史"]
 author: "平哥"
 summary: ""
 cover: ""
+period: ""
+figure: ""
 ---
 
-## 引言
+## 历史背景
 
-## 正文
+## 事件经过
 
-## 总结
+## 思考与启示

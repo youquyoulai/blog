@@ -5,15 +5,17 @@ lastmod: {{ .Date }}
 draft: true
 description: ""
 slug: "{{ .File.ContentBaseName }}"
-tags: []
-categories: []
+tags: ["科普"]
+categories: ["科学"]
 author: "平哥"
 summary: ""
 cover: ""
+field: ""
+difficulty: "入门"
 ---
 
 ## 引言
 
-## 正文
+## 原理解析
 
-## 总结
+## 拓展思考

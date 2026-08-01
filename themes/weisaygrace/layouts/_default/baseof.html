@@ -23,16 +23,9 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-    {{/* CSS 使用 Hugo Pipes 处理：minify + fingerprint，支持永久缓存 */}}
-    {{ $css := resources.Get "css/style.css" | minify | fingerprint "sha256" }}
-    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
-
-    {{/* 自定义样式（如果存在 static/css/style.css） */}}
-    {{ if fileExists "static/css/style.css" }}
     <link rel="stylesheet" href="{{ "/css/style.css" | relURL }}">
-    {{ end }}
 
     <!-- SVG Sprite (icons used across theme) -->
     <svg style="display:none">
@@ -110,7 +103,6 @@
         "description": "{{ .Params.description | default (.Summary | plainify | truncate 200) }}",
         "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
         "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
-        "wordCount": "{{ .WordCount }}",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "{{ .Permalink | safeURL }}"
@@ -120,24 +112,10 @@
             "name": "{{ .Params.author | default .Site.Params.author | default .Site.Title }}"
         },
         "publisher": {
-            "@type": "Organization",
-            "name": "{{ .Site.Title }}",
-            "url": "{{ .Site.BaseURL | safeURL }}",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "{{ "logo.png" | absURL }}"
-            }
-        }{{ with .Params.tags }},
-        "keywords": "{{ delimit . ", " }}"
-        {{ end }}{{ with .Params.categories }},
-        "articleSection": "{{ index . 0 }}"
-        {{ end }}{{ $ogImg := "" }}{{ if .Params.thumbnail }}{{ $ogImg = .Params.thumbnail }}{{ else if .Params.cover }}{{ $ogImg = .Params.cover }}{{ else }}{{ with .Section }}{{ $covers := $.Site.Params.defaultCovers }}{{ with index $covers . }}{{ $ogImg = . }}{{ end }}{{ end }}{{ end }}{{ if $ogImg }},
-        "image": {
-            "@type": "ImageObject",
-            "url": "{{ if (findRE "^@image:" $ogImg) }}{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}{{ else if (findRE "^/" $ogImg) }}{{ $ogImg | absLangURL }}{{ else }}{{ $ogImg }}{{ end }}",
-            "width": "1200",
-            "height": "630"
-        }
+            "@type": "Person",
+            "name": "{{ .Site.Params.author | default .Site.Title }}"
+        }{{ with .Params.thumbnail }},
+        "image": "{{ . | absLangURL }}"
         {{ end }}
     }
     </script>
@@ -145,32 +123,18 @@
     {{ end }}
 
     {{ if .IsHome }}
-    <!-- JSON-LD: WebSite + Organization -->
+    <!-- JSON-LD: WebSite -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "{{ .Site.Title }}",
         "url": "{{ .Site.BaseURL | safeURL }}",
-        "description": "{{ .Site.Params.description | default "" }}",
-        "publisher": {
-            "@type": "Organization",
-            "name": "{{ .Site.Title }}",
-            "url": "{{ .Site.BaseURL | safeURL }}",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "{{ "logo.png" | absURL }}"
-            }
-        }{{ with .Site.Params.author }},
+        "description": "{{ .Site.Params.description | default "" }}"{{ with .Site.Params.author }},
         "author": {
             "@type": "Person",
             "name": "{{ . }}"
-        }{{ end }},
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "{{ "search/" | absURL }}?s={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
+        }{{ end }}
     }
     </script>
     {{ end }}
@@ -180,16 +144,10 @@
     {{ with .OutputFormats.Get "rss" }}
     <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
     {{ end }}
-    {{ range .AlternativeOutputFormats -}}
-    <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
-    {{ end -}}
 
     {{ if .IsPage }}
     <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
     {{ if ne (.Lastmod.Format "2006-01-02T15:04:05Z07:00") (.Date.Format "2006-01-02T15:04:05Z07:00") }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
-    {{ with .Params.tags }}
-    {{ range . }}<meta property="article:tag" content="{{ . }}">
-    {{ end }}{{ end }}
     {{ end }}
 
     <!-- Open Graph -->
@@ -204,15 +162,6 @@
         {{ $ogImg = .Params.thumbnail }}
     {{ else if .Params.cover }}
         {{ $ogImg = .Params.cover }}
-    {{ else if .IsHome }}
-        {{ $ogImg = .Site.Params.defaultOgImage | default "" }}
-    {{ else }}
-        {{ with .Section }}
-            {{ $covers := $.Site.Params.defaultCovers }}
-            {{ with index $covers . }}
-                {{ $ogImg = . }}
-            {{ end }}
-        {{ end }}
     {{ end }}
     {{ if $ogImg }}
     {{ if (findRE "^@image:" $ogImg) }}
@@ -225,7 +174,6 @@
     <meta property="og:image:alt" content="{{ .Title | default "文章配图" }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:type" content="image/png">
     {{ end }}
 
     <!-- Twitter Card -->
@@ -242,7 +190,7 @@
     {{ end }}
     {{ end }}
 
-    {{ printf "<meta name=\"generator\" content=\"Hugo %s\">" hugo.Version | safeHTML }}
+    {{ printf "<meta name=\"generator\" content=\"Hugo\">" | safeHTML }}
 
     {{/* MathJax 3 - 仅在有数学公式的文章页面加载 */}}
     {{ $needMath := false }}
@@ -330,8 +278,8 @@
 
 {{ partial "footer.html" . }}
 
-{{ $js := resources.Get "js/main.js" | minify | fingerprint "sha256" }}
-<script src="{{ $js.RelPermalink }}" defer integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ $js := resources.Get "js/main.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" defer></script>
 
 {{ block "scripts" . }}{{ end }}
 

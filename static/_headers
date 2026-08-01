@@ -1,11 +1,6 @@
-# ========================================
-# 缓存策略
-# ========================================
-
-# CSS/JS：使用 fingerprint 后永久缓存
+# CSS 使用固定文件名，更新后必须重新验证
 /css/*.css
-  Cache-Control: public, max-age=31536000, immutable
-
+  Cache-Control: public, max-age=0, must-revalidate
 /js/*.js
   Cache-Control: public, max-age=31536000, immutable
 
@@ -20,22 +15,6 @@
   Cache-Control: public, max-age=2592000
 /*.jpg
   Cache-Control: public, max-age=2592000
-/*.jpeg
-  Cache-Control: public, max-age=2592000
-/*.gif
-  Cache-Control: public, max-age=2592000
-/*.svg
-  Cache-Control: public, max-age=2592000
-/*.ico
-  Cache-Control: public, max-age=2592000
-
-# 字体永久缓存
-/*.woff2
-  Cache-Control: public, max-age=31536000, immutable
-/*.woff
-  Cache-Control: public, max-age=31536000, immutable
-/*.ttf
-  Cache-Control: public, max-age=31536000, immutable
 
 # HTML 文件不缓存（保证内容更新即时生效）
 /*.html
@@ -46,25 +25,3 @@
   Cache-Control: public, max-age=3600
 /searchindex.json
   Cache-Control: public, max-age=3600
-/taxonomies.json
-  Cache-Control: public, max-age=3600
-
-# Sitemap 缓存 1 天
-/sitemap.xml
-  Cache-Control: public, max-age=86400
-
-# PWA manifest 缓存 7 天
-/site.webmanifest
-  Cache-Control: public, max-age=604800
-
-# ========================================
-# 安全头
-# ========================================
-
-/*
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  X-XSS-Protection: 1; mode=block

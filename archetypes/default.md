@@ -1,19 +1,5 @@
----
-title: "{{ replace .File.ContentBaseName "-" " " | title }}"
-date: {{ .Date }}
-lastmod: {{ .Date }}
-draft: true
-description: ""
-slug: "{{ .File.ContentBaseName }}"
-tags: []
-categories: []
-author: "平哥"
-summary: ""
-cover: ""
----
-
-## 引言
-
-## 正文
-
-## 总结
++++
+date = '{{ .Date }}'
+draft = true
+title = '{{ replace .File.ContentBaseName "-" " " | title }}'
++++

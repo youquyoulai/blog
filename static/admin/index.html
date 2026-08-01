@@ -2648,4 +2648,20 @@ async function deletePage() {
   if (!editingPage) return;
   if (!confirm('确定删除这个页面？')) return;
   try {
-    await api('/api/pages/' + encodeURIComponent(editingPage.filename), 'DELETE', { 
+    await api('/api/pages/' + encodeURIComponent(editingPage.filename), 'DELETE', { sha: editingPage.sha });
+    toast('已删除', 'success');
+    backToPages();
+  } catch (e) {
+    toast('删除失败: ' + e.message, 'error');
+  }
+}
+
+/* ===== 设置 ===== */
+function showSettings() { switchTab('settings'); }
+
+// 启动
+init();
+
+</script>
+</body>
+</html>

@@ -74,4 +74,31 @@ ignoreFiles = [
 [outputFormats.JSON]
   mediatype = "application/json"
   baseName = "searchindex"
-  isPlainTe
+  isPlainText = true
+  notAlternative = true
+
+[build]
+  writeStats = true
+  [build.cachebusters]
+    [build.cachebusters.static]
+      source = "assets/.*\\.(js|css|scss)$"
+      target = "static"
+
+[services.rss]
+  limit = 20
+
+[outputFormats.RSS]
+  mediatype = "application/rss+xml"
+  baseName = "feed"
+
+[sitemap]
+  changefreq = 'weekly'
+  priority = 0.5
+  filename = 'sitemap.xml'
+
+[minify]
+  minifyOutput = true
+  [minify.tdewolff]
+    [minify.tdewolff.html]
+      keepComments = false
+      keepWhitespace = false

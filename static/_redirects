@@ -1,26 +1,2 @@
-# RSS 重定向
+# RSS 重定向：/feed → /feed.xml
 /feed  /feed.xml  301
-
-# 从 uglyURLs (.html) 迁移到 pretty URL 的 301 重定向
-# 文章页
-/archives/*.html  /archives/:splat/  301
-
-# 分类页
-/literature/*.html  /literature/:splat/  301
-/philosophy/*.html  /philosophy/:splat/  301
-/math/*.html  /math/:splat/  301
-/misc/*.html  /misc/:splat/  301
-/science/*.html  /science/:splat/  301
-/history/*.html  /history/:splat/  301
-
-# 独立页面
-/guestbook.html  /guestbook/  301
-/search.html  /search/  301
-
-# 列表首页重定向
-/literature.html  /literature/  301
-/philosophy.html  /philosophy/  301
-/math.html  /math/  301
-/misc.html  /misc/  301
-/science.html  /science/  301
-/history.html  /history/  301

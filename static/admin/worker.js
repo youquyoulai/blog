@@ -1047,4 +1047,15 @@ export default {
         return await getPage(filename, env);
       }
 
-      // ─── 构建触发 ───────────────────────────────────�
+      // ─── 构建触发 ─────────────────────────────────────────────────
+      if (path === '/wgpjyhxlxn/api/deploy' && request.method === 'POST') {
+        return await triggerDeploy(env);
+      }
+
+      return corsResponse(JSON.stringify({ error: 'Not Found' }), 404);
+    } catch (e) {
+      console.error('Worker 错误:', e.message);
+      return corsResponse(JSON.stringify({ error: e.message }), 500);
+    }
+  },
+};

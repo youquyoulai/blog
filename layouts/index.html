@@ -1,0 +1,88 @@
+{{ define "main" }}
+{{ $cats := (index hugo.Data "kb-categories") }}
+
+<div class="wyg-catalog-section">
+    <p class="wyg-catalog-title">── 分类索引 ──</p>
+
+    <div class="section-grid">
+    {{ range $cats }}
+    {{ $sec := $.Site.GetPage (printf "/%s" .name) }}
+    {{ if $sec }}
+    {{ $pages := $sec.RegularPages }}
+    {{ range $sec.Sections }}{{ $pages = $pages | append .RegularPages }}{{ end }}
+    {{ $count := len $pages }}
+    {{ $sectionCount := len $sec.Sections }}
+    <a href="{{ $sec.Permalink }}" class="section-card {{ .name }}">
+        <div class="section-card-header">
+            <div class="section-card-seal">
+                <span class="section-card-icon-text">{{ .icon | default (substr .title 0 1) }}</span>
+            </div>
+            <div class="section-card-title-area">
+                <div class="section-card-title">{{ .title }}</div>
+                <div class="section-card-desc">{{ .description }}</div>
+            </div>
+        </div>
+        <div class="section-card-body">
+            <div class="section-card-stats">{{ $count }} 篇文章 · {{ $sectionCount }} 个专题</div>
+        </div>
+        <div class="section-card-footer">
+            <div class="section-card-tags">
+                <span class="section-card-tag">#{{ .title }}</span>
+            </div>
+            <span class="section-card-enter">[ 入 阁 ]</span>
+        </div>
+    </a>
+    {{ end }}
+    {{ end }}
+    </div>
+</div>
+
+{{ $notesSec := .Site.GetPage "/notes" }}
+{{ if $notesSec }}
+{{ $notes := $notesSec.RegularPages }}
+{{ if gt (len $notes) 0 }}
+<div class="wyg-notes-section">
+    <div class="wyg-notes-header">
+        <h2 class="wyg-notes-title">
+            <span class="wyg-notes-icon">📝</span>
+            近日随记
+        </h2>
+        <a href="{{ $notesSec.Permalink }}" class="wyg-notes-more">
+            全部随记 →
+        </a>
+    </div>
+    <div class="wyg-notes-list">
+        {{ range first 5 $notes.ByDate.Reverse }}
+        <article class="wyg-note-item">
+            <div class="wyg-note-date">{{ .Date.Format "01-02" }}</div>
+            <div class="wyg-note-body">
+                <div class="wyg-note-content">{{ .Summary | plainify | truncate 120 }}</div>
+                {{ with .Params.tags }}
+                <div class="wyg-note-tags">
+                    {{ range first 3 . }}<span class="wyg-note-tag">#{{ . }}</span>{{ end }}
+                </div>
+                {{ end }}
+            </div>
+            <a href="{{ .Permalink }}" class="wyg-note-link" aria-label="查看全文"></a>
+        </article>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
+{{ end }}
+
+<div class="kb-recent">
+    <h2>最新文章</h2>
+    <ul>
+        {{ $sections := slice }}
+        {{ range $cats }}{{ $sections = $sections | append .name }}{{ end }}
+        {{ $allPages := where .Site.RegularPages "Section" "in" $sections }}
+        {{ range first 10 $allPages.ByDate.Reverse }}
+        <li>
+            <a href="{{ .Permalink }}">{{ .Title | truncate 60 }}</a>
+            <span class="kb-date">{{ .Date.Format "2006-01-02" }}</span>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}

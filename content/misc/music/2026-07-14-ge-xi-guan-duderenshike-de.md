@@ -1,5 +1,7 @@
 ---
+
 title: "张楚歌曲《姐姐》《西出阳关》《孤独的人是可耻的》"
+description: "一、《姐姐》：中国民谣摇滚的精神起点"
 date: 2026-07-15T00:38:00+08:00
 slug: "ge-xi-guan-duderenshike-de"
 ---

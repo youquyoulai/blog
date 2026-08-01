@@ -1,5 +1,7 @@
 ---
+
 title: "AI解决的著名数学问题总结"
+description: "一、埃尔德什（Erdős）问题系列"
 date: 2026-08-02T05:52:00+08:00
 slug: "AI-shu-xue-wen-ti"
 ---

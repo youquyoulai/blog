@@ -1,5 +1,7 @@
 ---
+
 title: "高考数学大招与必杀技的真相"
+description: "一、现象：短视频时代的\"数学速成神话\""
 date: 2026-07-02T09:27:00+08:00
 cover: "@image:2026slt/sxtj.webp"
 slug: "gao-kao-math-bi-sha"

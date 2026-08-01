@@ -1,5 +1,7 @@
 ---
+
 title: "高中数学单峰函数专题整理"
+description: "适用范围：新高考导数综合题 / 极值点偏移 / 函数零点问题 核心定位：理解单峰函数是掌握极值点偏移、双零点问题的关键基础"
 date: 2026-07-01T14:50:00+08:00
 cover: "@image:2026slt/sxtj.webp"
 slug: "gai-shu-dan-feng-han-shu"

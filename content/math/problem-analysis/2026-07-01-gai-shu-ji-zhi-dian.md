@@ -1,5 +1,7 @@
 ---
+
 title: "高中数学极值点偏移专题完整整理"
+description: "适用范围：新高考导数压轴题 / 高考模拟题压轴 核心定位：导数压轴题的常规套路之一，掌握后可稳定拿下2-3道导数大题的分数"
 date: 2026-07-01T09:12:00+08:00
 cover: "@image:2026slt/sxtj.webp"
 slug: "gai-shu-ji-zhi-dian"

@@ -1,5 +1,7 @@
 ---
+
 title: "高中数学该重视的是通性通法"
+description: "毋庸讳言，高中数学教学中应该重视通性通法，尽可能的淡化特殊方法或解题技巧。今日浏览闲逛时发现两个反面的例子："
 date: 2021-08-01T15:09:00+08:00
 cover: "@image:202606/daoshugaoyi.webp"
 categories: [teaching-chatter]

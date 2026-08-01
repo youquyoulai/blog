@@ -1,9 +1,10 @@
 ---
+
 title: "王小波《革命时期的爱情》"
+description: "王小波《革命时期的爱情》"
 date: 2026-07-08T14:00:00+08:00
 slug: "wang-xiaobo-geming-aiqing"
 ---
-
 # 王小波《革命时期的爱情》
 
 ---

@@ -1,5 +1,7 @@
 ---
+
 title: "野草的生长与蔓延——王宝强的成长之路与表演风格"
+description: "引言：一个无法被归类的人"
 date: 2026-07-30T07:09:00+08:00
 slug: "wang-bao-qiang-li-cheng"
 ---

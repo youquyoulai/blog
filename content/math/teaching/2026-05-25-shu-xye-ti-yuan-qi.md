@@ -1,5 +1,7 @@
 ---
+
 title: "关于数学题解这个栏目的缘起"
+description: "以前做数学资源网站，专门收集、制作、分享数学资源，如今那些东西全都不知所踪。后来，断断续续在公众号上写了好长时间的数学题解，这些文档或图片就保存在电脑里。"
 date: 2026-05-25T06:32:00+08:00
 cover: "@image:2026slt/sxtj.webp"
 categories: [teaching-chatter]

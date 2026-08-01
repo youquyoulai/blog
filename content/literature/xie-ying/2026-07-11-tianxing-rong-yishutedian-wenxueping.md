@@ -1,9 +1,10 @@
 ---
+
 title: "刘醒龙《天行者》：内容、艺术特点与文学评价"
+description: "刘醒龙《天行者》：内容、艺术特点与文学评价"
 date: 2026-07-11T00:47:00+08:00
 slug: "tianxing-rong-yishutedian-wenxueping"
 ---
-
 # 刘醒龙《天行者》：内容、艺术特点与文学评价
 
 ## 一、作品基本信息

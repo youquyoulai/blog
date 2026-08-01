@@ -1,5 +1,7 @@
 ---
+
 title: "2026年高考全国1卷数学高考真题第8题"
+description: "2026年高考全国1卷数学高考真题第8题考察离散型随机变量的均值"
 date: 2026-06-16T16:41:00+08:00
 cover: "@image:202606/2026gaokaoshuxueyijuan8-300.webp"
 categories: [math-solutions]

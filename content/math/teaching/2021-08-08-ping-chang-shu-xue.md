@@ -1,5 +1,7 @@
 ---
+
 title: "保持平常心学习高中数学"
+description: "有人发头条表达了如下观点："
 date: 2021-08-08T15:19:00+08:00
 cover: "@image:2026slt/sxtj.webp"
 slug: "ping-chang-shu-xue"

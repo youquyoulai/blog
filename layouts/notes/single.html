@@ -1,0 +1,92 @@
+{{ define "main" }}
+{{ partial "breadcrumbs.html" . }}
+
+<article class="article note-single">
+<header class="note-single-header">
+    <div class="note-single-meta">
+        <span class="note-single-date">
+            <svg class="posticon"><use href="#icon-calendar"/></svg>
+            {{ .Date.Format "2006年01月02日 15:04" }}
+        </span>
+        <span class="note-single-category">
+            <svg class="posticon"><use href="#icon-folder"/></svg>
+            <a href="{{ .CurrentSection.Permalink }}">随记</a>
+        </span>
+        {{ with .Params.tags }}
+        <span class="note-single-tags">
+            <svg class="posticon"><use href="#icon-tag"/></svg>
+            {{ range . }}<span class="note-single-tag">#{{ . }}</span>{{ end }}
+        </span>
+        {{ end }}
+    </div>
+</header>
+
+<div class="article-content note-single-body" itemprop="articleBody">
+{{ .Content }}
+</div>
+
+</article>
+
+<div class="article article-navigation">
+{{ with .PrevInSection }}
+<a class="nav-item nav-prev" href="{{ .Permalink }}">
+    <div class="nav-item-content">
+        <div class="nav-item-label">上一条</div>
+        <div class="nav-item-title"><p>{{ .Date.Format "2006-01-02" }} · {{ .Summary | plainify | truncate 30 }}</p></div>
+    </div>
+</a>
+{{ else }}
+<div class="nav-item nav-prev nav-item-empty"><div class="nav-item-content">已是最早的随记了</div></div>
+{{ end }}
+{{ with .NextInSection }}
+<a class="nav-item nav-next" href="{{ .Permalink }}">
+    <div class="nav-item-content">
+        <div class="nav-item-label">下一条</div>
+        <div class="nav-item-title"><p>{{ .Date.Format "2006-01-02" }} · {{ .Summary | plainify | truncate 30 }}</p></div>
+    </div>
+</a>
+{{ else }}
+<div class="nav-item nav-next nav-item-empty"><div class="nav-item-content">已是最新的随记了</div></div>
+{{ end }}
+</div>
+
+<!-- Waline 评论 -->
+<div class="article note-comments">
+    <h3 class="note-comments-title">💬 评论</h3>
+    <div id="waline"></div>
+</div>
+
+<script src="https://unpkg.com/@waline/client@v2/dist/waline.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+(function() {
+  // 统一 path 格式：去掉 .html 后缀，确保以 / 结尾（首页特殊处理）
+  var path = window.location.pathname;
+  if (path.endsWith('.html')) {
+    path = path.slice(0, -5);
+  }
+  if (!path.endsWith('/') && !path.includes('.')) {
+    path = path + '/';
+  }
+
+  Waline.init({
+    el: '#waline',
+    serverURL: 'https://waline.pgoj.top',
+    path: path,
+    lang: 'zh-CN',
+    emoji: [
+      'https://unpkg.com/@waline/emojis@1.2.0/weibo',
+      'https://unpkg.com/@waline/emojis@1.2.0/alus'
+    ],
+    requiredMeta: ['nick'],
+    login: 'disable',
+    commentSorting: 'latest',
+    avatar: 'mp',
+    placeholder: '说点什么吧...',
+    wordLimit: 500,
+    pageSize: 10
+  });
+})();
+</script>
+
+{{ end }}

@@ -566,11 +566,23 @@ async function listPosts(request, env) {
   const posts = [];
 
   // Get top-level contents
-  const data = await githubFetch(
-    '/repos/' + GITHUB_REPO + '/contents/' + dir,
-    'GET',
-    env.GITHUB_TOKEN
-  );
+  let data;
+  try {
+    data = await githubFetch(
+      '/repos/' + GITHUB_REPO + '/contents/' + dir,
+      'GET',
+      env.GITHUB_TOKEN
+    );
+  } catch (e) {
+    // 目录不存在时返回空数组
+    console.error('listPosts failed for ' + dir + ':', e.message);
+    return corsResponse(JSON.stringify([]));
+  }
+
+  // GitHub 返回单个文件时是对象而非数组
+  if (!Array.isArray(data)) {
+    return corsResponse(JSON.stringify([]));
+  }
 
   for (const f of data) {
     if (f.type === 'file' && f.name.endsWith('.md') && f.name !== '_index.md') {
@@ -583,9 +595,11 @@ async function listPosts(request, env) {
           'GET',
           env.GITHUB_TOKEN
         );
-        for (const sf of subData) {
-          if (sf.type === 'file' && sf.name.endsWith('.md') && sf.name !== '_index.md') {
-            posts.push({ name: sf.name, slug: sf.name.replace(/\.md$/, ''), sha: sf.sha, path: sf.path, subSection: f.name });
+        if (Array.isArray(subData)) {
+          for (const sf of subData) {
+            if (sf.type === 'file' && sf.name.endsWith('.md') && sf.name !== '_index.md') {
+              posts.push({ name: sf.name, slug: sf.name.replace(/\.md$/, ''), sha: sf.sha, path: sf.path, subSection: f.name });
+            }
           }
         }
       } catch (e) {
@@ -1033,15 +1047,4 @@ export default {
         return await getPage(filename, env);
       }
 
-      // ─── 构建触发 ─────────────────────────────────────────────────
-      if (path === '/wgpjyhxlxn/api/deploy' && request.method === 'POST') {
-        return await triggerDeploy(env);
-      }
-
-      return corsResponse(JSON.stringify({ error: 'Not Found' }), 404);
-    } catch (e) {
-      console.error('Worker 错误:', e.message);
-      return corsResponse(JSON.stringify({ error: e.message }), 500);
-    }
-  },
-};
+      // ─── 构建触发 ───────────────────────────────────�

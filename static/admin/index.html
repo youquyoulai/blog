@@ -451,6 +451,7 @@
               <option value="philosophy">哲学</option>
               <option value="science">科学</option>
               <option value="misc">艺术</option>
+              <option value="notes">随记</option>
             </select>
           </div>
           <button class="btn btn-primary" onclick="newPost()">
@@ -474,6 +475,7 @@
               <option value="philosophy">哲学</option>
               <option value="science">科学</option>
               <option value="misc">艺术</option>
+              <option value="notes">随记</option>
             </select>
           </div>
           <button class="btn btn-primary" onclick="newSubSection()">
@@ -512,6 +514,7 @@
               <option value="philosophy">哲学</option>
               <option value="science">科学</option>
               <option value="misc">艺术</option>
+              <option value="notes">随记</option>
             </select>
           </div>
           <div class="form-field">
@@ -601,6 +604,7 @@
               <option value="philosophy">哲学</option>
               <option value="science">科学</option>
               <option value="misc">艺术</option>
+              <option value="notes">随记</option>
             </select>
           </div>
         </div>
@@ -769,6 +773,7 @@
                   <option value="philosophy">哲学</option>
                   <option value="science">科学</option>
                   <option value="misc">艺术</option>
+                  <option value="notes">随记</option>
                 </select>
               </div>
               <div style="display:flex;flex-direction:column;gap:2px;">
@@ -1008,7 +1013,8 @@ function api(path, method, body) {
 
 var _SECTION_DISPLAY = {
   'math': '数学', 'literature': '文学', 'history': '历史',
-  'philosophy': '哲学', 'science': '科学', 'misc': '艺术'
+  'philosophy': '哲学', 'science': '科学', 'misc': '艺术',
+  'notes': '随记'
 };
 function sectionDisplayName(slug) {
   return _SECTION_DISPLAY[slug] || slug;
@@ -2642,20 +2648,4 @@ async function deletePage() {
   if (!editingPage) return;
   if (!confirm('确定删除这个页面？')) return;
   try {
-    await api('/api/pages/' + encodeURIComponent(editingPage.filename), 'DELETE', { sha: editingPage.sha });
-    toast('已删除', 'success');
-    backToPages();
-  } catch (e) {
-    toast('删除失败: ' + e.message, 'error');
-  }
-}
-
-/* ===== 设置 ===== */
-function showSettings() { switchTab('settings'); }
-
-// 启动
-init();
-
-</script>
-</body>
-</html>
+    await api('/api/pages/' + encodeURIComponent(editingPage.filename), 'DELETE', { 

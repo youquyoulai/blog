@@ -56,8 +56,8 @@
     <div id="waline"></div>
 </div>
 
-<script src="https://unpkg.com/@waline/client@v2/dist/waline.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script src="{{ "/js/waline/waline.js" | relURL }}"></script>
+<link rel="stylesheet" href="{{ "/js/waline/waline.css" | relURL }}">
 <script>
 (function() {
   // 统一 path 格式：去掉 .html 后缀，确保以 / 结尾（首页特殊处理）
@@ -75,8 +75,8 @@
     path: path,
     lang: 'zh-CN',
     emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/weibo',
-      'https://unpkg.com/@waline/emojis@1.2.0/alus'
+      'https://cdn.jsdelivr.net/npm/@waline/emojis@1.2.0/weibo',
+      'https://cdn.jsdelivr.net/npm/@waline/emojis@1.2.0/alus'
     ],
     requiredMeta: ['nick'],
     login: 'disable',

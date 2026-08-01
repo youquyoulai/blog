@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /search/
+Disallow: /*?*
+
+# 分页页（uglyURLs 格式兼容）
+{{ if site.Config.Pagination.Enable }}
+Disallow: /page/
+{{ end }}
+
+Sitemap: {{ trim .Site.BaseURL "/" }}/sitemap.xml

@@ -50,14 +50,12 @@
 {{ end }}
 </div>
 
-<!-- Waline 评论 -->
-<div class="article note-comments">
+<!-- Waline 评论（懒加载：滚动到评论区时再加载） -->
+<div class="article note-comments" id="waline-wrapper">
     <h3 class="note-comments-title">💬 评论</h3>
     <div id="waline"></div>
 </div>
 
-<script src="{{ "/js/waline/waline.js" | relURL }}"></script>
-<link rel="stylesheet" href="{{ "/js/waline/waline.css" | relURL }}">
 <script>
 (function() {
   // 统一 path 格式：去掉 .html 后缀，确保以 / 结尾（首页特殊处理）
@@ -69,23 +67,68 @@
     path = path + '/';
   }
 
-  Waline.init({
-    el: '#waline',
-    serverURL: 'https://waline.pgoj.top',
-    path: path,
-    lang: 'zh-CN',
-    emoji: [
-      'https://cdn.jsdelivr.net/npm/@waline/emojis@1.2.0/weibo',
-      'https://cdn.jsdelivr.net/npm/@waline/emojis@1.2.0/alus'
-    ],
-    requiredMeta: ['nick'],
-    login: 'disable',
-    commentSorting: 'latest',
-    avatar: 'mp',
-    placeholder: '说点什么吧...',
-    wordLimit: 500,
-    pageSize: 10
-  });
+  var walineLoaded = false;
+  var walineCSS = "{{ "/js/waline/waline.css" | relURL }}";
+  var walineJS = "{{ "/js/waline/waline.js" | relURL }}";
+
+  function loadWaline() {
+    if (walineLoaded) return;
+    walineLoaded = true;
+
+    // 加载 CSS
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = walineCSS;
+    document.head.appendChild(link);
+
+    // 加载 JS
+    var script = document.createElement('script');
+    script.src = walineJS;
+    script.onload = function() {
+      if (window.Waline) {
+        Waline.init({
+          el: '#waline',
+          serverURL: 'https://waline.pgoj.top',
+          path: path,
+          lang: 'zh-CN',
+          emoji: [
+            'https://cdn.jsdelivr.net/npm/@waline/emojis@1.2.0/weibo',
+            'https://cdn.jsdelivr.net/npm/@waline/emojis@1.2.0/alus'
+          ],
+          requiredMeta: ['nick'],
+          login: 'disable',
+          commentSorting: 'latest',
+          avatar: 'mp',
+          placeholder: '说点什么吧...',
+          wordLimit: 500,
+          pageSize: 10
+        });
+      }
+    };
+    document.body.appendChild(script);
+  }
+
+  // Intersection Observer 懒加载
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadWaline();
+          observer.disconnect();
+        }
+      });
+    }, { rootMargin: '200px' });
+
+    var wrapper = document.getElementById('waline-wrapper');
+    if (wrapper) {
+      observer.observe(wrapper);
+    } else {
+      loadWaline();
+    }
+  } else {
+    // 不支持 IntersectionObserver 时直接加载
+    loadWaline();
+  }
 })();
 </script>
 

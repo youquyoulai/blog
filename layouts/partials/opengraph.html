@@ -1,0 +1,33 @@
+{{/* SEO: Open Graph */}}
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}">
+<meta property="og:description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 160) }}{{ end }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:locale" content="zh_CN">
+{{ $ogImg := "" }}
+{{ if .Params.thumbnail }}
+    {{ $ogImg = .Params.thumbnail }}
+{{ else if .Params.cover }}
+    {{ $ogImg = .Params.cover }}
+{{ end }}
+{{ if $ogImg }}
+{{ if (findRE "^@image:" $ogImg) }}
+<meta property="og:image" content="{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}">
+<meta property="og:image:secure_url" content="{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}">
+{{ else if (findRE "^/" $ogImg) }}
+<meta property="og:image" content="{{ $ogImg | absLangURL }}">
+<meta property="og:image:secure_url" content="{{ $ogImg | absLangURL }}">
+{{ else }}
+<meta property="og:image" content="{{ $ogImg }}">
+<meta property="og:image:secure_url" content="{{ $ogImg }}">
+{{ end }}
+<meta property="og:image:alt" content="{{ .Title | default "文章配图" }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+{{ end }}
+{{ if .IsPage }}
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+{{ if ne (.Lastmod.Format "2006-01-02T15:04:05Z07:00") (.Date.Format "2006-01-02T15:04:05Z07:00") }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+<meta property="article:author" content="{{ .Params.author | default .Site.Params.author }}">
+{{ end }}

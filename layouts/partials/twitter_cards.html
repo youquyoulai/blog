@@ -1,0 +1,19 @@
+{{/* SEO: Twitter Card */}}
+{{ $ogImg := "" }}
+{{ if .Params.thumbnail }}
+    {{ $ogImg = .Params.thumbnail }}
+{{ else if .Params.cover }}
+    {{ $ogImg = .Params.cover }}
+{{ end }}
+<meta name="twitter:card" content="{{ if $ogImg }}summary_large_image{{ else }}summary{{ end }}">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}">
+<meta name="twitter:description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 160) }}{{ end }}">
+{{ if $ogImg }}
+{{ if (findRE "^@image:" $ogImg) }}
+<meta name="twitter:image" content="{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}">
+{{ else if (findRE "^/" $ogImg) }}
+<meta name="twitter:image" content="{{ $ogImg | absLangURL }}">
+{{ else }}
+<meta name="twitter:image" content="{{ $ogImg }}">
+{{ end }}
+{{ end }}

@@ -35,12 +35,12 @@ ignoreFiles = [
   builtYear = '2026'
   email = 'wuliwuju@126.com'
   favicon = '/favicon.ico'
+  appleTouchIcon = '/apple-touch-icon.png'
   themeColor = '#3E3A39'
   imageCDN = 'https://img.pgoj.top'
 
 [permalinks]
   math = '/archives/:slug'
-  posts = '/archives/:slug'
   literature = '/:sections/:slug'
   philosophy = '/:sections/:slug'
   misc = '/:sections/:slug'
@@ -76,3 +76,27 @@ ignoreFiles = [
   notAlternative = true
 
 [build]
+  writeStats = true
+  [build.cachebusters]
+    [build.cachebusters.static]
+      source = "assets/.*\\.(js|css|scss)$"
+      target = "static"
+
+[services.rss]
+  limit = 20
+
+[outputFormats.RSS]
+  mediatype = "application/rss+xml"
+  baseName = "feed"
+
+[sitemap]
+  changefreq = 'weekly'
+  priority = 0.5
+  filename = 'sitemap.xml'
+
+[minify]
+  minifyOutput = true
+  [minify.tdewolff]
+    [minify.tdewolff.html]
+      keepComments = false
+      keepWhitespace = false

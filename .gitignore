@@ -30,3 +30,9 @@ content/taxonomies.md
 # 构建产物 / 优化报告
 public_new/
 hugo-blog-optimization/
+hugo-blog-audit/
+tmp-patch/
+_old_content_backup/
+
+# WorkBuddy 工作目录
+.workbuddy/

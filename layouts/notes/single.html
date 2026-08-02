@@ -83,7 +83,7 @@
 
     // 注入自定义样式：隐藏编辑器工具栏（预览、表情、图片上传等按钮）
     var style = document.createElement('style');
-    style.textContent = '.wl-editor-toolbar{display:none!important}';
+    style.textContent = '#waline .wl-editor-toolbar,#waline .wl-editor-footer>div:first-child,#waline .wl-gallery,#waline .wl-preview-btn,#waline button[aria-label="预览"],#waline button[aria-label="表情"],#waline button[aria-label="图片上传"]{display:none!important}';
     document.head.appendChild(style);
 
     // 加载 JS

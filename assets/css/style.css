@@ -543,6 +543,14 @@ img.alignleft,img.alignright,img.aligncenter,img.alignnone{margin-bottom:.325rem
 #waline .wl-comment-actions button{color:var(--color_notes)}
 #waline .wl-submit{background:var(--color_notes)!important;border-color:var(--color_notes)!important}
 #waline .wl-submit:hover{background:var(--color_hover)!important}
+/* 隐藏评论编辑器工具栏（预览/表情/GIF/图片上传等按钮） */
+#waline .wl-editor-toolbar,
+#waline .wl-editor-footer > div:first-child,
+#waline .wl-editor .wl-gallery,
+#waline .wl-preview-btn,
+#waline button[aria-label="预览"],
+#waline button[aria-label="表情"],
+#waline button[aria-label="图片上传"]{display:none!important}
 
 @media screen and (max-width:767px){
 .wyg-note-item{flex-direction:column;gap:.375rem}

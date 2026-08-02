@@ -115,9 +115,9 @@
                     {{ if $notesSec }}
                     <li><a href="{{ $notesSec.Permalink }}"{{ if eq $.Section "notes" }} class="current_page_item"{{ end }}>随记</a></li>
                     {{ end }}
-                    {{ $guestbook := site.GetPage "/pages/guestbook" }}
-                    {{ if $guestbook }}
-                    <li><a href="{{ $guestbook.Permalink }}">留言</a></li>
+                    {{ $aboutPage := site.GetPage "/pages/about" }}
+                    {{ if $aboutPage }}
+                    <li><a href="{{ $aboutPage.Permalink }}">关于</a></li>
                     {{ end }}
                 </ul>
             </nav>

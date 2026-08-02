@@ -11,7 +11,7 @@ mainSections = ['math', 'literature', 'philosophy', 'misc', 'science', 'history'
 capitalizeListTitles = false
 disableKinds = ['taxonomy', 'term']
 ignoreFiles = [
-  'content/pages/(about|links|reading)\.md$',
+  'content/pages/(links|reading)\.md$',
   'content/taxonomies\.md$',
   'content/archives\.md$',
   'content/math/2026-06-29-2026-gksx-ping-jia\.md$',

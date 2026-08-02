@@ -30,9 +30,13 @@
 <li><a href="{{ $sec.Permalink }}"{{ if eq $current.Section .name }} class="current_page_item"{{ end }}>{{ .title }}</a></li>
 {{- end -}}
 {{- end -}}
-{{- $guestbook := site.GetPage "/pages/guestbook" -}}
-{{- if $guestbook -}}
-<li><a href="{{ $guestbook.Permalink }}">留言</a></li>
+{{- $notesSec := $current.Site.GetPage "/notes" -}}
+{{- if $notesSec -}}
+<li><a href="{{ $notesSec.Permalink }}"{{ if eq $current.Section "notes" }} class="current_page_item"{{ end }}>随记</a></li>
+{{- end -}}
+{{- $aboutPage := site.GetPage "/pages/about" -}}
+{{- if $aboutPage -}}
+<li><a href="{{ $aboutPage.Permalink }}">关于</a></li>
 {{- end -}}
 </ul>
 </nav>

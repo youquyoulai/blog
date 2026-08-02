@@ -22,7 +22,6 @@ hugo_server.log
 static/admin/index.html.bak*
 
 # 已弃用的旧独立页面，本地若有草稿占位也不提交
-content/pages/about.md
 content/pages/links.md
 content/pages/reading.md
 content/taxonomies.md

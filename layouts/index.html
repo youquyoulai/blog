@@ -47,9 +47,6 @@
             <span class="wyg-notes-icon">📝</span>
             近日随记
         </h2>
-        <a href="{{ $notesSec.Permalink }}" class="wyg-notes-more">
-            全部随记 →
-        </a>
     </div>
     <div class="wyg-notes-list">
         {{ range first 5 $notes.ByDate.Reverse }}
@@ -72,7 +69,7 @@
 {{ end }}
 
 <div class="kb-recent">
-    <h2>最新文章</h2>
+    <h2><span class="wyg-notes-icon">📚</span>最新文章</h2>
     <ul>
         {{ $sections := slice }}
         {{ range $cats }}{{ $sections = $sections | append .name }}{{ end }}

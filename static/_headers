@@ -7,6 +7,10 @@
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https://img.pgoj.top https://waline.pgoj.top https://cdn.jsdelivr.net data:; font-src 'self'; connect-src 'self' https://waline.pgoj.top; frame-ancestors 'self'
 
+# Admin 后台需要连接 API（api.pgoj.top）和 R2 图库
+/admin/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https://img.pgoj.top data:; font-src 'self'; connect-src 'self' https://api.pgoj.top; frame-ancestors 'self'
+
 # CSS 带 hash 指纹，可长期缓存
 /css/*.css
   Cache-Control: public, max-age=31536000, immutable

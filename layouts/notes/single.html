@@ -81,6 +81,11 @@
     link.href = walineCSS;
     document.head.appendChild(link);
 
+    // 注入自定义样式：隐藏编辑器工具栏（预览、表情、图片上传等按钮）
+    var style = document.createElement('style');
+    style.textContent = '.wl-editor-toolbar{display:none!important}';
+    document.head.appendChild(style);
+
     // 加载 JS
     var script = document.createElement('script');
     script.src = walineJS;
@@ -91,17 +96,16 @@
           serverURL: 'https://waline.pgoj.top',
           path: path,
           lang: 'zh-CN',
-          emoji: [
-            'https://cdn.jsdelivr.net/npm/@waline/emojis@1.2.0/weibo',
-            'https://cdn.jsdelivr.net/npm/@waline/emojis@1.2.0/alus'
-          ],
           requiredMeta: ['nick'],
           login: 'disable',
           commentSorting: 'latest',
           avatar: 'mp',
           placeholder: '说点什么吧...',
           wordLimit: 500,
-          pageSize: 10
+          pageSize: 10,
+          imageUploader: false,
+          emoji: false,
+          highlighter: false
         });
       }
     };

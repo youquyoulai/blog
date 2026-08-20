@@ -32,6 +32,7 @@ hugo-blog-optimization/
 hugo-blog-audit/
 tmp-patch/
 _old_content_backup/
+public_tmp/
 
 # WorkBuddy 工作目录
 .workbuddy/

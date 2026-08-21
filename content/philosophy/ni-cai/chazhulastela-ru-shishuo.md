@@ -1,7 +1,7 @@
 ---
 
 title: "《查拉图斯特拉如是说》：超人的哲学诗篇"
-description: "一、作品概述与创作背景"
+description: "尼采最爱的《查拉图斯特拉》，也最难啃。这篇讲超人、权力意志、永恒轮回，怎么在诗里串成一线。"
 date: 2026-07-05T10:00:00+08:00
 slug: "chazhulastela-ru-shishuo"
 ---

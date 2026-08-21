@@ -1,7 +1,7 @@
 ---
 
 title: "时间和空间是无限的吗？"
-description: "问题的由来：从仰望星空到数学追问"
+description: "时间和空间有没有尽头？这问题亚里士多德、屈原都琢磨过。现代物理说：宇宙也许平坦得近乎无限，时间却真有个大爆炸的起点。"
 date: 2026-07-06T10:00:00+08:00
 slug: "shijian-kongjian-shi-wuxian-de-ma"
 ---

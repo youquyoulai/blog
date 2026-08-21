@@ -1,7 +1,7 @@
 ---
 
 title: "刘醒龙《天行者》：内容、艺术特点与文学评价"
-description: "刘醒龙《天行者》：内容、艺术特点与文学评价"
+description: "刘醒龙2009年的《天行者》，给上世纪九十年代的民办教师立了传。那些人苦行似的撑着山村学校，我看一次敬一次。"
 date: 2026-07-11T00:47:00+08:00
 slug: "tianxing-rong-yishutedian-wenxueping"
 ---

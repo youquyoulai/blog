@@ -1,7 +1,7 @@
 ---
 
 title: "保持平常心学习高中数学"
-description: "有人发头条表达了如下观点："
+description: "有人发头条嚷嚷导数椭圆题干脆别学、考不到125就别费劲。我教书这些年，压根没听过正经老师这么教。劝大伙儿保持平常心，别上奸商的当。"
 date: 2021-08-08T15:19:00+08:00
 cover: "@image:2026slt/sxtj.webp"
 slug: "ping-chang-shu-xue"

@@ -1,6 +1,6 @@
 ---
 title: "《存在主义是一种人道主义》：自由与责任的通俗宣言"
-description: "一、作品概述与创作背景"
+description: "萨特这篇小册子，把存在主义从咖啡馆谈资讲成了人话。这篇讲“存在先于本质”，和他怎么回那些骂他的人。"
 date: 2026-07-07T10:00:00+08:00
 slug: "cunzai-zhuyi-shi-yizhong-rendao-zhuyi"
 ---

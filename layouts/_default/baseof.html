@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="format-detection" content="telephone=no">
-    <meta name="theme-color" content="{{ .Site.Params.themeColor | default "#434a54" }}">
+    {{/* 浏览器顶栏(theme-color)必须与页面首屏背景一致且保持浅色：
+        手机浏览器首屏默认是白顶栏，若此处用深色(#3E3A39)会在 theme-color 生效瞬间
+        发生“白→深”跳变，表现为“顶部闪白”。改为浅色(#FBF7F0)即与默认白顶栏同色，消除跳变。
+        注意：此处与导航深色解耦——导航深色仍由 themeColor 参数驱动、靠下方内联 CSS 即时上色。 */}}
+    <meta name="theme-color" content="#FBF7F0">
     {{ if .Site.Params.appleTouchIcon }}<link rel="apple-touch-icon" href="{{ .Site.Params.appleTouchIcon }}">{{ end }}
 
     <title>{{ if .IsHome }}{{ .Site.Title }} - {{ .Site.Params.description | default "博客" }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
@@ -22,6 +26,15 @@
 
     <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    {{/* 关键 CSS 内联：消除移动端首屏（顶部导航/页脚）因外部样式表晚加载导致的闪白(FOUC)。
+        颜色随主题 themeColor 变化，body 背景取与 --color_bg(#FBF7F0) 一致的暖白色。 */}}
+    <style>
+      html,body{background:#FBF7F0;color:{{ .Site.Params.themeColor | default "#3E3A39" }}}
+      .header-navigation{background:{{ .Site.Params.themeColor | default "#3E3A39" }};height:3.25rem}
+      .footer{background:{{ .Site.Params.themeColor | default "#3E3A39" }}}
+      .nav-sitename a{color:#FBF7F0;text-decoration:none}
+    </style>
 
     {{ $css := resources.Get "css/style.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">

@@ -1,4 +1,4 @@
 ---
-title: "歌曲"
-description: "永远的摇滚，经典的民谣"
+title: "音乐"
+description: "经典与现代的音乐作品评析"
 ---

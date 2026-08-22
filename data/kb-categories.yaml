@@ -19,7 +19,7 @@
 - name: misc
   title: 艺术
   icon: "🎨"
-  description: 歌曲、电影、相声
+  description: 音乐、影视、曲艺
   order: 4
 
 - name: science

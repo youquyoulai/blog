@@ -348,7 +348,14 @@ async function replaceImageRefs(content, env) {
   const matches = content.match(/@image:([^\s\)]+)/g);
   if (!matches) return content;
 
-  const listed = await env.R2_BUCKET.list({ limit: 1000 });
+  let listed;
+  try {
+    listed = await env.R2_BUCKET.list({ limit: 1000 });
+  } catch (e) {
+    // R2 绑定异常时不阻断保存，仅跳过图片引用替换（保留原始 @image: 标记）
+    console.warn('R2 列表失败，跳过图片替换:', e.message);
+    return content;
+  }
   const imageMap = {};
   listed.objects.forEach(o => {
     if (/\.(jpg|jpeg|png|gif|webp|svg|avif|heic)$/i.test(o.key)) {
@@ -666,13 +673,32 @@ async function updatePost(slug, request, env) {
   const processedContent = await replaceImageRefs(content, env);
   const encoded = utf8ToBase64(processedContent);
   const filename = slug.endsWith('.md') ? slug : slug + '.md';
-  const data = await githubFetch(
-    '/repos/' + GITHUB_REPO + '/contents/' + dir + '/' + filename,
-    'PUT',
-    env.GITHUB_TOKEN,
-    { message: 'Update ' + filename, content: encoded, sha: sha }
-  );
-  return corsResponse(JSON.stringify({ ok: true, commit: data.commit }));
+
+  // 处理陈旧 sha：编辑时前端拿到的 sha 若已过期（GitHub 返回 409），
+  // 自动重新拉取最新 sha 后重试一次，避免「编辑保存」稳定失败。
+  let attemptSha = sha;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const data = await githubFetch(
+        '/repos/' + GITHUB_REPO + '/contents/' + dir + '/' + filename,
+        'PUT',
+        env.GITHUB_TOKEN,
+        { message: 'Update ' + filename, content: encoded, sha: attemptSha }
+      );
+      return corsResponse(JSON.stringify({ ok: true, commit: data.commit }));
+    } catch (e) {
+      if (attempt === 0 && /409/.test(e.message)) {
+        try {
+          const latest = await githubFetch(
+            '/repos/' + GITHUB_REPO + '/contents/' + dir + '/' + filename,
+            'GET', env.GITHUB_TOKEN
+          );
+          if (latest && latest.sha) { attemptSha = latest.sha; continue; }
+        } catch (e2) { /* 取最新 sha 失败，落到下方抛错 */ }
+      }
+      throw e;
+    }
+  }
 }
 
 async function deletePost(slug, request, env) {
@@ -760,88 +786,49 @@ async function writeGitHubFile(filePath, content, sha, message, env) {
 //       前端循环调用把所有批次的 categories/tags 累加即可。
 // ═════════════════════════════════════════════════════════════════
 async function getTaxonomies(request, env) {
-  const url = new URL(request.url);
-  const section = url.searchParams.get('section') || DEFAULT_SECTION;
-  const offset = Math.max(0, parseInt(url.searchParams.get('offset') || '0', 10) || 0);
-  const limit = Math.min(Math.max(1, parseInt(url.searchParams.get('limit') || '40', 10) || 40), 50);
-
-  const dir = CONTENT_DIR + '/' + section;
-
+  // 直接读取 content/categories、content/tags 的 term 目录，不再逐篇扫 post 算计数。
+  // 这样分类/标签列表秒开，且不会出现「观感 266」这类需要拉数百个 blob 的慢请求。
+  const token = env.GITHUB_TOKEN;
+  const base = '/repos/' + GITHUB_REPO + '/contents/' + CONTENT_DIR;
   try {
-    // 1. 用 git trees 一次拿整棵目录树（含 SHA，便于后续拉 blob）
-    const treeData = await githubFetch(
-      '/repos/' + GITHUB_REPO + '/git/trees/HEAD?recursive=1',
-      'GET', env.GITHUB_TOKEN
-    );
-    const tree = (treeData && treeData.tree) || [];
-
-    // 2. 过滤出本 section 下的 .md（排除 _index.md），保留 path + sha
-    const mdFiles = [];
-    for (const t of tree) {
-      if (t.type !== 'blob') continue;
-      if (!t.path.startsWith(dir + '/')) continue;
-      if (!t.path.endsWith('.md')) continue;
-      if (t.path.endsWith('/_index.md')) continue;
-      mdFiles.push(t);
-    }
-
-    // 3. 取本批次
-    const slice = mdFiles.slice(offset, offset + limit);
-
-    // 4. 并发拉 blob 内容（git/blobs，每批 ≤50，安全）
-    const CONC = 8;
-    const catMap = {};
-    const tagMap = {};
-    for (let i = 0; i < slice.length; i += CONC) {
-      const chunk = slice.slice(i, i + CONC);
-      const results = await Promise.allSettled(chunk.map(t =>
-        githubFetch('/repos/' + GITHUB_REPO + '/git/blobs/' + t.sha, 'GET', env.GITHUB_TOKEN)
-          .then(d => base64ToUtf8(d.content))
-      ));
-      for (const r of results) {
-        if (r.status !== 'fulfilled' || !r.value) continue;
-        extractFrontmatterField(r.value, 'categories').forEach(c => { catMap[c] = (catMap[c] || 0) + 1; });
-        extractFrontmatterField(r.value, 'tags').forEach(tg => { tagMap[tg] = (tagMap[tg] || 0) + 1; });
-      }
-    }
-
-    // 富化中文 title：读 categories/tags 下的 _index.md（带 globalThis 缓存避免重复拉）
-    const titleCache = (globalThis.__taxTitleCache = globalThis.__taxTitleCache || {});
-    const needFetch = [...new Set([...Object.keys(catMap), ...Object.keys(tagMap)])].filter(n => !(n in titleCache));
-    await Promise.all(needFetch.map(async (name) => {
-      for (const sub of ['categories', 'tags']) {
-        try {
-          const f = await githubFetch(
-            '/repos/' + GITHUB_REPO + '/contents/' + CONTENT_DIR + '/' + sub + '/' + name + '/_index.md',
-            'GET', env.GITHUB_TOKEN
-          );
-          const c = base64ToUtf8(f.content);
-          const m = c.match(/title:\s*["']?([^"'\n]+)["']?/);
-          if (m) { titleCache[name] = m[1].trim(); return; }
-        } catch (e) {}
-      }
-      titleCache[name] = name;
+    const [cats, tags] = await Promise.all([
+      githubFetch(base + '/categories', 'GET', token),
+      githubFetch(base + '/tags', 'GET', token),
+    ]);
+    const categories = await resolveTermTitles(cats, token, base + '/categories');
+    const tagList = await resolveTermTitles(tags, token, base + '/tags');
+    return corsResponse(JSON.stringify({
+      categories: categories,
+      tags: tagList,
+      hasMore: false,
     }));
-
-    const result = {
-      totalPosts: mdFiles.length,
-      categories: Object.keys(catMap).map(n => ({ name: n, title: titleCache[n] || n, count: catMap[n] })),
-      tags: Object.keys(tagMap).map(n => ({ name: n, title: titleCache[n] || n, count: tagMap[n] })),
-      hasMore: offset + limit < mdFiles.length,
-      offset: offset,
-      limit: limit
-    };
-
-    return corsResponse(JSON.stringify(result));
   } catch (e) {
-    console.error('扫描 section taxonomies 失败:', e.message);
+    console.error('读取分类/标签目录失败:', e.message);
     return corsResponse(JSON.stringify({
       error: e.message,
-      totalPosts: 0, categories: [], tags: [],
+      categories: [], tags: [],
       hasMore: false,
-      hint: 'Worker 拉取 GitHub 内容失败，请稍后重试'
+      hint: 'Worker 读取 GitHub 分类/标签目录失败，请稍后重试'
     }), 500);
   }
+}
+
+// 列出 term 目录名，并尽量从各自的 _index.md 读取中文 title（无则回退 slug）
+async function resolveTermTitles(entries, token, dirPath) {
+  const dirs = (entries || []).filter(function(e) { return e.type === 'dir'; });
+  return Promise.all(dirs.map(async function(d) {
+    const name = d.name;
+    let title = name;
+    try {
+      const f = await githubFetch(dirPath + '/' + name + '/_index.md', 'GET', token);
+      if (f && f.content) {
+        const c = base64ToUtf8(f.content);
+        const m = c.match(/title:\s*["']?([^"'\n]+)["']?/);
+        if (m) title = m[1].trim();
+      }
+    } catch (e) { /* 无 _index.md 时回退 slug */ }
+    return { name: name, title: title };
+  }));
 }
 
 // ═════════════════════════════════════════════════════════════════

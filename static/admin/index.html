@@ -221,8 +221,6 @@
     .chip { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:100px; font-size:0.75rem; background:var(--surface); border:1px solid var(--border); cursor:pointer; user-select:none; transition:all 0.15s; }
     .chip:hover { border-color:var(--accent); }
     .chip.active { background:var(--accent); color:#fff; border-color:var(--accent); }
-    .chip .chip-count { opacity:0.6; font-size:0.65rem; }
-    .chip.active .chip-count { opacity:0.8; }
     .folder-btn { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); font-size:0.82rem; color:var(--text); cursor:pointer; transition:0.15s; margin:0 6px 6px 0; }
     .folder-btn:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-bg); }
 
@@ -981,8 +979,13 @@ function api(path, method, body) {
     method: method || 'GET',
     headers: { 'Content-Type': 'application/json', 'X-Admin-Token': token },
     body: body ? JSON.stringify(body) : undefined,
-  }).then(function(r) {
-    if (!r.ok) throw new Error('HTTP ' + r.status);
+  }).then(async function(r) {
+    if (!r.ok) {
+      // 把服务端返回的错误体带出来，方便定位「保存失败」真因（如 GitHub 401 / 令牌错误）
+      var detail = '';
+      try { var j = await r.json(); if (j && j.error) detail = ' - ' + j.error; } catch (e) {}
+      throw new Error('HTTP ' + r.status + detail);
+    }
     if (r.status === 204) return {};  // 空响应（如 dispatch）
     return r.json();
   });
@@ -1036,28 +1039,14 @@ async function loadEditorTaxonomies() {
     return;
   }
   try {
-    // 分批拉取（每批 40），累积所有分类/标签统计
-    var catAgg = {}; var catTitle = {};
-    var tagAgg = {}; var tagTitle = {};
-    var offset = 0;
-    var guard = 0;
-    while (guard < 20) {
-      guard++;
-      var data = await api('/api/taxonomies?section=posts&offset=' + offset + '&limit=40');
-      if (data && data.error) throw new Error(data.error + (data.hint ? ' - ' + data.hint : ''));
-      (data.categories || []).forEach(function(c) { catAgg[c.name] = (catAgg[c.name] || 0) + (c.count || 0); if (c.title) catTitle[c.name] = c.title; });
-      (data.tags || []).forEach(function(t) { tagAgg[t.name] = (tagAgg[t.name] || 0) + (t.count || 0); if (t.title) tagTitle[t.name] = t.title; });
-      if (!data.hasMore) break;
-      offset += 40;
-    }
-    _allCategories = Object.keys(catAgg).map(function(n) { return { name: n, title: catTitle[n] || n, count: catAgg[n] }; });
-    _allTags = Object.keys(tagAgg).map(function(n) { return { name: n, title: tagTitle[n] || n, count: tagAgg[n] }; });
+    // 服务端已改为直接读 content/categories、content/tags 目录，一次返回，不再逐篇扫 post 算计数
+    var data = await api('/api/taxonomies?section=' + currentSection);
+    if (data && data.error) throw new Error(data.error + (data.hint ? ' - ' + data.hint : ''));
+    _allCategories = (data.categories || []).map(function(c){ return { name: c.name, title: c.title || c.name, count: 0 }; });
+    _allTags = (data.tags || []).map(function(t){ return { name: t.name, title: t.title || t.name, count: 0 }; });
     _editorTaxLoaded = true;
     renderCategoryChips();
     renderTagChips();
-    if (_allCategories.length === 0 && _allTags.length === 0) {
-      console.warn('分类/标签列表为空：', { catAgg: catAgg, tagAgg: tagAgg });
-    }
   } catch (e) {
     console.error('加载分类标签失败:', e);
     var msg = escHtml(e.message || String(e));
@@ -1084,7 +1073,7 @@ function renderCategoryChips() {
   var html = '';
   _allCategories.forEach(function(c) {
     var active = _selectedCategories.indexOf(c.name) !== -1 ? ' active' : '';
-    html += '<span class="chip' + active + '" onclick="toggleCategory(\'' + escAttr(c.name) + '\')">' + escHtml(catDisplayName(c)) + '<span class="chip-count">' + (c.count || 0) + '</span></span>';
+    html += '<span class="chip' + active + '" onclick="toggleCategory(\'' + escAttr(c.name) + '\')">' + escHtml(catDisplayName(c)) + '</span>';
   });
   // 新增分类按钮
   html += '<span class="chip" onclick="addNewCategory()" title="新增分类" style="border-style:dashed;">+ 新增</span>';
@@ -1101,7 +1090,7 @@ function renderTagChips() {
   var html = '';
   _allTags.forEach(function(t) {
     var active = _selectedTags.indexOf(t.name) !== -1 ? ' active' : '';
-    html += '<span class="chip' + active + '" onclick="toggleTag(\'' + escAttr(t.name) + '\')">' + escHtml(tagDisplayName(t)) + '<span class="chip-count">' + (t.count || 0) + '</span></span>';
+    html += '<span class="chip' + active + '" onclick="toggleTag(\'' + escAttr(t.name) + '\')">' + escHtml(tagDisplayName(t)) + '</span>';
   });
   // 新增标签按钮
   html += '<span class="chip" onclick="addNewTag()" title="新增标签" style="border-style:dashed;">+ 新增</span>';
@@ -2388,25 +2377,12 @@ async function loadTaxonomies() {
   try {
     var sel = document.getElementById('taxSectionSel');
     var section = sel ? sel.value : 'math';
-    // 分批拉取累积
-    var catAgg = {};
-    var tagAgg = {};
-    var total = 0;
-    var offset = 0;
-    var guard = 0;
-    while (guard < 20) {
-      guard++;
-      var data = await api('/api/taxonomies?section=' + section + '&offset=' + offset + '&limit=40');
-      if (data && data.error) throw new Error(data.error);
-      total = data.totalPosts || 0;
-      (data.categories || []).forEach(function(c) { catAgg[c.name] = (catAgg[c.name] || 0) + (c.count || 0); });
-      (data.tags || []).forEach(function(t) { tagAgg[t.name] = (tagAgg[t.name] || 0) + (t.count || 0); });
-      if (!data.hasMore) break;
-      offset += 40;
-    }
-    var cats = Object.keys(catAgg).map(function(n) { return { name: n, count: catAgg[n] }; });
-    var tgs = Object.keys(tagAgg).map(function(n) { return { name: n, count: tagAgg[n] }; });
-    var html = '<div style="margin-bottom:12px;color:var(--muted);font-size:0.85rem;">共 ' + total + ' 篇文章，' + cats.length + ' 个分类，' + tgs.length + ' 个标签</div>';
+    // 服务端已改为直接读 content/categories、content/tags 目录，一次返回，不再逐篇扫 post 算计数
+    var data = await api('/api/taxonomies?section=' + section);
+    if (data && data.error) throw new Error(data.error);
+    var cats = (data.categories || []).map(function(c){ return { name: c.name, title: c.title || c.name }; });
+    var tgs = (data.tags || []).map(function(t){ return { name: t.name, title: t.title || t.name }; });
+    var html = '<div style="margin-bottom:12px;color:var(--muted);font-size:0.85rem;">' + cats.length + ' 个分类，' + tgs.length + ' 个标签</div>';
     html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">';
     // 分类（可滚动）
     html += '<div class="settings-group" style="max-height:55vh;overflow-y:auto;"><h3>分类 (' + cats.length + ' 个)</h3>';
@@ -2414,7 +2390,7 @@ async function loadTaxonomies() {
       html += '<div style="padding:16px;color:var(--muted);font-size:0.85rem;">暂无分类</div>';
     } else {
       cats.forEach(function(c) {
-        html += '<div class="setting-row"><span class="setting-label">' + escHtml(catDisplayName(c.name)) + '</span><span class="setting-value">' + c.count + ' 篇</span></div>';
+        html += '<div class="setting-row"><span class="setting-label">' + escHtml(catDisplayName(c)) + '</span></div>';
       });
     }
     html += '</div>';
@@ -2425,7 +2401,7 @@ async function loadTaxonomies() {
       html += '<span style="color:var(--muted);font-size:0.85rem;">暂无标签</span>';
     } else {
       tgs.forEach(function(t) {
-        html += '<span class="tag" style="font-size:0.8rem;padding:4px 10px;">' + escHtml(tagDisplayName(t.name)) + ' (' + t.count + ')</span>';
+        html += '<span class="tag" style="font-size:0.8rem;padding:4px 10px;">' + escHtml(tagDisplayName(t)) + '</span>';
       });
     }
     html += '</div></div>';

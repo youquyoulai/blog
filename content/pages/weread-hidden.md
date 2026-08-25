@@ -4,7 +4,7 @@ date: '2026-06-10T16:03:00+08:00'
 lastmod: '2026-06-28T18:07:06+08:00'
 slug: weread
 layout: tag-page
-tag: weixin-yuedu
+tag: weread
 comments: true
 draft: false
 ---

@@ -23,8 +23,8 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
-    <link rel="dns-prefetch" href="https://waline.pgoj.top">
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://waline.pgoj.top" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
     <link rel="stylesheet" href="{{ "css/pgoj-blog.css" | relURL }}">
 
@@ -158,6 +158,8 @@
         {{ $ogImg = .Params.thumbnail }}
     {{ else if .Params.cover }}
         {{ $ogImg = .Params.cover }}
+    {{ else }}
+        {{ $ogImg = "/og-default.png" }}
     {{ end }}
     {{ if $ogImg }}
     {{ if (findRE "^@image:" $ogImg) }}
@@ -278,5 +280,14 @@
 </div></div></footer>
 
 {{ block "scripts" . }}{{ end }}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('img:not([loading])').forEach(function(img) {
+      img.setAttribute('loading', 'lazy');
+      img.setAttribute('decoding', 'async');
+    });
+  });
+</script>
 </body>
 </html>

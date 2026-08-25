@@ -1228,7 +1228,7 @@ function renderSubChips() {
   }
 
   _allSubSections.forEach(function(s) {
-    var display = (s.icon ? s.icon + ' ' : '') + s.title + ' (' + (s.articleCount || s.count || 0) + ')';
+    var display = (s.icon ? s.icon + ' ' : '') + s.title;
     var span = createSubChip(display, s.name, s.count);
     el.appendChild(span);
   });
@@ -2004,16 +2004,24 @@ async function savePost(silent) {
     }
     if (!silent) { toast('文章已保存', 'success'); backToList(); }
     editingFile = { filename: filename, sha: editingFile ? editingFile.sha : undefined, subSection: subSec };
+    return true;
   } catch (e) {
+    console.error('保存失败：', e);
     toast('保存失败: ' + e.message, 'error');
+    return false;
   }
 }
 
 async function saveAndPublish() {
-  await savePost(true);
-  await triggerDeploy();
-  toast('已保存并发布！', 'success');
-  backToList();
+  const ok = await savePost(true);
+  if (!ok) return;   // savePost 已弹出失败原因，避免误报「已发布」
+  try {
+    await triggerDeploy();
+    toast('已保存并发布！', 'success');
+    backToList();
+  } catch (e) {
+    toast('发布失败: ' + e.message, 'error');
+  }
 }
 
 async function triggerDeploy() {

@@ -1995,6 +1995,7 @@ async function savePost(silent) {
   var content = frontmatter + body;
   var slugPart = slug || title.replace(/[^\w\u4e00-\u9fa5-]/g,'-').toLowerCase();
   var filename = editingFile ? editingFile.filename : slugPart + '.md';
+  var subSec = editingFile ? (editingFile.subSection || '') : '';
   try {
     if (editingFile) {
       await api('/api/posts/' + encodeURIComponent(filename) + '?section=' + currentSection + (subSec ? '&subsection=' + encodeURIComponent(subSec) : ''), 'PUT', { content: content, sha: editingFile.sha });

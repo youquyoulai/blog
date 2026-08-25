@@ -59,6 +59,8 @@
     /* ── 侧边栏 ── */
     .sidebar { position:fixed; top:0; left:0; bottom:0; width:var(--sidebar-w); background:var(--sidebar-bg); display:flex; flex-direction:column; z-index:200; transition:transform 0.3s cubic-bezier(0.4,0,0.2,1); overflow:hidden; }
     .sidebar-brand { padding:20px 20px 16px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; gap:10px; }
+.site-switch-btn.active { background:rgba(255,255,255,0.15); color:#fff; font-weight:500; }
+.site-switch-btn:hover:not(.active) { background:rgba(255,255,255,0.06); }
     .brand-icon { width:34px; height:34px; background:var(--accent); border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .brand-icon svg { width:18px; height:18px; color:white; }
     .brand-name { font-size:0.9rem; font-weight:700; color:white; line-height:1.2; }
@@ -305,7 +307,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </div>
       <h1>博客管理后台</h1>
-      <p>平哥集录 · 管理面板</p>
+      <p>平哥偶记 · 管理面板</p>
     </div>
     <div class="form-group">
       <label>访问令牌</label>
@@ -328,7 +330,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </div>
       <div>
-        <div class="brand-name">平哥集录</div>
+        <div class="brand-name">平哥偶记</div>
         <div class="brand-sub">管理面板</div>
       </div>
     </div>
@@ -342,15 +344,11 @@
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         文章
       </button>
-      <button class="nav-item" data-tab="subsections" onclick="switchTab('subsections')">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        专题
-      </button>
       <button class="nav-item" data-tab="pages" onclick="switchTab('pages')">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
         页面
       </button>
-      <div class="nav-section-label" style="margin-top:8px;">分类管理</div>
+      <div class="nav-section-label" style="margin-top:8px;">分类标签</div>
       <button class="nav-item" data-tab="taxonomies" onclick="switchTab('taxonomies')">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 0 1 0 2.828l-7 7a2 2 0 0 1-2.828 0l-7-7A1.994 1.994 0 0 1 3 12V7a4 4 0 0 1 4-4z"/></svg>
         分类 / 标签
@@ -359,14 +357,6 @@
       <button class="nav-item" data-tab="comments" onclick="switchTab('comments')">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         评论
-      </button>
-      <button class="nav-item" data-tab="wenhui" onclick="switchTab('wenhui')">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        文汇 RSS
-      </button>
-      <button class="nav-item" data-tab="links" onclick="switchTab('links')">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-        友链
       </button>
       <div class="nav-section-label" style="margin-top:8px;">系统</div>
       <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
@@ -387,7 +377,7 @@
     </button>
     <div class="topbar-breadcrumb" id="topbarTitle">图库</div>
     <div class="topbar-actions">
-      <a href="https://pgkb.pgoj.top/" target="_blank" class="btn btn-ghost btn-sm">
+      <a href="https://www.pgoj.top/" target="_blank" class="btn btn-ghost btn-sm" id="blogLink">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         查看博客
       </a>
@@ -444,14 +434,8 @@
         <div class="page-header">
           <div style="display:flex;align-items:center;gap:12px;">
             <h1>文章</h1>
-            <select id="postSectionSel" onchange="switchSection(this.value)" style="padding:6px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.85rem;outline:none;">
-              <option value="math">数学</option>
-              <option value="literature">文学</option>
-              <option value="history">历史</option>
-              <option value="philosophy">哲学</option>
-              <option value="science">科学</option>
-              <option value="misc">艺术</option>
-              <option value="notes">随记</option>
+            <select id="postSectionSel" onchange="switchSection(this.value)" style="display:none;">
+              <option value="posts">文章</option>
             </select>
           </div>
           <button class="btn btn-primary" onclick="newPost()">
@@ -597,14 +581,8 @@
         <div class="page-header">
           <div style="display:flex;align-items:center;gap:12px;">
             <h1>分类 / 标签</h1>
-            <select id="taxSectionSel" onchange="loadTaxonomies()" style="padding:6px 10px;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:0.85rem;outline:none;">
-              <option value="math">数学</option>
-              <option value="literature">文学</option>
-              <option value="history">历史</option>
-              <option value="philosophy">哲学</option>
-              <option value="science">科学</option>
-              <option value="misc">艺术</option>
-              <option value="notes">随记</option>
+            <select id="taxSectionSel" onchange="loadTaxonomies()" style="display:none;">
+              <option value="posts">文章</option>
             </select>
           </div>
         </div>
@@ -763,36 +741,30 @@
                 <span style="font-size:0.75rem;color:var(--muted);">日期</span>
                 <input type="text" class="meta-input" id="postDate" placeholder="2026-05-06" style="width:160px;">
               </div>
-              <div style="display:flex;flex-direction:column;gap:2px;">
+              <div class="field-wrap" style="display:flex;flex-direction:column;gap:2px;">
                 <span style="font-size:0.75rem;color:var(--muted);">分类</span>
-                <select class="meta-input" id="postCategory" onchange="onCategoryChange()" style="width:110px;padding:6px 8px;">
-                  <option value="">选择</option>
-                  <option value="math">数学</option>
-                  <option value="literature">文学</option>
-                  <option value="history">历史</option>
-                  <option value="philosophy">哲学</option>
-                  <option value="science">科学</option>
-                  <option value="misc">艺术</option>
-                  <option value="notes">随记</option>
-                </select>
+                <input type="text" class="meta-input" id="postCategoryText" placeholder="如：记录" style="width:110px;padding:6px 8px;">
               </div>
-              <div style="display:flex;flex-direction:column;gap:2px;">
-                <span style="font-size:0.75rem;color:var(--muted);">专题</span>
-                <input type="text" class="meta-input" id="postSubsection" placeholder="点击下方选择" style="width:140px;" readonly onclick="renderSubChips()" style="cursor:pointer;">
+              <div class="field-wrap" style="display:flex;flex-direction:column;gap:2px;">
+                <span style="font-size:0.75rem;color:var(--muted);">标签</span>
+                <input type="text" class="meta-input" id="postTags" placeholder="逗号分隔" style="width:140px;padding:6px 8px;">
               </div>
-              <div style="display:flex;flex-direction:column;gap:2px;">
+              <div class="field-wrap" style="display:flex;flex-direction:column;gap:2px;">
                 <span style="font-size:0.75rem;color:var(--muted);">slug</span>
                 <input type="text" class="meta-input" id="postSlug" placeholder="自动生成" style="width:100px;">
               </div>
-              <div style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:150px;">
+              <div class="field-wrap" style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:150px;">
                 <span style="font-size:0.75rem;color:var(--muted);">封面</span>
                 <div style="display:flex;gap:6px;">
                   <input type="text" class="meta-input" id="postCover" placeholder="封面图片URL" style="flex:1;">
                   <button class="btn btn-sm" onclick="showCoverPicker()">选封面</button>
                 </div>
               </div>
+              <div class="field-wrap" style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:200px;">
+                <span style="font-size:0.75rem;color:var(--muted);">摘要</span>
+                <input type="text" class="meta-input" id="postDescription" placeholder="文章摘要（可选）" style="padding:6px 8px;">
+              </div>
             </div>
-            <div id="subChips" class="editor-chips"></div>
           </div>
           <div class="editor-toolbar">
             <button class="toolbar-btn" onclick="insertAtLine('---')" title="分割线">—</button>
@@ -924,7 +896,7 @@ let currentImageYear = '';   // 图片库年份视图
 let allImageFolders = [];  // 缓存所有文件夹供前端分组
 let currentFolderName = '';
 let currentPostPrefix = '';
-let currentSection = 'math';
+let currentSection = 'posts';
 let pickerPrefix = '';          // 选图器当前文件夹前缀
 
 
@@ -1012,6 +984,7 @@ function api(path, method, body) {
 }
 
 var _SECTION_DISPLAY = {
+  'posts': '文章',
   'math': '数学', 'literature': '文学', 'history': '历史',
   'philosophy': '哲学', 'science': '科学', 'misc': '艺术',
   'notes': '随记'
@@ -1636,11 +1609,12 @@ async function loadPosts(prefix) {
     var data = await api('/api/posts?section=' + section);
     var allPosts = Array.isArray(data) ? data : (data.posts || []);
 
-    // 按年月分组（文件名格式: YYYY-MM-DD-slug.md）
+    // 按年月分组（文件名格式: YYYY-MM-DD-slug.md），不匹配的放入 ungrouped
     var groups = {}; // key: 'YYYY-MM'
+    var ungrouped = [];
     allPosts.forEach(function(p) {
       var m = p.name.match(/^(\d{4})-(\d{2})-/);
-      if (!m) return;
+      if (!m) { ungrouped.push(p); return; }
       var key = m[1] + '-' + m[2];
       if (!groups[key]) groups[key] = [];
       groups[key].push(p);
@@ -1675,7 +1649,23 @@ async function loadPosts(prefix) {
       }
       navHtml += '</div>';
       navEl.innerHTML = navHtml;
-      el.innerHTML = '';
+
+      // 如果有未分组的文章，直接显示列表
+      if (ungrouped.length > 0 && sortedYears.length === 0) {
+        // 所有文章都未分组：直接显示列表
+        ungrouped.sort(function(a, b) { return b.name.localeCompare(a.name); });
+        var html = '<div class="post-list">';
+        ungrouped.forEach(function(p) {
+          html += '<div class="post-item" onclick="editPost(\'' + encodeURIComponent(p.name) + '\', \'' + encodeURIComponent(p.subSection || '') + '\')">' +
+            '<div class="post-item-title">' + escHtml(p.name.replace('.md','')) + '</div>' +
+            '<div class="post-item-meta"><span>' + escHtml(p.path) + '</span></div>' +
+            '</div>';
+        });
+        html += '</div>';
+        el.innerHTML = html;
+      } else {
+        el.innerHTML = '';
+      }
 
     } else if (yearMatch) {
       // ── 年级目录：显示该年各月文件夹 ──
@@ -1736,41 +1726,38 @@ function newPost() {
   var offset = now.getTimezoneOffset();
   var localTime = new Date(now.getTime() - offset * 60000);
   document.getElementById('postDate').value = localTime.toISOString().slice(0,16);
-  document.getElementById('postCategory').value = currentSection || 'math';
-  document.getElementById('postSubsection').value = '';
+  document.getElementById('postCategoryText').value = '';
+  document.getElementById('postTags').value = '';
+  document.getElementById('postDescription').value = '';
   document.getElementById('postSlug').value = '';
   document.getElementById('postCover').value = '';
-    document.getElementById('postContent').value = '';
-    document.getElementById('deletePostBtn').style.display = 'none';
-    // 记录当前所在月份，新建文章自动放入该月
-    window._newPostPrefix = currentPostPrefix;
-    switchTab('editor');
-  }
+  document.getElementById('postContent').value = '';
+  document.getElementById('deletePostBtn').style.display = 'none';
+  window._newPostPrefix = currentPostPrefix;
+  switchTab('editor');
+}
 
 async function editPost(filename, subSection) {
   try {
     filename = decodeURIComponent(filename);
-    subSection = subSection ? decodeURIComponent(subSection) : '';
-    var data = await api('/api/post/' + encodeURIComponent(filename) + '?section=' + currentSection + (subSection ? '&subsection=' + encodeURIComponent(subSection) : ''));
-    editingFile = { filename: filename, sha: data.sha, subSection: subSection };
+    var data = await api('/api/post/' + encodeURIComponent(filename) + '?section=' + currentSection);
+    editingFile = { filename: filename, sha: data.sha };
     var content = data.content;
     document.getElementById('postTitle').value = extractFM(content, 'title') || filename.replace('.md','');
     var rawDate = extractFM(content, 'date') || '';
-  // 支持 YYYY-MM-DD 和 YYYY-MM-DDTHH:mm:ss+08:00 两种格式
-  rawDate = rawDate.replace(/["']/g, '').trim();
-  if (rawDate && rawDate.indexOf('T') === -1) {
-    // 只有日期，补全为 ISO 格式
-    document.getElementById('postDate').value = rawDate + 'T08:00';
-  } else if (rawDate) {
-    // 已有时间，截断到分钟
-    document.getElementById('postDate').value = rawDate.slice(0, 16);
-  } else {
-    document.getElementById('postDate').value = '';
-  }
-    document.getElementById('postCategory').value = currentSection || '';
+    rawDate = rawDate.replace(/["']/g, '').trim();
+    if (rawDate && rawDate.indexOf('T') === -1) {
+      document.getElementById('postDate').value = rawDate + 'T08:00';
+    } else if (rawDate) {
+      document.getElementById('postDate').value = rawDate.slice(0, 16);
+    } else {
+      document.getElementById('postDate').value = '';
+    }
+    document.getElementById('postCategoryText').value = extractFM(content, 'categories') || '';
+    document.getElementById('postTags').value = extractFM(content, 'tags') || '';
+    document.getElementById('postDescription').value = extractFM(content, 'description') || '';
     document.getElementById('postSlug').value = extractFM(content, 'slug') || filename.replace('.md','').replace(/^\d{4}-\d{2}-\d{2}-/,'');
     document.getElementById('postCover').value = extractFM(content, 'cover') || '';
-    document.getElementById('postSubsection').value = subSection || '';
     document.getElementById('postContent').value = extractBody(content);
     document.getElementById('deletePostBtn').style.display = 'inline-flex';
     switchTab('editor');
@@ -1813,6 +1800,21 @@ function buildFM(title, date, slug, cover) {
   fm += 'date: ' + dateStr + '\n';
   if (cover) fm += 'cover: "' + cover + '"\n';
   if (slug) fm += 'slug: "' + slug + '"\n';
+  // 摘要
+  var desc = (document.getElementById('postDescription').value || '').trim();
+  if (desc) fm += 'description: "' + desc.replace(/"/g, '\\"') + '"\n';
+  // 分类
+  var cat = (document.getElementById('postCategoryText').value || '').trim();
+  if (cat) {
+    var cats = cat.split(/[,，]/).map(function(s){ return '"' + s.trim() + '"'; });
+    fm += 'categories: [' + cats.join(', ') + ']\n';
+  }
+  // 标签
+  var tags = (document.getElementById('postTags').value || '').trim();
+  if (tags) {
+    var tagArr = tags.split(/[,，]/).map(function(s){ return '"' + s.trim() + '"'; }).filter(function(s){ return s !== '""'; });
+    if (tagArr.length) fm += 'tags: [' + tagArr.join(', ') + ']\n';
+  }
   fm += '---\n';
   return fm;
 }
@@ -1820,18 +1822,16 @@ function buildFM(title, date, slug, cover) {
 async function savePost(silent) {
   var title = document.getElementById('postTitle').value.trim();
   var date = document.getElementById('postDate').value.trim();
-  var category = document.getElementById('postCategory').value.trim();
   var slug = document.getElementById('postSlug').value.trim();
   var cover = document.getElementById('postCover').value.trim();
-  var subSec = (document.getElementById('postSubsection').value || '').trim();
   var body = document.getElementById('postContent').value;
   if (!title || !date) { toast('标题和日期不能为空', 'error'); return; }
-  if (!category) { toast('请选择分类', 'error'); return; }
+  var catText = (document.getElementById('postCategoryText').value || '').trim();
+  if (!catText) { toast('请输入分类名', 'error'); return; }
   var frontmatter = buildFM(title, date, slug, cover);
   var content = frontmatter + body;
-  // 文件名只用日期部分，避免冒号等特殊字符
-  var dateOnly = date.split('T')[0];
-  var filename = editingFile ? editingFile.filename : dateOnly + '-' + (slug || title.replace(/[^\w\u4e00-\u9fa5-]/g,'-').toLowerCase()) + '.md';
+  var slugPart = slug || title.replace(/[^\w\u4e00-\u9fa5-]/g,'-').toLowerCase();
+  var filename = editingFile ? editingFile.filename : slugPart + '.md';
   try {
     if (editingFile) {
       await api('/api/posts/' + encodeURIComponent(filename) + '?section=' + currentSection + (subSec ? '&subsection=' + encodeURIComponent(subSec) : ''), 'PUT', { content: content, sha: editingFile.sha });
@@ -1851,6 +1851,15 @@ async function saveAndPublish() {
   await triggerDeploy();
   toast('已保存并发布！', 'success');
   backToList();
+}
+
+async function triggerDeploy() {
+  try {
+    await api('/api/deploy', 'POST');
+    toast('发布请求已发送，正在构建...', 'success');
+  } catch (e) {
+    toast('发布失败: ' + e.message, 'error');
+  }
 }
 
 async function deletePost() {
@@ -2196,16 +2205,6 @@ function closePicker() {
   coverPickerMode = false;
   selectedPickerGroups.clear();
   pickerPrefix = '';
-}
-
-/* ===== 发布 ===== */
-async function triggerDeploy() {
-  try {
-    await api('/api/deploy', 'POST');
-    toast('发布请求已发送，博客正在构建...', 'success');
-  } catch (e) {
-    toast('发布失败: ' + e.message, 'error');
-  }
 }
 
 /* ===== 分类/标签 ===== */

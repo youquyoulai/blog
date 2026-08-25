@@ -33,6 +33,27 @@ hugo-blog-audit/
 tmp-patch/
 _old_content_backup/
 public_tmp/
+tmp/
+
+# 本地预览产物（hugo --environment main|collections -d 输出，供本地核对，不提交）
+_preview_*/
+_verify_*/
+_hugo_*/
+
+# Waline 迁移相关
+waline_*.json
+waline_*.sql
+waline_batches/
+
+# 迁移脚本
+_migrate_*.py
+_pgoj_*.json
+_waline_*.json
+gen_waline_*.py
+
+# 本地预览脚本
+预览_*.bat
+deploy.sh
 
 # WorkBuddy 工作目录
 .workbuddy/

@@ -1,6 +1,4 @@
-# RSS 重定向：/feed → /feed.xml
-/feed  /feed.xml  301
-
-# 留言页改为关于页
-/guestbook/  /about/  301
-/guestbook  /about/  301
+/feed/ /feed.xml 301
+/feed /feed.xml 301
+/posts.html / 301
+/posts/ / 301

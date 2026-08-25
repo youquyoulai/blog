@@ -375,7 +375,7 @@ async function replaceImageRefs(content, env) {
 const GITHUB_API = 'https://api.github.com';
 const GITHUB_REPO = 'youquyoulai/blog';
 const CONTENT_DIR = 'content';
-const DEFAULT_SECTION = 'math';
+const DEFAULT_SECTION = 'posts';
 
 function githubHeaders(token) {
   return {

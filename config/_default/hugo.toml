@@ -1,0 +1,93 @@
+baseURL = 'https://www.pgoj.top/'
+languageCode = 'zh-cn'
+defaultContentLanguage = 'zh'
+title = '平哥偶记'
+theme = 'weisaygrace'
+uglyURLs = true
+
+hasCJKLanguage = true
+buildFuture = true
+mainSections = ['posts']
+capitalizeListTitles = false
+ignoreFiles = [
+  'content/pages/reading\.md$',
+  'content/taxonomies\.md$',
+  'content/archives\.md$',
+]
+
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
+
+[pagination]
+  pagerSize = 10
+
+[params]
+  author = '平哥'
+  description = '平哥偶记 — 生活感悟、读书随笔与个人观点，真实记录成长与思考'
+  keywords = '生活,随笔,感悟,读书,独立博客'
+  logo = '平哥偶记'
+  builtYear = '2026'
+  email = 'wuliwuju@126.com'
+  favicon = '/favicon.ico'
+  appleTouchIcon = '/apple-touch-icon.png'
+  themeColor = '#1a1a2e'
+  imageCDN = 'https://img.pgoj.top'
+
+[permalinks]
+  posts = '/archives/:slug'
+
+[imaging]
+  resampleFilter = "Lanczos"
+  quality = 82
+  anchor = "Smart"
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[frontmatter]
+  lastmod = ['lastmod', ':git', 'date', 'publishDate']
+
+[outputs]
+  home = ['HTML', 'RSS', 'JSON']
+  section = ['HTML', 'RSS']
+  page = ['HTML']
+  taxonomy = ['HTML']
+  term = ['HTML']
+
+[outputFormats.JSON]
+  mediatype = "application/json"
+  baseName = "searchindex"
+  isPlainText = true
+  notAlternative = true
+
+[build]
+  writeStats = true
+  [build.cachebusters]
+    [build.cachebusters.static]
+      source = "assets/.*\\.(js|css|scss)$"
+      target = "static"
+
+[services.rss]
+  limit = 20
+
+[outputFormats.RSS]
+  mediatype = "application/rss+xml"
+  baseName = "feed"
+
+[sitemap]
+  changefreq = 'weekly'
+  priority = 0.5
+  filename = 'sitemap.xml'
+
+[minify]
+  minifyOutput = true
+  [minify.tdewolff]
+    [minify.tdewolff.html]
+      keepComments = false
+      keepWhitespace = false

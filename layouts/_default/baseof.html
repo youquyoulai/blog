@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="referrer" content="no-referrer-when-downgrade">
     <meta name="format-detection" content="telephone=no">
-    {{/* 浏览器顶栏(theme-color)必须与页面首屏背景一致且保持浅色：
-        手机浏览器首屏默认是白顶栏，若此处用深色(#3E3A39)会在 theme-color 生效瞬间
-        发生“白→深”跳变，表现为“顶部闪白”。改为浅色(#FBF7F0)即与默认白顶栏同色，消除跳变。
-        注意：此处与导航深色解耦——导航深色仍由 themeColor 参数驱动、靠下方内联 CSS 即时上色。 */}}
-    <meta name="theme-color" content="#FBF7F0">
+    <meta name="theme-color" content="{{ .Site.Params.themeColor | default "#434a54" }}">
     {{ if .Site.Params.appleTouchIcon }}<link rel="apple-touch-icon" href="{{ .Site.Params.appleTouchIcon }}">{{ end }}
 
     <title>{{ if .IsHome }}{{ .Site.Title }} - {{ .Site.Params.description | default "博客" }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
-    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else if .IsPage }}{{ .Params.description | default (.Summary | plainify | truncate 160) }}{{ else }}{{ .Params.description | default (printf "%s - %s 的相关文章合集，记录日常观感与生活随笔。" .Title .Site.Params.author) }}{{ end }}">
+    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else if .IsPage }}{{ .Params.description | default (.Summary | plainify | truncate 200) }}{{ else }}{{ .Params.description | default (printf "%s - %s 的相关文章合集，记录日常观感与生活随笔。" .Title .Site.Params.author) }}{{ end }}">
     <meta name="keywords" content="{{ if .IsPage }}{{ with .Params.tags }}{{ delimit . "," }}{{ else }}{{ $.Site.Params.keywords | default "" }}{{ end }}{{ else }}{{ .Site.Params.keywords | default "" }}{{ end }}">
     <meta name="author" content="{{ .Params.author | default .Site.Params.author }}">
-    {{ if or .Params.noindex (eq .Kind "404") }}
+    {{ if .IsPage }}<meta property="article:author" content="{{ .Params.author | default .Site.Params.author }}">{{ end }}
+    {{ if or .Params.noindex  }}
     <meta name="robots" content="noindex, follow">
     {{ end }}
 
@@ -25,48 +23,170 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <link rel="preconnect" href="https://img.pgoj.top" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-    {{/* 关键 CSS 内联：消除移动端首屏（顶部导航/页脚）因外部样式表晚加载导致的闪白(FOUC)。
-        颜色随主题 themeColor 变化，body 背景取与 --color_bg(#FBF7F0) 一致的暖白色。 */}}
-    <style>
-      html,body{background:#FBF7F0;color:{{ .Site.Params.themeColor | default "#3E3A39" }}}
-      .header-navigation{background:{{ .Site.Params.themeColor | default "#3E3A39" }};height:3.25rem}
-      .footer{background:{{ .Site.Params.themeColor | default "#3E3A39" }}}
-      .nav-sitename a{color:#FBF7F0;text-decoration:none}
-    </style>
+    <link rel="stylesheet" href="{{ "css/pgoj-blog.css" | relURL }}">
 
-    {{ $css := resources.Get "css/style.css" | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $css.RelPermalink }}">
-
-    <!-- SVG Sprite (icons used across theme) -->
+    <!-- SVG Sprite -->
     <svg style="display:none">
-        <symbol id="icon-tag" viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></symbol>
-        <symbol id="icon-calendar" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></symbol>
-        <symbol id="icon-folder" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></symbol>
         <symbol id="icon-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
-        <symbol id="icon-user" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></symbol>
-        <symbol id="icon-book" viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></symbol>
     </svg>
 
-    <!-- SEO: Structured Data -->
-    {{ partial "schema.html" . }}
+    {{ if not .IsHome }}
+    <!-- JSON-LD: BreadcrumbList -->
+    {{ if .IsSection }}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "{{ .Site.BaseURL | safeURL }}"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "{{ .Title | plainify }}",
+                "item": "{{ .Permalink | safeURL }}"
+            }
+        ]
+    }
+    </script>
+    {{ else if .IsPage }}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "{{ .Site.BaseURL | safeURL }}"
+            }{{ with .CurrentSection }},
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "{{ .Title | plainify }}",
+                "item": "{{ .Permalink | safeURL }}"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{{ $.Title | plainify }}",
+                "item": "{{ $.Permalink | safeURL }}"
+            }{{ else }},
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "{{ $.Title | plainify }}",
+                "item": "{{ $.Permalink | safeURL }}"
+            }{{ end }}
+        ]
+    }
+    </script>
 
-    <!-- SEO: Canonical & RSS -->
+    <!-- JSON-LD: BlogPosting -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "{{ .Title | plainify }}",
+        "description": "{{ .Params.description | default (.Summary | plainify | truncate 200) }}",
+        "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+        "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ .Permalink | safeURL }}"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "{{ .Params.author | default .Site.Params.author | default .Site.Title }}"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "{{ .Site.Params.author | default .Site.Title }}"
+        }{{ with .Params.thumbnail }},
+        "image": "{{ . | absLangURL }}"
+        {{ end }}
+    }
+    </script>
+    {{ end }}
+    {{ end }}
+
+    {{ if .IsHome }}
+    <!-- JSON-LD: WebSite -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "{{ .Site.Title }}",
+        "url": "{{ .Site.BaseURL | safeURL }}",
+        "description": "{{ .Site.Params.description | default "" }}"{{ with .Site.Params.author }},
+        "author": {
+            "@type": "Person",
+            "name": "{{ . }}"
+        }{{ end }}
+    }
+    </script>
+    {{ end }}
+
+    <!-- SEO -->
     <link rel="canonical" href="{{ .Permalink }}">
     {{ with .OutputFormats.Get "rss" }}
     <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
     {{ end }}
 
-    <!-- SEO: Open Graph -->
-    {{ partial "opengraph.html" . }}
+    {{ if .IsPage }}
+    <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+    {{ if ne (.Lastmod.Format "2006-01-02T15:04:05Z07:00") (.Date.Format "2006-01-02T15:04:05Z07:00") }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+    {{ end }}
 
-    <!-- SEO: Twitter Card -->
-    {{ partial "twitter_cards.html" . }}
+    <!-- Open Graph -->
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}">
+    <meta property="og:description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 200) }}{{ end }}">
+    <meta property="og:site_name" content="{{ .Site.Title }}">
+    <meta property="og:locale" content="zh_CN">
+    {{ $ogImg := "" }}
+    {{ if .Params.thumbnail }}
+        {{ $ogImg = .Params.thumbnail }}
+    {{ else if .Params.cover }}
+        {{ $ogImg = .Params.cover }}
+    {{ end }}
+    {{ if $ogImg }}
+    {{ if (findRE "^@image:" $ogImg) }}
+    <meta property="og:image" content="{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}">
+    {{ else if (findRE "^/" $ogImg) }}
+    <meta property="og:image" content="{{ $ogImg | absLangURL }}">
+    {{ else }}
+    <meta property="og:image" content="{{ $ogImg }}">
+    {{ end }}
+    <meta property="og:image:alt" content="{{ .Title | default "文章配图" }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    {{ end }}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="{{ if $ogImg }}summary_large_image{{ else }}summary{{ end }}">
+    <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}">
+    <meta name="twitter:description" content="{{ if .IsHome }}{{ .Site.Params.description | default .Site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 200) }}{{ end }}">
+    {{ if $ogImg }}
+    {{ if (findRE "^@image:" $ogImg) }}
+    <meta name="twitter:image" content="{{ printf "https://img.pgoj.top/%s" (replace $ogImg "@image:" "") }}">
+    {{ else if (findRE "^/" $ogImg) }}
+    <meta name="twitter:image" content="{{ $ogImg | absLangURL }}">
+    {{ else }}
+    <meta name="twitter:image" content="{{ $ogImg }}">
+    {{ end }}
+    {{ end }}
 
     {{ printf "<meta name=\"generator\" content=\"Hugo\">" | safeHTML }}
 
-    {{/* MathJax 3 - 仅在有数学公式的页面加载 */}}
+    {{/* MathJax 3 - 仅在有数学公式的文章页面加载 */}}
     {{ $needMath := false }}
     {{ if .IsPage }}
       {{ if .Params.math }}
@@ -109,63 +229,51 @@
 <body>
 <a href="#main-content" class="skip-link">跳到主内容</a>
 
-<header class="header">
-    <div class="header-navigation">
-        <div class="container">
-            <button id="hamburger" aria-label="打开导航菜单" aria-expanded="false" aria-controls="menu" style="background:none;border:none;padding:0;cursor:pointer;"><span></span></button>
-
-            <div class="nav-sitename">
-                <a href="{{ .Site.BaseURL }}" title="{{ .Site.Title }}">{{ .Site.Title }}</a>
-            </div>
-
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="{{ .Site.BaseURL }}"{{ if .IsHome }} class="current_page_item"{{ end }}>首页</a></li>
-                    {{ range (index hugo.Data "kb-categories") }}
-                    <li><a href="{{ .name | relURL }}/"{{ if eq $.Section .name }} class="current_page_item"{{ end }}>{{ .title }}</a></li>
-                    {{ end }}
-                    {{ $notesSec := .Site.GetPage "/notes" }}
-                    {{ if $notesSec }}
-                    <li><a href="{{ $notesSec.Permalink }}"{{ if eq $.Section "notes" }} class="current_page_item"{{ end }}>随记</a></li>
-                    {{ end }}
-                    {{ $aboutPage := site.GetPage "/pages/about" }}
-                    {{ if $aboutPage }}
-                    <li><a href="{{ $aboutPage.Permalink }}">关于</a></li>
-                    {{ end }}
-                </ul>
-            </nav>
-
-            <div class="search">
-                <form method="get" action="{{ "/search/" | relURL }}" role="search">
-                    <input type="text" id="search-input" name="s" class="search-input" placeholder="搜索..." aria-label="搜索">
-                    <button type="submit" class="search-submit" aria-label="搜索">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><use href="#icon-search"/></svg>
-                    </button>
-                </form>
-            </div>
-
-        </div>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-logo"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></div>
+    <nav class="header-nav" aria-label="主导航">
+      <ul>
+        <li><a href="{{ .Site.BaseURL }}"{{ if .IsHome }} class="current"{{ end }}>首页</a></li>
+        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+        <li><a href="{{ $taxonomy.Page.RelPermalink }}"{{ if eq $.RelPermalink $taxonomy.Page.RelPermalink }} class="current"{{ end }}>{{ $taxonomy.Page.Title }}</a></li>
+        {{ end }}
+        {{ with .Site.GetPage "/pages/guestbook" }}<li><a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} class="current"{{ end }}>留言</a></li>{{ end }}
+        {{ with .Site.GetPage "/pages/links" }}<li><a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} class="current"{{ end }}>链接</a></li>{{ end }}
+        {{ with .Site.GetPage "/pages/about" }}<li><a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} class="current"{{ end }}>关于</a></li>{{ end }}
+      </ul>
+    </nav>
+    <button class="menu-toggle" aria-label="打开菜单" onclick="document.querySelector('.site-header').classList.toggle('menu-open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="header-search">
+      <form class="search-form" action="{{ "/search/" | relURL }}" method="get" role="search">
+        <input type="search" name="s" placeholder="搜索..." aria-label="搜索" autocomplete="off">
+        <button type="submit" aria-label="提交搜索"><span class="icon">⌕</span></button>
+      </form>
     </div>
+  </div>
 </header>
 
-<div class="container"><main id="main-content">
-    <div class="main">
-        {{ block "main" . }}{{ end }}
-    </div>
-</main></div>
+<div class="content-wrap"><div class="container"><div class="main-content">
+  {{ template "main" . }}
+</div></div></div>
 
-{{ partial "footer.html" . }}
-
-{{ $js := resources.Get "js/main.js" | minify | fingerprint }}
-<script src="{{ $js.RelPermalink }}" defer></script>
+<footer class="site-footer"><div class="container"><div class="footer-inner">
+  <div class="footer-left">&copy; {{ with .Site.Params.builtYear }}{{ . }}-{{ end }}{{ now.Year }} {{ .Site.Title }}</div>
+  <div class="footer-right">
+    <a href="https://www.travellings.cn/go.html" target="_blank" rel="noopener noreferrer">开往</a>
+    <span class="footer-sep">·</span>
+    <a href="https://webteleporter.top" target="_blank" rel="noopener noreferrer">传送门</a>
+    <span class="footer-sep">·</span>
+    <a href="https://blogscn.fun" target="_blank" rel="noopener noreferrer">笔墨迹</a>
+    <span class="footer-sep">·</span>
+    <a href="/sitemap.xml">网站地图</a>
+    <span class="footer-sep">·</span>
+    <a href="/feed/">RSS</a>
+  </div>
+</div></div></footer>
 
 {{ block "scripts" . }}{{ end }}
-
-<!-- 返回顶部按钮 -->
-<button id="back-to-top" class="floating-back-top" aria-label="返回顶部" style="display:none;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M7 14l5-5 5 5H7z"/>
-    </svg>
-</button>
 </body>
 </html>

@@ -1,0 +1,32 @@
+{{ with . }}
+{{ $total := .TotalPages }}
+{{ $current := .PageNumber }}
+{{ $range := 2 }}
+{{ $dot := false }}
+<nav class="pagination" aria-label="分页">
+  <ul>
+    {{ if .HasPrev }}<li class="prev"><a href="{{ .Prev.URL }}" aria-label="上一页">‹</a></li>
+    {{ else }}<li class="prev"><span>‹</span></li>{{ end }}
+
+    {{ range .Pagers }}
+    {{ if or
+      (eq .PageNumber 1)
+      (eq .PageNumber $total)
+      (and (ge .PageNumber (sub $current $range)) (le .PageNumber (add $current $range)))
+    }}
+    {{ $dot = false }}
+    <li{{ if eq .PageNumber $current }} class="active"{{ end }}>
+      {{ if eq .PageNumber $current }}<span>{{ .PageNumber }}</span>
+      {{ else }}<a href="{{ .URL }}">{{ .PageNumber }}</a>{{ end }}
+    </li>
+    {{ else if not $dot }}
+    {{ $dot = true }}
+    <li><span>...</span></li>
+    {{ end }}
+    {{ end }}
+
+    {{ if .HasNext }}<li class="next"><a href="{{ .Next.URL }}" aria-label="下一页">›</a></li>
+    {{ else }}<li class="next"><span>›</span></li>{{ end }}
+  </ul>
+</nav>
+{{ end }}

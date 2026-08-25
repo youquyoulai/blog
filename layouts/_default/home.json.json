@@ -1,0 +1,26 @@
+{{- $pages := where .Site.RegularPages "Section" "posts" -}}
+[
+{{- range $i, $p := $pages -}}
+  {{- if $i }},{{ end }}
+  {{- $catNames := slice -}}
+  {{- range $p.Params.categories -}}
+    {{- $term := index $.Site.Taxonomies.categories . -}}
+    {{- if $term -}}{{ $catNames = $catNames | append $term.Page.Title -}}{{- else -}}{{ $catNames = $catNames | append . -}}{{- end -}}
+  {{- end -}}
+  {{- $tagNames := slice -}}
+  {{- range $p.Params.tags -}}
+    {{- $term := index $.Site.Taxonomies.tags . -}}
+    {{- if $term -}}{{ $tagNames = $tagNames | append $term.Page.Title -}}{{- else -}}{{ $tagNames = $tagNames | append . -}}{{- end -}}
+  {{- end -}}
+  {
+    "title": {{ $p.Title | jsonify }},
+    "url": {{ $p.RelPermalink | jsonify }},
+    "summary": {{ $p.Summary | plainify | jsonify }},
+    "date": {{ $p.Date.Format "2006-01-02" | jsonify }},
+    "section": {{ $p.Section | jsonify }},
+    "categories": {{ $catNames | jsonify }},
+    "tags": {{ $tagNames | jsonify }},
+    "thumbnail": {{ $p.Params.cover | default "" | jsonify }}
+  }
+{{- end -}}
+]

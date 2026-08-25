@@ -1,0 +1,114 @@
+{{ define "main" }}
+<div class="breadcrumbs">
+  <a href="{{ .Site.BaseURL }}"><span class="icon">🏠</span> 首页</a>
+  <span class="separator">›</span>
+  <span class="current">{{ .Title }}</span>
+</div>
+
+<article class="page-single">
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{ if .Content }}
+  <div class="page-content">
+    {{ .Content }}
+  </div>
+  {{ end }}
+
+  {{ if eq .File.BaseFileName "about" }}
+  <div class="about-stats">
+    <h3 class="about-stats-title">📊 站点数据</h3>
+    <div class="about-stats-grid">
+      <div class="stat-item">
+        <span class="stat-num">{{ len (where .Site.RegularPages "Section" "posts") }}</span>
+        <span class="stat-label">篇文章</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">{{ with .Site.Taxonomies.categories }}{{ . | len }}{{ else }}0{{ end }}</span>
+        <span class="stat-label">个分类</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">{{ with .Site.Taxonomies.tags }}{{ . | len }}{{ else }}0{{ end }}</span>
+        <span class="stat-label">个标签</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="about-comment-count">--</span>
+        <span class="stat-label">条评论</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="about-run-days">--</span>
+        <span class="stat-label">运行天数</span>
+      </div>
+    </div>
+  </div>
+
+  {{ with .Site.Taxonomies.tags }}
+  <div class="about-tags">
+    <h3 class="about-tags-title">🏷️ 标签云</h3>
+    <div class="about-tags-cloud">
+      {{ range first 50 .ByCount }}
+      {{ $count := len .Pages }}
+      {{ $size := add 0.8 (mul (div (float $count) 20.0) 0.6) }}
+      {{ if gt $size 1.6 }}{{ $size = 1.6 }}{{ end }}
+      <a href="{{ .Page.RelPermalink }}" style="font-size:{{ $size }}rem;">
+        {{ .Page.Title }}<span class="tag-count">({{ $count }})</span>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+  {{ end }}
+</article>
+
+{{ if eq .File.BaseFileName "guestbook" }}
+<section class="comments-section" id="comments">
+  <h2 class="section-title">留言</h2>
+  <div id="waline"></div>
+</section>
+{{ end }}
+{{ end }}
+
+{{ define "scripts" }}
+{{ if eq .File.BaseFileName "guestbook" }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client@2/dist/waline.css">
+<script src="https://cdn.jsdelivr.net/npm/@waline/client@2/dist/waline.js"></script>
+<script>
+  const raw = window.location.pathname.replace(/\.html$/, '');
+  const path = raw.endsWith('/') ? raw : raw + '/';
+  Waline.init({
+    el: '#waline',
+    serverURL: 'https://waline.pgoj.top',
+    path: path,
+    lang: 'zh-CN',
+    requiredMeta: ['nick', 'mail'],
+    emoji: [
+      'https://cdn.jsdelivr.net/gh/walinejs/emojis@1/weibo',
+      'https://cdn.jsdelivr.net/gh/walinejs/emojis@1/tieba',
+    ],
+  });
+</script>
+{{ end }}
+
+{{ if eq .File.BaseFileName "about" }}
+<script>
+  // 运行天数：2026-01-18 建站（根据原站219天倒推约2026-01-18）
+  (function() {
+    var startDate = new Date('2026-01-18T00:00:00+08:00');
+    var now = new Date();
+    var diff = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+    var el = document.getElementById('about-run-days');
+    if (el) el.textContent = diff;
+  })();
+  // 评论数从 Waline 获取
+  (function() {
+    fetch('https://waline.pgoj.top/api/comment?type=count&url=/about/')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var el = document.getElementById('about-comment-count');
+        if (el && data && data[0] && data[0].count !== undefined) {
+          el.textContent = data[0].count;
+        }
+      })
+      .catch(function() {});
+  })();
+</script>
+{{ end }}
+{{ end }}

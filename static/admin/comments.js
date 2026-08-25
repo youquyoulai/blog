@@ -38,6 +38,7 @@ async function loadComments() {
     renderComments();
   } catch (e) {
     el.innerHTML = '<div class="empty-state"><p>加载失败：' + escHtml(e.message) + '</p></div>';
+    if (typeof toast === 'function') toast('评论加载失败：' + e.message, 'error');
   }
 }
 

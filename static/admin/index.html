@@ -998,6 +998,30 @@ function sectionDisplayName(slug) {
   return _SECTION_DISPLAY[slug] || slug;
 }
 
+/* 标签 slug → 中文显示名兜底映射（frontmatter 里没单独写 title 时的回退）
+   加新标签时维护这里。slug 不变（URL/SEO 不动），仅展示替换。
+   与 Hugo 端的 data/tags_zh.yaml 保持同步。*/
+var _TAG_DISPLAY = {
+  cognition: '认知',
+  reading: '阅读',
+  daily: '日常',
+  blog: '博客',
+  education: '教育',
+  literature: '文学',
+  weread: '微信阅读',
+  software: '软件',
+  holiday: '节日',
+  emotion: '情绪',
+  sisyphus: '西西弗斯',
+  shopping: '购物',
+  wangxiaobo: '王小波'
+};
+function tagDisplayName(tag) {
+  if (tag.title && tag.title !== tag.name) return tag.title;
+  if (_TAG_DISPLAY[tag.name]) return _TAG_DISPLAY[tag.name];
+  return tag.name;
+}
+
 /* ===== 编辑器分类/标签选择 ===== */
 var _allCategories = [];   // 所有分类 [{name, title, count}]
 var _allTags = [];         // 所有标签 [{name, title, count}]
@@ -1048,11 +1072,6 @@ async function loadEditorTaxonomies() {
 function catDisplayName(cat) {
   if (cat.title && cat.title !== cat.name) return cat.title;
   return cat.name;
-}
-
-function tagDisplayName(tag) {
-  if (tag.title && tag.title !== tag.name) return tag.title;
-  return tag.name;
 }
 
 function renderCategoryChips() {

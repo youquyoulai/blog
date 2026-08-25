@@ -1,0 +1,36 @@
+{{ define "main" }}
+{{ $tagSlug := .Params.tag | default .File.BaseFileName }}
+{{ $tagTerm := index .Site.Taxonomies.tags $tagSlug }}
+
+<div class="tag-page-header">
+  <h1 class="tag-page-title">{{ .Title }}</h1>
+  {{ with .Content }}<div class="tag-page-desc">{{ . }}</div>{{ end }}
+  {{ with $tagTerm }}
+  <div class="tag-page-count">共 {{ len .Pages }} 篇文章</div>
+  {{ end }}
+</div>
+
+<div class="post-list">
+  {{ with $tagTerm }}
+    {{ range .Pages.GroupByDate "2006" }}
+    <div class="year-group">
+      <h2 class="year-title">{{ .Key }}</h2>
+      {{ range .Pages }}
+      <article class="post-card">
+        <h2 class="post-card-title">
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h2>
+        <div class="post-card-excerpt">
+          <p>{{ .Summary | plainify | truncate 120 }}</p>
+        </div>
+        <div class="post-card-meta">
+          <span><span class="icon">📅</span> {{ .Date.Format "2006-01-02" }}</span>
+          {{ with .Params.categories }}<span><span class="icon">📁</span> {{ range $i, $c := . }}{{ if $i }}、{{ end }}{{ $term := index $.Site.Taxonomies.categories $c }}{{ with $term }}<a href="{{ .Page.RelPermalink }}" class="post-cat-link">{{ .Page.Title }}</a>{{ end }}{{ end }}</span>{{ end }}
+        </div>
+      </article>
+      {{ end }}
+    </div>
+    {{ end }}
+  {{ end }}
+</div>
+{{ end }}

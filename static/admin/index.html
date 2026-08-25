@@ -218,6 +218,11 @@
     .post-item-arrow { color:var(--muted); flex-shrink:0; margin-top:2px; }
     .post-item-tags { display:flex; gap:4px; flex-wrap:wrap; margin-top:6px; }
     .tag { background:var(--accent-bg); color:var(--accent); padding:2px 8px; border-radius:100px; font-size:0.72rem; font-weight:500; }
+    .chip { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:100px; font-size:0.75rem; background:var(--surface); border:1px solid var(--border); cursor:pointer; user-select:none; transition:all 0.15s; }
+    .chip:hover { border-color:var(--accent); }
+    .chip.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .chip .chip-count { opacity:0.6; font-size:0.65rem; }
+    .chip.active .chip-count { opacity:0.8; }
     .folder-btn { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); font-size:0.82rem; color:var(--text); cursor:pointer; transition:0.15s; margin:0 6px 6px 0; }
     .folder-btn:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-bg); }
 
@@ -741,13 +746,13 @@
                 <span style="font-size:0.75rem;color:var(--muted);">日期</span>
                 <input type="text" class="meta-input" id="postDate" placeholder="2026-05-06" style="width:160px;">
               </div>
-              <div class="field-wrap" style="display:flex;flex-direction:column;gap:2px;">
+              <div class="field-wrap" style="display:flex;flex-direction:column;gap:2px;min-width:200px;">
                 <span style="font-size:0.75rem;color:var(--muted);">分类</span>
-                <input type="text" class="meta-input" id="postCategoryText" placeholder="如：记录" style="width:110px;padding:6px 8px;">
+                <div id="categoryChips" style="display:flex;flex-wrap:wrap;gap:4px;padding:4px 0;min-height:28px;"></div>
               </div>
-              <div class="field-wrap" style="display:flex;flex-direction:column;gap:2px;">
+              <div class="field-wrap" style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:250px;">
                 <span style="font-size:0.75rem;color:var(--muted);">标签</span>
-                <input type="text" class="meta-input" id="postTags" placeholder="逗号分隔" style="width:140px;padding:6px 8px;">
+                <div id="tagChips" style="display:flex;flex-wrap:wrap;gap:4px;padding:4px 0;min-height:28px;"></div>
               </div>
               <div class="field-wrap" style="display:flex;flex-direction:column;gap:2px;">
                 <span style="font-size:0.75rem;color:var(--muted);">slug</span>
@@ -991,6 +996,133 @@ var _SECTION_DISPLAY = {
 };
 function sectionDisplayName(slug) {
   return _SECTION_DISPLAY[slug] || slug;
+}
+
+/* ===== 编辑器分类/标签选择 ===== */
+var _allCategories = [];   // 所有分类 [{name, title, count}]
+var _allTags = [];         // 所有标签 [{name, title, count}]
+var _selectedCategories = [];  // 已选分类 slug 列表
+var _selectedTags = [];        // 已选标签 slug 列表
+var _editorTaxLoaded = false;
+
+async function loadEditorTaxonomies() {
+  if (_editorTaxLoaded) {
+    renderCategoryChips();
+    renderTagChips();
+    return;
+  }
+  try {
+    var data = await api('/api/taxonomies?section=posts');
+    _allCategories = data.categories || [];
+    _allTags = data.tags || [];
+    _editorTaxLoaded = true;
+    renderCategoryChips();
+    renderTagChips();
+  } catch (e) {
+    console.error('加载分类标签失败:', e);
+    document.getElementById('categoryChips').innerHTML = '<span style="font-size:0.75rem;color:var(--muted);">加载失败</span>';
+    document.getElementById('tagChips').innerHTML = '<span style="font-size:0.75rem;color:var(--muted);">加载失败</span>';
+  }
+}
+
+function catDisplayName(cat) {
+  if (cat.title && cat.title !== cat.name) return cat.title;
+  return cat.name;
+}
+
+function tagDisplayName(tag) {
+  if (tag.title && tag.title !== tag.name) return tag.title;
+  return tag.name;
+}
+
+function renderCategoryChips() {
+  var el = document.getElementById('categoryChips');
+  if (!el) return;
+  if (_allCategories.length === 0) {
+    el.innerHTML = '<span style="font-size:0.75rem;color:var(--muted);">暂无分类</span>';
+    return;
+  }
+  var html = '';
+  _allCategories.forEach(function(c) {
+    var active = _selectedCategories.indexOf(c.name) !== -1 ? ' active' : '';
+    html += '<span class="chip' + active + '" onclick="toggleCategory(\'' + escAttr(c.name) + '\')">' + escHtml(catDisplayName(c)) + '<span class="chip-count">' + (c.count || 0) + '</span></span>';
+  });
+  // 新增分类按钮
+  html += '<span class="chip" onclick="addNewCategory()" title="新增分类" style="border-style:dashed;">+ 新增</span>';
+  el.innerHTML = html;
+}
+
+function renderTagChips() {
+  var el = document.getElementById('tagChips');
+  if (!el) return;
+  if (_allTags.length === 0) {
+    el.innerHTML = '<span style="font-size:0.75rem;color:var(--muted);">暂无标签</span>';
+    return;
+  }
+  var html = '';
+  _allTags.forEach(function(t) {
+    var active = _selectedTags.indexOf(t.name) !== -1 ? ' active' : '';
+    html += '<span class="chip' + active + '" onclick="toggleTag(\'' + escAttr(t.name) + '\')">' + escHtml(tagDisplayName(t)) + '<span class="chip-count">' + (t.count || 0) + '</span></span>';
+  });
+  // 新增标签按钮
+  html += '<span class="chip" onclick="addNewTag()" title="新增标签" style="border-style:dashed;">+ 新增</span>';
+  el.innerHTML = html;
+}
+
+function toggleCategory(slug) {
+  var idx = _selectedCategories.indexOf(slug);
+  if (idx === -1) {
+    _selectedCategories.push(slug);
+  } else {
+    _selectedCategories.splice(idx, 1);
+  }
+  renderCategoryChips();
+}
+
+function toggleTag(slug) {
+  var idx = _selectedTags.indexOf(slug);
+  if (idx === -1) {
+    _selectedTags.push(slug);
+  } else {
+    _selectedTags.splice(idx, 1);
+  }
+  renderTagChips();
+}
+
+function addNewCategory() {
+  var name = prompt('请输入分类 slug（英文，如：ji-lu）：');
+  if (!name) return;
+  name = name.trim();
+  if (_allCategories.some(function(c){ return c.name === name; })) {
+    if (_selectedCategories.indexOf(name) === -1) _selectedCategories.push(name);
+    renderCategoryChips();
+    return;
+  }
+  var title = prompt('请输入分类显示名（中文，如：记录）：', name);
+  if (title === null) return;
+  _allCategories.unshift({ name: name, title: title || name, count: 0 });
+  _selectedCategories.push(name);
+  renderCategoryChips();
+}
+
+function addNewTag() {
+  var name = prompt('请输入标签 slug（英文，如：wei-xin-yue-du）：');
+  if (!name) return;
+  name = name.trim();
+  if (_allTags.some(function(t){ return t.name === name; })) {
+    if (_selectedTags.indexOf(name) === -1) _selectedTags.push(name);
+    renderTagChips();
+    return;
+  }
+  var title = prompt('请输入标签显示名（中文，如：微信阅读）：', name);
+  if (title === null) return;
+  _allTags.unshift({ name: name, title: title || name, count: 0 });
+  _selectedTags.push(name);
+  renderTagChips();
+}
+
+function escAttr(s) {
+  return String(s).replace(/'/g, "\\'").replace(/"/g, '&quot;');
 }
 
 /* ===== Tab 切换 ===== */
@@ -1726,14 +1858,16 @@ function newPost() {
   var offset = now.getTimezoneOffset();
   var localTime = new Date(now.getTime() - offset * 60000);
   document.getElementById('postDate').value = localTime.toISOString().slice(0,16);
-  document.getElementById('postCategoryText').value = '';
-  document.getElementById('postTags').value = '';
   document.getElementById('postDescription').value = '';
   document.getElementById('postSlug').value = '';
   document.getElementById('postCover').value = '';
   document.getElementById('postContent').value = '';
   document.getElementById('deletePostBtn').style.display = 'none';
   window._newPostPrefix = currentPostPrefix;
+  // 重置分类/标签选中
+  _selectedCategories = [];
+  _selectedTags = [];
+  loadEditorTaxonomies();
   switchTab('editor');
 }
 
@@ -1753,13 +1887,17 @@ async function editPost(filename, subSection) {
     } else {
       document.getElementById('postDate').value = '';
     }
-    document.getElementById('postCategoryText').value = extractFM(content, 'categories') || '';
-    document.getElementById('postTags').value = extractFM(content, 'tags') || '';
     document.getElementById('postDescription').value = extractFM(content, 'description') || '';
     document.getElementById('postSlug').value = extractFM(content, 'slug') || filename.replace('.md','').replace(/^\d{4}-\d{2}-\d{2}-/,'');
     document.getElementById('postCover').value = extractFM(content, 'cover') || '';
     document.getElementById('postContent').value = extractBody(content);
     document.getElementById('deletePostBtn').style.display = 'inline-flex';
+    // 解析分类/标签并加载 chip
+    var catStr = extractFM(content, 'categories') || '';
+    var tagStr = extractFM(content, 'tags') || '';
+    _selectedCategories = catStr ? catStr.split(/[,，]/).map(function(s){ return s.trim(); }).filter(Boolean) : [];
+    _selectedTags = tagStr ? tagStr.split(/[,，]/).map(function(s){ return s.trim(); }).filter(Boolean) : [];
+    loadEditorTaxonomies();
     switchTab('editor');
   } catch (e) {
     toast('加载文章失败: ' + e.message, 'error');
@@ -1804,15 +1942,13 @@ function buildFM(title, date, slug, cover) {
   var desc = (document.getElementById('postDescription').value || '').trim();
   if (desc) fm += 'description: "' + desc.replace(/"/g, '\\"') + '"\n';
   // 分类
-  var cat = (document.getElementById('postCategoryText').value || '').trim();
-  if (cat) {
-    var cats = cat.split(/[,，]/).map(function(s){ return '"' + s.trim() + '"'; });
+  if (_selectedCategories.length > 0) {
+    var cats = _selectedCategories.map(function(s){ return '"' + s.trim() + '"'; });
     fm += 'categories: [' + cats.join(', ') + ']\n';
   }
   // 标签
-  var tags = (document.getElementById('postTags').value || '').trim();
-  if (tags) {
-    var tagArr = tags.split(/[,，]/).map(function(s){ return '"' + s.trim() + '"'; }).filter(function(s){ return s !== '""'; });
+  if (_selectedTags.length > 0) {
+    var tagArr = _selectedTags.map(function(s){ return '"' + s.trim() + '"'; }).filter(function(s){ return s !== '""'; });
     if (tagArr.length) fm += 'tags: [' + tagArr.join(', ') + ']\n';
   }
   fm += '---\n';
@@ -1826,8 +1962,7 @@ async function savePost(silent) {
   var cover = document.getElementById('postCover').value.trim();
   var body = document.getElementById('postContent').value;
   if (!title || !date) { toast('标题和日期不能为空', 'error'); return; }
-  var catText = (document.getElementById('postCategoryText').value || '').trim();
-  if (!catText) { toast('请输入分类名', 'error'); return; }
+  if (_selectedCategories.length === 0) { toast('请至少选择一个分类', 'error'); return; }
   var frontmatter = buildFM(title, date, slug, cover);
   var content = frontmatter + body;
   var slugPart = slug || title.replace(/[^\w\u4e00-\u9fa5-]/g,'-').toLowerCase();

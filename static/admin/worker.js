@@ -809,6 +809,33 @@ async function getTaxonomies(request, env) {
     var catList = Object.keys(catMap).map(function(name) { return { name: name, count: catMap[name] }; });
     var tagList = Object.keys(tagMap).map(function(name) { return { name: name, count: tagMap[name] }; });
 
+    // 读取分类/标签的中文 title（从 _index.md）
+    async function enrichWithTitle(items, taxonomyDir) {
+      const results = [];
+      for (const item of items) {
+        try {
+          const indexFile = await githubFetch(
+            '/repos/' + GITHUB_REPO + '/contents/' + CONTENT_DIR + '/' + taxonomyDir + '/' + item.name + '/_index.md',
+            'GET',
+            env.GITHUB_TOKEN
+          );
+          const content = base64ToUtf8(indexFile.content);
+          const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/);
+          if (titleMatch) {
+            results.push({ name: item.name, title: titleMatch[1].trim(), count: item.count });
+          } else {
+            results.push(item);
+          }
+        } catch (e) {
+          results.push(item);
+        }
+      }
+      return results;
+    }
+
+    catList = await enrichWithTitle(catList, 'categories');
+    tagList = await enrichWithTitle(tagList, 'tags');
+
     return corsResponse(JSON.stringify({
       totalPosts: mdFiles.length,
       categories: catList,

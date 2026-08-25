@@ -1013,21 +1013,21 @@ async function loadEditorTaxonomies() {
   }
   try {
     // 分批拉取（每批 40），累积所有分类/标签统计
-    var catAgg = {};
-    var tagAgg = {};
+    var catAgg = {}; var catTitle = {};
+    var tagAgg = {}; var tagTitle = {};
     var offset = 0;
     var guard = 0;
     while (guard < 20) {
       guard++;
       var data = await api('/api/taxonomies?section=posts&offset=' + offset + '&limit=40');
       if (data && data.error) throw new Error(data.error + (data.hint ? ' - ' + data.hint : ''));
-      (data.categories || []).forEach(function(c) { catAgg[c.name] = (catAgg[c.name] || 0) + (c.count || 0); });
-      (data.tags || []).forEach(function(t) { tagAgg[t.name] = (tagAgg[t.name] || 0) + (t.count || 0); });
+      (data.categories || []).forEach(function(c) { catAgg[c.name] = (catAgg[c.name] || 0) + (c.count || 0); if (c.title) catTitle[c.name] = c.title; });
+      (data.tags || []).forEach(function(t) { tagAgg[t.name] = (tagAgg[t.name] || 0) + (t.count || 0); if (t.title) tagTitle[t.name] = t.title; });
       if (!data.hasMore) break;
       offset += 40;
     }
-    _allCategories = Object.keys(catAgg).map(function(n) { return { name: n, count: catAgg[n] }; });
-    _allTags = Object.keys(tagAgg).map(function(n) { return { name: n, count: tagAgg[n] }; });
+    _allCategories = Object.keys(catAgg).map(function(n) { return { name: n, title: catTitle[n] || n, count: catAgg[n] }; });
+    _allTags = Object.keys(tagAgg).map(function(n) { return { name: n, title: tagTitle[n] || n, count: tagAgg[n] }; });
     _editorTaxLoaded = true;
     renderCategoryChips();
     renderTagChips();

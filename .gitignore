@@ -27,6 +27,7 @@ content/taxonomies.md
 
 # 构建产物 / 优化报告
 public_new/
+out_build/
 hugo-blog-optimization/
 hugo-blog-audit/
 tmp-patch/

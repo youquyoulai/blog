@@ -1012,16 +1012,36 @@ async function loadEditorTaxonomies() {
     return;
   }
   try {
-    var data = await api('/api/taxonomies?section=posts');
-    _allCategories = data.categories || [];
-    _allTags = data.tags || [];
+    // 分批拉取（每批 40），累积所有分类/标签统计
+    var catAgg = {};
+    var tagAgg = {};
+    var offset = 0;
+    var guard = 0;
+    while (guard < 20) {
+      guard++;
+      var data = await api('/api/taxonomies?section=posts&offset=' + offset + '&limit=40');
+      if (data && data.error) throw new Error(data.error + (data.hint ? ' - ' + data.hint : ''));
+      (data.categories || []).forEach(function(c) { catAgg[c.name] = (catAgg[c.name] || 0) + (c.count || 0); });
+      (data.tags || []).forEach(function(t) { tagAgg[t.name] = (tagAgg[t.name] || 0) + (t.count || 0); });
+      if (!data.hasMore) break;
+      offset += 40;
+    }
+    _allCategories = Object.keys(catAgg).map(function(n) { return { name: n, count: catAgg[n] }; });
+    _allTags = Object.keys(tagAgg).map(function(n) { return { name: n, count: tagAgg[n] }; });
     _editorTaxLoaded = true;
     renderCategoryChips();
     renderTagChips();
+    if (_allCategories.length === 0 && _allTags.length === 0) {
+      console.warn('分类/标签列表为空：', { catAgg: catAgg, tagAgg: tagAgg });
+    }
   } catch (e) {
     console.error('加载分类标签失败:', e);
-    document.getElementById('categoryChips').innerHTML = '<span style="font-size:0.75rem;color:var(--muted);">加载失败</span>';
-    document.getElementById('tagChips').innerHTML = '<span style="font-size:0.75rem;color:var(--muted);">加载失败</span>';
+    var msg = escHtml(e.message || String(e));
+    var catEl = document.getElementById('categoryChips');
+    var tagEl = document.getElementById('tagChips');
+    if (catEl) catEl.innerHTML = '<span style="font-size:0.75rem;color:var(--red);" title="' + msg + '">加载失败</span>';
+    if (tagEl) tagEl.innerHTML = '<span style="font-size:0.75rem;color:var(--red);" title="' + msg + '">加载失败</span>';
+    if (typeof toast === 'function') toast('分类/标签加载失败: ' + e.message, 'error');
   }
 }
 
@@ -2349,10 +2369,25 @@ async function loadTaxonomies() {
   try {
     var sel = document.getElementById('taxSectionSel');
     var section = sel ? sel.value : 'math';
-    var data = await api('/api/taxonomies?section=' + section);
-    var cats = data.categories || [];
-    var tgs = data.tags || [];
-    var html = '<div style="margin-bottom:12px;color:var(--muted);font-size:0.85rem;">共 ' + data.totalPosts + ' 篇文章，' + cats.length + ' 个分类，' + tgs.length + ' 个标签</div>';
+    // 分批拉取累积
+    var catAgg = {};
+    var tagAgg = {};
+    var total = 0;
+    var offset = 0;
+    var guard = 0;
+    while (guard < 20) {
+      guard++;
+      var data = await api('/api/taxonomies?section=' + section + '&offset=' + offset + '&limit=40');
+      if (data && data.error) throw new Error(data.error);
+      total = data.totalPosts || 0;
+      (data.categories || []).forEach(function(c) { catAgg[c.name] = (catAgg[c.name] || 0) + (c.count || 0); });
+      (data.tags || []).forEach(function(t) { tagAgg[t.name] = (tagAgg[t.name] || 0) + (t.count || 0); });
+      if (!data.hasMore) break;
+      offset += 40;
+    }
+    var cats = Object.keys(catAgg).map(function(n) { return { name: n, count: catAgg[n] }; });
+    var tgs = Object.keys(tagAgg).map(function(n) { return { name: n, count: tagAgg[n] }; });
+    var html = '<div style="margin-bottom:12px;color:var(--muted);font-size:0.85rem;">共 ' + total + ' 篇文章，' + cats.length + ' 个分类，' + tgs.length + ' 个标签</div>';
     html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">';
     // 分类（可滚动）
     html += '<div class="settings-group" style="max-height:55vh;overflow-y:auto;"><h3>分类 (' + cats.length + ' 个)</h3>';

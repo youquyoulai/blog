@@ -101,10 +101,10 @@ function renderCommentCard(comment, depth) {
       '<div style="margin-top:8px;font-size:0.85rem;line-height:1.6;color:var(--text);word-break:break-word;">' + stripTags(comment.comment || '').substring(0, 200) + '</div>' +
     '</div>' +
     '<div class="comment-actions">' +
-      (comment.status === 'waiting' ? '<button class="action-btn approve" onclick="approveComment(' + comment.id + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>批准</button>' : '') +
-      (comment.status !== 'spam' ? '<button class="action-btn spam" onclick="spamComment(' + comment.id + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>垃圾</button>' : '') +
-      '<button class="action-btn reply" onclick="replyComment(' + comment.id + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,17 4,12 9,7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>回复</button>' +
-      '<button class="action-btn del" onclick="deleteComment(' + comment.id + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"/></svg>删除</button>' +
+      (comment.status === 'waiting' ? '<button class="action-btn approve" onclick="approveComment(\'\' + comment.id + \'\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>批准</button>' : '') +
+      (comment.status !== 'spam' ? '<button class="action-btn spam" onclick="spamComment(\'\' + comment.id + \'\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>垃圾</button>' : '') +
+      '<button class="action-btn reply" onclick="replyComment(\'\' + comment.id + \'\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,17 4,12 9,7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>回复</button>' +
+      '<button class="action-btn del" onclick="deleteComment(\'\' + comment.id + \'\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"/></svg>删除</button>' +
     '</div>' +
   '</div>';
   for (var i = 0; i < children.length; i++) {
@@ -158,9 +158,9 @@ async function submitReply() {
         status: 'approved'
       })
     });
-    if (!res.ok) {
-      var err = await res.json().catch(function() { return { errno: -1 }; });
-      throw new Error(err.errmsg || 'HTTP ' + res.status);
+    var result = await res.json().catch(function() { return { errno: -1, errmsg: 'HTTP ' + res.status }; });
+    if (!res.ok || result.errno !== 0) {
+      throw new Error(result.errmsg || ('HTTP ' + res.status));
     }
     toast('回复已发送', 'success');
     closeReplyModal();

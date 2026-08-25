@@ -57,23 +57,26 @@
 
 {{ define "scripts" }}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client@2/dist/waline.css">
-<script src="https://cdn.jsdelivr.net/npm/@waline/client@2/dist/waline.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@waline/client@2/dist/waline.js"></script>
 <script>
-  const raw = window.location.pathname.replace(/\.html$/, '');
-  const path = raw.endsWith('/') ? raw : raw + '/';
-  Waline.init({
-    el: '#waline',
-    serverURL: 'https://waline.pgoj.top',
-    path: path,
-    lang: 'zh-CN',
-    requiredMeta: ['nick', 'mail'],
-    emoji: false,
-    imageUploader: false,
-    preview: false,
-    pageSize: 10,
-    login: 'disable',
-    comment: true,
-    avatarCDN: 'https://cravatar.cn/avatar/',
+  document.addEventListener('DOMContentLoaded', function() {
+    const raw = window.location.pathname.replace(/\.html$/, '');
+    const path = raw.endsWith('/') ? raw : raw + '/';
+    Waline.init({
+      el: '#waline',
+      serverURL: 'https://waline.pgoj.top',
+      path: path,
+      lang: 'zh-CN',
+      requiredMeta: ['nick', 'mail'],
+      emoji: false,
+      imageUploader: false,
+      preview: false,
+      pageSize: 10,
+      login: 'disable',
+      comment: true,
+      avatarCDN: 'https://gravatar.loli.net/avatar/',
+      avatarForce: true,
+    });
   });
 </script>
 {{ end }}

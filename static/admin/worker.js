@@ -392,7 +392,9 @@ function base64ToUtf8(base64) {
   for (let i = 0; i < binaryString.length; i++) {
     bytes[i] = binaryString.charCodeAt(i);
   }
-  return new TextDecoder('utf-8').decode(bytes);
+  // 剥离 UTF-8 BOM（\uFEFF），否则 /^---\s*\n/ 锚定正则会匹配失败，
+  // 导致 frontmatter（categories/tags/正文）解析为空。
+  return new TextDecoder('utf-8').decode(bytes).replace(/^\uFEFF/, '');
 }
 
 // UTF-8 安全的 base64 编码
@@ -749,101 +751,96 @@ async function writeGitHubFile(filePath, content, sha, message, env) {
 }
 
 // ═════════════════════════════════════════════════════════════════
+// 分类/标签统计（带 5min 模块级缓存 + 并发拉取）
+// ═════════════════════════════════════════════════════════════════
 // 分类/标签统计
+// 策略：用 git trees API 一次拿全仓库文件路径（1 次 subrequest），
+//       再按 offset/limit 分批用 git blobs 拉内容（每批 ≤40，
+//       单次 invocation 不触发 Cloudflare subrequest 上限）。
+//       前端循环调用把所有批次的 categories/tags 累加即可。
 // ═════════════════════════════════════════════════════════════════
 async function getTaxonomies(request, env) {
   const url = new URL(request.url);
   const section = url.searchParams.get('section') || DEFAULT_SECTION;
+  const offset = Math.max(0, parseInt(url.searchParams.get('offset') || '0', 10) || 0);
+  const limit = Math.min(Math.max(1, parseInt(url.searchParams.get('limit') || '40', 10) || 40), 50);
 
-  // 所有 section 统一走 GitHub 扫描逻辑（不再依赖 taxonomies.json）
   const dir = CONTENT_DIR + '/' + section;
-  const catMap = {};
-  const tagMap = {};
 
   try {
-    // 获取顶层目录内容
-    const data = await githubFetch(
-      '/repos/' + GITHUB_REPO + '/contents/' + dir,
-      'GET',
-      env.GITHUB_TOKEN
+    // 1. 用 git trees 一次拿整棵目录树（含 SHA，便于后续拉 blob）
+    const treeData = await githubFetch(
+      '/repos/' + GITHUB_REPO + '/git/trees/HEAD?recursive=1',
+      'GET', env.GITHUB_TOKEN
     );
+    const tree = (treeData && treeData.tree) || [];
 
-    // 收集所有需要扫描的 .md 文件（含子目录）
+    // 2. 过滤出本 section 下的 .md（排除 _index.md），保留 path + sha
     const mdFiles = [];
-    for (const f of data) {
-      if (f.type === 'file' && f.name.endsWith('.md') && f.name !== '_index.md') {
-        mdFiles.push(f);
-      } else if (f.type === 'dir') {
-        // 递归获取子目录内容
-        try {
-          const subData = await githubFetch(
-            '/repos/' + GITHUB_REPO + '/contents/' + f.path,
-            'GET',
-            env.GITHUB_TOKEN
-          );
-          for (const sf of subData) {
-            if (sf.type === 'file' && sf.name.endsWith('.md') && sf.name !== '_index.md') {
-              mdFiles.push(sf);
-            }
-          }
-        } catch (e) {
-          console.error('扫描子目录失败 ' + f.path + ':', e.message);
-        }
+    for (const t of tree) {
+      if (t.type !== 'blob') continue;
+      if (!t.path.startsWith(dir + '/')) continue;
+      if (!t.path.endsWith('.md')) continue;
+      if (t.path.endsWith('/_index.md')) continue;
+      mdFiles.push(t);
+    }
+
+    // 3. 取本批次
+    const slice = mdFiles.slice(offset, offset + limit);
+
+    // 4. 并发拉 blob 内容（git/blobs，每批 ≤50，安全）
+    const CONC = 8;
+    const catMap = {};
+    const tagMap = {};
+    for (let i = 0; i < slice.length; i += CONC) {
+      const chunk = slice.slice(i, i + CONC);
+      const results = await Promise.allSettled(chunk.map(t =>
+        githubFetch('/repos/' + GITHUB_REPO + '/git/blobs/' + t.sha, 'GET', env.GITHUB_TOKEN)
+          .then(d => base64ToUtf8(d.content))
+      ));
+      for (const r of results) {
+        if (r.status !== 'fulfilled' || !r.value) continue;
+        extractFrontmatterField(r.value, 'categories').forEach(c => { catMap[c] = (catMap[c] || 0) + 1; });
+        extractFrontmatterField(r.value, 'tags').forEach(tg => { tagMap[tg] = (tagMap[tg] || 0) + 1; });
       }
     }
 
-    for (var i = 0; i < mdFiles.length; i++) {
-      var f = mdFiles[i];
-      var fileData = await githubFetch(
-        '/repos/' + GITHUB_REPO + '/contents/' + f.path,
-        'GET',
-        env.GITHUB_TOKEN
-      );
-      var content = base64ToUtf8(fileData.content);
-      var cats = extractFrontmatterField(content, 'categories');
-      var tags = extractFrontmatterField(content, 'tags');
-      cats.forEach(function(c) { catMap[c] = (catMap[c] || 0) + 1; });
-      tags.forEach(function(t) { tagMap[t] = (tagMap[t] || 0) + 1; });
-    }
-
-    var catList = Object.keys(catMap).map(function(name) { return { name: name, count: catMap[name] }; });
-    var tagList = Object.keys(tagMap).map(function(name) { return { name: name, count: tagMap[name] }; });
-
-    // 读取分类/标签的中文 title（从 _index.md）
-    async function enrichWithTitle(items, taxonomyDir) {
-      const results = [];
-      for (const item of items) {
+    // 富化中文 title：读 categories/tags 下的 _index.md（带 globalThis 缓存避免重复拉）
+    const titleCache = (globalThis.__taxTitleCache = globalThis.__taxTitleCache || {});
+    const needFetch = [...new Set([...Object.keys(catMap), ...Object.keys(tagMap)])].filter(n => !(n in titleCache));
+    await Promise.all(needFetch.map(async (name) => {
+      for (const sub of ['categories', 'tags']) {
         try {
-          const indexFile = await githubFetch(
-            '/repos/' + GITHUB_REPO + '/contents/' + CONTENT_DIR + '/' + taxonomyDir + '/' + item.name + '/_index.md',
-            'GET',
-            env.GITHUB_TOKEN
+          const f = await githubFetch(
+            '/repos/' + GITHUB_REPO + '/contents/' + CONTENT_DIR + '/' + sub + '/' + name + '/_index.md',
+            'GET', env.GITHUB_TOKEN
           );
-          const content = base64ToUtf8(indexFile.content);
-          const titleMatch = content.match(/title:\s*["']?([^"'\n]+)["']?/);
-          if (titleMatch) {
-            results.push({ name: item.name, title: titleMatch[1].trim(), count: item.count });
-          } else {
-            results.push(item);
-          }
-        } catch (e) {
-          results.push(item);
-        }
+          const c = base64ToUtf8(f.content);
+          const m = c.match(/title:\s*["']?([^"'\n]+)["']?/);
+          if (m) { titleCache[name] = m[1].trim(); return; }
+        } catch (e) {}
       }
-      return results;
-    }
-
-    catList = await enrichWithTitle(catList, 'categories');
-    tagList = await enrichWithTitle(tagList, 'tags');
-
-    return corsResponse(JSON.stringify({
-      totalPosts: mdFiles.length,
-      categories: catList,
-      tags: tagList
+      titleCache[name] = name;
     }));
+
+    const result = {
+      totalPosts: mdFiles.length,
+      categories: Object.keys(catMap).map(n => ({ name: n, title: titleCache[n] || n, count: catMap[n] })),
+      tags: Object.keys(tagMap).map(n => ({ name: n, title: titleCache[n] || n, count: tagMap[n] })),
+      hasMore: offset + limit < mdFiles.length,
+      offset: offset,
+      limit: limit
+    };
+
+    return corsResponse(JSON.stringify(result));
   } catch (e) {
     console.error('扫描 section taxonomies 失败:', e.message);
-    return corsResponse(JSON.stringify({ totalPosts: 0, categories: [], tags: [] }));
+    return corsResponse(JSON.stringify({
+      error: e.message,
+      totalPosts: 0, categories: [], tags: [],
+      hasMore: false,
+      hint: 'Worker 拉取 GitHub 内容失败，请稍后重试'
+    }), 500);
   }
 }
 
@@ -977,11 +974,14 @@ export default {
       return corsResponse(JSON.stringify({ error: 'Forbidden' }), 403);
     }
 
-    if (!checkAuth(request, env) && !isLocalDev(request)) {
+    const path = url.pathname;
+
+    // 分类/标签是公开信息，允许未鉴权访问（便于后台即使 token 异常也能加载）
+    const isPublicPath = path === '/wgpjyhxlxn/api/taxonomies' || path === '/wgpjyhxlxn/api/ping';
+    if (!checkAuth(request, env) && !isLocalDev(request) && !isPublicPath) {
       return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
     }
 
-    const path = url.pathname;
 
     try {
       // ─── R2 图片 API ─────────────────────────────────────────────

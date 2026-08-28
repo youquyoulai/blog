@@ -1,0 +1,212 @@
+{{ define "main" }}
+{{ partial "breadcrumbs.html" . }}
+
+<style>
+/* ── 微语(朋友圈式)详情：对标 Typecho 微博页 ── */
+.weibo-card{background:#fff;border:1px solid var(--color_border);border-radius:12px;padding:16px 18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(62,58,57,.04)}
+.weibo-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.weibo-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#f0f0f0;flex:0 0 auto}
+.weibo-author{font-weight:600;font-size:15px;color:var(--color_text)}
+.weibo-content{font-size:15px;line-height:1.7;color:var(--color_text);word-break:break-word}
+.weibo-content p{margin:0 0 8px}
+.weibo-content img{max-width:100%;border-radius:8px;margin:6px 0;display:inline-block;vertical-align:top}
+.weibo-content img:only-of-type{width:auto;max-width:68%}
+.weibo-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;font-size:13px;flex-wrap:wrap}
+.weibo-meta-info{display:flex;flex-wrap:wrap;gap:10px;align-items:center;min-width:0}
+.weibo-time{color:var(--color_text_light)}
+.weibo-tag{color:#2e8b6f;text-decoration:none;font-size:13px}
+.weibo-tag:before{content:"#";opacity:.6}
+.weibo-tag:hover{text-decoration:underline}
+.weibo-comment-toggle{background:transparent;border:1px solid var(--color_border);border-radius:14px;padding:3px 12px;font-size:12px;line-height:1.6;color:var(--color_text_light);cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s}
+.weibo-comment-toggle:hover{background:#f5f5f5;border-color:#d0d0d0}
+
+/* 微博下方评论列表：Waline v2 卡片布局改造成「名字：内容 回复」 */
+.weibo-comments{margin-top:12px;padding-top:12px;border-top:1px solid var(--color_border);font-size:13px;line-height:1.7;color:#333}
+/* 隐藏列表头、排序、空提示、表单、头像、浏览器/系统/时间/IP 等元信息、点赞、删除、徽章、Powered by */
+.weibo-comments .wl-meta-head,
+.weibo-comments .wl-sort,
+.weibo-comments .wl-empty,
+.weibo-comments .wl-panel,
+.weibo-comments .wl-header,
+.weibo-comments .wl-user,
+.weibo-comments .wl-meta,
+.weibo-comments .wl-meta-area,
+.weibo-comments .wl-time,
+.weibo-comments .wl-os,
+.weibo-comments .wl-browser,
+.weibo-comments .wl-addr,
+.weibo-comments .wl-like,
+.weibo-comments .wl-delete,
+.weibo-comments .wl-badge,
+.weibo-comments .wl-vote,
+.weibo-comments .wl-power
+{display:none !important}
+/* 单条评论整体改为块级，去掉底边框 */
+.weibo-comments .wl-card-item{display:block;padding:3px 0}
+.weibo-comments .wl-card{display:flex;flex-wrap:wrap;align-items:baseline;width:auto;padding:0;border:none;margin-inline-start:0 !important}
+/* 名字：内容 回复 单行排列 */
+.weibo-comments .wl-head{order:1;display:inline;padding:0;background:none;border:none}
+.weibo-comments .wl-head::after{content:"：";color:#333}
+.weibo-comments .wl-nick{font-weight:600;color:#2e6da4;font-size:13px}
+.weibo-comments .wl-content{order:2;display:inline;margin:0;padding:0;font-size:13px;line-height:1.7;color:#333}
+.weibo-comments .wl-content p{display:inline;margin:0}
+.weibo-comments .wl-comment-actions{order:3;display:inline;margin:0;padding:0;background:none;border:none}
+.weibo-comments .wl-reply{display:inline;color:#999;font-size:12px;margin-left:8px;cursor:pointer;user-select:none}
+.weibo-comments .wl-reply:hover{color:#2e8b6f;text-decoration:underline}
+/* 嵌套回复保持缩进 */
+.weibo-comments .wl-quote{border:none;margin:0;padding:0}
+.weibo-comments .wl-quote > .wl-card-item{padding-left:1em;border-left:2px solid #eee}
+/* 弹窗内只显示发表表单，隐藏评论列表/Powered by */
+.weibo-modal-waline .wl-cards,
+.weibo-modal-waline .wl-meta-head,
+.weibo-modal-waline .wl-sort,
+.weibo-modal-waline .wl-empty,
+.weibo-modal-waline .wl-power
+{display:none !important}
+
+/* 弹窗：发表评论 */
+.weibo-comment-modal{display:none;position:fixed;inset:0;z-index:1000;align-items:center;justify-content:center}
+.weibo-comment-modal.active{display:flex}
+.weibo-modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+.weibo-modal-card{position:relative;background:#fff;border-radius:12px;width:min(520px,92vw);max-height:86vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25);display:flex;flex-direction:column}
+.weibo-modal-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--color_border)}
+.weibo-modal-header h3{margin:0;font-size:16px;font-weight:600;color:var(--color_text)}
+.weibo-modal-close{background:none;border:none;font-size:22px;color:var(--color_text_light);cursor:pointer;line-height:1;padding:0 4px}
+.weibo-modal-close:hover{color:var(--color_text)}
+.weibo-modal-body{padding:16px 18px;overflow-y:auto}
+</style>
+
+<article class="weibo-card">
+  <div class="weibo-head">
+    <img class="weibo-avatar" src="https://weavatar.com/avatar/b7d735ad5df38df77e16f718d268370a?s=96" alt="平哥" width="48" height="48" loading="lazy">
+    <div class="weibo-author">平哥</div>
+  </div>
+  <div class="weibo-content">{{ .Content }}</div>
+  <div class="weibo-meta">
+    <div class="weibo-meta-info">
+      <span class="weibo-time">{{ .Date.Format "2006-01-02 15:04" }}</span>
+      {{ with .Params.tags }}{{ range . }}{{ with (index $.Site.Taxonomies.tags .) }}<a class="weibo-tag" href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>{{ end }}{{ end }}{{ end }}
+    </div>
+    <button type="button" class="weibo-comment-toggle" id="weibo-comment-toggle" data-list="weibo-waline" data-modal="weibo-comment-modal" data-path="/weibo/{{ .File.ContentBaseName }}/">💬 <span class="comment-count">0 评论</span></button>
+  </div>
+  <div class="weibo-comments" id="weibo-waline" data-path="/weibo/{{ .File.ContentBaseName }}/"></div>
+
+  <div class="weibo-comment-modal" id="weibo-comment-modal" aria-hidden="true">
+    <div class="weibo-modal-overlay"></div>
+    <div class="weibo-modal-card" role="dialog" aria-modal="true">
+      <div class="weibo-modal-header">
+        <h3>发表评论</h3>
+        <button type="button" class="weibo-modal-close" aria-label="关闭">×</button>
+      </div>
+      <div class="weibo-modal-body">
+        <div class="weibo-modal-waline" id="weibo-modal-waline" data-path="/weibo/{{ .File.ContentBaseName }}/"></div>
+      </div>
+    </div>
+  </div>
+</article>
+{{ end }}
+
+{{ define "scripts" }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client@2/dist/waline.css">
+<script defer src="https://cdn.jsdelivr.net/npm/@waline/client@2/dist/waline.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof Waline === 'undefined') { return; }
+
+  var commonConfig = {
+    serverURL: 'https://waline.pgoj.top',
+    lang: 'zh-CN',
+    requiredMeta: ['nick', 'mail'],
+    emoji: false,
+    imageUploader: false,
+    preview: false,
+    pageSize: 10,
+    login: 'disable',
+    comment: true,
+    avatarCDN: 'https://weavatar.com/avatar/',
+    avatarForce: true,
+  };
+
+  var listEl = document.getElementById('weibo-waline');
+  if (listEl && !listEl.dataset.walineInitialized) {
+    Waline.init(Object.assign({}, commonConfig, {
+      el: listEl,
+      path: listEl.getAttribute('data-path') || '/'
+    }));
+    listEl.dataset.walineInitialized = '1';
+  }
+
+  var toggleBtn = document.getElementById('weibo-comment-toggle');
+  var modal = document.getElementById('weibo-comment-modal');
+  var bodyEl = document.getElementById('weibo-modal-waline');
+
+  function openModal() {
+    if (!modal) { return; }
+    if (bodyEl && !bodyEl.dataset.walineInitialized) {
+      Waline.init(Object.assign({}, commonConfig, {
+        el: bodyEl,
+        path: bodyEl.getAttribute('data-path') || '/'
+      }));
+      bodyEl.dataset.walineInitialized = '1';
+    }
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (!modal) { return; }
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // 刷新列表区，显示刚提交的评论
+    if (listEl) {
+      listEl.innerHTML = '';
+      delete listEl.dataset.walineInitialized;
+      Waline.init(Object.assign({}, commonConfig, {
+        el: listEl,
+        path: listEl.getAttribute('data-path') || '/'
+      }));
+      listEl.dataset.walineInitialized = '1';
+    }
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openModal();
+    });
+  }
+
+  if (modal) {
+    modal.querySelector('.weibo-modal-overlay').addEventListener('click', closeModal);
+    modal.querySelector('.weibo-modal-close').addEventListener('click', closeModal);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // 拉取评论数
+  function loadCommentCount() {
+    var path = listEl ? listEl.getAttribute('data-path') : '/';
+    fetch('https://waline.pgoj.top/api/comment?type=count&url=' + encodeURIComponent(path))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var count = 0;
+        if (data && data[0] && data[0].count !== undefined) { count = data[0].count; }
+        var span = toggleBtn ? toggleBtn.querySelector('.comment-count') : null;
+        if (span) { span.textContent = count + ' 评论'; }
+      })
+      .catch(function() {
+        var span = toggleBtn ? toggleBtn.querySelector('.comment-count') : null;
+        if (span) { span.textContent = '0 评论'; }
+      });
+  }
+
+  loadCommentCount();
+});
+</script>
+{{ end }}

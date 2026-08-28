@@ -24,7 +24,7 @@ ignoreFiles = [
 
 [params]
   author = '平哥'
-  description = '平哥偶记 — 生活感悟、读书随笔与个人观点，真实记录成长与思考'
+  description = '生活感悟、读书随笔与个人观点，真实记录成长与思考'
   keywords = '生活,随笔,感悟,读书,独立博客'
   logo = '平哥偶记'
   builtYear = '2026'

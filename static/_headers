@@ -5,7 +5,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; img-src 'self' https://img.pgoj.top https://waline.pgoj.top https://cdn.jsdelivr.net https://weavatar.com https://cdn.weread.qq.com https://*.myqcloud.com data:; font-src 'self'; connect-src 'self' https://waline.pgoj.top https://api.pgoj.top; frame-ancestors 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; img-src 'self' https://img.pgoj.top https://waline.pgoj.top https://cdn.jsdelivr.net https://weavatar.com https://cravatar.cn https://cn.cravatar.com https://cdn.weread.qq.com https://*.myqcloud.com data:; font-src 'self'; connect-src 'self' https://waline.pgoj.top https://api.pgoj.top; frame-ancestors 'self'
 
 # CSS 带 hash 指纹，可长期缓存
 /css/*.css

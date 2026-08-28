@@ -24,8 +24,7 @@
 /* 微博下方评论列表：Waline v2 卡片布局改造成「名字：内容 回复」 */
 .weibo-comments{margin-top:2px;padding-top:2px;border-top:1px solid var(--color_border);font-size:13px;line-height:1.6;color:#333}
 .weibo-comments .wl-cards{margin:0;padding:0}
-/* 隐藏列表头、排序、空提示、头像、浏览器/系统/时间/IP 等元信息、点赞、删除、徽章、Powered by */
-/* 注意：.wl-panel/.wl-header 只在主表单隐藏；回复表单 (.wl-reply-wrapper 内) 要保留 */
+/* 隐藏列表头、排序、空提示、头像、浏览器/系统/时间/IP 等元信息、徽章、管理操作、Powered by；主表单也隐藏（只留弹窗发表） */
 .weibo-comments > .wl-panel,
 .weibo-comments > .wl-header,
 .weibo-comments .wl-meta-head,
@@ -38,30 +37,27 @@
 .weibo-comments .wl-os,
 .weibo-comments .wl-browser,
 .weibo-comments .wl-addr,
-.weibo-comments .wl-like,
-.weibo-comments .wl-delete,
-.weibo-comments .wl-edit,
-.weibo-comments .wl-rss,
 .weibo-comments .wl-badge,
+.weibo-comments .wl-admin-actions,
 .weibo-comments .wl-vote,
 .weibo-comments .wl-power
 {display:none !important}
-/* 单条评论整体改为块级，去掉底边框 */
+/* 单条评论改成内联流：名字、内容、回复按钮顺序排列 */
 .weibo-comments .wl-card-item{display:block;padding:2px 0}
-.weibo-comments .wl-card{display:flex;flex-wrap:wrap;align-items:baseline;width:auto;padding:0;border:none;margin-inline-start:0 !important;gap:0 4px}
-/* 名字：内容 回复 单行排列 */
-.weibo-comments .wl-head{display:contents;padding:0;background:none;border:none}
-.weibo-comments .wl-nick{order:1;font-weight:600;color:#2e6da4;font-size:13px;white-space:nowrap}
-.weibo-comments .wl-head::after{content:"：";color:#333;order:2}
-.weibo-comments .wl-content{order:3;display:inline;margin:0;padding:0;font-size:13px;line-height:1.6;color:#333}
+.weibo-comments .wl-card{display:block;padding:0;border:none;margin-inline-start:0 !important}
+.weibo-comments .wl-head{display:inline;padding:0;background:none;border:none}
+.weibo-comments .wl-head::after{content:"：";color:#333}
+.weibo-comments .wl-nick{display:inline;font-weight:600;color:#2e6da4;font-size:13px;white-space:nowrap}
+.weibo-comments .wl-content{display:inline;margin:0;padding:0;font-size:13px;line-height:1.6;color:#333}
 .weibo-comments .wl-content p,
 .weibo-comments .wl-content div,
 .weibo-comments .wl-content > *{display:inline;margin:0;padding:0}
-.weibo-comments .wl-comment-actions{order:4;display:inline;margin:0;padding:0;background:none;border:none}
-.weibo-comments .wl-reply{display:inline;vertical-align:baseline;color:#999;font-size:12px;line-height:inherit;margin:0;padding:0;background:transparent;border:none;cursor:pointer;user-select:none}
+.weibo-comments .wl-comment-actions{display:inline;margin:0;padding:0;background:none;border:none;vertical-align:baseline}
+.weibo-comments .wl-reply{display:inline;vertical-align:baseline;color:#999;font-size:12px;line-height:inherit;margin:0;padding:0;background:transparent;border:none;cursor:pointer;user-select:none;margin-left:8px}
 .weibo-comments .wl-reply svg{display:none}
 .weibo-comments .wl-reply::after{content:"回复";font-size:12px}
-.weibo-comments .wl-reply:hover{color:#2e8b6f;text-decoration:underline}
+.weibo-comments .wl-reply:hover,
+.weibo-comments .wl-reply:hover::after{color:#2e8b6f;text-decoration:underline}
 /* 嵌套回复保持缩进 */
 .weibo-comments .wl-quote{border:none;margin:0;padding:0}
 .weibo-comments .wl-quote > .wl-card-item{padding-left:1em;border-left:2px solid #eee}
@@ -136,6 +132,40 @@ document.addEventListener('DOMContentLoaded', function () {
     avatarForce: true,
   };
 
+  // 改造微博卡片下方评论布局：名字：内容 回复
+  function formatWeiboComments(el) {
+    el.querySelectorAll('.wl-card').forEach(function(card) {
+      var content = card.querySelector('.wl-content');
+      var actions = card.querySelector('.wl-comment-actions');
+      if (!content || !actions) return;
+
+      // 把操作按钮区移到内容后面
+      if (content.nextElementSibling !== actions) {
+        content.after(actions);
+      }
+
+      // 隐藏编辑/删除/RSS/点赞，只保留回复
+      actions.querySelectorAll('.wl-edit, .wl-delete, .wl-rss, .wl-like').forEach(function(btn) {
+        btn.style.display = 'none';
+      });
+
+      // 把回复按钮图标换成文字
+      var reply = actions.querySelector('.wl-reply');
+      if (reply) {
+        reply.style.cssText = 'display:inline!important;vertical-align:baseline!important;color:#999!important;font-size:12px!important;line-height:inherit!important;margin:0!important;padding:0!important;background:transparent!important;border:none!important;cursor:pointer!important;user-select:none!important;margin-left:8px!important';
+        var svg = reply.querySelector('svg');
+        if (svg) svg.style.display = 'none';
+        if (!reply.querySelector('.wl-reply-text')) {
+          var span = document.createElement('span');
+          span.className = 'wl-reply-text';
+          span.textContent = '回复';
+          span.style.cssText = 'font-size:12px;color:#999;pointer-events:none';
+          reply.appendChild(span);
+        }
+      }
+    });
+  }
+
   var listEl = document.getElementById('weibo-waline');
   if (listEl && !listEl.dataset.walineInitialized) {
     Waline.init(Object.assign({}, commonConfig, {
@@ -143,6 +173,8 @@ document.addEventListener('DOMContentLoaded', function () {
       path: listEl.getAttribute('data-path') || '/'
     }));
     listEl.dataset.walineInitialized = '1';
+    var observer = new MutationObserver(function() { formatWeiboComments(listEl); });
+    observer.observe(listEl, { childList: true, subtree: true });
   }
 
   var toggleBtn = document.getElementById('weibo-comment-toggle');

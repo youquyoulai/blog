@@ -239,9 +239,9 @@
     <nav class="header-nav" aria-label="主导航">
       <ul>
         <li><a href="{{ .Site.BaseURL }}"{{ if .IsHome }} class="current"{{ end }}>首页</a></li>
-        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}{{ if ne $name "weiyu" }}
         <li><a href="{{ $taxonomy.Page.RelPermalink }}"{{ if eq $.RelPermalink $taxonomy.Page.RelPermalink }} class="current"{{ end }}>{{ $taxonomy.Page.Title }}</a></li>
-        {{ end }}
+        {{ end }}{{ end }}
         {{ with .Site.GetPage "/weibo" }}<li><a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} class="current"{{ end }}>{{ .Title }}</a></li>{{ end }}
         {{ with .Site.GetPage "/pages/weread-hidden" }}<li><a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} class="current"{{ end }}>微读</a></li>{{ end }}
         {{ with .Site.GetPage "/pages/guestbook" }}<li><a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} class="current"{{ end }}>留言</a></li>{{ end }}

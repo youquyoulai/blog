@@ -152,6 +152,12 @@ document.addEventListener('DOMContentLoaded', function () {
     avatarForce: true,
   };
 
+  // 隐藏列表区的主发表表单（直接子级元素，避免误伤回复框）
+  function hideMainForm(el) {
+    el.querySelectorAll(':scope > .wl-header, :scope > .wl-editor-wrapper, :scope > .wl-editor, :scope > .wl-submit, :scope > .wl-preview, :scope > .wl-panel, :scope > .wl-meta-head, :scope > .wl-sort')
+      .forEach(function(n) { n.style.display = 'none'; });
+  }
+
   // 改造微博卡片下方评论布局：名字：内容 回复
   function formatWeiboComments(el) {
     el.querySelectorAll('.wl-card').forEach(function(card) {
@@ -186,14 +192,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 初始化微博卡片下方的评论列表（隐藏表单）
+  // 初始化微博卡片下方的评论列表（只显示列表，不渲染主发表框）
   document.querySelectorAll('.weibo-comments').forEach(function(el) {
     if (el.dataset.walineInitialized) { return; }
     var path = el.getAttribute('data-path') || '/';
-    Waline.init(Object.assign({}, commonConfig, { el: el, path: path }));
+    Waline.init(Object.assign({}, commonConfig, { el: el, path: path, comment: false }));
     el.dataset.walineInitialized = '1';
+    hideMainForm(el);
     // 监听 Waline 动态渲染的评论
-    var observer = new MutationObserver(function() { formatWeiboComments(el); });
+    var observer = new MutationObserver(function() { formatWeiboComments(el); hideMainForm(el); });
     observer.observe(el, { childList: true, subtree: true });
   });
 
@@ -228,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
       listEl.innerHTML = '';
       delete listEl.dataset.walineInitialized;
       var path = listEl.getAttribute('data-path') || '/';
-      Waline.init(Object.assign({}, commonConfig, { el: listEl, path: path }));
+      Waline.init(Object.assign({}, commonConfig, { el: listEl, path: path, comment: false }));
       listEl.dataset.walineInitialized = '1';
     }
   }

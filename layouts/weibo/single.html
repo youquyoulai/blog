@@ -132,6 +132,12 @@ document.addEventListener('DOMContentLoaded', function () {
     avatarForce: true,
   };
 
+  // 隐藏列表区的主发表表单（直接子级元素，避免误伤回复框）
+  function hideMainForm(el) {
+    el.querySelectorAll(':scope > .wl-header, :scope > .wl-editor-wrapper, :scope > .wl-editor, :scope > .wl-submit, :scope > .wl-preview, :scope > .wl-panel, :scope > .wl-meta-head, :scope > .wl-sort')
+      .forEach(function(n) { n.style.display = 'none'; });
+  }
+
   // 改造微博卡片下方评论布局：名字：内容 回复
   function formatWeiboComments(el) {
     el.querySelectorAll('.wl-card').forEach(function(card) {
@@ -170,10 +176,12 @@ document.addEventListener('DOMContentLoaded', function () {
   if (listEl && !listEl.dataset.walineInitialized) {
     Waline.init(Object.assign({}, commonConfig, {
       el: listEl,
-      path: listEl.getAttribute('data-path') || '/'
+      path: listEl.getAttribute('data-path') || '/',
+      comment: false
     }));
     listEl.dataset.walineInitialized = '1';
-    var observer = new MutationObserver(function() { formatWeiboComments(listEl); });
+    hideMainForm(listEl);
+    var observer = new MutationObserver(function() { formatWeiboComments(listEl); hideMainForm(listEl); });
     observer.observe(listEl, { childList: true, subtree: true });
   }
 
@@ -206,7 +214,8 @@ document.addEventListener('DOMContentLoaded', function () {
       delete listEl.dataset.walineInitialized;
       Waline.init(Object.assign({}, commonConfig, {
         el: listEl,
-        path: listEl.getAttribute('data-path') || '/'
+        path: listEl.getAttribute('data-path') || '/',
+        comment: false
       }));
       listEl.dataset.walineInitialized = '1';
     }

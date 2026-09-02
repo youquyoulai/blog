@@ -7,7 +7,11 @@
   <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
   <meta name="description" content="{{ if .IsHome }}{{ site.Params.description | default site.Title }}{{ else }}{{ .Params.description | default (.Summary | plainify | truncate 160) }}{{ end }}">
   {{ if site.Params.favicon }}<link rel="icon" href="{{ site.Params.favicon | relURL }}" sizes="32x32">{{ end }}
-  <link rel="stylesheet" href="{{ "css/aggregator.css" | relURL }}">
+  {{/* 关键 CSS 直接内联：HTML 大文档（首页 700+ KB）走独立 stylesheet 请求会出现 FOUC 窗口（先无样式再正常）。
+       原 CSS 仅 2.1 KB，内联后既消除额外往返，也让首字节一到达 head 就带样式，body 解析即套用。 */}}
+  {{ with resources.Get "css/aggregator.css" | minify }}
+    <style>{{ .Content | safeCSS }}</style>
+  {{ end }}
   {{ block "head" . }}{{ end }}
 </head>
 <body>

@@ -260,6 +260,18 @@
     .form-field input:focus, .form-field select:focus { border-color:var(--accent); }
     .form-actions { display:flex; gap:8px; margin-top:4px; }
 
+    /* ── 博客联盟 ── */
+    .alliance-toolbar { display:flex; gap:10px; align-items:center; margin:14px 0; flex-wrap:wrap; }
+    .form-input { padding:9px 12px; background:var(--input-bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:0.9rem; outline:none; transition:border-color 0.2s; min-width:220px; }
+    .form-input:focus { border-color:var(--accent); }
+    .alliance-count { font-size:0.8rem; color:var(--muted); margin-left:auto; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px 16px; }
+    @media (max-width:640px){ .form-grid { grid-template-columns:1fr; } }
+    .list-card-badge.ok { background:rgba(66,184,131,0.12); color:var(--green); }
+    .list-card-badge.bad { background:rgba(239,68,68,0.12); color:var(--red); }
+    .list-card-badge.sunset { background:rgba(148,163,184,0.14); color:var(--muted); }
+    .list-card-meta { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:6px; }
+
     /* ── 模态框 ── */
     .modal { position:fixed; inset:0; background:rgba(0,0,0,0.65); display:none; align-items:center; justify-content:center; z-index:1000; padding:20px; }
     .modal.open { display:flex; }
@@ -360,6 +372,10 @@
       <button class="nav-item" data-tab="comments" onclick="switchTab('comments')">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         评论
+      </button>
+      <button class="nav-item" data-tab="alliance" onclick="switchTab('alliance')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75M21 21v-2a4 4 0 0 0-3-3.87"/></svg>
+        博客联盟
       </button>
       <div class="nav-section-label" style="margin-top:8px;">系统</div>
       <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
@@ -620,6 +636,57 @@
               保存
             </button>
             <button class="btn btn-ghost" onclick="hideWenhuiForm()">取消</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ▸ 博客联盟 -->
+      <div id="tab-alliance" class="tab-content">
+        <div class="page-header">
+          <div><h1>博客联盟</h1><div class="page-meta" id="allianceMeta">收录自博友圈的独立博客，可增删改与重新导入</div></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="showAllianceAddForm()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              添加站点
+            </button>
+            <button class="btn btn-ghost" onclick="allianceImport()" title="通过 GitHub Actions 从博友圈重新抓取全量">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              从博友圈导入
+            </button>
+            <button class="btn btn-success" onclick="saveAllianceAndDeploy()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              保存并发布
+            </button>
+            <button class="btn btn-ghost" onclick="saveAlliance()">仅保存</button>
+          </div>
+        </div>
+        <div class="alliance-toolbar">
+          <input type="text" id="allianceSearch" class="form-input" placeholder="搜索名称 / 域名 / 简介..." oninput="renderAllianceList()">
+          <select id="allianceFilter" class="form-input" onchange="renderAllianceList()" style="max-width:160px;">
+            <option value="all">全部状态</option>
+            <option value="ok">正常</option>
+            <option value="failed">失联</option>
+            <option value="sunset">停更</option>
+          </select>
+          <span class="alliance-count" id="allianceCount"></span>
+        </div>
+        <div id="allianceList"></div>
+        <div class="inline-form" id="allianceForm">
+          <h3 id="allianceFormTitle">添加站点</h3>
+          <div class="form-grid">
+            <div class="form-field"><label>站点名称 *</label><input type="text" id="allianceName" placeholder="如：威言威语"></div>
+            <div class="form-field"><label>域名 *</label><input type="text" id="allianceDomain" placeholder="https://www.weisay.com"></div>
+            <div class="form-field"><label>RSS 地址</label><input type="text" id="allianceFeed" placeholder="https://www.weisay.com/feed"></div>
+            <div class="form-field"><label>最近更新时间</label><input type="text" id="allianceUpdated" placeholder="2026-08-20T12:00:00+08:00（可空）"></div>
+          </div>
+          <div class="form-field"><label>一句话简介</label><input type="text" id="allianceDesc" placeholder="如：十年 Typecho 老博主"></div>
+          <div class="form-field"><label>标签（逗号分隔）</label><input type="text" id="allianceTags" placeholder="如：技术, 生活"></div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="allianceFormSubmit()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>
+              保存
+            </button>
+            <button class="btn btn-ghost" onclick="hideAllianceForm()">取消</button>
           </div>
         </div>
       </div>
@@ -1279,6 +1346,7 @@ function switchTab(name) {
   if (name === 'comments') loadComments();
   if (name === 'taxonomies') loadTaxonomies();
   if (name === 'wenhui') loadWenhui();
+  if (name === 'alliance') loadAlliance();
   if (name === 'links') loadLinks();
   if (name === 'pages') loadPages();
   if (name === 'settings') checkApi();
@@ -1287,7 +1355,7 @@ function switchTab(name) {
   // 同步顶栏标题
   var titles = {
     'images':'图库', 'posts':'文章', 'subsections':'专题', 'comments':'评论', 'taxonomies':'分类 / 标签',
-    'wenhui':'文汇 RSS', 'links':'友链', 'pages':'独立页面', 'settings':'系统设置',
+    'wenhui':'文汇 RSS', 'alliance':'博客联盟', 'links':'友链', 'pages':'独立页面', 'settings':'系统设置',
     'editor':'编辑文章', 'pageEditor':'编辑页面', 'subsection-editor':'编辑专题'
   };
   var titleEl = document.getElementById('topbarTitle');
@@ -2531,6 +2599,196 @@ async function saveWenhuiAndDeploy() {
     await triggerDeploy();
   } catch (e) {
     toast('操作失败: ' + e.message, 'error');
+  }
+}
+
+/* ===== 博客联盟 ===== */
+var _allianceBlogs = [];
+var _allianceEditIdx = -1;
+
+async function loadAlliance() {
+  var el = document.getElementById('allianceList');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div>加载中...</div>';
+  try {
+    var data = await api('/api/alliance');
+    _allianceBlogs = (data && data.blogs) || [];
+    var meta = document.getElementById('allianceMeta');
+    if (meta) {
+      var total = _allianceBlogs.length;
+      var active = _allianceBlogs.filter(function(b) { return b.ok !== false && !b.sunset; }).length;
+      meta.textContent = '共 ' + total + ' 个站点，正常 ' + active + ' 个' +
+        (data && data.updated ? '，数据更新于 ' + String(data.updated).slice(0, 16).replace('T', ' ') : '');
+    }
+    renderAllianceList();
+  } catch (e) {
+    _allianceBlogs = [];
+    el.innerHTML = '<div class="empty-state"><p>加载失败: ' + escHtml(e.message) + '</p></div>';
+  }
+}
+
+function allianceStatusOf(b) {
+  if (b.ok === false) return { key: 'failed', label: '失联', cls: 'bad' };
+  if (b.sunset) return { key: 'sunset', label: '停更', cls: 'sunset' };
+  return { key: 'ok', label: '正常', cls: 'ok' };
+}
+
+function renderAllianceList() {
+  var el = document.getElementById('allianceList');
+  var q = (document.getElementById('allianceSearch').value || '').trim().toLowerCase();
+  var filter = document.getElementById('allianceFilter').value;
+  var list = _allianceBlogs.filter(function(b) {
+    var st = allianceStatusOf(b);
+    if (filter !== 'all' && st.key !== filter) return false;
+    if (!q) return true;
+    var hay = ((b.name || '') + ' ' + (b.domain || '') + ' ' + (b.desc || '') + ' ' + (b.tags || []).join(' ')).toLowerCase();
+    return hay.indexOf(q) > -1;
+  });
+  var cnt = document.getElementById('allianceCount');
+  if (cnt) cnt.textContent = '显示 ' + list.length + ' / ' + _allianceBlogs.length;
+
+  if (list.length === 0) {
+    el.innerHTML = '<div class="empty-state"><p>没有匹配的站点</p></div>';
+    return;
+  }
+  // 按最近更新倒序，无时间沉底
+  list.sort(function(a, b) {
+    var ta = a.updated ? String(a.updated) : '';
+    var tb = b.updated ? String(b.updated) : '';
+    if (!ta) return 1;
+    if (!tb) return -1;
+    return tb < ta ? -1 : (tb > ta ? 1 : 0);
+  });
+  var html = '<div class="post-list" style="gap:8px;">';
+  list.forEach(function(b) {
+    var idx = _allianceBlogs.indexOf(b);
+    var st = allianceStatusOf(b);
+    var meta = [];
+    if (b.updated) meta.push('更新 ' + String(b.updated).slice(0, 10));
+    if (typeof b.posts === 'number') meta.push(b.posts + ' 篇');
+    if (b.added) meta.push('收录 ' + String(b.added).slice(0, 10));
+    html += '<div class="list-card">' +
+      '<div class="list-card-info">' +
+        '<div class="list-card-title"><a href="' + escAttr(b.domain) + '" target="_blank" rel="noopener">' + escHtml(b.name) + '</a></div>' +
+        '<div class="list-card-sub">' + escHtml(b.domain || '') + (b.feed ? ' · <span style="opacity:.7">RSS</span>' : '') + '</div>' +
+        (b.desc ? '<div class="list-card-sub" style="opacity:.85;">' + escHtml(b.desc) + '</div>' : '') +
+        '<div class="list-card-meta">' +
+          '<span class="list-card-badge ' + st.cls + '">' + st.label + '</span>' +
+          (b.tags && b.tags.length ? b.tags.map(function(t) { return '<span class="list-card-badge cat">' + escHtml(t) + '</span>'; }).join('') : '') +
+          (meta.length ? '<span class="list-card-sub">' + meta.join(' · ') + '</span>' : '') +
+        '</div>' +
+      '</div>' +
+      '<div class="list-card-actions">' +
+        '<button class="action-btn edit" onclick="allianceEdit(' + idx + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>编辑</button>' +
+        '<button class="action-btn del" onclick="allianceDelete(' + idx + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"/></svg>删除</button>' +
+      '</div>' +
+    '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function showAllianceAddForm() {
+  _allianceEditIdx = -1;
+  document.getElementById('allianceFormTitle').textContent = '添加站点';
+  document.getElementById('allianceName').value = '';
+  document.getElementById('allianceDomain').value = '';
+  document.getElementById('allianceFeed').value = '';
+  document.getElementById('allianceUpdated').value = '';
+  document.getElementById('allianceDesc').value = '';
+  document.getElementById('allianceTags').value = '';
+  document.getElementById('allianceForm').style.display = 'block';
+  document.getElementById('allianceName').focus();
+}
+
+function allianceEdit(i) {
+  _allianceEditIdx = i;
+  var b = _allianceBlogs[i];
+  document.getElementById('allianceFormTitle').textContent = '编辑站点';
+  document.getElementById('allianceName').value = b.name || '';
+  document.getElementById('allianceDomain').value = b.domain || '';
+  document.getElementById('allianceFeed').value = b.feed || '';
+  document.getElementById('allianceUpdated').value = b.updated || '';
+  document.getElementById('allianceDesc').value = b.desc || '';
+  document.getElementById('allianceTags').value = (b.tags && b.tags.length) ? b.tags.join(', ') : '';
+  document.getElementById('allianceForm').style.display = 'block';
+  document.getElementById('allianceName').focus();
+}
+
+function hideAllianceForm() {
+  document.getElementById('allianceForm').style.display = 'none';
+  _allianceEditIdx = -1;
+}
+
+function allianceFormSubmit() {
+  var name = document.getElementById('allianceName').value.trim();
+  var domain = document.getElementById('allianceDomain').value.trim();
+  if (!name) { toast('请输入站点名称', 'error'); return; }
+  if (!domain) { toast('请输入域名', 'error'); return; }
+  var feed = document.getElementById('allianceFeed').value.trim();
+  var updated = document.getElementById('allianceUpdated').value.trim();
+  var desc = document.getElementById('allianceDesc').value.trim();
+  var tags = document.getElementById('allianceTags').value.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+  var rec = {
+    name: name, domain: domain, feed: feed,
+    desc: desc, tags: tags, updated: updated || '',
+    added: new Date().toISOString().slice(0, 10),
+    posts: 0, ok: true, sunset: false,
+    ini: name ? name.charAt(0).toUpperCase() : '#'
+  };
+  if (_allianceEditIdx >= 0) {
+    var old = _allianceBlogs[_allianceEditIdx];
+    rec.posts = old.posts || 0;
+    rec.ok = old.ok !== false;
+    rec.sunset = !!old.sunset;
+    rec.added = old.added || rec.added;
+    if (!rec.ini || rec.ini === '#') rec.ini = (old.ini || '#');
+    _allianceBlogs[_allianceEditIdx] = rec;
+  } else {
+    _allianceBlogs.push(rec);
+  }
+  hideAllianceForm();
+  saveAlliance();
+}
+
+function allianceDelete(i) {
+  if (!confirm('确定删除「' + _allianceBlogs[i].name + '」？')) return;
+  _allianceBlogs.splice(i, 1);
+  saveAlliance();
+}
+
+async function saveAlliance() {
+  try {
+    await api('/api/alliance', 'PUT', { blogs: _allianceBlogs });
+    toast('博客联盟已保存', 'success');
+    renderAllianceList();
+    var meta = document.getElementById('allianceMeta');
+    if (meta) {
+      var active = _allianceBlogs.filter(function(b) { return b.ok !== false && !b.sunset; }).length;
+      meta.textContent = '共 ' + _allianceBlogs.length + ' 个站点，正常 ' + active + ' 个';
+    }
+  } catch (e) {
+    toast('保存失败: ' + e.message, 'error');
+  }
+}
+
+async function saveAllianceAndDeploy() {
+  try {
+    await api('/api/alliance', 'PUT', { blogs: _allianceBlogs });
+    toast('已保存，正在发布...', 'success');
+    renderAllianceList();
+    await triggerDeploy();
+  } catch (e) {
+    toast('操作失败: ' + e.message, 'error');
+  }
+}
+
+async function allianceImport() {
+  if (!confirm('将从博友圈重新抓取全量站点（约 1 分钟），完成后自动发布。确定？')) return;
+  try {
+    var r = await api('/api/alliance/import', 'POST', {});
+    toast(r.message || '已触发导入', 'success');
+  } catch (e) {
+    toast('触发失败: ' + e.message, 'error');
   }
 }
 

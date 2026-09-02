@@ -40,6 +40,15 @@ _preview_*/
 _verify_*/
 _hugo_*/
 
+# 博客联盟导入脚本临时产物
+_alliance_cache/
+_bo_*.json
+_pa_build/
+_agg_build/
+
+# wrangler 部署临时产物（deploy-admin.ps1 生成，不提交）
+static/admin/.wrangler/
+
 # Waline 迁移相关
 waline_*.json
 waline_*.sql
@@ -57,3 +66,19 @@ deploy.sh
 
 # WorkBuddy 工作目录
 .workbuddy/
+
+# 本地调试/迁移残留（不提交）
+_3567_tmp.html
+verify_weibo*.png
+_waline_import*.py
+_waline_import*.log
+_waline_reimport*.log
+_waline_reimport*.py
+_analyze_css.py
+_check_*.py
+_cleanup_css*.py
+_fetch_feeds.py
+_fix_*.py
+_find_post_content.py
+_list_tags.py
+_simplify_css.py

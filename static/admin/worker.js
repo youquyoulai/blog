@@ -877,6 +877,78 @@ async function updateWenhuiFeeds(request, env) {
 }
 
 // ═════════════════════════════════════════════════════════════════
+// 博客联盟站点管理
+// ═════════════════════════════════════════════════════════════════
+const ALLIANCE_PATH = 'data/alliance.json';
+
+// GitHub Contents API 单文件上限 1MB（按 base64 编码后计算，约膨胀 33%）。
+// 1200 个站点紧凑 JSON 约 457KB → base64 后约 609KB，余量约 415KB。
+// 所以这里必须用无缩进的 JSON.stringify，绝不能加 (null, 2) 美化，
+// 否则缩进会让体积膨胀到接近上限。
+async function getAlliance(env) {
+  const file = await readGitHubFile(ALLIANCE_PATH, env);
+  if (!file) return corsResponse(JSON.stringify({ total: 0, blogs: [] }));
+  try {
+    return corsResponse(JSON.stringify(JSON.parse(file.content)));
+  } catch(e) {
+    return corsResponse(JSON.stringify({ total: 0, blogs: [] }));
+  }
+}
+
+async function updateAlliance(request, env) {
+  const body = await request.json();
+  const blogs = body.blogs || [];
+  // 活跃 = 最近 365 天内有更新
+  const since = new Date(Date.now() - 365 * 24 * 3600 * 1000).toISOString().slice(0, 10);
+  const payload = {
+    updated: new Date().toISOString(),
+    source: body.source || 'https://www.boyouquan.com/blogs',
+    total: blogs.length,
+    active: blogs.filter(function(b) {
+      return b.updated && String(b.updated).slice(0, 10) >= since;
+    }).length,
+    blogs: blogs
+  };
+  const content = JSON.stringify(payload);
+  const bytes = new TextEncoder().encode(content).length;
+  // base64 按 1.4 倍估算，留出安全边界
+  if (bytes * 1.4 > 1000 * 1024) {
+    return corsResponse(JSON.stringify({
+      error: '数据过大：' + Math.round(bytes / 1024) + 'KB。GitHub 单文件上限 1MB，请精简后再保存。'
+    }), 413);
+  }
+  const existing = await readGitHubFile(ALLIANCE_PATH, env).catch(function() { return null; });
+  const sha = existing ? existing.sha : undefined;
+  await writeGitHubFile(ALLIANCE_PATH, content, sha, 'Update alliance blogs', env);
+  return corsResponse(JSON.stringify({ ok: true, total: blogs.length, bytes: bytes }));
+}
+
+// 从博友圈重新导入：通过 GitHub Actions workflow_dispatch 触发（导入脚本翻 120 页，
+// 不能放在 Worker 里同步跑，会超过 50 子请求 / 次的限制）。
+async function triggerAllianceImport(env) {
+  const url = GITHUB_API + '/repos/' + GITHUB_REPO + '/actions/workflows/alliance-refresh.yml/dispatches';
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + env.GITHUB_TOKEN,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json',
+        'X-GitHub-Api-Version': '2022-11-28'
+      },
+      body: JSON.stringify({ ref: 'main' })
+    });
+    if (!res.ok) {
+      const t = await res.text();
+      return corsResponse(JSON.stringify({ error: '触发导入失败: ' + res.status + ' ' + t.slice(0, 200) }), res.status);
+    }
+    return corsResponse(JSON.stringify({ ok: true, message: '已触发从博友圈重新导入，后台约 1 分钟跑完，完成后自动发布。' }));
+  } catch (e) {
+    return corsResponse(JSON.stringify({ error: '触发导入异常: ' + e.message }), 500);
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════
 // 页面管理
 // ═════════════════════════════════════════════════════════════════
 const PAGES_DIR = 'content/pages';
@@ -1039,6 +1111,17 @@ export default {
       }
       if (path === '/wgpjyhxlxn/api/wenhui-feeds' && request.method === 'PUT') {
         return await updateWenhuiFeeds(request, env);
+      }
+
+      // ─── 博客联盟 API ────────────────────────────────────────────
+      if (path === '/wgpjyhxlxn/api/alliance' && request.method === 'GET') {
+        return await getAlliance(env);
+      }
+      if (path === '/wgpjyhxlxn/api/alliance' && request.method === 'PUT') {
+        return await updateAlliance(request, env);
+      }
+      if (path === '/wgpjyhxlxn/api/alliance/import' && request.method === 'POST') {
+        return await triggerAllianceImport(env);
       }
 
       // ─── 页面管理 API ────────────────────────────────────────────

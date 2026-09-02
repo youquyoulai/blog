@@ -32,5 +32,3 @@
 # RSS/JSON 不缓存（内容更新需同步）
 /feed.xml
   Cache-Control: public, max-age=0, must-revalidate
-/searchindex.json
-  Cache-Control: public, max-age=0, must-revalidate

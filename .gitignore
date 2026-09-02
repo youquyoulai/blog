@@ -52,6 +52,10 @@ static/admin/.wrangler/
 # Waline 迁移相关
 waline_*.json
 waline_*.sql
+
+# _fetch_feeds.py 构建产物（文汇 RSS 抓取，已停用；避免误提交）
+data/wenhui-feeds.json
+static/feeds/
 waline_batches/
 
 # 迁移脚本

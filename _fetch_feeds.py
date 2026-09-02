@@ -119,7 +119,7 @@ def parse_date(value):
 def load_sources():
     """从 wenhui-hidden.md 解析 [feed:名称|URL]"""
     if not SOURCES_MD.exists():
-        print(f"❌ 找不到源列表文件: {SOURCES_MD}")
+        print(f"ℹ️  源列表文件不存在（{SOURCES_MD}），跳过文汇抓取。")
         return []
     text = SOURCES_MD.read_text(encoding="utf-8")
     sources, seen = [], set()
@@ -370,8 +370,21 @@ def main():
 
     sources = load_sources()
     if not sources:
-        print("⚠️  没有解析到任何源，请检查 wenhui-hidden.md 里的 [feed:名称|URL] 格式")
-        return 1
+        # 源列表为空（如 content/pages/wenhui-hidden.md 缺省）不再视为失败：
+        # 写入一个合法的空结果文件，让后续的 hugo 构建可继续，避免 CI 退码 1 卡死部署。
+        print("⚠️  没有解析到任何源（wenhui-hidden.md 缺省或为空），写入空 feeds 文件后退出。")
+        empty = {
+            "updated": datetime.now(CST).isoformat(timespec="seconds"),
+            "elapsed_sec": 0,
+            "total": 0, "ok": 0, "recovered": 0, "stale": 0, "failed": 0,
+            "feeds": [],
+        }
+        payload = json.dumps(empty, ensure_ascii=False, indent=2)
+        DATA_OUT.parent.mkdir(parents=True, exist_ok=True)
+        DATA_OUT.write_text(payload, encoding="utf-8")
+        STATIC_OUT.parent.mkdir(parents=True, exist_ok=True)
+        STATIC_OUT.write_text(payload, encoding="utf-8")
+        return 0
     if args.limit:
         sources = sources[:args.limit]
 

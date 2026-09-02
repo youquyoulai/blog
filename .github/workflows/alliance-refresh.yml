@@ -16,7 +16,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,8 +28,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: 抓取博友圈全量 + 各站最新文章(RSS)
-        run: python _import_alliance.py
+      - name: 抓取各站最新文章(RSS, 只读本地站点清单, 不连博友圈)
+        run: python _import_alliance.py --latest-only
 
       - name: 检查变化并提交
         id: commit

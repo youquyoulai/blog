@@ -33,12 +33,10 @@
   <span class="al-count"><b id="al-visible">{{ len $active }}</b> / {{ len $blogs }}</span>
 </div>
 
+{{/* 首屏只渲染第 1 页（60 张）真实 DOM，保证首屏即时有内容；其余由 JS 从内联 JSON 渲染。 */}}
 <div class="al-grid" id="al-list">
-  {{ range $i, $b := $active }}
+  {{ range $i, $b := first 60 $active }}
   {{ $ini := substr (printf "%s" $b.name) 0 1 }}
-  {{/* 注意：刻意不写 data-name / data-desc。站点名和简介含空格，而本项目开启 HTML 压缩，
-       属性值引号会被去掉，导致 "Tony Bai" 变成 data-name=Tony Bai 被解析成两个属性。
-       搜索文本改由 JS 直接读 DOM（见底部脚本），排序字段全是数字/ISO 时间，无空格，保留 data-* 安全。 */}}
   <div class="al-card"
        data-updated="{{ $b.updated }}"
        data-posts="{{ $b.posts }}"
@@ -70,42 +68,24 @@
 <div class="al-pager" id="al-pager"></div>
 
 {{ with $sleep }}
-<details class="al-sleep">
+<details class="al-sleep" id="al-sleep">
   <summary class="al-sum">
     沉睡的站 · 超过 180 天未更新
     <span class="al-sum-n">{{ len . }} 个</span>
   </summary>
-  <div class="al-grid al-grid-sleep" id="al-sleep-list">
-    {{ range $i, $b := . }}
-    {{ $ini := substr (printf "%s" $b.name) 0 1 }}
-    <div class="al-card al-card-sleep"
-         data-updated="{{ $b.updated }}"
-         data-posts="{{ $b.posts }}"
-         data-added="{{ $b.added }}">
-      <div class="al-top">
-        <div class="al-av al-fade al-c{{ mod $i 6 }}">{{ if $ini }}{{ $ini }}{{ else }}#{{ end }}</div>
-        <div class="al-id">
-          <a class="al-name" href="{{ $b.site }}" target="_blank" rel="noopener nofollow external">{{ $b.name }}</a>
-          <span class="al-domain">{{ $b.domain }}</span>
-        </div>
-        <span class="al-time" data-t="{{ $b.updated }}">{{ if $b.updated }}{{ substr $b.updated 0 10 }}{{ else }}从未更新{{ end }}</span>
-      </div>
-      <span class="al-desc" style="display:none">{{ $b.desc }}</span>
-      {{ $lt := index $latest $b.domain }}
-      {{ with $lt }}
-      <div class="al-post">
-        <a class="al-post-title" href="{{ .link }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>
-        {{ with .summary }}<p class="al-post-sum">{{ . }}</p>{{ end }}
-      </div>
-      {{ end }}
-    </div>
-    {{ end }}
-  </div>
+  <div class="al-grid al-grid-sleep" id="al-sleep-list"></div>
   <div class="al-pager" id="al-sleep-pager"></div>
 </details>
 {{ end }}
 
 <p class="al-tip">比邻收录来自博友圈的活跃独立博客，点击卡片可跳转原站。按最近更新时间排列。</p>
+
+{{/* 全量数据内联为 JSON，供 JS 搜索 / 排序 / 翻页 / 懒加载沉睡区使用。
+     不必在服务端渲染上千张卡片，首屏 DOM 仅 60 张，HTML 体积与解析时间骤降。
+     替换 </ 为 <\/ 防止个别简介里的 </script> 提前闭合脚本。 */}}
+<script id="al-blogs" type="application/json">{{ (index hugo.Data "alliance").blogs }}</script>
+<script id="al-latest" type="application/json">{{ (index hugo.Data "alliance-latest").map }}</script>
+
 {{ else }}
 <div class="al-empty-state">
   <p>还没有收录数据。</p>
@@ -185,33 +165,88 @@
   var sortSel = document.getElementById('al-sort');
   var out = document.getElementById('al-visible');
   var list = document.getElementById('al-list');
+  var sleepDetails = document.getElementById('al-sleep');
   var sleepList = document.getElementById('al-sleep-list');
   if (!list) return;
 
   var PAGE = 60;
-  var activeItems = Array.prototype.slice.call(list.children);
-  var sleepItems = sleepList ? Array.prototype.slice.call(sleepList.children) : [];
-  var all = activeItems.concat(sleepItems);
-  var activeVis = [];
-  var sleepVis = [];
+
+  // 全量数据来自内联 JSON（服务端不再渲染上千张卡片）
+  var BLOGS = [], LATEST = {};
+  try { BLOGS = JSON.parse(document.getElementById('al-blogs').textContent); } catch (e) { BLOGS = []; }
+  try { LATEST = JSON.parse(document.getElementById('al-latest').textContent); } catch (e) { LATEST = {}; }
+
+  // 180 天未更新 => 沉睡（与 Hugo 模板判定一致，字符串比较 ISO 时间）
+  var cutoffStr = (function () {
+    var d = new Date(Date.now() - 180 * 86400000);
+    function p(n) { return (n < 10 ? '0' : '') + n; }
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) +
+           'T' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+  })();
+  function isActive(b) { return !!(b.updated && b.updated.slice(0, 19) >= cutoffStr); }
+
+  var activeAll = [], sleepAll = [];
+  BLOGS.forEach(function (b) { (isActive(b) ? activeAll : sleepAll).push(b); });
+  activeAll.forEach(function (b, i) { b._ci = i; });
+  sleepAll.forEach(function (b, i) { b._ci = i; });
+
   var page = 1, sleepPage = 1;
 
-  // 搜索文本直接读 DOM：站点名和简介含空格，压缩后会破坏 data-* 属性。
-  // 首次访问时缓存到 el._hay，之后过滤只做字符串比对。
-  function hayOf(el) {
-    if (el._hay === undefined) {
-      var parts = [];
-      var n = el.querySelector('.al-name');
-      var d = el.querySelector('.al-domain');
-      var s = el.querySelector('.al-desc');
-      var p = el.querySelector('.al-post-title');
-      if (n) parts.push(n.textContent);
-      if (d) parts.push(d.textContent);
-      if (s) parts.push(s.textContent);
-      if (p) parts.push(p.textContent);
-      el._hay = parts.join(' ').toLowerCase();
+  function esc(s) {
+    s = (s == null) ? '' : String(s);
+    return s.replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  // 与服务端首屏卡片保持一致的标记；isSleep 控制沉睡样式
+  function cardHTML(b, isSleep) {
+    var ini = (b.name || '').charAt(0) || '#';
+    var c = (b._ci || 0) % 6;
+    var avCls = 'al-av' + (isSleep ? ' al-fade' : '') + ' al-c' + c;
+    var timeStr = b.updated ? b.updated.slice(0, 10) : '从未更新';
+    var lt = LATEST[b.domain] || null;
+    var h = '<div class="' + (isSleep ? 'al-card al-card-sleep' : 'al-card') + '"'
+      + ' data-updated="' + esc(b.updated || '') + '"'
+      + ' data-posts="' + esc(b.posts || '') + '"'
+      + ' data-added="' + esc(b.added || '') + '">'
+      + '<div class="al-top">'
+      + '<div class="' + avCls + '">' + esc(ini) + '</div>'
+      + '<div class="al-id"><a class="al-name" href="' + esc(b.site) + '" target="_blank" rel="noopener nofollow external">' + esc(b.name) + '</a>'
+      + '<span class="al-domain">' + esc(b.domain) + '</span></div>'
+      + '<span class="al-time" data-t="' + esc(b.updated || '') + '">' + esc(timeStr) + '</span></div>'
+      + '<span class="al-desc" style="display:none">' + esc(b.desc || '') + '</span>';
+    if (lt) {
+      h += '<div class="al-post"><a class="al-post-title" href="' + esc(lt.link) + '" target="_blank" rel="noopener noreferrer">' + esc(lt.title) + '</a>';
+      if (lt.summary) h += '<p class="al-post-sum">' + esc(lt.summary) + '</p>';
+      h += '</div>';
     }
-    return el._hay;
+    h += '<div class="al-foot">';
+    if (b.ok === false) h += '<span class="al-bad" title="博友圈最近一次抓取失败">失联</span>';
+    if (b.sunset) h += '<span class="al-sunset" title="博主标记为已停更">停更</span>';
+    h += '</div></div>';
+    return h;
+  }
+
+  function applyRelTime(container) {
+    if (!container) return;
+    var ts = container.querySelectorAll('.al-time');
+    ts.forEach(function (t) {
+      var raw = t.getAttribute('data-t');
+      if (!raw) return;
+      var d = new Date(raw.replace(' ', 'T'));
+      if (isNaN(d)) return;
+      var days = (Date.now() - d.getTime()) / 86400000;
+      var s;
+      if (days < 0) s = t.textContent;
+      else if (days < 1 / 24) s = '刚刚';
+      else if (days < 1) s = '昨天';
+      else if (days < 2) s = '前天';
+      else if (days < 30) s = Math.floor(days) + ' 天前';
+      else if (days < 365) s = Math.floor(days / 30) + ' 个月前';
+      else s = Math.floor(days / 365) + ' 年前';
+      t.textContent = s;
+    });
   }
 
   function renderPager(id, pages, cur, onPick) {
@@ -254,82 +289,59 @@
     btn('下一页', cur + 1, cur >= pages);
   }
 
-  function applyPage() {
-    var pages = Math.max(1, Math.ceil(activeVis.length / PAGE));
+  function sortArr(arr) {
+    var key = sortSel ? sortSel.value : 'updated';
+    arr.sort(function (a, b) {
+      var x = a[key] || '', y = b[key] || '';
+      if (key === 'posts') { x = +x || 0; y = +y || 0; }
+      if (x === y) return 0;
+      return (x > y ? 1 : -1) * -1; // 倒序
+    });
+    return arr;
+  }
+
+  function getFiltered() {
+    var q = (input.value || '').trim().toLowerCase();
+    if (!q) return activeAll.slice();
+    return activeAll.filter(function (b) {
+      var hay = ((b.name || '') + ' ' + (b.domain || '') + ' ' + (b.desc || '') + ' '
+        + ((LATEST[b.domain] && LATEST[b.domain].title) || '')).toLowerCase();
+      return hay.indexOf(q) > -1;
+    });
+  }
+
+  function renderActive() {
+    var arr = sortArr(getFiltered());
+    var pages = Math.max(1, Math.ceil(arr.length / PAGE));
     if (page > pages) page = pages;
     if (page < 1) page = 1;
-    activeVis.forEach(function (el, idx) {
-      el.style.display = (idx >= (page - 1) * PAGE && idx < page * PAGE) ? '' : 'none';
-    });
-    renderPager('al-pager', pages, page, function (p) { page = p; applyPage(); });
+    var slice = arr.slice((page - 1) * PAGE, page * PAGE);
+    list.innerHTML = slice.map(function (b) { return cardHTML(b, false); }).join('');
+    applyRelTime(list);
+    renderPager('al-pager', pages, page, function (p) { page = p; renderActive(); });
+    if (out) out.textContent = arr.length;
   }
 
-  function applySleepPage() {
+  function renderSleep() {
     if (!sleepList) return;
-    var pages = Math.max(1, Math.ceil(sleepVis.length / PAGE));
+    var arr = sleepAll.slice();
+    var pages = Math.max(1, Math.ceil(arr.length / PAGE));
     if (sleepPage > pages) sleepPage = pages;
     if (sleepPage < 1) sleepPage = 1;
-    sleepVis.forEach(function (el, idx) {
-      el.style.display = (idx >= (sleepPage - 1) * PAGE && idx < sleepPage * PAGE) ? '' : 'none';
-    });
-    renderPager('al-sleep-pager', pages, sleepPage, function (p) { sleepPage = p; applySleepPage(); });
+    var slice = arr.slice((sleepPage - 1) * PAGE, sleepPage * PAGE);
+    sleepList.innerHTML = slice.map(function (b) { return cardHTML(b, true); }).join('');
+    applyRelTime(sleepList);
+    renderPager('al-sleep-pager', pages, sleepPage, function (p) { sleepPage = p; renderSleep(); });
   }
-
-  function filterSort() {
-    var q = (input.value || '').trim().toLowerCase();
-    all.forEach(function (el) {
-      el._hide = !( !q || hayOf(el).indexOf(q) > -1 );
-    });
-    var vis = activeItems.filter(function (el) { return !el._hide; });
-    if (sortSel) {
-      var key = sortSel.value;
-      vis.sort(function (a, b) {
-        var x = a.dataset[key] || '', y = b.dataset[key] || '';
-        if (key === 'posts') { x = +x || 0; y = +y || 0; }
-        if (x === y) return 0;
-        return (x > y ? 1 : -1) * -1;
-      });
-    }
-    vis.forEach(function (el) { list.appendChild(el); });
-    activeVis = vis;
-    page = 1;
-    applyPage();
-    if (sleepList) {
-      var sv = sleepItems.filter(function (el) { return !el._hide; });
-      sleepVis = sv;
-      sleepPage = 1;
-      applySleepPage();
-    }
-    if (out) out.textContent = vis.length;
-  }
-
-  // 相对时间
-  all.forEach(function (el) {
-    var t = el.querySelector('.al-time');
-    if (t && t.dataset.t) {
-      var d = new Date(t.dataset.t.replace(' ', 'T'));
-      if (!isNaN(d)) {
-        var days = (Date.now() - d.getTime()) / 86400000;
-        var s;
-        if (days < 0) s = t.textContent;
-        else if (days < 1 / 24) s = '刚刚';
-        else if (days < 1) s = '昨天';
-        else if (days < 2) s = '前天';
-        else if (days < 30) s = Math.floor(days) + ' 天前';
-        else if (days < 365) s = Math.floor(days / 30) + ' 个月前';
-        else s = Math.floor(days / 365) + ' 年前';
-        t.textContent = s;
-      }
-    }
-  });
 
   var timer = null;
   input.addEventListener('input', function () {
     clearTimeout(timer);
-    timer = setTimeout(filterSort, 120);
+    timer = setTimeout(function () { page = 1; renderActive(); }, 120);
   });
-  if (sortSel) sortSel.addEventListener('change', filterSort);
+  if (sortSel) sortSel.addEventListener('change', function () { page = 1; renderActive(); });
+  if (sleepDetails) sleepDetails.addEventListener('toggle', function () { if (sleepDetails.open) renderSleep(); });
 
-  filterSort();
+  renderActive();
 })();
 </script>

@@ -1,13 +1,12 @@
 {
 "updated": "2026-09-02T10:59:59.539Z",
-"total": 996,
+"total": 671,
 "map": {
 "www.seaepoch.com": {
 "title": "论压力的双重属性：内生驱动力与外部阻滞力",
 "link": "https://www.seaepoch.com/articles/227ecbd2/",
 "summary": ""
 },
-"besscroft.com": null,
 "556799.xyz": {
 "title": "Qwen3.8-27B 测试（2）",
 "link": "https://556799.xyz/archives/qwen3.8-27b-ce-shi-2",
@@ -17,11 +16,6 @@
 "title": "请当面说分手",
 "link": "https://www.ilingdu.net/2072.html",
 "summary": "米饭的故事，要从遥远的异国他乡说起。 故事的开场，发生在巴黎戴高乐机场。 米饭扛着大包小包入境的时候，被一群法 […]"
-},
-"yixuan.blog": {
-"title": "小白上手 Claude Code",
-"link": "https://yixuan.blog/cn/2025/09/claude-code-beginner/",
-"summary": "AI 辅助编程已经流行了好一阵子了，但一直没找到合适的机会去体验。正好最近在学习 Megatron 这个大模型训练框架，第一眼看来代码量大，而且逻辑关系复杂，所以就准备尝试一下用 …"
 },
 "ssshooter.com": {
 "title": "CSS Strut 与 IFC 简析",
@@ -64,33 +58,16 @@
 "link": "https://blog.zhilu.site/2026/beijing-intern",
 "summary": "从西安到北京，从校园到大厂实习，「300天」不只工作本身，有迁移也有变化。秩序常新，但内核与长期的事情不会变。"
 },
-"dnevend.site": {
-"title": "多么痛的领悟",
-"link": "https://dnevend.site/blog/trading-thinking",
-"summary": "总结一下那些在二级市场不断受到的教训，现在学费交的差不多了，准备夺回属于我的一切"
-},
 "blog.shaoxiao.net": {
 "title": "内蒙行：中国北疆风景大道",
 "link": "https://blog.shaoxiao.net/2026/08/17/%e5%86%85%e8%92%99%e8%a1%8c%ef%bc%9a%e4%b8%ad%e5%9b%bd%e5%8c%97%e7%96%86%e9%a3%8e%e6%99%af%e5%a4%a7%e9%81%93/",
 "summary": "尽管已经去过内蒙两次了，最近在抖音上刷到达达线和热阿线的风光还是被吸引住了，于是就又谋划了这次内蒙之行……"
 },
-"digu.plus": {
-"title": "老婆被家长投诉",
-"link": "https://digu.plus/post/c6f824c866a6456697917919c5c373e5/",
-"summary": "老婆是一名小学语文老师兼班主任，至今大概有个六七年了，带过一届毕业班。从老婆的口中了解到，上一届和这一届的学生、家长对她都挺满意的，有时候她也会分享家长的聊天记录给我看，都是夸张老…"
-},
-"zihua.li": null,
 "www.snbk.cn": {
 "title": "从学霸到学渣他只用了两部手机。",
 "link": "http://www.snbk.cn/post/175.html",
 "summary": "大舅哥家的大儿子，是个一路辗转长大的孩子。 他在驻马店出生，幼儿园和小学前半段在郑州度过，小学后半段随家人迁居兰州，初中又辗转回到老家驻马店。年少岁月里，数次跨省迁徙，让他的求学之…"
 },
-"www.isaced.com": {
-"title": "使用 TypeScript 构建的 appstore-connect-sdk",
-"link": "https://www.isaced.com/post/appstore-connect-sdk/",
-"summary": "App Store Connect API 概述 App Store Connect API 是苹果公司为开发者提供的一组基于 REST 架构的 API，它们用于管理您的 App …"
-},
-"kksure.com": null,
 "www.ixiqin.com": {
 "title": "如何选择 DeepSeekHarnes / Claude Code/Codex/ Pi",
 "link": "https://www.ixiqin.com/2026/08/26/how-to-choose-depseekharnes-claude-code-codex-pi/",
@@ -128,11 +105,6 @@
 "link": "https://www.ordchaos.com/posts/0250ea69/",
 "summary": "最近苦于Linux下打印机驱动不支持双面打印，故寻思着做个中间件处理一下。"
 },
-"blog.reincarnatey.net": {
-"title": "踩坑记录 | Windows11 硬件服务异常、移动文件卡死、无法打开硬件管理器、系统信息不显示 cpu 和存储和 RA…",
-"link": "https://blog.reincarnatey.net/2026/0315-win11-service-bug/",
-"summary": "问题描述 该问题有几个主要现象： 无法打开硬件管理器 在桌面或资源管理器移动或剪贴文件夹会卡死 资源管理器卡死时只会该窗口卡死，而不是系统卡死 部分软件无法启动 打开设置>系统>系…"
-},
 "www.starlinglin.top": {
 "title": "C++ 中的值类别、左右值引用、引用折叠转发",
 "link": "https://www.starlinglin.top/computer-science/Cpp-programme-note/cpp-val-categ/",
@@ -148,22 +120,6 @@
 "link": "https://ilimeng.cn/1621.html",
 "summary": "今天打开博客，看到距离上一次更新已经过去了一年半，而且还是技术文，已经两年多没有写过真正表达内心的文章了。并非是不愿写，太多复杂的情绪不知道从何落笔，年终的总结每年都有写，可是都只…"
 },
-"blog.kaiqi.wang": {
-"title": "Docker 部署鸣潮机器人",
-"link": "https://blog.kaiqi.wang/571.html",
-"summary": "大家新年快乐！！又好久没有写文章了 此教程不仅可以搭建鸣潮机器人，可以使用其他插件，例如终末地、王者荣耀、原神 […]"
-},
-"wangrufei.com": {
-"title": "不安分的小宝宝",
-"link": "https://wangrufei.com/archives/404",
-"summary": "快10个月了，这个阶段的小宝宝太不安分了，在小推车上根本坐不住。一会摸摸这个，一会儿摸摸那个，能够着的地方都要够一遍，而她脚上的袜子就是面前最显眼的东西。"
-},
-"sqybi.com": {
-"title": "已经崩溃的舆论战场不值得被总结",
-"link": "https://sqybi.com/blog/already-collapsed-battlefield-of-public-opinion-not-worth-summarizing/",
-"summary": "今年的年度文章，我本来希望能够就现在互联网的舆论环境进行一番讨论，顺便也深入地思考一下为什么今年完全没有写作动力，特别是对于稍微深入一些的话题彻底失去了讨论的欲望。"
-},
-"lupin.me": null,
 "www.dearom.com": {
 "title": "踩坑记录：在Windows 11上安装diffpy.pdfgui（conda环境变量 + wxPython兼容性）",
 "link": "https://www.dearom.com/blog/20260829-installing-diffpy-pdfgui-on-windows",
@@ -174,8 +130,6 @@
 "link": "https://blog.algieba12.cn/hermes01-install-on-termux/",
 "summary": "本文记录了在 Android 设备的 Termux 终端中部署 Nous Research 的 Hermes Agent 时所经历的真实踩坑过程。从解决一键脚本的静默死锁，到突破网…"
 },
-"2040.ai": null,
-"blog.fiveth.cc": null,
 "blog.giveanornot.com": {
 "title": "LED 耳環誕生（一）：不就幾顆 LED，應該不難…吧？",
 "link": "https://blog.giveanornot.com/led-earring-1/",
@@ -198,7 +152,6 @@
 "link": "https://www.52huaijiu.com/nostalgia/dc11fda4d857.html",
 "summary": "《寒号鸟》选自统编版小学语文二年级上册，是一篇家喻户晓的寓言童话，也是几代人童年记忆里的经典课文。故事通过喜鹊与寒号鸟两种截然不同的做事态度，告诉小朋友不能贪图安逸、拖延偷懒的道理…"
 },
-"www.xuanvoyage.com": null,
 "blog.liuzhen932.top": {
 "title": "为 PCem 配置网络并使用 Netscape 上网",
 "link": "https://blog.liuzhen932.top/posts/configure-networking-on-pcem/",
@@ -209,21 +162,10 @@
 "link": "https://zhjwork.online/2026/06/30/%e5%95%86%e6%a0%87%e5%88%86%e7%b1%bb%e6%8e%a8%e8%8d%90%e5%b7%a5%e5%85%b7%e6%96%b0%e7%89%88%e4%b8%8a%e7%ba%bf%ef%bc%9a%e6%8e%a8%e8%8d%90%e6%9b%b4%e6%b8%85%e6%a5%9a%ef%bc%8c%e7%bb%93%e6%9e%9c%e6%9b%b4/",
 "summary": "商标分类推荐工具又更新了一版。 地址还是： https://tm.zhjwork.online 这版主要改网页..."
 },
-"b.zzaiyan.com": {
-"title": "TorchHook：轻松获取 PyTorch 模型中间输出，加速你的深度学习研究",
-"link": "https://b.zzaiyan.com/course/160.html",
-"summary": "在基于深度学习模型的科研工作中，我们经常需要深入了解模型的内部工作机制。无论是为了可视化特征图、检查神经元的激 […] TorchHook：轻松获取 PyTorch 模型中间输出，…"
-},
-"ai.renyuzhuo.cn": null,
 "ftz.is-a.dev": {
 "title": "WebTooys第4弹更新 —— AI知识图谱Oheya、连接选择器Selinkt、长图拼接、LessChat、生成终末…",
 "link": "https://ftz.is-a.dev/blog/posts/webtooys4/",
 "summary": "![](https://ftz.is-a.dev/blog/posts/img/screenshot_1782573725882.png) WebTooys 第四弹更新 可通过Ne…"
-},
-"mayanbin.com": {
-"title": "我的北京冬奥会「Beijing 2022」之旅",
-"link": "https://mayanbin.com/posts/beijing2022-tour.html",
-"summary": "从 1 月 5 日进入冬奥闭环开始，就开始了我的 2022 年北京冬奥会之旅，直到现在，已经有 50 多天了。 初入闭环 为了应对全球新冠疫情，北京冬奥组委设立了一个叫做闭环管理的…"
 },
 "nocoding.life": {
 "title": "悟",
@@ -235,27 +177,18 @@
 "link": "https://axi404.top/blog/pi-agent",
 "summary": "安装 Pi Agent 并进行必要的配置以实现常规 Agent 效果。"
 },
-"meuicat.com": {
-"title": "那就，再相逢",
-"link": "https://meuicat.com/posts/f8b8816a.html",
-"summary": ""
-},
 "www.chenshaowen.com": null,
-"agen233.top": null,
 "www.pengs.top": {
 "title": "通过《Resilient AI Supercomputer Networking using MRC and SRv6》…",
 "link": "https://pengs.top/MRC_SRv6/",
 "summary": "2012来实验室交流，提到了一个未来可能的发展方向——协议层面的故障检测，我不太能理解这个词的意思，张觉学长让我阅读《Resilient AI Supercomputer Netw…"
 },
-"lostdeer.xyz": null,
 "blog.ichr.me": null,
 "qcrao.com": {
 "title": "The AI Video Shot Risk Scorecard",
 "link": "https://qcrao.com/post/ai-video-shot-risk-scorecard/",
 "summary": "A short generative film rarely fails because every shot is bad. It usually fails because o…"
 },
-"www.hudi.space": null,
-"tevinzhang.com": null,
 "www.kingname.info": {
 "title": "把五个同款大模型拉进群聊，就能开一家 AI 公司了吗？",
 "link": "https://www.kingname.info/2026/08/19/ai-office-multi-agent/",
@@ -266,7 +199,6 @@
 "link": "https://www.ftls.xyz/posts/2026-07-13-vela/",
 "summary": "Vela - Very Easy Log API 超简单日志应用程序接口"
 },
-"www.rmoe.top": null,
 "koobai.com": {
 "title": "2026-08-22 21:53",
 "link": "https://koobai.com/laodao/2026/08/20260822-215305/",
@@ -277,22 +209,15 @@
 "link": "https://www.bufanz.com/20260901855.html",
 "summary": "手机内存12+256GB采购价飙至2200元，华为小米荣耀手机涨价！12+256GB内存组合当前采购价约2200元，去年同期500元，涨了1700元。下代旗舰处理器当前采购价约20…"
 },
-"ww-fs.com": null,
 "www.sumi233.top": {
 "title": "碎碎念一下（15），新框架新征程~",
 "link": "https://www.sumi233.top/posts/mouthtalk/sumi-thoughts-15/",
 "summary": "关于7月8日到8月16日最近的碎碎念"
 },
-"rowl1ng.com": null,
 "www.sunboy.ltd": {
 "title": "五一浪荡",
 "link": "https://www.sunboy.ltd/posts/1d1c7591/",
 "summary": "<script src=\"/assets/js/APlayer.min.js\""
-},
-"dabenshi.cn": {
-"title": "一个本体会飞的梦",
-"link": "https://dabenshi.cn/371.html",
-"summary": "前几年做过同样的梦，梦里我会飞，是本体，不借助任何载体，但飞行技巧不是很熟练，不会降落，所以一直在梦里飞，尝试掌握飞行技巧，后来我掌握了起飞、转弯（双臂伸直与身体平行即可升空起飞，…"
 },
 "www.80srz.com": {
 "title": "湖北·蕲春·大同镇 仙人台游记（补档）",
@@ -316,30 +241,13 @@
 "summary": "嗨嗨，最近沉浸式体验了3个月的摆摊，导致更新延迟啦😂。大部分内容在6月底就完成了，今天才有时间整理和发出来✨ 距离上一篇聊 vibe coding"
 },
 "leoreo.me": null,
-"thinkinlife.org": {
-"title": "AI时代最重要的事情",
-"link": "https://thinkinlife.org/the-most-important-thing-in-the-ai-ear/",
-"summary": "现在你是不是担心AI会抢了你的工作，担心你马上就要失业？我可以告诉你，你的担心是多余的。所谓的担心，它是一种悬… 继续阅读 AI时代最重要的事情 The post AI时代最重要的…"
-},
 "www.yaguwu.com": null,
-"esays.net": null,
 "chevqiavg.top": {
 "title": "移动端测试/开发必看：8大类高频专业术语，再也不怕沟通听不懂",
 "link": "http://chevqiavg.top/archives/1787828507028",
 "summary": "做移动端测试或者开发的同学，大概率都有过这种经历： 项目会上一堆词往外蹦——Scheme、WebView、ANR、热更新、JSBridge、AAR包……新人刚入行经常听得一头雾水，…"
 },
 "www.wangdu.site": null,
-"blog.dazhu1988.com": {
-"title": "一部丢失的三星手机，与我在成都跑过的五个派出所",
-"link": "https://blog.dazhu1988.com/1181.html",
-"summary": "时至今日，写下这些文字，心里还有些后怕，幸亏只是手机丢了。2025年1月6日，腊月的风已带上春节的暖意。成都街头巷尾张灯结彩，空气里弥漫着团年饭的香，承蒙许久未见的兄弟祥龙盛情，约…"
-},
-"suemor.com": {
-"title": "ArrayBuffer、TypedArray 和 DataView 在 MP4 Box 解析中的运用",
-"link": "https://suemor.com/posts/programming/arraybuffer-typedarray-dataview-mp4-box",
-"summary": "JavaScript 处理二进制数据的 API 主要有三种：ArrayBuffer、TypedArr"
-},
-"www.lanka.cn": null,
 "www.dayday.plus": null,
 "rushihu.com": null,
 "stuit.cn": {
@@ -347,19 +255,7 @@
 "link": "http://stuit.cn/Xiaolu/Post/1643.html",
 "summary": "这是上周末开车时，等绿灯过程中的随拍。手机直出的原图有些糟糕，但由于太喜欢这个场景了，于是运用PS大法，成功拯救了这张“废片”^_^ 下图编号110946"
 },
-"blog.yunpiao.site": {
-"title": "文件系统-从 vmdk 镜像解析与导出文件",
-"link": "https://blog.yunpiao.site/post/20260203135314/",
-"summary": "平淡无奇的周一, 老板突然说 7z 怎么无法在 esxi host 解析 vmdk 呢? 于是有这个工具的探索. 实现起来倒是不复杂, 只因为 AI 可以闭环验证, 很快就完成了 …"
-},
-"woolyun.com": null,
-"fs1m.com": null,
 "www.aiwazi.com": null,
-"blog.nanshengwx.cn": {
-"title": "Spring Boot 异步任务死锁排查：@Async 父子任务共用线程池导致的 N+1 性能雪崩与任务丢失",
-"link": "https://blog.nanshengwx.cn/archives/b2D0aSLn",
-"summary": "作为一名后端开发，最怕的不是代码报错，而是代码不报错，但也不干活。 最近我就遇到了这样一个棘手的生产问题：我们的日志拉取系统每天凌晨 3:10 准时启动，负责拉取 AD、千川 和 …"
-},
 "20508888.xyz": {
 "title": "🔥 本人简历｜My Resume",
 "link": "https://20508888.xyz/posts/56014/",
@@ -371,23 +267,11 @@
 "link": "https://www.icl.site/17732410719067.html",
 "summary": "今天刷到《半月谈》一个鸡汤视频，具体文字如下： 人只有在专注自己时，才会变得明媚开朗。 精力放在别人身上，反而会拧巴扭曲。 向外求，求而不得；向内求，生生不息。 其实大部分人，还没…"
 },
-"blog.eurkon.com": {
-"title": "ECharts 帕累托图",
-"link": "https://blog.eurkon.com/post/b0188c87.html",
-"summary": "#container { height: 600px; padding: 10px; background: white; border-radius: 12px; } <div …"
-},
-"www.jinbo123.com": {
-"title": "2025年我都买了什么–购物清单分享",
-"link": "https://www.jinbo123.com/8286.html",
-"summary": "又到了年度“剁手”复盘时间。每到岁末，看着账单总免不了感叹自控力的间歇性失效，但转念一想，努力赚钱的初衷，不就 […]"
-},
-"blog.peiluming.com": null,
 "qfsyj.com": {
 "title": "腾讯云的轻量主机马上又要到期了",
 "link": "https://qfsyj.com/20260828-qingliang.html",
 "summary": "腾讯云的轻量主机9月4号到期，现在什么新人优惠、同价续费都享受不了，三百多用一年实在受不了。"
 },
-"88lin.eu.org": null,
 "styunlen.cn": {
 "title": "缓存复仇记：挡在我完美缓存前面的，是那个更傻的缓存",
 "link": "https://styunlen.cn/archives/post-1838.html",
@@ -418,11 +302,6 @@
 "link": "https://glumes.com/gif-editor-app-introduction/",
 "summary": ""
 },
-"www.memxb.top": {
-"title": "使用Tailscale实现异地组网！",
-"link": "https://www.memxb.top/archives/966",
-"summary": "前言 本篇文章是一个通用教程，适用于本地的服务器快速实现异地组网。如果你的外网和服务器所处的内网都是同一个运营 […]"
-},
 "www.luohuayu.cn": {
 "title": "更换域名啦",
 "link": "https://www.biubiubiu.me/73.html",
@@ -439,16 +318,6 @@
 "summary": "许久未更新博客，一晃已是整月。整个六月都在奔波劳碌，大半心力全耗在弥补投资失利造成的巨额亏损上，终日心绪难安。六月十八迎来三十九岁生辰，离四十岁越来越近，静下来时难免感慨岁月匆匆，…"
 },
 "n2g.cn": null,
-"ryanc.cc": {
-"title": "为 Docusaurus 添加 Shiki 代码高亮支持",
-"link": "https://ryanc.cc/archives/docusaurus-shiki",
-"summary": "本文记录 https://docs.halo.run 集成 Shiki 代码高亮的过程。 引言 从 Halo 1.x 开始，我们就一直在使用 Docusaurus 来构建 Halo…"
-},
-"ephen.me": {
-"title": "了不得了，使用 Caddy 反向代理 AxureCloud 还能自动提供 https 访问",
-"link": "https://ephen.me/2025/caddy-axurecloud/",
-"summary": "折腾背景2025 年 2 月开始，AxureCloud 官方不接受白嫖了，于是我打算自己搭一个个人自用的 AxureCloud 独立服务器。 看了下，现在市面上的云服务器价格都不便…"
-},
 "blog.jiaxiang.wang": {
 "title": "SkillShare 入门：基于 Git 跨平台同步 AI 智能体 SKILL 能力",
 "link": "https://blog.jiaxiang.wang/articles/skillshare-for-ai-skills/",
@@ -464,7 +333,6 @@
 "link": "https://www.david03.top/index.php/archives/453/",
 "summary": "由韩杰案引出的一些碎碎念最近经常刷到韩杰案，不自觉总会联想很多事情。不知道从什么时候开始，我从师兄师姐那里所收到的告诫从各种“科室红黑榜”“主任晴雨表”“科室小规则”变为了简单的一…"
 },
-"blog.redish101.top": null,
 "www.zhangxinxu.com": {
 "title": "超级Web特性HTML-in-Canvas初体验",
 "link": "https://www.zhangxinxu.com/wordpress/2026/08/html-in-canvas/",
@@ -475,7 +343,6 @@
 "link": "https://www.quhj.com/431.html",
 "summary": "说起济宁，很多人第一反应就是孔子，这座城市浸在几千年的文化里，没有大城市那种急匆匆的喧嚣，走在街上，处处都能感受到厚重的烟火气，既有历史沉淀，又有普通老百姓实实在在的生活味道。 济…"
 },
-"zxalive.com": null,
 "lklog.cn": null,
 "80h.cn": null,
 "yanyunfeng.com": {
@@ -483,22 +350,12 @@
 "link": "https://yanyunfeng.com/article/94",
 "summary": "昨天公司小程序发布了新的版本，之后有同事向我反馈：进入小程序后页面是一片空白，啥内容都没有。收到反馈后我自己马上打开小程序试了一遍，但我的一切正常。因为上线之前我肯定是测试过的，没…"
 },
-"dbwu.tech": {
-"title": "如何获取更多的免费服务器",
-"link": "https://dbwu.tech/posts/other/free-cloud-services/",
-"summary": ""
-},
 "www.oatse.com": {
 "title": "游玩广州",
 "link": "https://www.oatse.com/archives/guang-zhou-wu-ri-you",
 "summary": "游玩广州 趁着暑假，去广州一游，并拍了些照片 广轩大厦"
 },
 "feng.pub": null,
-"www.6mal.com": {
-"title": "不要随意介入他人的因果——成年人最难得的清醒",
-"link": "https://6mal.com/archives/119/",
-"summary": "不知道从什么时候开始，身边这样的人越来越多了——总觉得自己有义务去”拯救”别人。 看到朋友在一条路上越走越偏，忍不住想拉一把；看到亲戚做了个明显不靠谱的决定，苦口婆心地劝；看到同事…"
-},
 "hwnote.space": null,
 "www.paddysun.top": {
 "title": "[Agent 考古] TouringMachines 与 INTERRaP：混合架构如何调和 Agent 的反应与慎思",
@@ -524,11 +381,6 @@
 "title": "网络类-dstat",
 "link": "https://www.hankz.net.cn/1825.html/",
 "summary": "前置 前言：dstat是一个集成的工具，和sysstat工具集类似，可以看cpu、disk、network、m […]"
-},
-"blog.cpen.top": {
-"title": "13_Hexo-操作记录",
-"link": "https://blog.cpen.top/posts/db7b8b04.html",
-"summary": "01. Giscus 评论系统 博客弃用 Twikoo，改用 Giscus 进行评论 参考"
 },
 "sheep5.net": null,
 "pewae.com": {
@@ -557,7 +409,6 @@
 "link": "https://note.redcha.cn/archives/chuan-xi-shu-man-ji-d3-fan-yue-tian-lu-shi-ba-wan-chi-cheng-shi-jie-gao-cheng-li-tang-ben-fu-dao-cheng-xiang-ge-li-la",
 "summary": "2026年8月9日是川西行程第三天，当日沿G318打卡天路十八弯（因人流拥堵驻车拍摄），途经4288米梅朵措、4718米卡子拉山垭口（可俯瞰群山），抵达丁真故乡理塘，逛勒通古镇与长…"
 },
-"www.uuchen.com": null,
 "oxxx.cn": {
 "title": "浮生半日闲",
 "link": "https://oxxx.cn/archives/1496.html",
@@ -598,20 +449,12 @@
 "link": "https://blog.weasel6.cn/posts/music-cartoon/",
 "summary": "19首国漫音乐，重温追番时那些热血沸腾、戳心动容的专属记忆"
 },
-"www.liuqiran.com": null,
-"zhuxu.asia": null,
-"blog.ibireme.com": {
-"title": "记事",
-"link": "https://blog.ibireme.com/2017/09/01/diary/",
-"summary": "一年半前刚搬到这儿的时候，同伴们兴致勃勃地讨论着各种旅游计划，大家建了个群，名字就叫“出游计划委员会”。然而在 […]"
-},
 "zooyoo.top": null,
 "www.webersongao.com": {
 "title": "相见不如怀念（1）",
 "link": "https://www.webersongao.com/life/2026/4938.html",
 "summary": "单开一篇，记录个趣事儿，算是周岁宴的番外篇。 周岁宴的时候，大厅旁边的包间里也来了一桌人。我姐说：“你同学，英改，她亲戚家孩子订婚呢。” 英改，小学时候太熟悉的名字。于是，大脑飞快…"
 },
-"mbox.dev": null,
 "www.yuyt.cn": {
 "title": "「一张 9.92MB 的 PNG，让我给图库补了套缩略图」",
 "link": "https://www.yuyt.cn/archives/972fda17-6e92-4e56-9cc0-0417eca6df24",
@@ -643,23 +486,10 @@
 "link": "https://blog.ybyq.wang/archives/1846.html",
 "summary": "简介CipherTalk 密语 是一款 Windows 端的微信聊天记录查看工具，数据全在本地处理，不上传云端。它能解密并浏览私聊、群聊和朋友圈，支持导出 HTML、JSON或原始…"
 },
-"www.itylq.com": null,
-"hhao.wang": {
-"title": "Service Worker缓存图片",
-"link": "https://www.hhao.wang/archives/908",
-"summary": "使用Service Worker一般是为了缓存一些内容以便网站离线时使用，或者也可以将其作为一个缓存机制，减少 […]"
-},
 "long.ge": {
 "title": "manus免费使用的这十天",
 "link": "https://long.ge/18098.html",
 "summary": "manus为期10天的免费期，用来修复和优化了三个网站，wordpress的default主题优化失败。 主要是优化了前期DeepSeek搞的博客联盟（https://www.bo…"
-},
-"www.windy.ink": null,
-"www.xn2001.com": null,
-"kokona.top": {
-"title": "宝塔面板搭建WordPress博客网站",
-"link": "https://kokona.top/310/%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf%e6%90%ad%e5%bb%bawordpress%e5%8d%9a%e5%ae%a2%e7%bd%91%e7%ab%99/",
-"summary": "WordPress 是一个开源的内容管理系统（CMS），最初用于创建博客网站，如今已广泛应用于搭建各种类型的网 ... The post 宝塔面板搭建WordPress博客网站 a…"
 },
 "lzh1.cn": {
 "title": "清平乐·夜见双猫嬉斗",
@@ -675,11 +505,6 @@
 "title": "非球迷看世界杯方式竟然不给了",
 "link": "https://zww.me/28279.zsay",
 "summary": "本人非球迷，也不赌球，但是会看下四年一次的世界杯，主要是欣赏角度，也不会场场看，挑一些看。 由于前面所说，所以我不会熬夜看球，加上最近眼睛不 …"
-},
-"blog.becomingcelia.com": {
-"title": "重生之我是越王勾践剑的剑灵",
-"link": "https://blog.becomingcelia.com/2023/11/yue-wang-gou-jian-jian.html",
-"summary": "密纹在光滑表面排成璀璨星斗，又似夜幕下的万家灯火通明沉静，剑光流转，如同水面上的浪花，平和而深邃。“愿社稷昌，愿黎民宁。”然而，那只本该治理天下，充满强大与自由的飞鸟，终究被权势迷…"
 },
 "blog.codingnow.com": {
 "title": "银河竞逐的乐趣和策略",
@@ -697,12 +522,6 @@
 "link": "https://fxpai.com/article/zuijinxihuanshanglexiudongxi",
 "summary": "新秀丽的背包拉链坏了——如果是一两百的普通包，用了将近两年，扔掉就是了——但是这个新秀丽的背包是花了700多买的，只用了一年半，拉链就坏了，而且是崩溃式的坏。"
 },
-"lychee.love": null,
-"easyf12.top": {
-"title": "2025年终总结与展望",
-"link": "https://easyf12.top/posts/1defe4de/",
-"summary": "又到了年末。 说实话，本年度我一共就发表了四篇文章（肉眼可见的少），因为学习实在太忙了。这一年里，我自认为自身经历了一次洗礼，一场蜕变。"
-},
 "wangdongxing.com": {
 "title": "通过阅读背英语单词",
 "link": "https://wangdongxing.com/life/learn-english-words-through-reading/",
@@ -713,17 +532,6 @@
 "link": "https://byvoid.com/zht/travel/",
 "summary": "Beyond the Void https://byvoid.com/zht/travel/ - 旅行總結 2019年[2019年旅行總結](https://byvoid.com/…"
 },
-"lisenhui.cn": {
-"title": "迁移LeanCloud的Waline评论数据到TiDB/Neon",
-"link": "https://lisenhui.cn/tech/migrate-waline-into-tidb-neon.html",
-"summary": "1月份月底时收到了LeanCloud的邮件通知，标题中的停止两个字是非常的亮眼，看来在国内做公开的开放服务实属不容易，真是感叹呀。鄙人的博客从建设以来就是选用它作为站点评论数据的存…"
-},
-"blog.niclin.tw": {
-"title": "謝明真 - 高效領導力的課後筆記",
-"link": "https://blog.niclin.tw/2022/05/08/ddi/",
-"summary": "對我來說，其實我一直很摸不透何謂管理 在一直以來的軟體工程師的道路上，我盡可能的不想去碰辦公室政治 但就算劃地自限，辦公室政治依然會找上你 在這過"
-},
-"doubao.life": null,
 "xyzbz.cn": {
 "title": "松声｜廿六年·八月末·夜渐凉",
 "link": "https://xyzbz.cn/archives/1567/",
@@ -773,11 +581,6 @@
 "title": "当答案比问题更早出现",
 "link": "https://hiwannz.com/archives/1285.html",
 "summary": "设计这个产品的产品经理，真的会用这个产品吗？ 前段时间，有个同事跟我聊起他用纯 AI 工作一个月以后的感受。他说自己现在已经有点不知道该怎么评价这件事了。 按理说，效率应该是提高了…"
-},
-"xiaolong22333.top": {
-"title": "这里是文章目录",
-"link": "https://xiaolong22333.top/archives/8/",
-"summary": "虽然有归档，但还是加个目录吧简单介绍sql注入sql报错注入常见的文件头识别和修复安恒7月welcome to the misc world菜鸡杯CTFshow部分wpphp反序列…"
 },
 "leehenry.top": {
 "title": "漫想与杂谈 Iss.07 · 处暑：夏日终曲",
@@ -836,17 +639,6 @@
 "link": "https://baipin.pw/projects/radioapp.html",
 "summary": "依旧是传统艺能，先丢链接： https://play.google.com/store/apps/detail […]"
 },
-"zfben.com": {
-"title": "从货币的终结到存在时代：当人类不再需要证明自己",
-"link": "https://zfben.com/zh/blog/2026-02-25/",
-"summary": "从货币的终结到存在时代：当人类不再需要证明自己"
-},
-"shuyi.tech": null,
-"plausistory.blog": {
-"title": "[转载] 戴逸教授讣告",
-"link": "https://plausistory.blog/2024/01/25/in_memory_of_daiyi/",
-"summary": "本文转载自中国人民大学官方公众号推送的《沉痛悼念戴逸先生》（2024年1月25日）。其中记载有戴公的生平，照录于此。… Continue reading [转载] 戴逸教授讣告 →"
-},
 "yufan.me": {
 "title": "汉字之海",
 "link": "https://yufan.me/posts/the-word-boat-chronicle",
@@ -872,32 +664,12 @@
 "link": "https://pangruitao.com/post/6267",
 "summary": "把哲学家、作品、战争、革命、王朝与制度放回同一时空，通过时间轴、问题史、地图和专题重新观察思想如何发生。"
 },
-"www.windyl.de": {
-"title": "",
-"link": "https://www.windyl.de/2026/06/2025-8-%E6%B2%89%E6%B5%B8%E5%BC%8F%E7%BF%BB%E8%AF%91%E6%9B%BF%E4%BB%A3%E5%93%81%E6%B1%87%E6%80%BB/",
-"summary": "沉浸式翻译替代品汇总<a href=\"#前情提要\" class=\"head"
-},
-"hawstein.com": {
-"title": "从一期播客说起",
-"link": "https://hawstein.com/2025/08/13/starting-from-a-podcast/",
-"summary": "最近作客「捕蛇者说」，录了一期播客。万万没想到，主播 laike9m 为此还写了篇文章，叫 我最喜欢的一期《捕蛇者说》。作为一个友善的人，我觉得我也应该回应一篇文章。我愿把这种行为…"
-},
 "xingwangzhe.fun": {
 "title": "EdgeOne 与 Cloudflare 海内外分流 CDN",
 "link": "https://xingwangzhe.fun/posts/edgeone-cloudflare-split-cdn/",
 "summary": "博客主站托管在腾讯 EdgeOne（EdgeOne Pages），Cloudflare Pages 上是同一仓库的镜像。用 DNSPod 线路分流统一 xingwangzhe.fu…"
 },
 "blog.52hyjs.com": null,
-"caotongxue.cn": {
-"title": "网站低质量的内容指的是哪些，该如何避免？",
-"link": "http://caotongxue.cn/article/website-violation/",
-"summary": "百度搜索拒绝质量低下、粗制滥造，不能满足用户需求或不以满足用户需求为目的，甚至对用户造成伤害的页面，需在内容上一定要重视。"
-},
-"zyan.cc": {
-"title": "PHPTS：一键免费搭建 Nginx + PHP + MySQL + Redis + Memcached 网站、APP、…",
-"link": "http://zyan.cc/phpts/",
-"summary": "传承自 APMServ 的 PHPTS，十年后隆重推出。 PHPTS 边缘计算协作服务器套件，是 Windows 系统上一键搭建 Nginx + PHP + MySQL + Mem…"
-},
 "yanlinlin.cn": {
 "title": "《一世之尊》书评",
 "link": "https://yanlinlin.cn/2026/08/30/yi-shi-zhi-zun-review/",
@@ -908,23 +680,12 @@
 "link": "https://www.wxy97.com/archives/019e2a4b-f1c0-70aa-b100-a49d1ddf3464",
 "summary": "1. KISS Translator A simple, open source bilingual translation extension & Greasemonkey sc…"
 },
-"joouis.com": null,
 "roy.wang": {
 "title": "给 Claude 中转站验明正身：签名里的模型身份",
 "link": "https://roy.wang/claude-channel-verification/",
 "summary": "用中转站的 Claude，价格是真便宜，渠道也多得眼花缭乱，但有个问题一直绕不开：我花的钱，买到的到底是不是......."
 },
 "blog.ooliver.cn": null,
-"blog.cuger.cn": {
-"title": "First Sunrise and Sunset of 2026 in Huangshan",
-"link": "https://blog.cuger.cn/en/p/fdcc/",
-"summary": "Time flies, and it is already 2026. On a sudden impulse, I went to Huangshan for sunrise a…"
-},
-"www.peterjxl.com": {
-"title": "课程介绍",
-"link": "https://www.peterjxl.com/Computer/History/introduce/",
-"summary": "关于计算机历史系列博客的的介绍"
-},
 "suiyan.cc": {
 "title": "博客文章回应的双向选择",
 "link": "https://www.suiyan.cc/blog/20260831211506",
@@ -935,7 +696,6 @@
 "link": "https://yekaihongxue.com/2026/08/30/20260829/",
 "summary": "我作為長子，她曾最為自豪的人，曾讓她去到隔壁的隔壁村，別人都讚揚她兒子高中全部第一，全年級第二的人"
 },
-"doufoo.com": null,
 "blog.veitzn.top": {
 "title": "志愿表上的那些事",
 "link": "https://blog.veitzn.top/%e5%bf%97%e6%84%bf%e8%a1%a8%e4%b8%8a%e7%9a%84%e9%82%a3%e4%ba%9b%e4%ba%8b/",
@@ -945,12 +705,6 @@
 "title": "用 AI 重写了一个用了两年的 B 站直播机器人",
 "link": "https://hejunjie.life/blog/ce58b441",
 "summary": "用 AI 将用了两年的 B 站直播机器人从 PHP 重写为 Go，聊聊 AI 在这次重写中真正帮上了什么，以及哪些事情依然需要自己来做"
-},
-"diygod.cc": null,
-"www.zyzhang.com": {
-"title": "炒作口诀",
-"link": "https://zyzhang.com/%E7%82%92%E4%BD%9C%E5%8F%A3%E8%AF%80/",
-"summary": "口诀 备注 长期主线好 长期是核心，意味着不会很快被套住，一是长，二是短期被套也能有机会解套 一览众山小 这里的核心是两点：一是主线涨得多，二是注意机会成本，不要舍不得卖所谓「底仓…"
 },
 "deeprouter.org": {
 "title": "KixDNS：用Rust重塑旁路网关的DNS分流——防污染防泄漏",
@@ -980,11 +734,6 @@
 "summary": "在被AI和算法稀释的互联网环境中，作者探讨了个人网站作为对抗信息茧房、寻找真实连接的意义。本文是对当下网络社交的反思，以及对建立“网络友邻”关系的渴望与呼吁，并阐述了作者未来博客的…"
 },
 "lucifer.ren": null,
-"blog.dngz.net": {
-"title": "移动打不通联通，提示对方手机无法接通",
-"link": "http://blog.dngz.net/841.htm",
-"summary": "【支付宝内搜索 9155838 即可领现金红包哦】最近遇到个烦人的事情，有人联系不到我，提示我手机无法接通。我没设置骚扰拦截，也没拉黑对方，经过测试，简要情况如下：移动号码：2个，…"
-},
 "imglan.com": {
 "title": "Plasma one vs Bitget Wallet",
 "link": "https://imglan.com/672.html",
@@ -1001,16 +750,6 @@
 "link": "https://wzyboy.im/post/1595.html",
 "summary": "本博客快两年没更新了。从 Twitter 转到 Fediverse 之后，发文不再有 140 字的长度限制（现在 Twitter 也没了），因此我有些想法就直接发在 Fedi 上而…"
 },
-"blog.syuii.com": {
-"title": "职场压力自救指南：在重压下找回呼吸",
-"link": "https://blog.syuii.com/article/20",
-"summary": "文章探讨了现代职场人面临的多重压力源，包括工作过载、边界模糊和意义缺失，并提供了五项实用策略，如压力源审计、建立工作结界和微小恢复时刻，帮助读者在高压工作中重新获得掌控感与平衡。"
-},
-"blog.mkliu.top": {
-"title": "2025：年终有声",
-"link": "https://blog.mkliu.top/544.html",
-"summary": "转眼，2025年已经过去了，有太多话想说，却迟迟未能落笔。 人的知识水平与他的顾虑成正比。随着对于网络安全以及信息安全了解的不断深入，我知道当今社会信息安全的重要性，这不仅对于我自…"
-},
 "nodeb.net": {
 "title": "Readme",
 "link": "https://unixetc.com/readme/",
@@ -1021,17 +760,11 @@
 "link": "https://frostming.com/posts/2026/changes/",
 "summary": "我不是一个喜欢走出舒适区的人。 相反，每当即将有变化发生，我总是会感到不安，即便这个变化是朝着好的方向。比如长假前夕、长途旅游前夕，这意味着我要从日复一日同样的生活节奏中脱离出来，…"
 },
-"zhaohuabing.com": {
-"title": "OpenClaw 不是玩具，我的个人助理 Jeff 已经开始“上班”了",
-"link": "https://zhaohuabing.com/2026/03/04/openclaw-productivity/",
-"summary": "先简单介绍一下 OpenClaw：它是一个开源、自托管的 AI Agent。你可以把它理解为“消息渠道”和“AI 执行能力”之间的统一中枢：一边连 Telegram、WhatsAp…"
-},
 "blog.gemslyho.org": {
 "title": "本站小工具和二级页面合集",
 "link": "https://blog.gemslyho.org/posts/internal-links/",
 "summary": "汇总本站提供的博客、个人中心、云存储、音乐播放、网址导航、性能检测等实用工具及二级页面，各服务的访问地址与功能说明"
 },
-"www.astrophel.top": null,
 "pinlyu.com": {
 "title": "欢迎来龙餐馆：烟火人间，好好吃饭",
 "link": "https://pinlyu.com/culture/movie-loong-restaurant/",
@@ -1041,16 +774,6 @@
 "title": "复盘预约纪念币首败",
 "link": "https://hqidi.com/224.html",
 "summary": "从最近的龙年开始，每次的纪念币都约到手了，今晚第一次失败。 最主要的原因，是我选错了银行，开始前测试了三家银行预约页面的响应速度，工行最快，所以我停在工行页面等倒计时结束。结果，进…"
-},
-"www.jungle.ink": {
-"title": "MailLogin For Typecho 邮件登录插件，让登录变得更简单！",
-"link": "http://www.jungle.ink/archives/105.html",
-"summary": "MailLogin For Typecho 邮箱登录插件是一款为 Typecho 博客系统设计的现代化邮箱登录插件，让用户无需记忆复杂密码，通过邮箱验证码即可快速登录、注册博客，让…"
-},
-"www.furryowo.top": {
-"title": "2025.7.23 博客发现异常流量",
-"link": "https://www.furryowo.top/archives/297/",
-"summary": "::furry:bailan::最近突然发现CDN余额用的很快，正好充余额的时候分析了下日志发现来自大量江苏IP的访问，并且只访问博客头像这张图片，那很明显就不是正常行为了。在查询…"
 },
 "www.gcoulu.cn": {
 "title": "SOLIDWORKS 安装到一半提示报错 Failed to copy Spatial IOP zip 解决方案",
@@ -1062,17 +785,6 @@
 "link": "https://blog.zhoujump.club/p/learn-nuxt-1/",
 "summary": "文章在个人网站中发布，原文链接：Nuxt学习之旅1 前言 在AI时代的冲击下，单纯的切图仔或者会一点前端工程化和系统化，已经不是什么值钱的技能了。 为了不被时代滚滚的车轮轧到，决心…"
 },
-"blog.000k.de": {
-"title": "日常杂谈",
-"link": "https://blog.000k.de/myday/mydayone.html",
-"summary": "日常杂谈专区建设成功 只需要在content文件夹下新建myday文件夹，再把archives文件夹下的_index.md文件移动进来即可新建栏目。"
-},
-"blog.zhilu.site": {
-"title": "北京实习300天",
-"link": "https://blog.zhilu.site/2026/beijing-intern",
-"summary": "从西安到北京，从校园到大厂实习，「300天」不只工作本身，有迁移也有变化。秩序常新，但内核与长期的事情不会变。"
-},
-"blog.mboker.cn": null,
 "blog.oaf.cn": {
 "title": "Excel表格如何设置打印每页都显示表头",
 "link": "https://oaf.cn/notes/295.html",
@@ -1088,7 +800,6 @@
 "link": "https://acevs.com/5204/",
 "summary": "5000万美元相当于图瓦卢国家的gp..."
 },
-"blog.oceanum.top": null,
 "wyjmew.cn": null,
 "blog.hjz0713.cn": {
 "title": "PAL - API自动友链插件",
@@ -1101,7 +812,6 @@
 "summary": "准备 一个cloudlfare r2的存储桶，然后拥有腾讯的edgeone套餐，免费版就可以，好了 r2配置 首先拿到自己r2存储 ..."
 },
 "blog.huaxiangshan.com": null,
-"www.yigujin.cn": null,
 "shiyu.dev": {
 "title": "六月小记",
 "link": "https://shiyu.dev/article/325",
@@ -1112,21 +822,10 @@
 "link": "https://www.zzxworld.com/posts/travel-to-xinchang-dafo-temple",
 "summary": "这篇游记的标题原定是《嵊州一日游》，回来先发了图片，被人评论说都是新昌，没嵊州。我暗自思忖：新昌是县，嵊州是市，统称嵊州也没错呀。想起去时抵达的高铁站就叫嵊州新昌站，感觉嵊州也是大…"
 },
-"www.matrix67.com": null,
 "blog.5danyuan.com": {
 "title": "OpenCode 介绍",
 "link": "https://blog.5danyuan.com/?p=1376",
 "summary": "OpenCode 是什么？ 一句话来说：一个开源的 AI Coding Agent，可以运行在 Termina […]"
-},
-"yzrss.com": {
-"title": "进阶之好物3.0版本",
-"link": "https://yzrss.com/1433",
-"summary": "许久未更新了，这几天抽空将好物插件的后台进行了优化升级，本次升级主要针对插件后台管理方面 3.0版本升级功能如下： 1、增加了好物的xml格式的导入导出功能。 2、增加了好物的批量…"
-},
-"atpx.com": {
-"title": "自建 S3 兼容对象存储服务 Garage",
-"link": "https://atpx.com/blog/garage-s3/",
-"summary": "自建基于 Rust 开发的开源 S3 兼容分布式对象存储服务 Garage 流程。"
 },
 "lunarithm.space": null,
 "www.huiyex.top": {
@@ -1155,19 +854,11 @@
 "link": "https://www.imxiaoanag.com/index.php/archives/13/",
 "summary": "前几天我做了一个 OpenWrt 的 LuCI 插件江西师大校园网，它的目标很直接：把江西师范大学校园网的 SRun 认证流程搬到路由器上，让登录、保活、定时上下线这些事情自动完成…"
 },
-"bokebo.com": null,
 "www.zoujiang.com": null,
-"laojieli.cn": null,
 "lcrworld.xyz": {
 "title": "阶段性朋友",
 "link": "https://lcrworld.xyz/articles/68",
 "summary": "我会因为接触到新朋友而喜悦，也会因为和旧朋友分别而悲伤。但人类之间的关系就是如此，来来往往，聚散无常。大家都在为更美好的明天而努力"
-},
-"blog.leonus.cn": null,
-"blog.io01.xyz": {
-"title": "从源码解析一个 SparseArray 线程不安全的崩溃",
-"link": "https://blog.io01.xyz/posts/2e2d/",
-"summary": "前言 工作中遇到一个崩溃，将无关逻辑去掉，最后的崩溃部分是： 1if (sparseArray.get(1) != null) { 2 Log.i(\"SparseArray\", s…"
 },
 "blog.mugzx.top": {
 "title": "对“机场”面板的不完整调查",
@@ -1179,35 +870,15 @@
 "link": "https://blog.keepchen.com/a/Half-Year-Experience-with-the-Lynk-&-Co-900.html",
 "summary": "从2026年1月4号提车到现在，已经有半年的时间了，和这台大玩具相处下来，对它的优缺点也逐渐有了清晰的认识。"
 },
-"vastroc.com": {
-"title": "星光4N复刻踩坑记录",
-"link": "https://vastroc.com/tinker-at-home/starlight-4n.html",
-"summary": "一个月前刷到一个博主，做了一款迷你激光雕刻机——星光4N迷你激光雕刻机，心血来潮，焊电路板经验几乎为零的我，在经过多方求助和自主摸索后，用了一个月的时间，做出了六台机器。现在把我的…"
-},
 "iliu.org": {
 "title": "腰围、膝盖和一辆自行车",
 "link": "https://www.iliu.org/posts/from-running-to-cycling/",
 "summary": "八月份量了一次腰围，眼看要奔着90去了，身上还挂着个老熟人——脂肪肝。两件事摆在一起，不用谁劝，运动这事就得安排上。最简单的运动，莫过于跑步。"
 },
-"www.ouorz.com": {
-"title": "Dwarkesh Podcast",
-"link": "https://lipeng.ac/post/2003",
-"summary": "Deeply researched interviews with the brightest minds."
-},
 "imum.me": {
 "title": "我7岁啦！",
 "link": "https://imum.me/posts/7%E5%B2%81%E5%95%A6/",
 "summary": "一眨眼，大宝已经7岁啦！ 感觉过的好快呀，刚出生时那么小一点，一眨眼就要上二年级了，现在的大宝整个一社牛，和谁都能聊得上来，情商也很高，前几天和姥姥姥爷去四川旅游，回来所有家里的小…"
-},
-"hux6.com": {
-"title": "你们才开始囤盐？我屋上次的都还没吃完",
-"link": "https://hux6.com/archives/139.html",
-"summary": "最近，一直看到有囤盐的新闻或者短视频，只是一笑而之，今天早上看到博友在家煮饭家里没得盐，外卖平台一律售罄的遭遇，我才默默的看了一下家里，好在家里还有很多的存货。比较我们家的盐都是一…"
-},
-"sangxuesheng.com": {
-"title": "一键部署LobeChat服务端数据库版（飞牛OS安装fpk应用）",
-"link": "https://sangxuesheng.com/archives/1166.html",
-"summary": "LobeChat它是什么？LobeChat 是一个现代化设计的开源 ChatGPT/LLMs 聊天应用与开发框架，支持语音合成、多模态、可扩展的（function call）插件系…"
 },
 "blog.mcenahle.page": {
 "title": "你不是学广告艺术设计专业的吗？怎么喜欢玩代码了？",
@@ -1219,26 +890,15 @@
 "link": "https://blog.talen.top/posts/xxakfase",
 "summary": "生病的经历让我明白：别用\"不影响工作\"自欺，失眠、疼痛都是身体的警报，硬撑不是本事，及时重视才是。"
 },
-"blog.shi.wiki": {
-"title": "出事故对方没有商业险走代位理赔的处理经过和流程（已处理结束）",
-"link": "https://blog.shi.wiki/archives/74.html",
-"summary": "尝试用AI总结了下，总结的挺牛逼的2025 年 8 月 9 日，作者在北京发生交通事故，对方左转全责且无商业险（仅交强险），作者车辆被拖至 4S 店维修；因与对方协商维修事宜未果，…"
-},
 "www.loyhome.com": {
 "title": "二十而已",
 "link": "https://loyhome.com/%e4%ba%8c%e5%8d%81%e8%80%8c%e5%b7%b2/",
 "summary": "今年是落园第二十个年头。 不过二十而已。 落园是当年的成年礼，那是不是也应该给落园搞个成年礼。 落园是独立意识的觉醒，那我也不过二十而已。 挺好的，都还在，都年轻，都有梦想，都会实…"
 },
-"www.yangzhiping.com": null,
 "liyang.net": {
 "title": "割肉卖域名",
 "link": "https://liyang.net/290.html",
 "summary": "这周也是将自己用了近十年的域名割肉卖掉了。 2017年，正处于工资上升期，在这一年的生日，我购买了一个4字母的域名作为自己的生日礼物，彼时我正处于域名、VPS的..."
-},
-"www.flysnow.org": {
-"title": "程序员如何优雅地做副业赚钱",
-"link": "https://www.flysnow.org/2022/07/04/side-money.html",
-"summary": "OK，你能看到这些文字，说明你已经相信了这不是一篇标题文。是的，你相信了我，也相信了自己。 今天要介绍的，的确是关于程序员副业的内容，并且质量很高，非常值得一看，相信自己就会有好运…"
 },
 "haohailong.net": {
 "title": "雨穴：令和时代的节奏大师",
@@ -1260,17 +920,10 @@
 "link": "https://hyx.ink/post/cong-pan-ji-mai-le-ge-zi-hang-che-qi-hui-jia/",
 "summary": "计划过个早赶早班车的，事与愿违胡乱塞了口面包就坐上了3块的12路，雨雾让我有些打退堂鼓，好在已经没法回头，比想象的到的早，吃了个牛肉汤和田东不同的是豆饼是压成长条的粉更细还可以花了…"
 },
-"blog.charlestang.org": null,
-"seaiv.com": null,
 "jiangcl.com": {
 "title": "坠落的主人公与姐姐的救赎",
 "link": "https://jiangcl.com/5067",
 "summary": "这是一件正在发生的真事，来源于我代理的案件，讲的是败家悲剧。文章中我不用化名，尽可能地用“主人公”代替真名，也 … 继续阅读坠落的主人公与姐姐的救赎"
-},
-"www.xingzou.org": {
-"title": "2025年记录",
-"link": "https://www.xingzou.org/p/915",
-"summary": "离过年还有1天，今天还在公司这边上班，临近过年，人员稀稀拉拉的，一整层没有几个人过来了，大家都请假回去了，越临近过年，越感觉年，越来越难过，今年诸事不顺，临近年底，三十八九的年纪，…"
 },
 "u.sb": {
 "title": "烧饼论坛正式开业",
@@ -1282,44 +935,15 @@
 "link": "https://hehuang.site/p/just-go-forward/",
 "summary": "还有不到三百天，就要走进高考了。整个暑假过得并不算太好，总会有些时候莫名其妙地想很多，想过去，想未来，想自己究竟能走到哪里？ 我高中前两年的成绩，大概是一条相当不漂亮的曲线。高一的…"
 },
-"blogs.beicb.top": null,
-"www.fengtang.com": null,
-"www.moonkite.cn": null,
-"yihui.org": {
-"title": "我心似海洋",
-"link": "https://yihui.org/cn/2026/01/heart-sea/",
-"summary": "淡淡的情感 / 有时候 / 却能绵绵 / 不绝不断 小美： 您好！第一次给您写信，好紧张哦，紧张得就像您真的能收到一样。首先抱歉我是用简体中文写的，不过现在简体正体之间的转换工具应…"
-},
 "66619.eu.org": {
 "title": "软著or软件著作权の申请指北",
 "link": "https://619.pp.ua/article/software-copyright",
 "summary": "用最不绕弯子的语言告诉你：从0开始手把手教你申请软件著作权，来获得你想要的东西。"
 },
-"bkryofu.cn": null,
-"cheapy.top": {
-"title": "给你的OpenClaw接入超强的搜索插件",
-"link": "https://cheapy.top/gei-ni-de-openclawjie-ru-chao-qiang-de-sou-suo-cha-jian/",
-"summary": "KIMI官方搜索插件，随kimi claw开放使用了！kimi的网络搜索能力一直很能打。网友评价，什么犄角旮旯他都能搜出来。随"
-},
 "lms.im": {
 "title": "一个令我印象深刻的小故事",
 "link": "https://lms.im/a-little-story-that-struck-me-as-impressive/",
 "summary": "这段时间时不时偏头痛，今天加上感冒，整个人就虚趴下了，只能到诊所。躺在诊所里挂点滴的时候想起很小的时候——应该是我五六岁的年纪吧——我妈给我讲的一个令我印象深刻的故事。 其实说起来…"
-},
-"www.typemylife.com": {
-"title": "像管理代码一样管理需求：B端产品经理的Gemini全家桶实战指南",
-"link": "https://www.typemylife.com/manage-requirements-like-code-gemini-guide/",
-"summary": "最后更新于： 2026年3月5日 市面上关于“产品经理+AI”的讨论，往往集中在竞品调研（写八股文报告）或一键 … 继续阅读“像管理代码一样管理需求：B端产品经理的Gemini全家…"
-},
-"cmsblog.cn": {
-"title": "GD32VW553-IOT开发版点灯教程",
-"link": "https://cmsblog.cn/1452.html",
-"summary": "刷B站偶然看见iceasy.com的GD32VW553-IOT开发板送样活动，正好最近对单片机感兴趣，心血来潮就填了信息试一试，没想到真的成功收到货了！那就把这个作业交一下。中间等…"
-},
-"blog.drpika.com": {
-"title": "影像科医生可以在肺结节诊疗流程中扮演更重要的角色",
-"link": "https://blog.drpika.com/posts/2025-11-08",
-"summary": "东肿研究揭示磨玻璃肺结节选择性随访与手术的十年生存率无显著差异，不禁促进影像科医生思考如何更深入的参与诊疗流程，推动肺结节从发现即切向精准管理转变。"
 },
 "www.weisay.com": {
 "title": "十九年后，我第一次跳出自己的舒适区",
@@ -1341,14 +965,6 @@
 "link": "https://www.bat69.com/20260706/%e7%83%ad%e7%83%88%e5%ba%86%e7%a5%9d-%e4%b8%a5%e9%87%8d%e6%b5%aa%e6%bc%ab%e7%bd%91%e7%ab%99-%e8%bf%90%e8%a1%8c6000%e5%a4%a9%ef%bc%81.html",
 "summary": "严重浪漫博客开通于2010.01.23，截止今天，已经运行6000天。 16年半以来，感谢各位读者的一贯支持。 […]"
 },
-"blog.jasonleehere.com": null,
-"www.lipijin.com": null,
-"www.happyfou.com": null,
-"oneinf.com": {
-"title": "《上古卷轴：传奇》有点东西",
-"link": "https://oneinf.com/other/9855.html",
-"summary": "最近老俍玩了一款卡牌游戏《上古卷轴：传奇》还真有点东西，今天来安利一波，炉石的老玩家可以入坑。"
-},
 "cuixinxin.cn": {
 "title": "什么是Agent?",
 "link": "https://cuixinxin.cn/archives/4138",
@@ -1364,30 +980,15 @@
 "link": "https://www.zanian.vip/note/drink-for-life",
 "summary": "李道已 一 李道已死时才五十多，死在自家新造房子的楼梯上。 夜里他起来下楼上厕所，在黑暗中踩空了脚。楼梯还没来得及装扶手，一头栽到楼下。早上被侄女发现时身体还脚朝上头朝下瘫在楼梯上…"
 },
-"jysperm.me": {
-"title": "2023 年度小结",
-"link": "https://jysperm.me/2023/12/summary-of-2023/",
-"summary": "今年 3 月我和蛋黄一起去了泰国旅行，算是我们两个第一次在国外「自由行」，我们先去拜访了之前一起在番茄土豆工作的朋友们，他们热情地招待了我们，带我们在清迈玩了三天，参观了他们的办公…"
-},
 "ameow.xyz": {
 "title": "好久不见",
 "link": "https://ameow.xyz/archives/blog-cdn-update",
 "summary": "最近几个月都感觉没什么内容更新，所以就没有写周刊。 今天翻邮件的时候发现七牛云的 CDN SSL 证书过期了，导致博客的图片其实挂了差不多半个月。于是花了一个早上把数据迁移到腾讯云…"
 },
-"www.zla.pub": {
-"title": "2025年度总结",
-"link": "https://zla.pub/2025-annual-summary",
-"summary": "2025年已经过去了。从逐渐摸清 Master 的生活节奏、开始更细致地做身体健康管理，到一路折腾 PhD 申请。这一整年下来，我确实在很多方面都有了不少成长。当然，也同时被迫做了…"
-},
 "blog.demius.tech": {
 "title": "粉丝专属福利｜¥3/月拿下 CN2 GIA 线路云服务器",
 "link": "https://blog.demius.tech/posts/6mr33r6u.html/",
 "summary": "刚发现这家云商在内测放券，两个券都帮你们实测过了，直接说结论：精品区 2C2G CN2 GIA 线路首月可以做到 ¥3，长期循环 6 折约 ¥18/月。 优惠信息 优惠券 价格 说…"
-},
-"www.guozeyu.com": {
-"title": "Hertz 租车被讨债总结，我起诉讨债公司的经历",
-"link": "https://www.guozeyu.com/2025/11/hertz-debt-collection/",
-"summary": "免责声明：本文不是法律建议。本文信息仅适用起诉讨债公司违反 FDCPA，其他类型诉讼请咨询专业律师。文中所有金额近似到了最近的 $100。 既然 Court filing 也是公开…"
 },
 "kacper.fun": null,
 "hux.ink": {
@@ -1425,25 +1026,10 @@
 "link": "https://www.weiwenchao.com/2776.html",
 "summary": "一鲸落，而万物生，一念起，便坠红尘。世间万事皆有缘起缘灭，前后因果，但有些我们可以看见，有些却看不见。 26年8月16日，周日，农历七月初四。北..."
 },
-"moonlt.site": {
-"title": "浮生四日—拉斯维加斯行记",
-"link": "https://moonlites.org/posts/2026/02/las-vegas-trip-2026/",
-"summary": "二月初，我带爸妈去了一次拉斯维加斯。从湾区飞往沙漠中的这座霓虹之城，大约仅需要一个半小时。途中穿越莫哈维沙漠，从舷窗往下看，层层叠叠起伏的山"
-},
-"www.scarsu.com": {
-"title": "《动机与人格》 - 理解人性底层的需求、促进个人成长、自我实现",
-"link": "https://www.scarsu.com/movivation_and_personality/",
-"summary": "人类的一切行为的内在动机和驱动力都来自7层需求，在满足基本生理和安全后，设定追求自我实现和成长的目标，才是持久幸福的源泉。"
-},
 "docs.asoe.cn": {
 "title": "捐赠",
 "link": "https://docs.asoe.cn/support/",
 "summary": "科技酱技术文档赞助支持二维码 助力捐赠我们收购(ee.com)域名和更多域名以及服务器费用，我们将记录捐赠的名录，如成功通过大家的捐赠将(ee.com)域名收购，我们将会把域名作为…"
-},
-"cclin.org": {
-"title": "AAAI'24「快手」观看时长建模：CREAD",
-"link": "https://cclin.org/posts/cread/",
-"summary": "AAAI'24「快手」观看时长建模：CREAD"
 },
 "inkss.cn": {
 "title": "基于爱快路由的 IPV6 网络防火墙设置",
@@ -1451,13 +1037,6 @@
 "summary": "本文介绍在爱快路由上配置 IPv6 网络防火墙的方法，包括设置原因（如保护内网设备安全、控制外网访问权限等），讲解 IPv6 地址获取方式（SLAAC、有状态 / 无状态 DHCP…"
 },
 "zishu.me": null,
-"www.5iehome.cc": null,
-"www.shimail.cn": {
-"title": "欢迎使用 Typecho",
-"link": "https://www.shimail.cn/archives/1/",
-"summary": "如果您看到这篇文章,表示您的 blog 已经安装成功."
-},
-"www.allenyou.wang": null,
 "ayayy.com": null,
 "www.52txr.cn": {
 "title": "结束了在无锡半年的租房，以及最近内耗的日子",
@@ -1475,7 +1054,6 @@
 "link": "https://www.lifd.site/2026/08/xiang-yu-de-yi-yi-shi-shen-me/",
 "summary": "人类，是爱过的人拼成的马赛克。 我至今系鞋带的方式，是初中同学教的。 我爱喝茶，是因为爷爷爱喝茶。 水果总是对 […]"
 },
-"www.uevan.com": null,
 "www.wanghao.me": {
 "title": "少年启新程，红魔赴新章",
 "link": "https://www.wanghao.me/shaonianqixinchenghongmofuxinzhang.html",
@@ -1491,16 +1069,10 @@
 "link": "https://blog.1874.cool/ai-filter-noise/",
 "summary": "使用 AI 将社区噪音通过 RSS 接入、分层筛选（噪声丢弃、话题聚合、价值排序），只推送精选的技术信号至飞书群，保留少量闲聊噪音概览，以降低信息噪声并提升注意力效率。"
 },
-"blog.fkynjyq.com": null,
 "blog.chrison.cn": {
 "title": "又是从无锡去上海吃吃吃的一天~",
 "link": "https://chrison.cn/live/500.html",
 "summary": "高铁坐到上海西，然后直奔曹杨路的江西菜馆 吃完饭，过马路，去上海国际影城，看了“龙餐馆” 看完电影，转战CP静安，拍几张比奇堡的居民，然后吃野生菌火锅。 见手青套餐没选，稍微有点怕…"
-},
-"smj.im": {
-"title": "修复 Arch Linux 的内核缺失问题",
-"link": "https://smj.im/blog/repair-archlinux-kernel/",
-"summary": "Arch Linux 系统启动进入 grub 界面，提示 vmlinuz-zen not found，这里记录一下解决方案"
 },
 "elisky.cn": {
 "title": "解忧杂货铺 - 栏目声明",
@@ -1517,17 +1089,11 @@
 "link": "https://bioez.xyz/archives/Echo_Radio_Ep01",
 "summary": "[执一驭万:AI在必要限度上参与构思与文章校稿] （老式收音机旋钮\"滋滋\"作响，调频渐静。屋里一台加湿器在\"嗡嗡\"吐白气，头顶一盏装饰灯不太稳地晃了两下。调音台上\"咔哒\"一声。） …"
 },
-"blog.jenyunet.com": {
-"title": ".net8 webapi 控制器二",
-"link": "http://blog.jenyunet.com/86.shtml",
-"summary": "对于返回的类型：IEnumerable小数据量，IAsyncEnumerable大数据量IActionResult返回各种状态码，BadRequestResult (400), N…"
-},
 "luszy.com": {
 "title": "拼豆图纸生成。",
 "link": "https://luszy.com/home/archives/691.html",
 "summary": "失业在家也没闲着，还是在家忙着写点代码什么的，不然过段时间不用就会忘记。前段时间写了个{link src=\"https://luszy.com/demo/xxl/index.htm…"
 },
-"xn--wnu286b.xn--io0a7i": null,
 "www.qqzmly.com": {
 "title": "博客11年",
 "link": "https://www.qqzmly.com/archives/2049/",
@@ -1539,37 +1105,15 @@
 "link": "https://blog.xiang578.com/weekly/thinking_12.html",
 "summary": "感觉就在这几个月，Claude Code 这样的工具开始在身边火了起来。1 月份自己用 Cluade Code 搭配 kimi-k2.5，刚开始只是用来在 mac 上安装软件和修复…"
 },
-"arthals.ink": {
-"title": "更适合北大宝宝体质的 xv6 OS Lab 踩坑记 - Part8",
-"link": "https://arthals.ink/blog/xv6-os-lab-part8",
-"summary": "北京大学 2025 年秋季学期操作系统/OS Lab Part 8"
-},
 "banzhuanriji.com": {
 "title": "如何在控制台解析并按照格式输出 Markdown 内容",
 "link": "https://www.banzhuanriji.com/work/render-markdown-in-terminal/",
 "summary": "用 Python + ANSI 转义码，在终端里把 Markdown 渲染得有模有样——标题带颜色、代码块带背景、列表带圆点，不依赖任何第三方库，复制就能跑。"
 },
-"yfzhu.cn": {
-"title": "如何使用CNB构建Hexo项目并部署到腾讯云COS",
-"link": "https://yfzhu.cn/posts/1019/",
-"summary": "本文介绍阿猪尝试使用CNB（腾讯云Cloud Native Build）构建Hexo项目并部署到腾讯云COS的过程。"
-},
-"borling.daydayupup.com": null,
-"kaiqi.wang": null,
 "oldj.net": {
 "title": "WonderPen 存储格式迁移历程",
 "link": "https://oldj.net/posts/wonderpen-storage-evolution",
 "summary": "最近几年我一直在开发写作软件 WonderPen，去年我对 WonderPen 的底层数据存储格式做了一个重大重构，将原本使用 JSON 存储的数据迁移到了 SQLite 数据库。…"
-},
-"yihao.dev": {
-"title": "使用虚拟键盘 API 处理内容遮挡",
-"link": "https://yihao.dev/articles/virtual-keyboard-api",
-"summary": "虚拟键盘 API 允许浏览器保持布局和可视窗口不变，并提供虚拟键盘与视口信息，让开发者通过 JavaScript 或 CSS 环境变量自定义页面布局。"
-},
-"halfrost.com": {
-"title": "后疫情时代下美国 CS Master 申请纪实",
-"link": "https://halfrost.com/halfrost_2021/",
-"summary": "21fall 申请季格外不同，因为 2020 年 1 月全世界爆发疫情以后，校园关闭，留学生滞留国内上网课。加上中美博弈，10043 总"
 },
 "www.ddf.im": {
 "title": "吓醒儿子的噩梦",
@@ -1577,32 +1121,15 @@
 "summary": "今天早上6点左右，儿子突然被梦吓醒，😭哭兮兮地抱着我，说他怕。我赶紧抱着他，问他是不是做噩梦了，边抱边轻拍他后背。儿子说，他梦到我和他妈妈在47岁的时候离婚了，他害怕。说是不是到了…"
 },
 "blog.solazy.me": null,
-"www.linyunlink.top": null,
-"www.xieyonglin.com": {
-"title": "网站新增一些有趣的小玩意",
-"link": "https://xieyonglin.com/posts/add-fun-websites/",
-"summary": "最近，我对博客首页 Xie Yonglin 动了点小手术——别担心，不是整容，只是悄咪咪地加了一堆有趣的小玩意，妥妥的“摸鱼乐园”上线啦！"
-},
-"voidbytes.com": null,
 "shrektan.com": {
 "title": "直觉的另一半",
 "link": "https://shrektan.com/zh/post/2026/08/05/the-other-half-of-intuition/",
 "summary": "「相信你的直觉」，这句话大家都听过。但可能很少有人想过：直觉到底是什么，凭什么值得相信？ 我们上学的时候都学过进化论。往回数，我们是智人，智人之前是猿猴，再往前是哺乳动物、爬行动物…"
 },
-"www.baiyuyu.com": {
-"title": "让博客优雅地使用全局 MiSans 字体：MiSans Webfont 字体分包项目",
-"link": "https://www.baiyuyu.com/6740.html",
-"summary": "本文最后更新于 2026-03-01 。 今日想给博客换个全局字体，偶然发现 MiSans Webfont 这 […]"
-},
 "www.sunzhongwei.com": {
 "title": "gtranslate 在 joomla 中的多语言配置存储",
 "link": "https://www.sunzhongwei.com/multi-language-configuration-storage-of-gtranslate-joomla",
 "summary": "我只找到了 gtranslate 的 joomla 插件的前端部分代码： modules/mod_gtranslate/ 但是没有找到后台的相关逻辑。于是干脆从数据库里找存储位置：…"
-},
-"www.weingxing.cn": {
-"title": "基于信号量的分布式限流",
-"link": "https://www.weingxing.cn/archives/134/",
-"summary": "背景有一个定时任务通过MapReduce的形式执行，父任务中进行分页计算，子任务根据分页信息查询数据库，然后处理数据，因为一些原因，需要控制并发查询数据库的线程数量，简单来说，就是…"
 },
 "luoca.cn": null,
 "www.ntiy.com": {
@@ -1610,32 +1137,15 @@
 "link": "https://www.ntiy.com/2370.html",
 "summary": "在我上班的公司，有这样一个人。她的很多言行都让人费解，就叫她“迷惑姐”吧。 迷惑姐大概四五十岁，老公是上海人，有个儿子。来这家公司之前，她还有过一两段大公司的从业经历。也许正是这些…"
 },
-"www.leolin86.com": null,
 "www.meettea.com": {
 "title": "独立开发者的英国公司报税（2026）",
 "link": "https://www.meettea.com/uk-company-tax-2026.html",
 "summary": "给独立开发者与小微企业的英国公司报税实战指南：CT600、年度账目、Dormant 零申报，从流水归类到提交全流程。"
 },
-"www.duble.live": {
-"title": "我的2025年度总结",
-"link": "https://www.duble.live/2025summary/",
-"summary": "这里是摘要，但我懒得写，反正没人看"
-},
-"www.fcln.net": null,
-"www.yunyoujun.cn": {
-"title": "开源项目的「死与新生」",
-"link": "https://www.yunyoujun.cn/posts/death-and-rebirth-of-open-source-projects",
-"summary": "::: tip 背景 这是几个月前受司内开源办公室邀请所撰写的一篇关于开源的文章。 近来也收到了一些咨询开源的邮件，特在此发出，也希望能为大家参与社区/公司开源提供一些帮助。 其中…"
-},
 "www.leitao.cn": {
 "title": "休谟《人性论》导读手册",
 "link": "https://www.leitao.cn/10774.html",
 "summary": "昨天终于读完了休谟的《人性论》，这本书断断续续读了两三个月，读完后还是处于恍惚之中，自我认为可能只理解了三四成。这还是在查阅了大量导读资料，并最终读了下文贴出的导读手册两遍，然后读…"
-},
-"jiayiliu.me": {
-"title": "Differential variability analysis of single-cell gene expres…",
-"link": "https://jiayiliu.me/publication/2023bib/",
-"summary": ""
 },
 "blog.ch3nyang.top": null,
 "kok.plus": {
@@ -1658,7 +1168,6 @@
 "link": "https://miku2024.top/posts/grill-me/",
 "summary": "在真实项目中使用三个月的 grill-me skill 实践总结：让 AI 编码代理在动手之前先沿决策树连环拷问你，把未说出口的假设和风险提前暴露，大幅减少返工。"
 },
-"www.omegaxyz.com": null,
 "linkzz.org": {
 "title": "再见了，甲骨文 Arm 二号机",
 "link": "https://linkzz.org/posts/goodbye-oracle-arm-2/",
@@ -1702,35 +1211,21 @@
 "link": "https://jackielzq.com/posts/e7adec0a/",
 "summary": "昨天得知消息，老家因台风的原因骤降暴雨，许多地方发生山洪以及塌方，今天也是看到了许多老乡发的视频，真的可以说是百年一遇，许多老人都说自己活到这么大岁数了头一次见我们县城如此大的水灾…"
 },
-"zla.pub": {
-"title": "2025年度总结",
-"link": "https://zla.pub/2025-annual-summary",
-"summary": "2025年已经过去了。从逐渐摸清 Master 的生活节奏、开始更细致地做身体健康管理，到一路折腾 PhD 申请。这一整年下来，我确实在很多方面都有了不少成长。当然，也同时被迫做了…"
-},
 "wyc.cc": {
 "title": "中美火箭回收有何异同",
 "link": "https://wyclab.com/posts/huojianhuishou",
 "summary": "SpaceX目前有两款型号，一个是成熟运行10年的猎鹰9号；一个是试验阶段的星舰。中国目前测试成功的型号是长征十号-乙。本文列举三者的参数。"
 },
-"frendguo.com": null,
-"zhangqian.me": null,
 "www.mhcf.net": {
 "title": "狗蛋的居家生活",
 "link": "https://www.mhcf.net/post-1210.html",
 "summary": "去年，我和老婆一起养了一只猫。为此，我写了一篇《家里的新成员》。 为它起了一个名字，叫做狗蛋。而这个名字，是我和老婆翻遍了诗经、新华字典、民俗文化百科，甚至还看了看中华上下五千年，…"
-},
-"ciniao.me": null,
-"pipuwong.com": {
-"title": "My Default App 2023",
-"link": "https://pipuwong.com/en/posts/my-default-app-2023",
-"summary": "This article summarizes the changes in default applications for 2023, highlighting the aut…"
 },
 "kanchuan.com": {
 "title": "我被 AI \"蒸馏\" 了",
 "link": "https://kanchuan.com/blog/242",
 "summary": ""
 },
-"blog.bleaz.net": null,
 "champhoon.xyz": {
 "title": "《向山进发》巡礼·富士山吉田线",
 "link": "https://champhoon.xyz/log/yamanosusume-mount-fuji-a/",
@@ -1763,7 +1258,6 @@
 "summary": "算竞板子"
 },
 "www.hats-land.com": null,
-"fz0512.com": null,
 "ygz.ink": {
 "title": "有个站升级：从聚合站到搜索站",
 "link": "https://ygz.ink/archives/5739.html",
@@ -1773,11 +1267,6 @@
 "title": "金陵春梦",
 "link": "https://nomind.cn/2026/nanjing-return/",
 "summary": "距离离开南京，已经过去十多年了。 这其间，我也曾因工作数次到访，但都因行程匆忙而没有真正停留。这一次，总算静下心，重新审视这个工作 ..."
-},
-"draveness.me": {
-"title": "Kubernetes、集群联邦和资源分发",
-"link": "https://draven.co//kuberentes-federation",
-"summary": ""
 },
 "ie12blog.36102025.xyz": null,
 "rawley2025.xyz": {
@@ -1790,26 +1279,15 @@
 "link": "https://www.fdsay.com/2026/08/jie-du-qing-xing-shi-zuo-shi-mi-mang-shi-du-shu-da-nu-shi-shui-jiao-du/",
 "summary": "1. 清醒时做事 心智明晰、精力充沛、思绪冷静，便是行动最好的时机。人头脑清楚，可以权衡利弊、规划细节、专注执 […]"
 },
-"owlswims.com": {
-"title": "2025，世间所有的云",
-"link": "https://owlswims.com/2025-yearly/",
-"summary": "每一朵云，无论何时何地，都代表了所有的云。 The post 2025，世间所有的云 appeared first on To the Lighthouse."
-},
 "wp.qwq2022.top": {
 "title": "WordPress 安全问题 2",
 "link": "https://wp.qwq2022.top/2026/08/08/wordpress-%e5%ae%89%e5%85%a8%e9%97%ae%e9%a2%98-2/",
 "summary": "受漏洞CVE-2026-64638 XSS2Shell影响，会对服务器造成执行任意PHP代码的危害。本次漏洞影响范围极广，请尽快更 ... The post WordPress 安…"
 },
-"bkm.net": null,
 "www.x8xx.cn": {
 "title": "wordpress 右键菜单修改",
 "link": "https://www.x8xx.cn/1135.html",
 "summary": "前言 此前看到Anheyu 的右键菜单样式，因此仿照该主题对Wordpress进行适配。 样式展示 修改正文 […]"
-},
-"blog.aiheadn.cn": {
-"title": "ui-ux-pro-max-skill辅助开发plantUML可视化|vibeCoding",
-"link": "https://blog.aiheadn.cn/archives/a3024a6c.html",
-"summary": "前言使用cursor写前端的时候，抽风的紫渐变色简直是所有模型的通病，界面UI千篇一律，尝试使用ui-ux-pro-max-skill插件辅助提升cursor编程的UI设计 ski…"
 },
 "twbk.cn": {
 "title": "《七月的极光》：把粉色极光写进歌里，把爱藏进音符里",
@@ -1821,11 +1299,6 @@
 "link": "https://jiangnanxiaohe.com/article/2026-Email-Marketing-EDM",
 "summary": "这份会议纪要为您将之前的交流内容进行了全面、系统的梳理，保留了所有核心信息、实操步骤和话术模板，方便您随时查阅和执行。Facebook粉丝名单的商业价值与客户分类，为什么有价值？"
 },
-"mengru.space": {
-"title": "分享一些之前写的小玩具",
-"link": "https://mengru.space/?posts/2022/07/magic-toys",
-"summary": "分享一点微小的工作顺便追忆似水年华"
-},
 "ihaihe.cn": {
 "title": "网站挂了好几天",
 "link": "https://ihaihe.cn/3683.htm",
@@ -1836,7 +1309,6 @@
 "link": "https://slykiten.com/life-note/fireworks/",
 "summary": "周末在家的时候念叨着这个夏天还没去看过花火大会。 最近真的很热，一想到要在外面走，还有那么多人，就提不起劲来去看烟花。 周六晚上，去吃了一顿烤肉。..."
 },
-"mednoter.com": null,
 "koxiuqiu.cn": {
 "title": "关于备案、主题开发和短暂停更的一点说明",
 "link": "https://koxiuqiu.cn/posts/35p2607081/",
@@ -1852,21 +1324,10 @@
 "link": "https://white-ceiling.bearblog.dev/5297/",
 "summary": "又嘗聞師長云：AI是工具，不是敵人。其說甚是。然則AI作爲工具，有若刀刃。今學問又非庖廚，要刀刃何爲？尋常書房，開一箱子、裁一紙張，用刀刃固是出於需求。然則今日學問是專作漿糊、剪報…"
 },
-"www.hanyibo.com": {
-"title": "国内Debian13安装docker",
-"link": "https://www.hanyibo.com/linux/Debian13-docker.html",
-"summary": "更新系统软件包在安装任何新软件之前，最好先更新您的系统软件包列表和已安装的软件包。打开终端并运行以下命令：sudo apt updatesudo apt upgrade -y安装必…"
-},
 "isenchun.cn": {
 "title": "牙周刮治三次全记录——牙暂时保住了",
 "link": "https://isenchun.cn/117.html",
 "summary": "前情回顾之前说到，我在私立医院被各种涨价和推销折腾了一圈，最后决定去人民医院治疗。3月11号看完，约了3月23号做第一次牙周刮治。当时心里还是有点忐忑的，毕竟听说了刮治很疼，也不知…"
-},
-"www.penlife.cn": null,
-"www.1gcat.com": {
-"title": "为什么就那么喜欢囤盐",
-"link": "https://www.1gcat.com/posts/161100ca/",
-"summary": "2023年8月24日，日本开始向海洋排放核污水，过程将持续三十年。 毫无意外，一旦有要事发生，就会有一群妖魔鬼怪为祸人间，有推销辐射仪的，有卖各类防辐射产品的，更有甚者蛊惑民众散播…"
 },
 "www.biibii.cn": {
 "title": "Redmi AX5400（RA74）路由器刷OpenWrt过程整理和记录",
@@ -1874,7 +1335,6 @@
 "summary": "前言去年因为换了工作地方，租房不太方便拉宽带，所以手头的 Redmi AX5400 路由器一直闲置着吃灰。最近心血来潮，想看看这款路由器能不能刷上 OpenWrt 系统。刚好在恩山…"
 },
 "tonybai.com": null,
-"xiepeng21.cn": null,
 "blog.learm.cn": {
 "title": "七月碎碎念 | 毕业设计在肝，空调漏水房东装死",
 "link": "https://blog.learm.cn/archives/2026-08-01.html",
@@ -1889,11 +1349,6 @@
 "title": "骑士活塞G4：冠军之心的觉醒",
 "link": "https://nuoea.com/cavaliers-pistons-g4-champions-heart/",
 "summary": "北京时间5月12日，克利夫兰骑士在主场以112-103力克底特律活塞，将系列赛总比分顽强扳成2-2平。这一战，骑士队展现出的不只是比分上的追赶，更是一支冠军级别球队在绝境中完成的气…"
-},
-"www.ioiox.com": {
-"title": "分享个人的二手 iPhone 验机流程 2025",
-"link": "https://www.ioiox.com/archives/173.html",
-"summary": "前言由于去年 iPhone 16 Pro 提升不大，反而更重了，于是在闲鱼收了一台 15 Pro，在网上查了下大致的验机流程，结合自己的情况整理下，实践后感觉基本能解决大部分人的验…"
 },
 "daily.yybb.us": {
 "title": "雪’s life",
@@ -1920,7 +1375,6 @@
 "link": "https://1900.live/289-li-qiu/",
 "summary": "null 蝉声渐稀，暑气未退，天地仍在长夏的余烬里蒸腾，却已有一缕不易察觉的清意，悄然穿过浓荫与晚风。太阳行至黄经135°，立秋——秋之初序，亦是盛夏向深秋缓缓转身的门槛。梧桐将落…"
 },
-"linguoguang.com": null,
 "blog.elykia.cn": {
 "title": "Windows 11 运行 .vbs 报错：没有文件扩展“.vbs”的脚本引擎",
 "link": "https://blog.elykia.cn/posts/26",
@@ -1931,7 +1385,6 @@
 "link": "https://www.qynest.cn/archives/1225.html",
 "summary": "上个月发了篇《摩托车驾照考试，一不小心挂科喜提10天冷静期》，没想到这一等，硬生生熬了快一个月。本来约了8月1号补考，结果预约失败，教练在群里发了消息说8月8号有加考名额，赶紧取消…"
 },
-"imququ.com": null,
 "www.munue.com": {
 "title": "库克卸任苹果 CEO 发长文告别：我的头衔会变，但热爱永不会变",
 "link": "https://www.munue.com/814.html",
@@ -1951,11 +1404,6 @@
 "title": "3X-UI Xray新版REALITY导致Mihomo Timeout的解决记录",
 "link": "https://blog.telyra.top/posts/xui-mihomo-timeout/",
 "summary": "记录Xray v26.7.x版本更新后REALITY节点与Mihomo系客户端兼容异常的原因与解决方式。"
-},
-"cworld0.com": {
-"title": "Gravatar Mirror",
-"link": "https://cworld0.com/blog/gravatar-mirror",
-"summary": "解决 Gravatar 在国内访问堪忧的问题"
 },
 "www.rua.ink": {
 "title": "八月小记 | 总有一天要说再见。",
@@ -1977,21 +1425,6 @@
 "link": "https://023.me/post/60.html",
 "summary": "——兼议检察日报《涉案的百年红豆杉是野生的吗？》舆论导向 今天，是张刚（化名）涉嫌危害国家重点保护植物罪上诉案开庭后的第 24 天，我看到了《检察日报》刊载的《涉案的百年红豆杉是野…"
 },
-"miantiao.me": {
-"title": "用 AI Agent 搞了个全自动 AI 周刊",
-"link": "https://miantiao.me/posts/aigc-weekly/",
-"summary": "一个由 Claude Agent 全自动驱动的 AIGC 周刊，基于 Next.js 15 和 Cloudflare 全栈构建，每周自动搜集、筛选、生成并发布 AI 领域的精选内容…"
-},
-"ieevee.com": {
-"title": "如何自建一个自己的 cursor codebase？",
-"link": "https://ieevee.com/tech/2025/12/29/codebse.html",
-"summary": "使用过 cursor 做编程的同学，对于 cursor 的 code base功能一定不陌生。通过将代码的函数、类、逻辑块等转换为向量，然后通过向量计算，就可以快速找到代码中的相似…"
-},
-"timyang.net": {
-"title": "课题分离与他人叙事：认识自己的人生脚本",
-"link": "https://timyang.net/life/task-separation-and-others-narratives/",
-"summary": "这种试图迎合外部期待、被他人观点或叙事困扰的现象，在心理学中可以找到深刻的解释。哲学家阿尔弗雷德·阿德勒（Alfred Adler）有一个非常有名的概念叫做“课题分离”（Task …"
-},
 "imnerd.org": {
 "title": "字体对齐真难啊",
 "link": "https://imnerd.org/text-align-is-really-hard.html",
@@ -2008,7 +1441,6 @@
 "link": "https://lutaonan.com/blog/undefined",
 "summary": "高考结束那天，我发了个朋友圈，只有四个字：「自由的风」。我如释重负，觉得这个世界在此刻才真正向我敞开了大门。那时我认为这就是自由。 我的老师在下面评论：「有那么夸张吗？哈哈」。那时…"
 },
-"log.ink": null,
 "www.51it.wang": {
 "title": "各类免费付费 AI 产品可用地址分享（持续更新）【置顶】",
 "link": "https://www.51it.wang/ll/1950",
@@ -2025,42 +1457,20 @@
 "link": "https://www.luming.cool/posts/2026/08/august/",
 "summary": "Cue 一下去年年初写的《复盘我这庸碌的寒假》https://www.luming.cool/posts/2025/02/winter-holiday-summary/，因为今年的…"
 },
-"tudoujun.com": null,
-"www.hhju.com": {
-"title": "The moment",
-"link": "https://www.hhju.com/2778.html",
-"summary": "那天看到一个视频，讲的真好。 人和人之间有过一些时刻就足够了。人生的一大半是荒野，但是那些时刻存在的意义就是把荒野照亮。有些时候呢，我们总是执着于把TA留在身边，但是每个人有不同的…"
-},
 "my1981.cn": {
 "title": "Linux系统安全工具1.0.0---漏洞及恶意软件扫描",
 "link": "https://my1981.cn/interest/263.html",
 "summary": "这个小工具在我电脑里吃灰好久了，5月份写的，因为一直更新显卡驱动这个帖子所以这个一直在墙角里吃灰。这几天拿出来优化增强一下，就是看前段时间爆出的漏洞很多，然后检测下自己的机器有没有…"
-},
-"www.liechi.org": {
-"title": "几种抑制新冠病毒药物的工作原理",
-"link": "https://www.liechi.org/cn/2023/01/coviddrug/",
-"summary": "病毒的结构很简单—一个蛋白质组成的外壳，里头包着病毒的基因组。病毒的增殖机制也很简单—它们进入人体细胞，把细胞当成工"
 },
 "airy.ink": {
 "title": "木姜子的花语",
 "link": "https://airy.ink/times/469",
 "summary": "你离开利川那天，我还带灶屋头说给你弄少午吃，你说你过要走，那天风很大，猪带板圈，狗带咬，我坐带板凳儿高头点了根红金龙，喊你莫走，你鼓捣起要走，我说带该上切给你买点泡粑，再带坡上切给…"
 },
-"www.cyrusblog.net": {
-"title": "A voice never forgotten",
-"link": "https://cyrusblog.net/2026/01/29/a-voice-never-forgotten/",
-"summary": "To speak or not to speak, that is the question, brave o […]"
-},
-"subnooc.com": null,
 "aloner.ink": {
 "title": "在博客内放置一个基于Mirages主题的Steam游戏时长小组件",
 "link": "https://aloner.ink/Share/Steam-playtime.html",
 "summary": "项目特性：做了对Mirages主题日间模式、日落模式及夜间模式的自适应，简洁美观（迫真）。 1 准备工作1.1 环境要求PHP 7.2 或更高版本；PHP 扩展含 curl、jso…"
-},
-"orzfly.com": {
-"title": "我的浏览器地址栏中的 A – Z（2021）",
-"link": "https://orzfly.com/html/my-browser-address-bar-2021.html",
-"summary": "前略，天国的 2017 秋酱。好久不见！ Adminer.REDACTED (local Adminer instance) Bilibili.com Cowtransfer.co…"
 },
 "old-panda.com": {
 "title": "嵌入微博帖子测试",
@@ -2082,21 +1492,10 @@
 "link": "https://www.xiabingbao.com/talk/t/mrn465gv.html",
 "summary": "阿里巴巴发言人证实通义千问将集成至苹果智能功能中，适用于iOS、iPadOS、macOS、visionOS设备。此前网信中国公布，苹果技术开发（上海）有限公司的“Apple智能”大…"
 },
-"jiajunhuang.com": {
-"title": "你好，2026！",
-"link": "https://jiajunhuang.com/articles/2026_02_19-hello_2026.md.html",
-"summary": "《你好，2026！》本来想吃着汉堡唱着歌，就跳过今年的总结，毕竟已经迟到了。但咱每年都得总结，不能糊弄自己。元旦没写的文章，咱传统农历新年得补上。2025年，最大的转变，在于意识到…"
-},
 "vrast.cn": {
 "title": "失眠的奶茶",
 "link": "https://vrast.cn/posts/45876/",
 "summary": "昨晚失眠了。回想一下，大概就是傍晚那杯蜜雪冰城闹的。它家奶茶茶底是真的浓，喝的时候没当回事，冰冰凉凉几口下去还挺爽。结果躺下之后就傻了，人清醒得像一尾搁浅的鱼，睁着眼听窗外偶尔的风…"
-},
-"mooe.ren": null,
-"plogs.top": {
-"title": "[Plog]日常遛娃随手拍",
-"link": "https://plogs.top/2025/11/03/plog-casual-snapshots-while-taking-the-kids-out-for-a-walk/",
-"summary": "自从小孩出生之后，日常生活的主题又多了一个遛娃的项目。上周末翻了一下iPhone上的相册，发现还有一些库存照。 […] [Plog]日常遛娃随手拍最先出现在Justin写Plogs…"
 },
 "sugarat.top": {
 "title": "视野修炼第131期 | bun 与 pnpm Rust 化",
@@ -2128,17 +1527,11 @@
 "link": "https://greatdk.com/2144.html",
 "summary": "几千年来，人们都喜欢伯乐，称千里马常有，伯乐不常有。雄心壮志之人一般将自己代入伯乐，当然也有代入千里马的，但没有人关心那些百里马和十里马，只有庄子，他觉得伯乐不仅不对，而且还有罪。…"
 },
-"www.shaoym.cn": {
-"title": "Photo of the day 2025.09.20",
-"link": "https://www.shaoym.cn/index.php/2025/10/24/%e9%83%8a%e6%b8%b8%e8%ae%b0/",
-"summary": "红萝卜绿了 红叶枫了 云里雾里就是这种感觉"
-},
 "shiker.tech": {
 "title": "我为什么放弃用龙虾写公众号：写作应该专而精",
 "link": "https://shiker.tech/archives/304",
 "summary": "**概要**1. **痛点与经验** - 之前在 OpenClaw、WorkBuddy 等通用 Agent 平台上跑公众号写作时，流程被“抓热点 → 分析热点 → 脑暴研判 → 选…"
 },
-"www.fllv.cn": null,
 "flowersink.com": {
 "title": "他死在了爱情里，而我差点成了共犯",
 "link": "https://flowersink.com/blog/blog-detail/87",
@@ -2165,32 +1558,16 @@
 "summary": "轻量翻译（Lightrans）开发已有大半年，期间一直是自己在用。申请硅基流动的生态合作我萌生了上架插件商店的念头，因此本文分享一下申请合作、优化插件和上架的一些经历。"
 },
 "ncnccn.cn": null,
-"www.xiaohui.com": {
-"title": "Shareware 精神永存：这是独立开发者最好的时代",
-"link": "https://www.xiaohui.com/weekly/isv.htm",
-"summary": "2023 年可以说是 AI 元年。从我的观察来看，在这个云计算、AI 人工智能日新月异的时代，曾经的 SWer，现在的独立开发者们，又迎来了一个新的春天。过去，独立开发者往往只能专…"
-},
 "blog.418121.xyz": {
 "title": "每天都是绝版呢———记博客二周年",
 "link": "https://blog.418121.xyz/posts/22df16a8.html",
 "summary": "好久没更新了，不是失联了，而是在忙在找工作，其实就是懒得更新了，没有之前那种欲望了，可能是贤者模式了，嗯，肯定不是因为懒的！(●ˇ∀ˇ●) 接下来的日子更新频率会减少，出去打工了，…"
-},
-"www.xsl.im": {
-"title": "DNSMgr——聚合管理所有域名DNS解析+自动续签SSL证书并部署",
-"link": "https://www.xsl.im/dnsmgr",
-"summary": "迁移博客至香港服务器，用 GitHub Actions 实现自动部署，却被 1Panel 证书申请卡住。尝试 Certimate 遇 API 适配问题，转而体验 DNSMgr 一站…"
-},
-"xsinger.me": {
-"title": "蛇年到，新春快乐！",
-"link": "https://xsinger.me/life/1771.html",
-"summary": "蛇年到了，一年又一年，不变的还是年味，辞旧迎新，对明年也有更多的期许，今年除夕不用值班，有更多的时间陪伴家人了。今年在爸妈家过年，虽然车程只要10分钟😄，但回家的意义就是团聚啦，所…"
 },
 "www.ty2c.com": {
 "title": "你好，春日花园V4.0!",
 "link": "https://www.ty2c.com/archives/hi4.0",
 "summary": "你好，还记得吗？ 2025年，一个服务器拿下了艰难的备案流程，上架了这个博客网站 一年，举步匆匆，困难无数 今日，TYC以全新之起点，隆重向您介绍： 釜底抽薪，只为昙花一现 孤注一…"
 },
-"wangquan.cc": null,
 "xsmy.wang": {
 "title": "鄂尔多斯三天两夜",
 "link": "https://xsmy.wang/1441.html",
@@ -2206,11 +1583,6 @@
 "link": "http://www.xulog.cn/index.php?act=pl&id=1212",
 "summary": "其实我对这个中元节没什么概念，和日常是一样的，你说半路遇到“鬼”没还真有一次经历，几年前的这个时候，和朋友骑电动车在同一个地点摔倒两次，不知道算不算巧合，当然自己也没往心里去，也就…"
 },
-"blog.farmostwood.net": {
-"title": "小写的牧歌",
-"link": "https://blog.farmostwood.net/1256.html",
-"summary": "我无法忘记我第一次读昆德拉的文艺论集《被背叛的遗嘱》的时候的感受。 在第三章里，好像是莫名其妙的，他忽然开始为斯特拉文斯基辩护： 音乐无能力表达无论任何什么东西：一种感情，一种态度…"
-},
 "www.laoding.me": {
 "title": "网站从宝塔面板迁移到1Panel报错：Access denied.的解决办法",
 "link": "https://www.laoding.me/archives/957",
@@ -2221,13 +1593,7 @@
 "link": "https://laozhang.org/archives/4317.html",
 "summary": "写博客的博友们十有八九都折腾过笔记软件，笔记软件我是折腾了不少，现在主力是obsidian，Trilium做备 […]"
 },
-"suus.me": {
-"title": "2025之我的日常应用清单",
-"link": "https://suus.me/202512231037/",
-"summary": "记录一下我日常使用的一些App和习惯"
-},
 "simonaking.com": null,
-"polarisxu.studygolang.com": null,
 "www.xbstack.com": {
 "title": "MCP StreamableHTTPClientTransport 请求一直 Pending：SSE 断开后为什么只等 …",
 "link": "https://www.xbstack.com/ai/mcp-streamable-http-sse-pending-timeout/",
@@ -2254,12 +1620,6 @@
 "summary": "AI 与纺织女工2026 年 2 月 16 日，除夕夜。 0 点 11 分，窗外鞭炮声还没停，我在本地跑起了 Qwen3.5-397B-A17B 的 2bits 量化版，尝试发了一…"
 },
 "blog.chario.cn": null,
-"virelyx.com": {
-"title": "周记9-2：站、音乐老师",
-"link": "https://www.virelyx.com/1272/",
-"summary": "前言 又经过了一周的高中生活，我对老师们的印象和对高中生活的理解都深刻了几分。 本周关键词：站、音乐老师 是的，我的灵感几乎枯竭了。所以我可能会在周记以外更新一些科技相关的内容。 …"
-},
-"bosir.cn": null,
 "ioxy.top": {
 "title": "一位男士对婚姻的控诉",
 "link": "https://ioxy.top/2026/07/21/yi-wei-nan-shi-dui-hun-yin-de-kong-su/",
@@ -2269,11 +1629,6 @@
 "title": "Outer Wilds：去南方，去拓荒",
 "link": "https://blog.awaae001.top/%E6%84%9F%E6%83%B3/%E6%B8%B8%E6%88%8F/page-Outer_wilds",
 "summary": "真正的拓荒，是对命运的坦然接受，是对旧时代的挥手作别，是毫无保留地将一切知识、记忆与爱，投入到那团创造未来的篝火之中。哪怕那个未来里，再也没有我们自己的位置。"
-},
-"v3u.cn": {
-"title": "m4 mac mini本地部署ComfyUI,测试Flux-dev-GGUF的workflow模型10步出图,测试AI绘…",
-"link": "https://v3u.cn/a_id_370",
-"summary": "m4macmini已经发布了一段时间，针对这个产品，更多的是关于性价比的讨论，如果抛开各种补贴不论，价位上和以前发布的mini其实差别不大，真要论性价比，各种windows系统的m…"
 },
 "www.seis-jun.xyz": null,
 "pinpe.top": {
@@ -2288,7 +1643,6 @@
 "summary": "在被AI和算法稀释的互联网环境中，作者探讨了个人网站作为对抗信息茧房、寻找真实连接的意义。本文是对当下网络社交的反思，以及对建立“网络友邻”关系的渴望与呼吁，并阐述了作者未来博客的…"
 },
 "blog.goodboyboy.top": null,
-"blog.marice.top": null,
 "lznauy.cn": {
 "title": "Kubernetes Service/Ingress/CNI 体系",
 "link": "https://lznauy.cn/posts/2026-07-27-blog-network/",
@@ -2298,16 +1652,6 @@
 "title": "关于3D打印航模一些想法",
 "link": "https://xtxcool.com/archives/XcYex9dY",
 "summary": "前段时间打印了一架 AdeleX+10 4+1 垂起，第一次玩 3D 打印的飞机，总体体验不错，但是这架飞机本身有一些设计不合理的地方，装机过程费了一番工夫。组装过程有一些想法，记…"
-},
-"sogola.com": {
-"title": "網路受限下部署Fediverse實例GoToSocial",
-"link": "https://sogola.com/posts/how-to-use-gotosocial/",
-"summary": "緣起帝國的旗幟隨風飄揚，新皇冉冉升起。盆地到雪山，稻田到工廠，白天到黑夜，祂的身影籠罩整片大地。城牆內外，禮樂崩壞，舊有秩序轟然倒塌，新人尚未現身。人們畏懼開口，每個人頭上都戴著枷…"
-},
-"aizni.cn": {
-"title": "中兴F50 ERR_SSL_BAD_RECORD_MAC_ALERT",
-"link": "https://aizni.cn/archives/293.html",
-"summary": "使用 中兴F50 时会触发 ERR_SSL_BAD_RECORD_MAC_ALERT。解决办法如下:"
 },
 "suo.ma": {
 "title": "八月末无题",
@@ -2345,11 +1689,6 @@
 "link": "https://xiaohev.com/article/hermes-agent-termux-install-guide",
 "summary": "手把手教你用 Termux 在旧安卓手机上部署 Hermes Agent AI 助手，零成本替代云服务器！包含完整环境搭建、6 大编译避坑排查（如 Rust / psutil 报错…"
 },
-"www.yilanju.com": {
-"title": "密码保护：从团员到群众",
-"link": "https://www.yilanju.com/2020/06/05/qunzhong/",
-"summary": "无法提供摘要。这是一篇受保护的文章。"
-},
 "imzl.com": {
 "title": "给朋友们的 AI 使用建议",
 "link": "https://imzl.com/ai-usage-tips",
@@ -2366,11 +1705,6 @@
 "summary": "整理日期：2026-08-19当前环境：Typecho 1.3.0 · PHP 8.4 · MySQL 8.0.45 · Jasmine 主题 2.5.5工具环境：Workbudd…"
 },
 "www.qtmuniao.com": null,
-"www.zzfly.net": {
-"title": "浅聊一下Golang的Ordered Map",
-"link": "https://www.zzfly.net/golang-ordered-map/",
-"summary": "背景 最近在使用 Golang 对接「ComfyUI」的过程中，遇到了一个典型的跨语言数据交换问题： Comf […] 浅聊一下Golang的Ordered Map最先出现在By烟…"
-},
 "xiaoxi.ac.cn": {
 "title": "婚姻里的伤害，法律究竟能看见多少？——谈离婚诉讼中的精神损害赔偿",
 "link": "https://xiaoxi.ac.cn/post/202608238514",
@@ -2391,33 +1725,21 @@
 "link": "https://sssr7844.cc.cd/182/%e5%8f%82%e8%a7%82%e5%8d%8e%e5%bc%ba%e5%8c%97%e8%b5%9b%e6%a0%bc%e7%94%b5%e5%ad%90%e5%b8%82%e5%9c%ba/",
 "summary": "引入 昨天在外面浪了一天，看了两个博物馆其中一个还写成了文章（另一个太垃圾了写不了😣）。由于还剩一点时间，所以就顺便参观了一下赛格 ... 参观华强北赛格电子市场最先出现在sssr…"
 },
-"nopdan.com": {
-"title": "输入法评测工具——昙花赛码器",
-"link": "https://nopdan.com/2025/02/gosmq/",
-"summary": "项目地址: https://github.com/nopdan/gosmq/ “赛码器”是一种用于评估不同输入法方案(主要是码表类方案)之间“性能”差异的工具。"
-},
 "www.puresky.top": {
 "title": "『晨阳』我的昵称发展史",
 "link": "https://www.puresky.top/archives/O7IR6T5Y",
 "summary": "从QQ号上买来的「丿陪」，到凉亭下父亲一句「像早晨的阳光一样冉冉升起」催生出的「早晨的阳光」，再到沉迷技术时自嘲的「喜欢技术的小白」——我的昵称几经更迭。直到某天忽然读懂那份期望的…"
 },
-"www.ryanzm.cn": null,
 "www.edzbe.com": {
 "title": "假日笔记：这个夏天，很快就过去了。",
 "link": "https://www.edzbe.com/book/diary/20260806.html",
 "summary": "暑期已过半，几乎每天都来回于娃儿的各种课外补习班，贝勒爷的机器人集训、奥数晋级、硬笔书法比赛、英语外教课，珺主 […]"
 },
-"www.uncleda.com": null,
 "chivehao.ikaros.run": null,
 "www.xvzhu.cn": {
 "title": "太宰治一生全部代表作品大全：长篇小说、中短篇小说、随笔自传全集",
 "link": "https://www.xvzhu.cn/archives/245.html",
 "summary": "太宰治，日本无赖派文学领军人物、昭和时代极具人气的经典作家，以私小说自传文风、细腻灵魂独白、直面人性脆弱的文字出圈全网。文风颓废又温柔、清醒又孤独，擅长书写青春迷茫、原生桎梏、人际…"
-},
-"suborbit.net": {
-"title": "循环变量与闭包",
-"link": "https://suborbit.net/posts/loopvar-and-closure",
-"summary": "起因 在2023年9月19日，Go发布的1.22版本，修复了循环变量作用域的问题，最近在用其他语言写代码时，也遇到了类似的问题。于是意识到不同的编程语言对这种情况的处理有所不同，便…"
 },
 "tch.cool": {
 "title": "八月 - 进一步适应奶爸的身份",
@@ -2435,7 +1757,6 @@
 "link": "https://blog.sdy666.icu/posts/MMza",
 "summary": "一周之内，美俄总统先后访华：世界正在重新认识中国 2026年5月，北京成为全球外交的“风暴眼”。 5月13日，美国总统特朗普抵京；5月19日，俄罗斯总统普京的专机降落北京。**一周…"
 },
-"dailiang.com": null,
 "fravilion.top": {
 "title": "太原 个人摄影",
 "link": "https://fravilion.top/index.php/archives/390/",
@@ -2483,16 +1804,6 @@
 "link": "https://xingbianren.cn/post/326.html",
 "summary": "跟牛牛说话特别费token。牛牛是我闺女，正是最天马行空，奇思妙想的年龄。我想原因可能有两个：一是小孩子的语言组织形式跟大人不太一样，大人讲话有固定的套路模板，在具体的语境中，一方…"
 },
-"yeshu.cloud": {
-"title": "小树的 2025 年终总结",
-"link": "https://yeshu.cloud/posts/annual-summary-2025/",
-"summary": "大模型最大的幻觉，可能是让人类以为自己可以直接略过过程、直达结果。"
-},
-"sweetjing.cc": {
-"title": "Handsome-美化记录分享",
-"link": "https://sweetjing.cc/189.html",
-"summary": "前言 昨天刚刚更新了Handsome主题的10.1.0 Pro版本，一看更新了不少内容，其中最吸引我的就是更新了五个新配色，然后看了看我现在用的紫色配色，还是觉得颜色过于鲜..."
-},
 "www.chenshake.com": null,
 "www.lybblog.cn": {
 "title": "快乐有了，压力也跟着来了",
@@ -2513,11 +1824,6 @@
 "title": "Typecho 升级1.3版本出现500错误信息",
 "link": "https://itlu.net/articles/2858.html",
 "summary": "最近后台出现Typecho1.3版本的升级提示，本来我就是懒得升级的人，看着这次算是升级了大版本，于是就尝试升级版本，结果操作了两次都是无功而返。下载升级包，覆盖到现有的程序上，前…"
-},
-"blog.3ms.run": {
-"title": "微软Office 365 E3订阅限时开放免费购买：尊享25席位，内含Outlook 100GB与OneDrive 1T…",
-"link": "https://blog.3ms.run/archives/office365-e3.html",
-"summary": "Office 365 E3订阅作为微软面向企业推出的一体化云端办公套件，旨在赋能高效协作、强化数据安全防护及确保企业合规运营，以全面满足各类团队的多元化办公需求。 此订阅方案涵盖企…"
 },
 "ivershuo.com": null,
 "hisherry.com": {
@@ -2550,11 +1856,6 @@
 "link": "https://yirz.cn/index.php/post/330.html",
 "summary": "极少推荐免费域名，核心是它在所有权、SEO、长期稳定性等多个维度都存在明显短板，仅适合新手临时练手，完全无法支撑正规网站的长期运营。 1.核心所有权缺陷无完整所有权‌：绝大多数免费…"
 },
-"www.jmyjmy.top": {
-"title": "把 AI 当个\"人\"——LLM 使用者应该知道的事（1）",
-"link": "https://www.jmyjmy.top/2026-03-05_LLMaaS-intro/",
-"summary": "2026 年的今天，AI 已经足够聪明，你应该把它当个\"人\"来对待了——至少也是条聪明的\"边牧\"。 <a class=\"header-anchor\""
-},
 "lhdrc.com": {
 "title": "日子是过的，不是追的",
 "link": "https://lhdrc.com/554.html",
@@ -2570,12 +1871,6 @@
 "link": "https://felixway.cn/post/724.html",
 "summary": "前段时间在知乎看到一个问题，问得特别扎心： > 公司各条业务线每上线一个产品都单独开发一个后台管理系统(基础框架技术栈架构也存在不一致现象)，重复工作很多。如果做集中式，数据源独立…"
 },
-"jicki.cn": {
-"title": "Go 语言基础",
-"link": "https://jicki.cn/golang-study-notes/",
-"summary": "Go 简介 Go（又称Golang）是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。 罗伯特·格瑞史莫，罗勃·派克"
-},
-"monkeys.cafe": null,
 "xiangming.site": {
 "title": "做了音乐网站，笔墨迹博友可以免费使用。",
 "link": "https://xiangming.site/1144.html",
@@ -2617,7 +1912,6 @@
 "link": "https://www.yujinlan.com/157.html",
 "summary": "爱人的姨妈家门口有两棵杨梅树，年年都挂满了杨梅，不打药、不泡药的那种。今年的杨梅长得尤其多，每到杨梅成熟，姨妈除..."
 },
-"saltyleo.com": null,
 "www.xhuaxs.com": {
 "title": "人不一定非要往高处走，也可以四处走走",
 "link": "https://www.xhuaxs.com/889.html",
@@ -2638,17 +1932,11 @@
 "link": "https://fengyiyi.com/2026/08/17/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1.html",
 "summary": "回想早年做个网站：写代码、租服务器、买域名、配环境、搞证书、传文件……一套流程下来，劝退一半人。现在呢？写好静态页面，拖一下，或者连个仓库，网址就有了。这件事 Cloudflare…"
 },
-"www.latiao.org": {
-"title": "一切恰到好处",
-"link": "https://www.latiao.org/2290.html",
-"summary": "2026祝大家新的一年，一切恰到好处。首次爬风浙线，没完成，下次继续！！！"
-},
 "chegva.com": {
 "title": "高效沟通(五)：好老板要善于提问",
 "link": "https://chegva.com/6275.html",
 "summary": "前面的几篇文章中，我分享了一些通用的沟通方法，如尊重、倾听和情绪控制等。接下来的几篇文章中，我将从如何与员工沟通、如何与客户沟通，以及如何与老板沟通这几个角度，和你聊聊这些沟通方法…"
 },
-"www.linyufan.com": null,
 "ygsea.com": {
 "title": "欢迎加入闪闪发光的人类社交群组",
 "link": "https://ygsea.com/2597.html",
@@ -2669,12 +1957,6 @@
 "link": "https://www.skyue.com/26082721.html",
 "summary": "本文作者：南瓜2026年6月16日 — 6月30日 · 阿塞拜疆 / 格鲁吉亚 / 亚美尼亚从高加索回来已经两个月了，懒惰的人让豆包根据当时的朋友圈、相册和随记整理流水账游记。"
 },
-"www.gongzi.org": null,
-"www.nancc.com": {
-"title": "从”chenii”到”nancc”：一个博客的告别与新生",
-"link": "https://www.nancc.com/3901.html",
-"summary": "引言 在我的互联网浪潮中，每个域名都是独一无二的身份证明，是我与广大博友沟通交流的桥梁，通过他链接你我。\"chenii\"这个域名，对我而言，远不止一串简单的字符，他承载着故事，记录…"
-},
 "hongtaoh.com": {
 "title": "昂贵的科研",
 "link": "https://hongtaoh.com/cn/2026/08/20/expensive-research/",
@@ -2685,68 +1967,27 @@
 "link": "https://huhuhang.com/post/thinking/20260421",
 "summary": "本文记录了截止 2026 年 4 月，我个人对 AI 的看法和思考。"
 },
-"www.dzw6.com": {
-"title": "WordPress模糊智能分词搜索分析插件-Meilisearch Pro",
-"link": "https://www.dzw6.com/36391.html",
-"summary": "WordPress网站不支持模糊智能分词搜索、响应慢，且缺乏搜索数据洞察？地质网独家开发Meilisearch Pro 插件完美解决！🚀 基于Meilisearch引擎，实现真正的…"
-},
-"www.wanghanyue.com": {
-"title": "和富人谈感情 和穷人谈彩礼",
-"link": "https://www.wanghanyue.com/post-134.html",
-"summary": "相对经济不发达彩礼越高，越发达地区彩礼不那么高 因为他们本身比较富裕，婚后共同财产才是大头，婚前这都是不值一提；因为穷人增量有限，只能吃存量，婚后财产基本没有，所以只能婚前都要了。…"
-},
 "www.88pq.cn": {
 "title": "使用阿里云 ESA 后网站获取的访客IP错误解决方法",
 "link": "https://www.88pq.cn/4173.html",
 "summary": "用阿里云 ESA 后 WordPress 获取到的 IP 不对，是因为 ESA 是反向代理，WordPress […]"
 },
-"bjt.name": null,
-"blog.inekoxia.com": null,
-"www.blogsummer.cn": {
-"title": "随笔2",
-"link": "https://www.blogsummer.cn/archives/sui-bi-2",
-"summary": "文章的标题也是提高网站展现度的一点，发现我关于EDA软件安装的标题其实不太能概括内容，也达不到容易被检索的标准。 不知道什么心理我还是蛮想提高自己博客的日IP（日流量） 的，也想看…"
-},
 "www.52nlp.cn": null,
-"gshuo.space": {
-"title": "筑巢记",
-"link": "https://gshuo.space/%e7%ad%91%e5%b7%a2%e8%ae%b0/",
-"summary": "无法提供摘要。这是一篇受保护的文章。"
-},
-"liam.page": null,
 "zhoutian.com": {
 "title": "Deepseek Harness有点儿东西",
 "link": "https://zhoutian.com/394.html",
 "summary": "![](https://img.lovelu.top/2026/dpharness.webp) 之前看到Deepseek开源了Harness，其实还是有点儿兴趣，但是一直没空研究，…"
 },
-"ucren.com": {
-"title": "聊聊 Unicode 中的组合字符（Combining Character）",
-"link": "https://ucren.com/blog/archives/748",
-"summary": "在字体排印学中，组合字符（Combining Character）是用来改变其它字符所用的字符，这些字符可以添加到目标字符周围或覆盖目标字符，例如汉语拼音字母「ü」上面的两个小点，…"
-},
-"wujie.me": {
-"title": "中奖了",
-"link": "https://wujie.me/lucky-win/",
-"summary": "2月6号晚上9点多，企微来了消息，本来以为是工作上的任务，谁知道打开一看，竟然是网络年夜饭抽奖中奖了！ 这可能 […]"
-},
-"6angel.com": null,
 "blog.lusyoe.com": {
 "title": "忘了签到不算白来，经常登录的老粉也能领折扣福利卡",
 "link": "https://blog.lusyoe.com/article/login-count-loyalty-coupon",
 "summary": "连续签到筛出了忠诚用户，也漏掉了一批经常登录却没攒齐签到任务的老粉。这篇文章记录了青萍语音补上的第二条路：累计登录满 10 次就算老粉，不用连续，断了不清零，同样发放专属折扣福利卡…"
 },
-"blog.9hz.club": null,
 "jrtx.site": null,
 "blog.likaikai.com": {
 "title": "Python&PyCharm安装",
 "link": "https://blog.likaikai.com/archives/1772812845651",
 "summary": "作者在B站发现了一门优质的Python入门课程，并决定跟随学习。文章详细介绍了在MacOS、Windows和Linux系统上安装Python的方法，包括官网下载、Homebrew（…"
-},
-"jiyu134.top": null,
-"www.onexstone.online": {
-"title": "All-in-One利器RSS",
-"link": "https://www.onexstone.online/articles/145",
-"summary": "前言 本来推荐算法的兴起，是有利于人们更高效的获取信息，但随着时间的推移，各大互联网公司逐渐意识到“流量为王”的利益法则，纷纷开始各自为营，推出自己的“小圈子”应用，试图把用户困在…"
 },
 "blog.xpdbk.com": {
 "title": "置顶公告",
@@ -2764,11 +2005,6 @@
 "summary": "《高考二十载感怀》 高考匆匆二十载，旧证犹存覆尘埃。 少年不解卷中意，千帆过尽意始开。 六月风雨重回首，同窗一 […]"
 },
 "www.chener.net": null,
-"www.dongwm.com": {
-"title": "关于本博客",
-"link": "https://www.dongwm.com/page/about-blog",
-"summary": "这是一个使用asyncio生态开发的个人技术博客"
-},
 "wiki.eryajf.net": {
 "title": "学习周刊-总第278期-2026年第35周",
 "link": "https://wiki.eryajf.net/pages/4327cf/",
@@ -2803,11 +2039,6 @@
 "summary": "我参加工作以来的第一位 mentor 曾说：“后端就是玩表”。刚开始我只把这句话理解为会建表、会写 SQL、会加索引；但真正进入业务后才发现，后端面对的并不只是某一张 MySQL …"
 },
 "www.luozhiyun.com": null,
-"inmoyo.cn": {
-"title": "致璃奈大王｜除夕夜的新年祝福",
-"link": "https://inmoyo.cn/blog/mew/to-mew",
-"summary": "一份写了很久的新年祝福：从手滑进直播间，到慢慢成为朋友。"
-},
 "www.evan.xin": {
 "title": "ZUI.RE：一个域名的非典型归宿，以及我对”看新闻”这件事的重新理解",
 "link": "https://www.evan.xin/5054/",
@@ -2818,13 +2049,6 @@
 "link": "https://luolei.org/life-ai",
 "summary": "- [YouTube: 2026 年，我把自己做成了一个 AI](https://www.youtube.com/watch?v=_uj7sQ7CvQw)"
 },
-"dawner.top": null,
-"www.maguang.net": {
-"title": "中国历史文化免费AI知识库（全球最大）",
-"link": "https://www.maguang.net/archives/7124?utm_source=rss&utm_medium=rss&utm_campaign=%25e4%25b8%25ad%25e5%259b%25bd%25e5%258e%2586%25e5%258f%25b2%25e6%2596%2587%25e5%258c%2596ai%25e7%259f%25a5%25e8%25af%2586%25e5%25ba%2593%25ef%25bc%259a%25e6%259e%2584%25e5%25bb%25ba30%25e4%25ba%25bf%25e5%25ad%2597%25e7%25ba%25a7%25e7%259a%2584%25e6%2595%25b0%25e6%2599%25ba%25e4%25ba%25ba%25e6%2596%2587%25e4%25b8%258e",
-"summary": "在数字人文（Digital Humanities）蓬勃发展的今天，如何高效地从浩如烟海的史料中提取关键信息，已… 阅读更多 »中国历史文化免费AI知识库（全球最大）"
-},
-"hfdavidyu.com": null,
 "www.jinhenghaoblog.top": {
 "title": "Go语言与Python语法对比",
 "link": "https://www.jinhenghaoblog.top/posts/20260801143000.html",
@@ -2836,7 +2060,6 @@
 "summary": "骑行的快乐--大行S20"
 },
 "www.weirain.com": null,
-"xiaorui.cc": null,
 "hexo.limour.top": {
 "title": "【探索】让pi-agent带你从零玩转esp32s3",
 "link": "https://hexo.limour.top/pi-agent-esp32s3-from-zero",
@@ -2861,21 +2084,6 @@
 "title": "互相羡慕",
 "link": "https://www.hupanx.cn/archives/12324",
 "summary": "想起几年前，自己单干的时候，因为行业波动，被要求去面试找工作。又因为之前单独做了几年外包开发，有一些编程基础，所以被指定的方向是程序员。于是就去了一家大公司面试，结果自然在意料之中…"
-},
-"www.suninf.net": {
-"title": "洛克菲勒写给儿子的38封信",
-"link": "https://www.suninf.net/2025/06/38-letters-from-rockefeller-to-his-son.html",
-"summary": "第一封：起点不决定终点 每个人的人生起点不尽相同，但这并不意味着，其人生的最后结果就被出生定型。在这个世界上，永远不存在穷富世袭，也不存在成败周替，有的只是“我奋斗，我成功”的真理…"
-},
-"www.huangshaofeng.com": {
-"title": "2014年产品工作总结",
-"link": "https://www.huangshaofeng.com/p/758",
-"summary": "2014年12月31日，一年的最后一天，这个时候，总是需要回顾一年来所做的一些事情，无论好坏，都是成长，无论得失，都是历练，这一年在用心做产品，感受产品这个职业带来的愉悦感和成就感…"
-},
-"www.ssgeek.com": {
-"title": "自己动手实现NAS公网访问",
-"link": "https://www.ssgeek.com/blog/nas-public-access",
-"summary": "自己动手实现NAS公网访问，让家里的NAS设备在外网也能访问，既方便又安全"
 },
 "www.zhyok.cn": {
 "title": "学会与自己和解，是人生最好的修行 [顶]",
@@ -2903,37 +2111,11 @@
 "link": "https://www.coderli.com/gesp-4-luogu-p1296/",
 "summary": "GESP C++ 四级/五级练习题，排序与双指针（滑动窗口/尺取法）及二分查找的经典应用。题目要求在 $10^6$ 规模下统计所有距离不超过 $d$ 的奶牛坐标数对。考察将 $\\m…"
 },
-"www.gaficat.com": {
-"title": "\"天命\"几何",
-"link": "https://www.gaficat.com/posts/halo-tian-ming-ji-he.html",
-"summary": ""
-},
-"saltfish.vip": {
-"title": "浪潮之下 - 个人近期对Ai使用的一些感想",
-"link": "https://saltfish.vip/index.php/archives/70/",
-"summary": "“所以，你又要往何处去呢？”"
-},
 "hanchan.vip": {
 "title": "“More Perfect Than Helvetica”——当你选择字体时，你究竟在选择什么？",
 "link": "https://hanchan.vip/posts/choosefont/",
 "summary": "当你选择字体时，你究竟在选择什么？"
 },
-"www.jiangyu.org": {
-"title": "博客更新之hexo, EdgeOne以及Apaxy",
-"link": "https://www.jiangyu.org/hexo-edgeone-apaxy/",
-"summary": "腾讯云国际站最近推出免费试用，内测的网站安全加速服务–EdgeOne（EO），主打无限流量和无限请求数。很吸引人，马上试用了。国内服务器就不用说了，境外服务器配上 EO，国内访问加…"
-},
-"jtsang.me": {
-"title": "就把自己先搞丢",
-"link": "https://jtsang.me/posts/just-lost-myself/",
-"summary": "有一句话叫“谁的青春不迷茫”。我发现我的青春期倒不迷茫：想畅快地玩就畅快地玩，想把事情做好就把事情做好。但到了如今的后青春时代（也不知道现在还能不能算青春），却开始有些迷茫。这一切…"
-},
-"hyde.live": {
-"title": "北宋时期的货币政策",
-"link": "https://hyde.live/archives/bei-song-shi-qi-de-huo-bi-zheng-ce",
-"summary": "最近沉迷游戏燕云十六声，主线故事描述了宋太祖赵匡胤为了抵抗南唐的“货币战争”，而出台了一个没收南唐铁钱，禁止百姓使用唐钱的政策。但由于当时的大宋本身就十分缺少铜钱，导致了百姓既没铜…"
-},
-"www.xiaowuleyi.com": null,
 "skywt.cn": {
 "title": "我的 HomeLab 配置（一）：基础设施篇",
 "link": "https://skywt.cn/blog/my-homelab-1-infra",
@@ -2980,13 +2162,6 @@
 "link": "https://blog.zhipro.com/phone-battery-charging-myths-guide/",
 "summary": "你是不是也有这种感觉？手机才用了一年多，电量就肉眼可见地往下掉，以前一天一充，现在半天都得充一下。今天就把最常见的几个充电误区一次说清楚，大部分都不用花钱，不用折腾，改改习惯就可以…"
 },
-"immmmm.com": {
-"title": "二〇二六，你好",
-"link": "https://immmmm.com/hi-2026/",
-"summary": "不知不觉已经来到了 2026 年，给大家拜个晚年、拜个早年。 愿大家一切安好，马上 —— 啥都有！ 十二月 趣味运动会，竟还能占个人头，收获“高光”照一张。 十一月 秋假，北京高攀…"
-},
-"xiaophy.com": null,
-"www.hxueh.net": null,
 "wsdjeg.net": {
 "title": "Termux 无线 ADB 连接与后台保活配置",
 "link": "https://wsdjeg.net/termux-wireless-adb-keepalive/",
@@ -2997,27 +2172,16 @@
 "link": "https://ipotato.me/article/intention-is-all-you-need",
 "summary": "距离博客的上一次更新正好过去了一年多。这一年世界，至少是计算机世界，发生了某种“翻天覆地式”的变化。更确切地讲，这些变化的转折点几乎都来自于 2025 年 12 月前后，一系列 S…"
 },
-"www.chiboxun.com": {
-"title": "短视频内容价值构建策略：基于用户需求的实用与情绪赋能",
-"link": "https://www.chiboxun.com/1.html",
-"summary": "在短视频创作领域，如何让内容引发观众停留与喜爱？本文将结合平台机制变革与用户需求本质，解析内容价值构建的核心逻辑与实操路径。一、破除流量迷思：解析短视频推送机制新逻辑部分培训机构宣…"
-},
 "blog.debuginn.com": {
 "title": "我设计的软件 iAssets 知盈 上少数派热门了",
 "link": "https://blog.debuginn.com/p/iassets-sspai/",
 "summary": "大家好，我是 Meng小羽。 前几天，我在少数派发布了一篇关于知盈（iAssets）的文章，没想到这么快就上了热门。看到阅读量、收藏和评论一路上涨，心里真的特别激动和感激。 首先要…"
-},
-"www.liuchengrui.cn": {
-"title": "邂逅一场夕阳编织的梦",
-"link": "https://www.liuchengrui.cn/life/748.html",
-"summary": "![1.jpg][1] 在二妃山的山坡 邂逅浪漫夕阳 余晖漫染天际 城市轮廓 被镀上暖金 树影与高楼相望 草叶轻晃 晚风浅唱 把一身疲惫 交付给这方 看落日下沉 心事渐放 在自然怀…"
 },
 "hulatu.com": {
 "title": "研三学生的开学焦虑",
 "link": "https://hulatu.com/posts/2026/09/01/back-to-school-anxiety/",
 "summary": "开学，总是那么让人难以接受。"
 },
-"ruterly.com": null,
 "blog.1edg.cn": {
 "title": "蹉跎一月，且观小城朝暮",
 "link": "https://blog.1edg.cn/762",
@@ -3032,16 +2196,6 @@
 "title": "你留下的脚印，我会记得.",
 "link": "https://imxcy.cn/archives/af0d0fda.html",
 "summary": "感谢每一位在本站驻足的你们截止2026/8/26日上午9：00，本站收获评论475条，本站稳定运行不过没到三年（也快了），感谢每一位路过本站的友人们！为了更好的互访，我建立了一个访…"
-},
-"flsl.im": {
-"title": "前端多接口同时取返回值方法",
-"link": "https://flsl.im/index.php/archives/309/",
-"summary": "工作实践中，写前端学习到的一种方法，同步获取多个接口的返回值一起处理，因为老是忘，所以记录一下：async getData(){ const [res1, res2, res3, …"
-},
-"couqiao.net": {
-"title": "余早合集（篇五）",
-"link": "https://couqiao.net/archives/20231105.html",
-"summary": "翻看上次更新的日期，竟已是一年半之前，期间已发生太多事情，其中值得一提的就是身份又发生转变。 2017年初建博客，在“关于”页面对自己的介绍是“师范生”，2020年改为“教育硕士”…"
 },
 "fuxes.cn": {
 "title": "忙",
@@ -3078,11 +2232,6 @@
 "link": "https://www.vergilisme.com/index.php/2026/07/21/2402.html",
 "summary": "这可以说是我的新起点，也可以说不是，归根结底，对很多人都是。最后一场比赛，印象里熟悉的球员就都被淘汰了，无一例外。比赛细节就不提了，见仁见智，尤其我还是属于中立的。我是从2006年…"
 },
-"tcya.xyz": {
-"title": "Dennett走了，Dennett来了",
-"link": "https://tcya.xyz/2024/05/30/dennett.html",
-"summary": "“国际米原器有多长？” “一米，不然呢？” “是也不是。” “哈？” “真空中的光速是多少？” “299,792,458米每秒。” “你想过一个问题吗，这个数的有效数字有几位？光那…"
-},
 "dotbbq.com": null,
 "imqi1.com": {
 "title": "介绍下本站特色功能及一些杂谈",
@@ -3099,16 +2248,10 @@
 "link": "https://chidd.net/2026/08/25/ye-sheng-jun.html",
 "summary": "上个星期天下午，我正在进行一些简单的劳动，突然就有了低血糖的感觉——心慌、身体发软、肚子饿。 赶紧找了把椅子坐..."
 },
-"www.xn--ptua509t.com": null,
 "blog.hantaotao.top": {
 "title": "7月记：职场风波、哈尔滨参会、千岛湖出差",
 "link": "https://blog.hantaotao.top/archives/206/",
 "summary": "7月14日，部门召开关于AUV（自主水下航行器）的产品内部迭代会议。会后，技术人员积极性大减。只因产品经理在会上明里暗里讲领导层不甚关注AUV，只把此作为技术验证平台，无进一步产品…"
-},
-"blog.xiowo.net": {
-"title": "安知鱼主题美化及实用教程库",
-"link": "https://blog.xiowo.net/posts/anzhiyu/",
-"summary": "写这篇文章的目的只是为了便于新用户快速对主题自定义修改，如果你有教程或不想你的教程出现在"
 },
 "shidenggui.com": {
 "title": "读《庞居士研究》有感",
@@ -3120,8 +2263,6 @@
 "link": "https://www.tortorse.com/archives/internet-outside-the-school-gate-1999/",
 "summary": "冬日清晨，校门外的早点摊与游戏室"
 },
-"m.senlinm.cn": null,
-"www.eexuan.cn": null,
 "liudon.com": {
 "title": "博客加速实践",
 "link": "https://liudon.com/posts/blog-performance-optimization/",
@@ -3153,11 +2294,6 @@
 "link": "https://yayu.net/6237.html",
 "summary": "忙忙碌碌，殊不知夏天已过。 前段时间忙着搬家，忙着项目，终于得出闲来。最近学着养了一小缸鱼，学着种了一些水草，茶余饭后，闲情雅致又回来了。"
 },
-"lao.si": {
-"title": "【XNUMX日】是什么意思？",
-"link": "http://lao.si/199",
-"summary": "我也不知道，很抱歉。 百度搜索 XNUMX 会找到很多结果。点进去看，通常的情况都是外文网站通过“机器翻译”形成的中文站点。 而 XNUMX 出现的位置，在原文中其实是一组数字，比…"
-},
 "ycyc.win": {
 "title": "",
 "link": "https://ycyc.win/posts/0.html",
@@ -3172,11 +2308,6 @@
 "title": "告别 1Password：我为什么转投自部署的 Bitwarden",
 "link": "https://veryatao.com/technique/1password-bitwarden/",
 "summary": "从 1Password 迁移到自建 Bitwarden 的完整记录：告别持续上涨的订阅费，借助 1Panel 一键部署开源密码管理器，实现数据完全自主。文章涵盖迁移原因、三步操作流…"
-},
-"blog.cnbang.net": {
-"title": "Agent 模型的思维链是什么",
-"link": "https://blog.cnbang.net/uncategorized/4279/",
-"summary": "关于 Agent 模型的思维链，之前被几个高大上的词绕晕了，claude 提出 Interleaved Thi […]"
 },
 "blog.storia.ren": {
 "title": "2026-07小记",
@@ -3213,7 +2344,6 @@
 "link": "https://xiaonie.me/archives/wei-ming-ming-wen-zhang-Irgjz5e9",
 "summary": "今天突发奇想，想写一个沉浸式听音乐的网页，类似于QQ音乐手机版的横屏播放，刚准备写想找个参考UI，发现了一个音乐播放器UI是真的沉浸式，还可以登录QQ音乐和网易云音乐，登录上就听自…"
 },
-"uefeng.com": null,
 "i.lilog.cn": {
 "title": "LiMhy博客系统 v5.0 发布：把前面没顾上的细节，一项项补上了",
 "link": "https://i.lilog.cn/post/205",
@@ -3230,9 +2360,7 @@
 "link": "https://www.wkqx.com/72.html",
 "summary": "不夸张的说，《欢迎来龙餐馆》绝对是近年最特殊、也最无可替代的一部地缘政治类型电影。它的特殊不在于宏大的战争场面，跌宕的戏剧冲突，而在于影片那份独属于中国的叙事视角、独属于东方的处世…"
 },
-"ihello.cc": null,
 "www.fallrain.cn": null,
-"tianxianzi.me": null,
 "suithink.me": {
 "title": "3D 打印版的炸飞机 ver 1.0",
 "link": "https://suithink.me/2026/08/30/3d-%e6%89%93%e5%8d%b0%e7%89%88%e7%9a%84%e7%82%b8%e9%a3%9e%e6%9c%ba-ver-1-0/",
@@ -3252,11 +2380,6 @@
 "title": "为什么加一箱油四五百块不心疼，充个电贵十块却难受半天？",
 "link": "https://heitaosan.com/article/235",
 "summary": "开油车的时候，加一箱油几百块钱，眼睛都不眨，但是换了电车，每次充电电价只要超过1块钱一度，我都觉得贵。"
-},
-"blog.toocool.cc": {
-"title": "飞拉达：爬了300米，累出半条命",
-"link": "https://blog.limihu.com/324.html",
-"summary": "看到别人飞拉达的照片，那种悬挂在峭壁之上、脚下是深谷的刺激感，总让我心生向往。 原本计划昨天去雁荡山挑战一次真 […]"
 },
 "blog.xxbjf.com": {
 "title": "中元节记事",
@@ -3278,12 +2401,6 @@
 "title": "刷到一条朋友圈",
 "link": "https://miraii.cn/posts/e074k362/",
 "summary": "作者在朋友圈看到一位多年未联系的高中同学，对方已完成研究生学业。这条动态唤起了对高中、高考以及之后人生分岔的回忆。曾经同班的两个人，一个始终位列第一并进入理想高校，另一个则进入普通…"
-},
-"blog.study996.cn": null,
-"bull.eu.org": {
-"title": "出成绩了",
-"link": "http://bull.eu.org/posts/exam_ruslut/",
-"summary": "2025咨询工程师（投资），很意外，也很好 这几天相关的公众号和老师都拿到内部消息说是本周出成绩大概率是周五或者下周一，没想到周四出了 上午九点多突然看到群里的消息"
 },
 "www.imcry.vip": {
 "title": "我差点被留在了那一天",
@@ -3318,7 +2435,6 @@
 "summary": "坤坤四年級（下期）第17周學報〔總第145期〕 本周期末，坤坤重在復習語數英學科內容。一切毫無頭緒，為父只能尊 … Read More"
 },
 "krya.com": null,
-"lxb.wiki": null,
 "cyrusyip.org": {
 "title": "安全驾驶的要素：速度差、距离、视野、预判、友善、专注、车况",
 "link": "https://cyrusyip.org/zh-cn/posts/2026/08/27/safe-driving/",
@@ -3330,29 +2446,16 @@
 "link": "https://www.banbie.com/archive/0505/",
 "summary": "记录5月5日泸州银河左岸音乐节的特种兵之行。从凌晨四点半启程到次日凌晨两点半归家。"
 },
-"www.muooy.com": null,
-"liujinkai.com": {
-"title": "ChatGPT Plus 国内如何付费购买？",
-"link": "https://liujinkai.com/2023/07/11/chatgpt-plus-api-pay/",
-"summary": "如果你想体验ChatGPT Plus，或者ChatGPT API到达请求限制时，也需要付费才行。但是国内要想支付的话，国内信用卡和香港卡都是被限制的。通过虚拟信用卡的方式可是实现。"
-},
 "www.huih110.com": {
 "title": "山南轮迹-上",
 "link": "http://www.huih110.com/archives/shannanxing1",
 "summary": "我从未想过自己会这么快再次踏上西藏的土地。甚至在我过往的执念里，重新回到这里怎么也该是骑着两轮踩踏而至，绝不该是如此“拉胯”地坐着飞机。然而，世事难料，从按下买机票的确认键到真正登…"
 },
-"www.choupangxia.com": null,
 "www.cnfeat.com": null,
 "blog.closex.org": {
 "title": "关于软件、Agent 和未来的一些最近随想",
 "link": "https://blog.closex.org/cn/posts/344ca3b4/",
 "summary": "六个月没写博客，每天开着 AI 工具乱搞。关于 SaaS 的死亡、Electron 的落幕、agent 集群的头痛、世界模型才是正解，还有每天 token 烧得不够快的焦虑。"
-},
-"hahaha.cc": null,
-"blog.henix.info": {
-"title": "简单实现 C++ 字符串格式化",
-"link": "https://blog.henix.info/blog/cpp-string-format/",
-"summary": "字符串格式化是很常见的功能，传统上，我们使用 C 语言的 printf 来格式化。但作为一位 C++ 爱好者，printf 的缺点也很明显： 非类型安全 无法添加自定义类型 std…"
 },
 "chenbozheng.com": {
 "title": "《奥德赛》影评：诺兰IMAX史诗背后，独眼巨人、女巫塞壬都在讲人生阻碍",
@@ -3379,12 +2482,6 @@
 "link": "https://blog.deepchirp.com/2026/08/04/Beyond-the-Connection-Point-Yokohama-Concert-and-Japan-Travels/",
 "summary": "本文记录了作者参加MyGO!!!!!第九场演唱会「つなぎ目の向こうに」（在接缝的彼岸）的经历，以及旅行和巡礼过程（如逗子的《描绘未来》）。"
 },
-"blog.devnest.top": null,
-"wuxinhua.com": {
-"title": "写作者与不写作者：AI 时代的思考分水岭",
-"link": "https://wuxinhua.com/posts/Paul-Graham-writes-and-write-nots",
-"summary": "这是一篇来自 Paul Graham 的文章翻译，探讨在 AI 时代写作思考能力重要性以及未来写作者与不写作者的分化。"
-},
 "www.zqzld.com": {
 "title": "AI 帮我写的 HALO 邮件模板分享：一套风格统一的全站通知邮件",
 "link": "https://www.zqzld.com/archives/1783487522365",
@@ -3400,61 +2497,26 @@
 "link": "https://www.liangduiban.com/weixiu/656.html",
 "summary": "前段时间，老妈的厨房水槽漏水，不是很严重，但已有积水。仔细检查一下，是一个水槽下水管的一个接口（见下图），有些渗水。下水管的塑料状况还不错，猜测是接口的胶垫圈老化了。"
 },
-"blog.imyan.ren": null,
 "zb2026.top": {
 "title": "发财日记",
 "link": "https://zb2026.top/article/article-1779524665669",
 "summary": "这是一篇加密文章，输入密码后继续阅读。"
-},
-"www.itscase.cn": null,
-"blog.manyacan.com": {
-"title": "再见2025，你好2026",
-"link": "https://blog.manyacan.com/archives/2058/",
-"summary": "距离2026年农历新年还有： #countdown-box { width: fit-content; margin: 10px auto; } #countdown-box>sp…"
-},
-"shellc.cn": null,
-"blog.hanta2011.top": {
-"title": "你已急哭-Hexo Butterfly摸头头像教程",
-"link": "https://blog.hanta2011.top/posts/42170.html",
-"summary": "作者已急哭"
 },
 "blog.wyc.cc": {
 "title": "中美火箭回收有何异同",
 "link": "https://wyclab.com/posts/huojianhuishou",
 "summary": "SpaceX目前有两款型号，一个是成熟运行10年的猎鹰9号；一个是试验阶段的星舰。中国目前测试成功的型号是长征十号-乙。本文列举三者的参数。"
 },
-"wuta.cc": {
-"title": "CentOS、Debian、Ubuntu哪个系统更适合做WEB服务器",
-"link": "https://wuta.cc/019",
-"summary": "选择哪个系统取决于你的具体需求和技术背景。以下是三个系统的对比分析："
-},
-"leonscave.com": {
-"title": "终于辞职",
-"link": "https://leonscave.com/p/2025/zhong-yu-ci-zhi/",
-"summary": "今天是我在这家公司的最后一天，心理反而生出些不舍。辞职的念头很早就有了，许多人劝我不要离职。五月份时我跟 leader 说了我的想法，leader 也劝我多想想，离开了这里，以后可…"
-},
-"lepture.com": {
-"title": "我用 AI 造新語",
-"link": "https://lepture.com/zh/2026/new-language-by-ai",
-"summary": "我想，应该有很多人和我一样，都尝试过让 AI 来创建一门新语言吧。今天来分享一下我和 AI 深度对话后的产物——Nusila。你可以把它当作无聊时的戏作，亦可以用这门语言来创作自己…"
-},
-"eddycjy.com": null,
 "shitao5.org": {
 "title": "出纳一日体验",
 "link": "https://shitao5.org/posts/cashier-day-experience/",
 "summary": "因公司出纳离职，新人暂未到岗，昨天老板让我临时回去帮几天忙，用操作盾发起付款。由于我只用过复核盾，跟老板说俺是新手后，抱着学习的心态上岗了。 因为只是出纳的一部分工作，所以并不算难…"
 },
 "xiaoni.liahuas.top": null,
-"www.xrbk.cn": null,
 "blog.forecho.com": {
 "title": "新手如何上手自营交易（Prop Firm）：FundedNext 保姆级开户与配置指南",
 "link": "https://blog.forecho.com/fundednext-prop-firm-beginner-guide.html",
 "summary": "引言 很多刚接触期货自营交易（Prop Firm / PF）的新手，经常在第一步就被各种英文术语、账户类型和平台登录给搞懵了。 自营交易简单来说，就是你花几十美元买一个考核账号，用…"
-},
-"chattymoney.com": {
-"title": "纽约的房价到底有多高？",
-"link": "https://chattymoney.com/2019/05/20/%e7%ba%bd%e7%ba%a6%e7%9a%84%e6%88%bf%e4%bb%b7%e5%88%b0%e5%ba%95%e6%9c%89%e5%a4%9a%e9%ab%98%ef%bc%9f/",
-"summary": "大家都知道北京上海的房价高，在美国是纽约和旧金山的房价高。因为我在纽约已经居住和生活了十多年，所以对纽约的房价 […]"
 },
 "barcodex.cn": {
 "title": "一篇文章看懂扫码枪/条码扫描器如何选择",
@@ -3491,9 +2553,6 @@
 "link": "https://www.sksren.com/archives/2209.html",
 "summary": "前段时间上映一部叫做《挽救计划》的科幻片，有评论将其与《星际穿越》相提并论，我自知这属于不自量力的蹭热度。因为 […]"
 },
-"www.lushaojun.com": null,
-"blog-youyu.fun": null,
-"glavo.site": null,
 "iceprosurface.com": {
 "title": "拿 AI 写了个游戏谈谈心得",
 "link": "https://iceprosurface.com/thought/building-a-game-with-ai/",
@@ -3515,16 +2574,6 @@
 "summary": "在现代前端生态中，npm 包发布流程的安全性越来越重要。 传统的发布方式通常依赖长期有效的 npm token，一旦泄露，攻击者就可以直接发布恶意版本，带来严重的供应链风险。为了解…"
 },
 "untymen.com": null,
-"blog.zc.wiki": {
-"title": "跑得慢被撞了",
-"link": "https://blog.zc.wiki/archives/255/",
-"summary": "两个多月前买了一辆九号电动车，我给它取名跑得慢，实际上一点都不慢，一共是3档，一档满把近35码，3档我也试过，起步很快，但具体满速多少就不清楚了，毕竟仪表盘永远是25码。这几天天气…"
-},
-"mingming.wang": {
-"title": "linux环境下解决文本文件乱码问题",
-"link": "https://mingming.wang/posts/resolving-text-file-encoding-problems-on-linux/",
-"summary": "在中文环境下，有些文本文件以 gbk、gb2312 等编码保存，有些软件打开时会出现乱码的情况。 这时需要通过指定正确的编码格式打开文件，或者把这个文件转换为软件默认使用的编码格式…"
-},
 "siwei.li": {
 "title": "AirPods Pro 3 还是 AirPods 4 降噪版？",
 "link": "https://siwei.li/airpods-pro-3-vs-airpods-4-anc/",
@@ -3585,13 +2634,6 @@
 "link": "https://acchw.top/posts/17699/",
 "summary": "第一次遇到这种情况，事情整体经过是这样的。 <a href=\"#缘起\" class=\"headerlink\""
 },
-"www.duanxiansen.com": {
-"title": "凌晨告别",
-"link": "https://www.duanxiansen.com/3295.html",
-"summary": "正月十一凌晨2点半，被娃的哭声弄醒了，娃喝奶的时间到了，连忙起身泡奶。一套操作下来丝滑如水，已经形成记忆了。喝 […]"
-},
-"webzhao.me": null,
-"blog.liuzijian.com": null,
 "lhcy.org": {
 "title": "心境情感障碍复发",
 "link": "https://lhcy.org/archives/xin-jing-qing-gan-zhang-ai-fu-fa.html",
@@ -3619,7 +2661,6 @@
 "link": "https://www.0731119.xyz/index.php/archives/549/",
 "summary": "一、内容策划与结构 爆款拆解方法 拆解维度：开头、冲突、高潮、反转、结尾的底层框架 实操练习：看完爆款后重写故事框架，结合自身生活素材改写 封面与标题设计 核心卖点拆解角度：情绪卖…"
 },
-"www.penjc.cn": null,
 "linyu.live": {
 "title": "《欢迎来到龙餐馆》强烈推荐！",
 "link": "https://linyu.live/archives/131.html",
@@ -3634,11 +2675,6 @@
 "title": "直播引发的风波：从贵州榕江球场到佛山学校门口",
 "link": "https://www.htaoo.com/record/936.html",
 "summary": "最近看到佛山市超盈实验中学足球队参加贵州榕江“班超”足球赛的一件事情。 比赛本身其实没什么好说的。 超盈实验中学足球队赢了比赛，球员们高兴、庆祝，本来都是很正常的事情。 年轻人踢完…"
-},
-"www.watch-life.net": {
-"title": "在大学里，读懂一座城与一个国的百年",
-"link": "https://www.watch-life.net/life-thinking/3237.html",
-"summary": "百年大学，大师云集"
 },
 "dongjunke.cn": {
 "title": "Hello，未来世界的代理人们",
@@ -3666,7 +2702,6 @@
 "link": "https://zrui.tech/posts/23-yet-a-youth/",
 "summary": "23"
 },
-"fatesinger.com": null,
 "ninan.me": {
 "title": "补一张卡，要几道证明？",
 "link": "https://ninan.me/thoughts/complaining-about-the-card-suspension-campaign.html",
@@ -3682,16 +2717,10 @@
 "link": "https://xingtu.org/736.html",
 "summary": "凌晨6点西安文化CBD，确实很安静，撕裂天空的缝隙，可窥见美好的一天，站在马路边看天空。到了西安，吃泡馍没感觉，跟外地吃的一模一样，也或许找到的店不对。一天的工作都在和太阳躲猫猫，…"
 },
-"www.sczyh30.com": null,
 "nxxy335.top": {
 "title": "新衣、无聊与一副变形眼镜",
 "link": "https://nxxy335.top/archives/TxquSKpt",
 "summary": "本文记录了作者近期生活中的几件琐事。表妹来访时，作者为她网购了一件价格实惠的宽松T恤，但因版型宽大，袖子较长，引起了家人的议论。表弟表妹离开后，作者重归独处，生活再次陷入单调的日常…"
-},
-"blog.ehnap.com": {
-"title": "2025年度报告",
-"link": "https://blog.ehnap.com/posts/Annual-Review/annual-2025.html",
-"summary": "2025 年我自己的体感，没有前两年那么魔幻，当然也可能是逐渐适应了这种不确定，已经习以为常了。从这个世界是有一定秩序与规律到世界本来就是荒谬的，仅仅需要一个口罩加上两三年的时间，…"
 },
 "yulijia.net": null,
 "www.zheep.top": {
@@ -3704,30 +2733,10 @@
 "link": "https://blog.liushen.fun/posts/b404081c/",
 "summary": "这里是清羽AI，这篇文章记录了站长清羽飞扬近期的工作动态与技术探索。作者首先介绍了自主开发的清羽认证系统，该项目用于替代原有的Casdoor方案，实现了用户无感迁移与多种登录方式。…"
 },
-"gorpeln.top": {
-"title": "免费领取Synology C2的30G对象存储空间",
-"link": "https://gorpeln.top/article/17711167178",
-"summary": "前言 今天继续为大家分享一款实用的免费云存储服务——Synology C2 对象存储。该服务提供与 S3协议 兼容的对象存储能力，具备企业级的数据安全性，定价透明，并与 Synol…"
-},
-"www.gdxy.vip": {
-"title": "广州金麦环线徒步来到华峰寺吃斋",
-"link": "https://www.gdxy.vip/archives/no0qa21K",
-"summary": "广州金麦环线（又称金麦线）是广州市东部一条集自然景观与人文历史于一体的徒步路线，全程约18公里，耗时8小时左右，适合中级体力水平的徒步爱好者。 起点为地铁21号线‌金坑站B出口‌，…"
-},
 "limaomao810.com": {
 "title": "轮到我失业了",
 "link": "https://limaomao810.com/archives/1017",
 "summary": "周末还在博友圈看到1个博友失业了，没想到周一就轮到了我，好在预期范围内。 公司帮我下了决心就痛痛快快的离开。 大致流程如下： 于是痛快签字，出门前，跟HRG和+..."
-},
-"blog.qyliu.top": {
-"title": "AxonHub - 多模型API智能路由网关",
-"link": "https://blog.liushen.fun/posts/b404081c/",
-"summary": "这里是清羽AI，这篇文章记录了站长清羽飞扬近期的工作动态与技术探索。作者首先介绍了自主开发的清羽认证系统，该项目用于替代原有的Casdoor方案，实现了用户无感迁移与多种登录方式。…"
-},
-"www.fec.xyz": {
-"title": "人为什么要喝酒？",
-"link": "https://www.fec.xyz/daily/2026-1585.html",
-"summary": "人为什么要喝酒？ 年少时举杯，以为杯中斟满江湖，一口下去，便是半个盛唐。待到岁月浸满了杯沿，方知：酒就是液态的月光，既照得见少年梦，也能够映得出鬓边霜。 千百年..."
 },
 "isming.me": null,
 "maie.name": null,
@@ -3746,23 +2755,12 @@
 "link": "https://www.wsyblog.cn/2026/mianfeiym",
 "summary": "一个账号白拿3个eu.cc免费域名，注册续费都免费，还支持接入Cloudflare，附完整避坑指南和实操步骤。 做个人博客、导航页、项目演示站，卡在第一步的往往是域名：买一个 .c…"
 },
-"linsnow.cn": null,
-"blog.mutoo.im": {
-"title": "以 Maildir 方式备份邮件",
-"link": "https://blog.mutoo.im/2024/backup-with-maildir/",
-"summary": "2023 年就这么过去了。AIGC 的出现让很多事情发生了改变。我使用搜索引擎的频率急剧降低，连查阅维基百科的次数也少了很多。AI"
-},
 "leileiluoluo.com": {
 "title": "罗翔律师的逆天观点「律师要为坏人辩护」",
 "link": "https://leileiluoluo.com/posts/luo-xiang-lv-shi-de-ni-tian-guan-dian.html",
 "summary": "偶然间看到网红律师罗翔的逆天观点「律师要为千夫所指、罪大恶极之人辩护」、「给坏人辩护的律师不是坏人」。罗翔律师在视频中引经据典用心良苦的给网友解释「律师为坏人、罪大恶极之人辩护的正…"
 },
 "catcoding.me": null,
-"blog.byer.ink": {
-"title": "Polaris-Harbor | 极昼星港个人主页",
-"link": "https://blog.byer.ink/posts/S6Ip",
-"summary": "近期作者更换了个人域名，并在寻找满意的个人界面过程中，浏览了大量主页却未找到心动的设计。因此，作者决定自己编写一个主页，该主页具备自适应切换颜色和自动识别项目所属仓库的功能，虽然功…"
-},
 "liuyuyang.net": {
 "title": "这俩老外还挺热心的🤝 针对我的开源项目...",
 "link": "https://liuyuyang.net/record",
@@ -3784,7 +2782,6 @@
 "link": "https://blog.colix.cn/posts/ctf/re-pwn-mcp/",
 "summary": "常用逆向工具mcp配置方法与坑点记录"
 },
-"www.lfhacks.com": null,
 "www.phodal.com": {
 "title": "从生成动画到可编程产物：在 Harness 中构建 Lottie 创作运行时",
 "link": "http://www.phodal.com/blog/agentic-programming-artifact/",
@@ -3794,11 +2791,6 @@
 "title": "【运维闯关挑战】凌晨三点，服务器又炸了？先来这里练练手！",
 "link": "https://www.fuzhoupyy.work/index.php/archives/494/",
 "summary": "练习地址：https://ssh.fuzhoupyy.work/你是不是也经历过这些瞬间半夜被报警电话吵醒，Nginx 又挂了，睡衣都没换就摸黑打开电脑手抖敲错一个命令，冷汗瞬间浸…"
-},
-"ztgdblog.icu": {
-"title": "2025 年终总结",
-"link": "https://ztgdblog.icu/2026/01/02/2025-%e5%b9%b4%e7%bb%88%e6%80%bb%e7%bb%93/",
-"summary": "首先祝大家新年快乐！！ 虽然祝福的话年年都那一套，可怎么说都不落俗套，愿你有福星高照，永远青春美貌，有温暖的怀 […]"
 },
 "www.xalaok.top": {
 "title": "华硕天选睡眠蓝牙唤醒异常",
@@ -3820,11 +2812,6 @@
 "link": "https://wxsnote.cn/8284.html",
 "summary": "用子比主题的站长应该都知道，主题自带了一个外链重定向功能，文章里的外部链接会走?golink=xxx& […]"
 },
-"wayjam.me": {
-"title": "告别 NPM Token：迁移到 Trusted Publishing 全记录",
-"link": "https://wayjam.me/posts/npmjs-trusted-publishing-changes/",
-"summary": "发生了什么？ 2025 年 12 月 9 日，npm 正式永久撤销了所有 Classic Token。与此同时，npm 引入了基于会话的认证（2 小时有效期）和新的 CLI Tok…"
-},
 "www.yveji.com": {
 "title": "舞阳吃什么？",
 "link": "https://www.yveji.com/Delicacy/henan-wuyang.html",
@@ -3842,19 +2829,11 @@
 "link": "https://blog.lmb.blue/archives/1624/",
 "summary": "一份来自网友的回馈我在2024年年末发布了《具体使用unlock-music项目解锁各大音乐平台的加密格式》文章。因为某些音乐平台需要特定版本，所以为了让各位网友更方便使用，我就找…"
 },
-"blog.99xin.me": null,
-"zhengzexin.com": {
-"title": "使用 Github Actions 自动更新 ANNOVAR 的 Clinvar 数据库",
-"link": "https://zhengzexin.com/archives/automatic_update_Clinvar_db_for_ANNOVAR/",
-"summary": "前段时间，看到ANNOVAR在文档里更新了一个可以自行更新Clinvar数据库的脚本，ANNOVAR更新Clinvar的频率，一般是半年到一年才更新一次。 恰好又看到Github新…"
-},
 "www.nbdiqiu.top": {
 "title": "数字测图课程报告",
 "link": "https://www.nbdiqiu.top/2026/07/49/",
 "summary": "数字测图规范标准 《1∶500，1∶1000，1∶2000 外业数字测图技术规程》GB/T 14912-2017； 《1∶500，1∶1000，1∶2000 地形图图式》GB/T …"
 },
-"www.calvinz.top": null,
-"objcoding.com": null,
 "leoon.cn": {
 "title": "走一趟格聂南线！",
 "link": "https://leoon.cn/travel/616",
@@ -3880,7 +2859,6 @@
 "link": "https://blog.ylmty.cc/articles/frontEnd/comments-to-vitepress",
 "summary": "静态博客接评论总要在后端、前端、样式三处来回折腾。这篇记录 VitePress 用 Twikoo 的过程：Cloudflare Workers + D1 部署、自定义域名、主题插槽…"
 },
-"www.btorange.com": null,
 "blog.yiyou.bj.cn": {
 "title": "没用的傻事",
 "link": "https://blog.yiyou.bj.cn/archives/mei-yong-de-sha-shi",
@@ -3906,17 +2884,6 @@
 "link": "https://loglib.cn/post/45",
 "summary": "所有默默的沉淀与等待，终会迎来如期而至的惊喜。 前天晚上九点，收到机动车检测维修工程师证书的邮寄通知，满心期待。时隔短短两天，今日早晨，新鲜的纸质证书顺利签收、稳稳到手。从线上电子…"
 },
-"keelii.com": {
-"title": "Node.JS 作者 Ryan Dahl 的故事",
-"link": "https://keelii.com/story-of-creator-of-nodejs-ry",
-"summary": "今天我想来聊聊 Node.js 的作者 Ryan Dahl(ry)，前不久在它的一个演讲主题上了解到了一些关于他的故事，结合我自己的一些认知，我想 ry 的故事对于我们是有所启发的…"
-},
-"guangzhengli.com": null,
-"nibbles.cn": {
-"title": "继承和多态 | Java语言关键",
-"link": "https://nibbles.cn/java-inherit-polymorphism.html",
-"summary": "全面解读Java中继承与多态机制，剖析父类与子类关系、成员变量与方法的访问、super用法、代码复用设计，以及多态的实现条件和动态绑定原理。涵盖方法重写、构造方法调用顺序、组合vs…"
-},
 "vjo.cc": {
 "title": "外婆",
 "link": "https://vjo.cc/2014",
@@ -3932,7 +2899,6 @@
 "link": "https://wangyurui.com/posts/chao-xiao-gao-jia-lin-li-jie-gao-jia-lin-cheng-w-7dae4e6f",
 "summary": "最近读了路遥的《早晨从中午开始》，其中有句话写得很好，“要忘掉你写过《人生》，忘掉你得过奖，忘掉荣誉，忘掉鲜花和红地毯。从今往后你仍然一无所有，就像七岁时赤手空拳离开父母离开故乡去…"
 },
-"jiongks.name": null,
 "inkcodes.com": {
 "title": "archlinux机械革命15x音频修复2",
 "link": "https://inkcodes.com/2026/03/14/archlinux%E6%9C%BA%E6%A2%B0%E9%9D%A9%E5%91%BD15x%E9%9F%B3%E9%A2%91%E4%BF%AE%E5%A4%8D2/",
@@ -3944,13 +2910,6 @@
 "summary": "昨天上午写了一篇阅读方式的改变就去出去玩了，打了一小时羽毛球，出去吃东西徒步还赶 … Continue reading →"
 },
 "wangxuan.me": null,
-"blog.mwwlzz.top": {
-"title": "Code Translation",
-"link": "https://blog.mwwlzz.top/article/CodeTransEval",
-"summary": "TL;DR🙈该文章介绍了一个用于评估 CodeLLMs 在代码翻译任务上的功能性和安全性的自动化框架，旨在通过指定模型名称，实现自动化评估模型的表现。框架支持模型推理、输入处理、输…"
-},
-"blog.ops-coffee.com": null,
-"blog.thinkeridea.com": null,
 "jiaoyuan.org": null,
 "bluehe.cn": {
 "title": "于日常处 · 七月记",
@@ -3962,18 +2921,11 @@
 "link": "https://www.moranfong.com/arknights-skill/",
 "summary": "我 19 年入的明日方舟坑，断断续续玩了好几年，最近退游挺久了。前阵子想回坑，打开游戏发现：一堆新干员不认识，剧情线完全接不上，什么模组、集成战略的新机制也看不懂，社区里讨论的术语…"
 },
-"cdc.tencent.com": {
-"title": "一篇不是很枯燥的ChatGPT闲谈",
-"link": "https://cdc.tencent.com/2023/04/17/%e4%b8%80%e7%af%87%e4%b8%8d%e6%98%af%e5%be%88%e6%9e%af%e7%87%a5%e7%9a%84chatgpt%e9%97%b2%e8%b0%88/",
-"summary": "这是一篇ChatGPT有关的文章，总共有三部分：先科普一下ChatGPT中的GPT是什么，然后介绍从GPT3到 […]"
-},
-"s7.fan": null,
 "www.czhlove.cn": {
 "title": "又下雨了",
 "link": "https://czhlove.cn/rainingAgain",
 "summary": "成都最近总是在下雨。出门时嫌它麻烦，回到住处听见雨声，却又觉得屋里没有平时那么空。"
 },
-"www.winature.com": null,
 "blog.dengxj.com": {
 "title": "虚拟专用网络基本原理及应用（持续更新）",
 "link": "http://blog.dengxj.com/archives/8/",
@@ -3984,7 +2936,6 @@
 "link": "https://sigge.cn/2026/09/01/ZhLDz6Ha",
 "summary": "给博客添加了音乐卡片"
 },
-"feifei.co": null,
 "blog.frdlink.link": {
 "title": "偶遇刀枪炮",
 "link": "https://blog.frdlink.link/index.php?article_id=43",

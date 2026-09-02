@@ -4,21 +4,18 @@
 {{ with (index hugo.Data "alliance-latest") }}{{ $latest = .map | default dict }}{{ end }}
 
 {{ if $blogs }}
-{{/* 180 天未更新归入「沉睡的站」。用字符串比较避免时区解析开销与失败。 */}}
+{{/* 沉睡的站（180 天未更新）已从数据源彻底移除，此处只渲染活跃站。 */}}
 {{ $cutoff := (now.AddDate 0 0 -180) | dateFormat "2006-01-02T15:04:05" }}
 {{ $active := slice }}
-{{ $sleep := slice }}
 {{ range $blogs }}
   {{ if and .updated (ge (substr .updated 0 19) $cutoff) }}
     {{ $active = $active | append . }}
-  {{ else }}
-    {{ $sleep = $sleep | append . }}
   {{ end }}
 {{ end }}
 
 <div class="al-bar">
   <div class="al-stat">
-    收录 <b>{{ len $blogs }}</b> 个独立博客 · 活跃 <b>{{ len $active }}</b>{{ if $sleep }} · 沉睡 <b>{{ len $sleep }}</b>{{ end }}
+    收录 <b>{{ len $blogs }}</b> 个独立博客
   </div>
   <div class="al-meta">数据更新于 {{ substr $data.updated 0 16 | replaceRE "T" " " }}</div>
 </div>
@@ -33,9 +30,9 @@
   <span class="al-count"><b id="al-visible">{{ len $active }}</b> / {{ len $blogs }}</span>
 </div>
 
-{{/* 首屏只渲染第 1 页（10 张）真实 DOM，保证首屏即时有内容；其余由 JS 从内联 JSON 渲染。 */}}
+{{/* 首屏只渲染第 1 页（12 张）真实 DOM，保证首屏即时有内容；其余由 JS 从内联 JSON 渲染。 */}}
 <div class="al-grid" id="al-list">
-  {{ range $i, $b := first 10 $active }}
+  {{ range $i, $b := first 12 $active }}
   {{ $ini := substr (printf "%s" $b.name) 0 1 }}
   <div class="al-card"
        data-updated="{{ $b.updated }}"
@@ -67,21 +64,10 @@
 
 <div class="al-pager" id="al-pager"></div>
 
-{{ with $sleep }}
-<details class="al-sleep" id="al-sleep">
-  <summary class="al-sum">
-    沉睡的站 · 超过 180 天未更新
-    <span class="al-sum-n">{{ len . }} 个</span>
-  </summary>
-  <div class="al-grid al-grid-sleep" id="al-sleep-list"></div>
-  <div class="al-pager" id="al-sleep-pager"></div>
-</details>
-{{ end }}
-
 <p class="al-tip">比邻收录来自博友圈的活跃独立博客，点击卡片可跳转原站。按最近更新时间排列。</p>
 
-{{/* 全量数据内联为 JSON，供 JS 搜索 / 排序 / 翻页 / 懒加载沉睡区使用。
-     不必在服务端渲染上千张卡片，首屏 DOM 仅 60 张，HTML 体积与解析时间骤降。
+{{/* 全量数据内联为 JSON，供 JS 搜索 / 排序 / 翻页使用。
+     不必在服务端渲染上千张卡片，首屏 DOM 仅 12 张，HTML 体积与解析时间骤降。
      替换 </ 为 <\/ 防止个别简介里的 </script> 提前闭合脚本。 */}}
 <script id="al-blogs" type="application/json">{{ (index hugo.Data "alliance").blogs }}</script>
 <script id="al-latest" type="application/json">{{ (index hugo.Data "alliance-latest").map }}</script>
@@ -100,32 +86,19 @@
   var sortSel = document.getElementById('al-sort');
   var out = document.getElementById('al-visible');
   var list = document.getElementById('al-list');
-  var sleepDetails = document.getElementById('al-sleep');
-  var sleepList = document.getElementById('al-sleep-list');
   if (!list) return;
 
-  var PAGE = 10;
+  var PAGE = 12;
 
-  // 全量数据来自内联 JSON（服务端不再渲染上千张卡片）
+  // 全量活跃数据来自内联 JSON（沉睡站已从数据源移除，服务端仅渲染活跃站）
   var BLOGS = [], LATEST = {};
   try { BLOGS = JSON.parse(document.getElementById('al-blogs').textContent); } catch (e) { BLOGS = []; }
   try { LATEST = JSON.parse(document.getElementById('al-latest').textContent); } catch (e) { LATEST = {}; }
 
-  // 180 天未更新 => 沉睡（与 Hugo 模板判定一致，字符串比较 ISO 时间）
-  var cutoffStr = (function () {
-    var d = new Date(Date.now() - 180 * 86400000);
-    function p(n) { return (n < 10 ? '0' : '') + n; }
-    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) +
-           'T' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
-  })();
-  function isActive(b) { return !!(b.updated && b.updated.slice(0, 19) >= cutoffStr); }
-
-  var activeAll = [], sleepAll = [];
-  BLOGS.forEach(function (b) { (isActive(b) ? activeAll : sleepAll).push(b); });
+  var activeAll = BLOGS.slice();
   activeAll.forEach(function (b, i) { b._ci = i; });
-  sleepAll.forEach(function (b, i) { b._ci = i; });
 
-  var page = 1, sleepPage = 1;
+  var page = 1;
 
   function esc(s) {
     s = (s == null) ? '' : String(s);
@@ -135,13 +108,13 @@
   }
 
   // 与服务端首屏卡片保持一致的标记；isSleep 控制沉睡样式
-  function cardHTML(b, isSleep) {
+  function cardHTML(b) {
     var ini = (b.name || '').charAt(0) || '#';
     var c = (b._ci || 0) % 6;
-    var avCls = 'al-av' + (isSleep ? ' al-fade' : '') + ' al-c' + c;
+    var avCls = 'al-av' + ' al-c' + c;
     var timeStr = b.updated ? b.updated.slice(0, 10) : '从未更新';
     var lt = LATEST[b.domain] || null;
-    var h = '<div class="' + (isSleep ? 'al-card al-card-sleep' : 'al-card') + '"'
+    var h = '<div class="al-card"'
       + ' data-updated="' + esc(b.updated || '') + '"'
       + ' data-posts="' + esc(b.posts || '') + '"'
       + ' data-added="' + esc(b.added || '') + '">'
@@ -253,22 +226,10 @@
     if (page > pages) page = pages;
     if (page < 1) page = 1;
     var slice = arr.slice((page - 1) * PAGE, page * PAGE);
-    list.innerHTML = slice.map(function (b) { return cardHTML(b, false); }).join('');
+    list.innerHTML = slice.map(function (b) { return cardHTML(b); }).join('');
     applyRelTime(list);
     renderPager('al-pager', pages, page, function (p) { page = p; renderActive(); });
     if (out) out.textContent = arr.length;
-  }
-
-  function renderSleep() {
-    if (!sleepList) return;
-    var arr = sleepAll.slice();
-    var pages = Math.max(1, Math.ceil(arr.length / PAGE));
-    if (sleepPage > pages) sleepPage = pages;
-    if (sleepPage < 1) sleepPage = 1;
-    var slice = arr.slice((sleepPage - 1) * PAGE, sleepPage * PAGE);
-    sleepList.innerHTML = slice.map(function (b) { return cardHTML(b, true); }).join('');
-    applyRelTime(sleepList);
-    renderPager('al-sleep-pager', pages, sleepPage, function (p) { sleepPage = p; renderSleep(); });
   }
 
   var timer = null;
@@ -277,7 +238,6 @@
     timer = setTimeout(function () { page = 1; renderActive(); }, 120);
   });
   if (sortSel) sortSel.addEventListener('change', function () { page = 1; renderActive(); });
-  if (sleepDetails) sleepDetails.addEventListener('toggle', function () { if (sleepDetails.open) renderSleep(); });
 
   renderActive();
 })();

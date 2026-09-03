@@ -49,12 +49,15 @@ function corsResponse(body, status = 200, extraHeaders) {
 
 function checkAuth(request, env) {
   try {
-    const token = request.headers.get('X-Admin-Token');
-    const expectedToken = env.ADMIN_TOKEN;
-    if (!token || !expectedToken || token !== expectedToken) {
-      return false;
+    const token = request.headers.get('X-Admin-Token') || '';
+    const expected = env.ADMIN_TOKEN || '';
+    // S03: 恒定时间比较，避免逐字节计时侧信道
+    if (token.length !== expected.length) return false;
+    let diff = 0;
+    for (let i = 0; i < expected.length; i++) {
+      diff |= token.charCodeAt(i) ^ expected.charCodeAt(i);
     }
-    return true;
+    return diff === 0;
   } catch (e) {
     return false;
   }
@@ -852,6 +855,8 @@ async function updateLinks(request, env) {
 
 // ═════════════════════════════════════════════════════════════════
 // 文汇 RSS 源管理
+// DEPRECATED: 文汇功能已暂停（源列表 wenhui-hidden.md 不存在，输出恒为空）。
+// 接口与代码保留仅作历史参考，恢复前请勿在此扩展。
 const WENHUI_PATH = 'data/wenhui-feeds.json';
 
 async function getWenhuiFeeds(env) {
@@ -925,6 +930,20 @@ async function updateAlliance(request, env) {
 
 // 公开提交接口：供 pennear.pgoj.top 提交页调用，无需 admin token。
 // checkOrigin 已限制来源为 *.pgoj.top，配合下面的 isPublicPath 放行匿名 POST。
+// S04: 基于 KV 的提交速率限制（IP 维度，每日上限 3 次）。
+// 无 SUBMISSIONS_KV binding 时返回 null，调用方照常放行（优雅降级）。
+async function checkSubmitRateLimit(request, env) {
+  if (!env || !env.SUBMISSIONS_KV) return null;
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+  const key = 'ratelimit:submit:' + ip;
+  const count = parseInt(await env.SUBMISSIONS_KV.get(key) || '0', 10);
+  if (count >= 3) {
+    return corsResponse(JSON.stringify({ error: '今日提交次数已达上限，明天再试' }), 429);
+  }
+  await env.SUBMISSIONS_KV.put(key, String(count + 1), { expirationTtl: 86400 });
+  return null;
+}
+
 async function submitBlog(request, env) {
   let body;
   try { body = await request.json(); } catch (e) {
@@ -948,50 +967,65 @@ async function submitBlog(request, env) {
   if (!site) site = domain ? 'https://' + domain : feed;
   else if (!/^https?:\/\//i.test(site)) site = 'https://' + site.replace(/^\/+/, '');
 
-  const existing = await readGitHubFile(ALLIANCE_PATH, env).catch(function () { return null; });
-  let data;
-  try { data = existing ? JSON.parse(existing.content) : { updated: null, source: '', total: 0, active: 0, blogs: [] }; }
-  catch (e) { data = { updated: null, source: '', total: 0, active: 0, blogs: [] }; }
-  const blogs = Array.isArray(data.blogs) ? data.blogs : [];
+  // S04: 公开接口速率限制（无 KV binding 时跳过）
+  const rl = await checkSubmitRateLimit(request, env);
+  if (rl) return rl;
 
-  const dup = blogs.some(function (b) {
-    return (b.domain && domain && b.domain.toLowerCase() === domain.toLowerCase())
-        || (b.feed && feed && b.feed.toLowerCase() === feed.toLowerCase());
-  });
-  if (dup) return corsResponse(JSON.stringify({ error: '该博客已收录，请勿重复提交' }), 409);
+  // P08: 乐观锁重试，解决并发读-改-写竞态（GitHub 返回 409 时重读最新版本再写）
+  const MAX_ATTEMPTS = 3;
+  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+    const existing = await readGitHubFile(ALLIANCE_PATH, env).catch(function () { return null; });
+    let data;
+    try { data = existing ? JSON.parse(existing.content) : { updated: null, source: '', total: 0, active: 0, blogs: [] }; }
+    catch (e) { data = { updated: null, source: '', total: 0, active: 0, blogs: [] }; }
+    const blogs = Array.isArray(data.blogs) ? data.blogs : [];
 
-  const now = new Date().toISOString();
-  blogs.push({
-    name: name,
-    domain: domain,
-    site: site,
-    feed: feed,
-    desc: desc,
-    posts: 0,
-    updated: now,
-    added: now,
-    location: '',
-    sunset: false,
-    ok: true,
-    hidden: false,
-    pending: true,
-    tags: tags
-  });
+    const dup = blogs.some(function (b) {
+      return (b.domain && domain && b.domain.toLowerCase() === domain.toLowerCase())
+          || (b.feed && feed && b.feed.toLowerCase() === feed.toLowerCase());
+    });
+    if (dup) return corsResponse(JSON.stringify({ error: '该博客已收录，请勿重复提交' }), 409);
 
-  const since = new Date(Date.now() - 365 * 24 * 3600 * 1000).toISOString().slice(0, 10);
-  data.updated = now;
-  data.source = data.source || 'https://www.boyouquan.com/blogs';
-  data.total = blogs.length;
-  data.active = blogs.filter(function (b) { return b.updated && String(b.updated).slice(0, 10) >= since; }).length;
-  data.blogs = blogs;
+    const now = new Date().toISOString();
+    blogs.push({
+      name: name,
+      domain: domain,
+      site: site,
+      feed: feed,
+      desc: desc,
+      posts: 0,
+      updated: now,
+      added: now,
+      location: '',
+      sunset: false,
+      ok: true,
+      hidden: false,
+      pending: true,
+      tags: tags
+    });
 
-  const content = JSON.stringify(data);
-  const bytes = new TextEncoder().encode(content).length;
-  if (bytes * 1.4 > 1000 * 1024) {
-    return corsResponse(JSON.stringify({ error: '数据过大，暂无法提交，请联系管理员' }), 413);
+    const since = new Date(Date.now() - 365 * 24 * 3600 * 1000).toISOString().slice(0, 10);
+    data.updated = now;
+    data.source = data.source || 'https://www.boyouquan.com/blogs';
+    data.total = blogs.length;
+    data.active = blogs.filter(function (b) { return b.updated && String(b.updated).slice(0, 10) >= since; }).length;
+    data.blogs = blogs;
+
+    const content = JSON.stringify(data);
+    const bytes = new TextEncoder().encode(content).length;
+    if (bytes * 1.4 > 1000 * 1024) {
+      return corsResponse(JSON.stringify({ error: '数据过大，暂无法提交，请联系管理员' }), 413);
+    }
+    try {
+      await writeGitHubFile(ALLIANCE_PATH, content, existing ? existing.sha : undefined, 'Submit blog: ' + name, env);
+      return corsResponse(JSON.stringify({ ok: true, message: '提交成功，等待审核后展示。' }));
+    } catch (e) {
+      if (attempt < MAX_ATTEMPTS - 1 && /409/.test(e.message || '')) {
+        continue;  // 版本冲突，重读最新版本重试
+      }
+      throw e;
+    }
   }
-  await writeGitHubFile(ALLIANCE_PATH, content, existing ? existing.sha : undefined, 'Submit blog: ' + name, env);
-  return corsResponse(JSON.stringify({ ok: true, message: '提交成功，等待审核后展示。' }));
 }
 
 // 从博友圈重新导入：通过 GitHub Actions workflow_dispatch 触发（导入脚本翻 120 页，

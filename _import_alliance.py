@@ -25,13 +25,16 @@ import argparse
 import base64
 import gzip
 import html
+import http.client
 import json
 import os
 import re
 import sys
+import threading
 import time
-import urllib.request
 import urllib.error
+import urllib.parse
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from xml.etree import ElementTree as ET
@@ -73,6 +76,91 @@ def http_get(url, timeout=20, retries=3):
     raise last
 
 
+# ── P04: 按 host 复用 HTTPS 连接的字节级 GET（keep-alive + gzip + 跟随重定向）──
+# 每个 worker 线程持有独立的连接池（threading.local），避免跨线程共享 socket。
+# 池容量封顶，超过则关闭最久未用的连接，防止 671 个不同域名累积大量空闲 socket。
+_POOL_CAP = 16
+_conn_local = threading.local()
+
+
+def _conn_pool():
+    pool = getattr(_conn_local, "pool", None)
+    if pool is None:
+        pool = {}
+        _conn_local.pool = pool
+    return pool
+
+
+def _get_conn(host, timeout, https=True):
+    pool = _conn_pool()
+    conn = pool.get(host)
+    if conn is None:
+        conn = http.client.HTTPSConnection(host, timeout=timeout) if https \
+            else http.client.HTTPConnection(host, timeout=timeout)
+        pool[host] = conn
+    return conn
+
+
+def _evict_pool():
+    """连接池超出容量时，关闭并移除最久未使用的连接。"""
+    pool = _conn_pool()
+    while len(pool) > _POOL_CAP:
+        old_host, old_conn = pool.popitem(last=False)
+        try:
+            old_conn.close()
+        except Exception:
+            pass
+
+
+def _http_get_bytes(url, timeout=15):
+    """GET 单个 URL，返回原始字节；失败返回 None（与 fetch_feed 的 fail-soft 一致）。
+    自动解 gzip、跟随至多 5 次重定向、复用同 host 连接。"""
+    parsed = urllib.parse.urlparse(url)
+    if parsed.scheme not in ("http", "https") or not parsed.hostname:
+        return None
+    host = parsed.hostname
+    https = parsed.scheme == "https"
+    path = parsed.path or "/" + (("?" + parsed.query) if parsed.query else "")
+    for _ in range(5):
+        try:
+            conn = _get_conn(host, timeout, https)
+            conn.request("GET", path, headers={
+                "User-Agent": UA,
+                "Accept": "application/rss+xml,application/atom+xml,application/xml,text/xml,*/*",
+                "Accept-Encoding": "gzip, identity",
+            })
+            resp = conn.getresponse()
+            if resp.status in (301, 302, 303, 307, 308):
+                loc = resp.getheader("Location")
+                resp.read()
+                if not loc:
+                    return None
+                nxt = urllib.parse.urlparse(loc)
+                if nxt.netloc:
+                    host = nxt.netloc
+                    https = nxt.scheme != "http"
+                    conn.close()
+                path = nxt.path or "/" + (("?" + nxt.query) if nxt.query else "")
+                continue
+            if resp.status != 200:
+                resp.read()
+                return None
+            raw = resp.read()
+            enc = resp.getheader("Content-Encoding", "")
+            if "gzip" in enc:
+                raw = gzip.decompress(raw)
+            _evict_pool()
+            return raw
+        except Exception:
+            # 连接可能已损坏，丢弃后下次重建
+            try:
+                _conn_local.pool.pop(host, None).close()
+            except Exception:
+                pass
+            return None
+    return None
+
+
 def norm_time(s):
     """博友圈时间格式 '2026/09/01 08:00:00' -> '2026-09-01T08:00:00'。
     无法解析的返回空串（前端当作"未知"处理）。"""
@@ -93,7 +181,6 @@ def norm_time(s):
 
 def fetch_page(page, fresh=False, timeout=20):
     """取单页。命中本地缓存直接返回，除非 fresh=True。"""
-    os.makedirs(CACHE_DIR, exist_ok=True)
     cache_file = os.path.join(CACHE_DIR, "page_%03d.json" % page)
     if not fresh and os.path.exists(cache_file):
         try:
@@ -131,15 +218,10 @@ def fetch_feed(url, timeout=15):
     if not url:
         return None
     try:
-        req = urllib.request.Request(url, headers={
-            "User-Agent": UA,
-            "Accept": "application/rss+xml,application/atom+xml,application/xml,text/xml,*/*",
-        })
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            raw = r.read()
-            enc = r.headers.get("Content-Encoding", "")
-        if "gzip" in enc:
-            raw = gzip.decompress(raw)
+        # P04: 复用 HTTPS 连接 + P05: 自动 gzip（见 _http_get_bytes）
+        raw = _http_get_bytes(url, timeout)
+        if not raw:
+            return None
         root = ET.fromstring(raw)
     except Exception:
         return None
@@ -214,7 +296,8 @@ def main():
                     help="只抓 RSS 更新最新文章数据，不重抓博友圈")
     args = ap.parse_args()
 
-    args = ap.parse_args()
+    # P06: 缓存目录只建一次（原先在 fetch_page 内每页重复调用）
+    os.makedirs(CACHE_DIR, exist_ok=True)
     t0 = time.time()
 
     log("=" * 56)

@@ -2,9 +2,17 @@ name: 比邻每日刷新
 
 on:
   schedule:
-    # 每天 UTC 16:00（北京时间 00:00）从博友圈重新抓取全量站点 + 各站最新文章
+    # 每天 UTC 16:00（北京时间 00:00）运行
+    # - 周一：全量导入（从博友圈重新拉取站点列表 + RSS），自动同步新收录/停更站点
+    # - 其余天：仅 --latest-only 刷新各站最新文章
     - cron: '0 16 * * *'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      full_import:
+        description: '是否执行全量导入（重抓博友圈站点列表）'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -28,8 +36,19 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: 抓取各站最新文章(RSS, 只读本地站点清单, 不连博友圈)
-        run: python _import_alliance.py --latest-only
+      # P09: 周一全量导入，其余天只刷新 RSS；手动触发可强制全量
+      - name: 抓取（周一全量 / 其余天仅 RSS）
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.full_import }}" = "true" ]; then
+            echo "手动触发：全量导入"
+            python _import_alliance.py
+          elif [ "$(date +%u)" = "1" ]; then
+            echo "周一：全量导入（同步博友圈站点列表）"
+            python _import_alliance.py
+          else
+            echo "非周一：仅刷新各站最新文章"
+            python _import_alliance.py --latest-only
+          fi
 
       - name: 检查变化并提交
         id: commit

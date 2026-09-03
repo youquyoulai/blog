@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 """
+# DEPRECATED: 文汇 RSS 聚合功能已暂停（源列表 wenhui-hidden.md 不存在，输出恒为空）。
+# 脚本保留仅作历史参考；新需求请勿在此扩展，复用 _import_alliance.py 的 feed 逻辑。
+
 文汇 RSS 聚合抓取脚本（零第三方依赖版）
 
 源列表读取 content/pages/wenhui-hidden.md 里的 [feed:名称|RSS地址] 短代码，
@@ -379,11 +382,9 @@ def main():
             "total": 0, "ok": 0, "recovered": 0, "stale": 0, "failed": 0,
             "feeds": [],
         }
-        payload = json.dumps(empty, ensure_ascii=False, indent=2)
+        payload = json.dumps(empty, ensure_ascii=False, separators=(",", ":"))
         DATA_OUT.parent.mkdir(parents=True, exist_ok=True)
         DATA_OUT.write_text(payload, encoding="utf-8")
-        STATIC_OUT.parent.mkdir(parents=True, exist_ok=True)
-        STATIC_OUT.write_text(payload, encoding="utf-8")
         return 0
     if args.limit:
         sources = sources[:args.limit]
@@ -439,11 +440,9 @@ def main():
         "feeds": results,
     }
 
-    payload = json.dumps(output, ensure_ascii=False, indent=2)
+    payload = json.dumps(output, ensure_ascii=False, separators=(",", ":"))
     DATA_OUT.parent.mkdir(parents=True, exist_ok=True)
     DATA_OUT.write_text(payload, encoding="utf-8")
-    STATIC_OUT.parent.mkdir(parents=True, exist_ok=True)
-    STATIC_OUT.write_text(payload, encoding="utf-8")
 
     size_kb = round(len(payload.encode("utf-8")) / 1024, 1)
     print(f"\n{'='*56}")

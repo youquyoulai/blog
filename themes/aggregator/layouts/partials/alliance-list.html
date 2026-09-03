@@ -96,7 +96,12 @@
   try { LATEST = JSON.parse(document.getElementById('al-latest').textContent); } catch (e) { LATEST = {}; }
 
   var activeAll = BLOGS.filter(function (b) { return !b.pending; }).slice();
-  activeAll.forEach(function (b, i) { b._ci = i; });
+  // P02: 预计算搜索串，避免每次按键重复拼接
+  activeAll.forEach(function (b, i) {
+    b._ci = i;
+    b._hay = ((b.name || '') + ' ' + (b.domain || '') + ' ' + (b.desc || '') + ' '
+      + ((LATEST[b.domain] && LATEST[b.domain].title) || '')).toLowerCase();
+  });
 
   var page = 1;
 
@@ -213,11 +218,8 @@
   function getFiltered() {
     var q = (input.value || '').trim().toLowerCase();
     if (!q) return activeAll.slice();
-    return activeAll.filter(function (b) {
-      var hay = ((b.name || '') + ' ' + (b.domain || '') + ' ' + (b.desc || '') + ' '
-        + ((LATEST[b.domain] && LATEST[b.domain].title) || '')).toLowerCase();
-      return hay.indexOf(q) > -1;
-    });
+    // P02: 直接复用预计算的 _hay
+    return activeAll.filter(function (b) { return b._hay.indexOf(q) > -1; });
   }
 
   function renderActive() {

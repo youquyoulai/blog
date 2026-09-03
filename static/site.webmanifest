@@ -1,13 +1,13 @@
 {
-  "name": "平哥集录",
-  "short_name": "平哥集录",
-  "description": "平哥集录 — 数学、文学、历史、哲学、科学与生活的笔记与思考",
+  "name": "比邻",
+  "short_name": "比邻",
+  "description": "比邻 — 收录活跃的中文独立博客，按最近更新时间排列。",
   "start_url": "/",
   "display": "standalone",
   "icons": [
     { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" }
   ],
-  "theme_color": "#3E3A39",
-  "background_color": "#FBF7F0"
+  "theme_color": "#2b6cb0",
+  "background_color": "#f6f7f9"
 }

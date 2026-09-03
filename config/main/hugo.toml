@@ -1,2 +1,2 @@
-# 主博客环境：www.pgoj.top —— 生产环境专用覆盖
-baseURL = 'https://www.pgoj.top/'
+# 主博客环境：pennear.pgoj.top —— 生产环境专用覆盖
+baseURL = 'https://pennear.pgoj.top/'

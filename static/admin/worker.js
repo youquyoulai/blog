@@ -8,7 +8,7 @@
 // 配置
 // ═════════════════════════════════════════════════════════════════
 const R2_ORIGIN = 'https://img.pgoj.top';
-const ALLOWED_ORIGIN = 'https://www.pgoj.top';  // 只允许自己的域名
+const ALLOWED_ORIGIN = 'https://pennear.pgoj.top';  // 只允许自己的域名
 const API_PREFIX = '/wgpjyhxlxn';  // API 路径前缀
 
 // ═════════════════════════════════════════════════════════════════
@@ -923,7 +923,7 @@ async function updateAlliance(request, env) {
   return corsResponse(JSON.stringify({ ok: true, total: blogs.length, bytes: bytes }));
 }
 
-// 公开提交接口：供 www.pgoj.top 提交页调用，无需 admin token。
+// 公开提交接口：供 pennear.pgoj.top 提交页调用，无需 admin token。
 // checkOrigin 已限制来源为 *.pgoj.top，配合下面的 isPublicPath 放行匿名 POST。
 async function submitBlog(request, env) {
   let body;
@@ -1106,7 +1106,7 @@ export default {
 
     const path = url.pathname;
 
-    // 分类/标签是公开信息，提交接口也公开（供 www.pgoj.top 提交页匿名调用）
+    // 分类/标签是公开信息，提交接口也公开（供 pennear.pgoj.top 提交页匿名调用）
     const isPublicPath = path === '/wgpjyhxlxn/api/taxonomies' || path === '/wgpjyhxlxn/api/ping' || path === '/wgpjyhxlxn/api/submit';
     if (!checkAuth(request, env) && !isLocalDev(request) && !isPublicPath) {
       return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
@@ -1195,7 +1195,7 @@ export default {
         return await triggerAllianceImport(env);
       }
 
-      // ─── 公开提交接口（无需登录，供 www.pgoj.top 提交页调用） ─────────
+      // ─── 公开提交接口（无需登录，供 pennear.pgoj.top 提交页调用） ─────────
       if (path === '/wgpjyhxlxn/api/submit' && request.method === 'POST') {
         return await submitBlog(request, env);
       }

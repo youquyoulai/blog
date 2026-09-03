@@ -135,7 +135,7 @@ async function submitReply() {
   if (!replyTarget) return;
   var nick = document.getElementById('replyNick').value.trim() || '平哥';
   var mail = document.getElementById('replyMail').value.trim() || 'wuliwuju@126.com';
-  var link = document.getElementById('replyLink').value.trim() || 'https://www.pgoj.top';
+  var link = document.getElementById('replyLink').value.trim() || 'https://pennear.pgoj.top';
   var content = document.getElementById('replyContent').value.trim();
   if (!content) { toast('请输入回复内容', 'error'); return; }
   // 获取被回复评论的 URL

@@ -1,4 +1,4 @@
-baseURL = 'https://www.pgoj.top/'
+baseURL = 'https://pennear.pgoj.top/'
 languageCode = 'zh-cn'
 defaultContentLanguage = 'zh'
 title = '比邻'

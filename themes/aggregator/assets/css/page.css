@@ -1,0 +1,131 @@
+/* ============================================================
+   独立页面样式（提交页 / 关于页）
+   沿用 pennear 设计系统：蓝 #4A90D9、白卡、圆角、alert、表单
+   仅内联于页面布局（single.html 的 head 块），不影响首页体积
+   ============================================================ */
+
+/* ===== 通用页面容器（沿用主题阅读宽度） ===== */
+.page-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 16px; }
+
+/* ===== 页面头部 ===== */
+.page-header { text-align: center; padding: 2rem 0 1.25rem; }
+.page-header h1 { font-size: 1.75rem; font-weight: 700; color: var(--color_text); margin: 0 0 .4rem; letter-spacing: .01em; }
+.page-header p { color: var(--color_text_light); font-size: .95rem; margin: 0; }
+
+/* ===== 提交页（pennear 风格） ===== */
+.submit-page { max-width: 700px; margin: 0 auto; }
+.submit-card {
+  background: #fff; border: 1px solid var(--color_border);
+  border-radius: var(--radius_md); box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
+  overflow: hidden;
+}
+.submit-info { padding: 1.25rem 1.5rem 0; }
+.submit-info h3 { font-size: 1rem; margin: 0 0 .75rem; color: var(--color_text); }
+.submit-info ul { list-style: none; padding: 0; margin: 0; }
+.submit-info li {
+  position: relative; padding: 4px 0 4px 20px; font-size: .875rem;
+  color: var(--color_text_light); line-height: 1.6;
+}
+.submit-info li::before { content: "•"; position: absolute; left: 4px; color: #4A90D9; font-weight: 700; }
+.submit-info b { color: var(--color_text); font-weight: 600; }
+.submit-info code { background: var(--color_bg); padding: 1px 6px; border-radius: 4px; font-size: .8125rem; color: #E74C3C; }
+
+.submit-form { padding: 1.5rem; }
+.form-group { margin-bottom: 1.125rem; }
+.form-group label { display: block; font-size: .875rem; font-weight: 600; margin-bottom: 6px; color: var(--color_text); }
+.form-group .req { color: #E74C3C; margin-left: 2px; }
+.form-group .hint { display: block; font-size: .75rem; color: var(--color_text_light); margin-top: 4px; }
+.form-group input, .form-group textarea {
+  width: 100%; padding: 10px 14px; border: 1px solid var(--color_border);
+  border-radius: var(--radius_sm); font-size: .875rem; font-family: inherit;
+  color: var(--color_text); background: #fff; outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.form-group input:focus, .form-group textarea:focus {
+  border-color: #4A90D9; box-shadow: 0 0 0 3px rgba(74, 144, 217, .12);
+}
+.form-group textarea { resize: vertical; min-height: 90px; }
+.form-actions { display: flex; gap: 10px; padding-top: 4px; }
+
+/* ===== 按钮（pennear 风格） ===== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 10px 20px; border-radius: var(--radius_sm); font-size: .875rem;
+  font-weight: 600; cursor: pointer; border: 1px solid transparent;
+  font-family: inherit; transition: all .15s; text-decoration: none; line-height: 1.2;
+}
+.btn-primary { background: #4A90D9; color: #fff; }
+.btn-primary:hover { background: #357ABD; color: #fff; }
+.btn-outline { background: #fff; color: var(--color_text); border-color: var(--color_border); }
+.btn-outline:hover { border-color: #4A90D9; color: #4A90D9; }
+.btn-block { width: 100%; }
+
+/* ===== 提示框 ===== */
+.alert {
+  display: flex; gap: 12px; padding: 14px 18px; border-radius: var(--radius_sm);
+  margin-bottom: 18px; align-items: flex-start; font-size: .875rem;
+}
+.alert-icon { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; }
+.alert-content strong { display: block; margin-bottom: 2px; font-size: .9375rem; color: var(--color_text); }
+.alert-content p { margin: 0; color: var(--color_text_light); }
+.alert-success { background: #E8F8F0; border: 1px solid #A3E4BC; }
+.alert-success .alert-icon { background: #27AE60; }
+.alert-error { background: #FDE8E8; border: 1px solid #F5B7B1; }
+.alert-error .alert-icon { background: #E74C3C; }
+.alert-info { background: #EAF2FB; border: 1px solid #BBD7F2; }
+.alert-info .alert-icon { background: #4A90D9; }
+
+/* ===== 关于页正文排版 ===== */
+.about-page { max-width: 800px; margin: 0 auto; }
+.page-content { line-height: 1.8; font-size: .95rem; color: var(--color_text); }
+.page-content h2 { font-size: 1.375rem; margin: 1.75rem 0 .875rem; color: var(--color_text); }
+.page-content h3 { font-size: 1.125rem; margin: 1.5rem 0 .625rem; color: var(--color_text); }
+.page-content p { margin: 0 0 .875rem; }
+.page-content ul, .page-content ol { padding-left: 1.5rem; margin: 0 0 .875rem; }
+.page-content li { margin-bottom: 6px; }
+.page-content a { color: #4A90D9; text-decoration: underline; text-underline-offset: 2px; }
+.page-content blockquote { border-left: 4px solid #4A90D9; padding: 8px 16px; margin: 1rem 0; background: var(--color_bg); border-radius: 0 var(--radius_sm) var(--radius_sm) 0; color: var(--color_text_light); }
+.page-content code { background: var(--color_bg); padding: 1px 6px; border-radius: 4px; font-size: .875em; color: #E74C3C; }
+.page-content hr { border: none; border-top: 1px solid var(--color_border); margin: 1.5rem 0; }
+
+/* ===== 关于页卡片式 ===== */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.about-card {
+  background: #fff;
+  border: 1px solid var(--color_border);
+  border-radius: var(--radius_md);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
+  padding: 1.3rem 1.45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.about-card.wide { grid-column: 1 / -1; }
+.about-card-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: #EAF2FB; color: #4A90D9;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.15rem; font-weight: 700;
+}
+.about-card h3 { margin: 0; font-size: 1.0625rem; font-weight: 700; color: var(--color_text); }
+.about-card p { margin: 0; font-size: .9rem; line-height: 1.75; color: var(--color_text_light); }
+.about-card a { color: #4A90D9; text-decoration: none; font-weight: 600; }
+.about-card a:hover { text-decoration: underline; }
+.about-card code { background: var(--color_bg); padding: 1px 6px; border-radius: 4px; font-size: .8125rem; color: #E74C3C; }
+
+/* ===== 响应式 ===== */
+@media (max-width: 640px) {
+  .submit-card { border-radius: var(--radius_sm); }
+  .submit-form { padding: 1.25rem; }
+  .form-actions { flex-direction: column; }
+  .form-actions .btn { width: 100%; }
+  .page-header { padding: 1.5rem 0 1rem; }
+  .page-header h1 { font-size: 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; }
+}

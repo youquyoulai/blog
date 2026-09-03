@@ -4,18 +4,20 @@
 {{ with (index hugo.Data "alliance-latest") }}{{ $latest = .map | default dict }}{{ end }}
 
 {{ if $blogs }}
-{{/* 沉睡的站（180 天未更新）已从数据源彻底移除，此处只渲染活跃站。 */}}
+{{/* 沉睡的站（180 天未更新）已从数据源彻底移除；待审核(pending)提交也不在此展示。 */}}
 {{ $cutoff := (now.AddDate 0 0 -180) | dateFormat "2006-01-02T15:04:05" }}
 {{ $active := slice }}
+{{ $total := 0 }}
 {{ range $blogs }}
-  {{ if and .updated (ge (substr .updated 0 19) $cutoff) }}
+  {{ if not .pending }}{{ $total = add $total 1 }}{{ end }}
+  {{ if and .updated (ge (substr .updated 0 19) $cutoff) (not .pending) }}
     {{ $active = $active | append . }}
   {{ end }}
 {{ end }}
 
 <div class="al-bar">
   <div class="al-stat">
-    收录 <b>{{ len $blogs }}</b> 个独立博客
+    收录 <b>{{ $total }}</b> 个独立博客
   </div>
   <div class="al-meta">数据更新于 {{ substr $data.updated 0 16 | replaceRE "T" " " }}</div>
 </div>
@@ -88,12 +90,12 @@
 
   var PAGE = 12;
 
-  // 全量活跃数据来自内联 JSON（沉睡站已从数据源移除，服务端仅渲染活跃站）
+  // 全量数据来自内联 JSON（沉睡站已从数据源移除；待审核提交不展示）
   var BLOGS = [], LATEST = {};
   try { BLOGS = JSON.parse(document.getElementById('al-blogs').textContent); } catch (e) { BLOGS = []; }
   try { LATEST = JSON.parse(document.getElementById('al-latest').textContent); } catch (e) { LATEST = {}; }
 
-  var activeAll = BLOGS.slice();
+  var activeAll = BLOGS.filter(function (b) { return !b.pending; }).slice();
   activeAll.forEach(function (b, i) { b._ci = i; });
 
   var page = 1;

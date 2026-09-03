@@ -1,0 +1,74 @@
+{{ define "head" }}
+{{ with resources.Get "css/page.css" | minify }}
+  <style>{{ .Content | safeCSS }}</style>
+{{ end }}
+{{ end }}
+
+{{ define "main" }}
+<article class="page-wrap">
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.subtitle }}<p>{{ . }}</p>{{ end }}
+  </header>
+
+  {{ if eq .File.BaseFileName "submit" }}
+    {{ .Content }}
+  {{ else }}
+    <div class="about-page">
+      {{ .Content }}
+    </div>
+  {{ end }}
+</article>
+{{ end }}
+
+{{ define "scripts" }}
+{{ if eq .File.BaseFileName "submit" }}
+<script>
+(function () {
+  var form = document.getElementById('blog-submit-form');
+  if (!form) return;
+  var msg = document.getElementById('submit-msg');
+  var btn = form.querySelector('button[type="submit"]');
+  var honeypot = form.querySelector('input[name="company"]');
+
+  function show(type, html) {
+    if (!msg) return;
+    var icon = type === 'success' ? '✓' : (type === 'info' ? 'i' : '!');
+    msg.className = 'alert alert-' + type;
+    msg.innerHTML = '<div class="alert-icon">' + icon + '</div><div class="alert-content">' + html + '</div>';
+    msg.style.display = 'flex';
+  }
+  function val(name) { var el = form.querySelector('[name="' + name + '"]'); return el ? el.value.trim() : ''; }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (honeypot && honeypot.value) return; // 机器人 filler，静默丢弃
+    var name = val('name'), site = val('site'), feed = val('feed'), desc = val('desc'), tags = val('tags');
+    if (!name) { show('error', '<strong>请填写博客名称</strong><p>博客名称不能为空。</p>'); return; }
+    if (!feed) { show('error', '<strong>请填写 RSS / Atom 地址</strong><p>我们依赖 RSS 抓取最新文章。</p>'); return; }
+    if (!/^https?:\/\/.+/i.test(feed)) { show('error', '<strong>RSS 地址格式不正确</strong><p>请以 http(s):// 开头。</p>'); return; }
+    if (msg) msg.style.display = 'none';
+    btn.disabled = true; btn.textContent = '提交中…';
+    fetch('https://api.pgoj.top/wgpjyhxlxn/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, site: site, feed: feed, desc: desc, tags: tags })
+    }).then(function (r) {
+      return r.json().then(function (j) { return { ok: r.ok, j: j }; });
+    }).then(function (res) {
+      btn.disabled = false; btn.textContent = '提交博客';
+      if (res.ok && res.j && res.j.ok) {
+        show('success', '<strong>提交成功</strong><p>已收到你的博客，审核通过后会展示在「比邻」列表里。感谢分享！</p>');
+        form.reset();
+      } else {
+        show('error', '<strong>提交失败</strong><p>' + ((res.j && res.j.error) || '服务器开小差了，请稍后再试。') + '</p>');
+      }
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = '提交博客';
+      show('error', '<strong>网络错误</strong><p>无法连接到服务器，请稍后再试。</p>');
+    });
+  });
+})();
+</script>
+{{ end }}
+{{ end }}

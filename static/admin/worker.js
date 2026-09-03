@@ -923,6 +923,77 @@ async function updateAlliance(request, env) {
   return corsResponse(JSON.stringify({ ok: true, total: blogs.length, bytes: bytes }));
 }
 
+// 公开提交接口：供 www.pgoj.top 提交页调用，无需 admin token。
+// checkOrigin 已限制来源为 *.pgoj.top，配合下面的 isPublicPath 放行匿名 POST。
+async function submitBlog(request, env) {
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return corsResponse(JSON.stringify({ error: '请求格式错误' }), 400);
+  }
+  const name = (body.name || '').toString().trim();
+  const feed = (body.feed || '').toString().trim();
+  const siteIn = (body.site || body.domain || '').toString().trim();
+  const desc = (body.desc || '').toString().trim();
+  const tags = Array.isArray(body.tags)
+    ? body.tags.map(function (t) { return String(t).trim(); }).filter(Boolean)
+    : String(body.tags || '').split(',').map(function (t) { return t.trim(); }).filter(Boolean);
+  if (!name) return corsResponse(JSON.stringify({ error: '请填写博客名称' }), 400);
+  if (!feed) return corsResponse(JSON.stringify({ error: '请填写 RSS / Atom 地址' }), 400);
+  function isUrl(u) { try { const x = new URL(u); return x.protocol === 'http:' || x.protocol === 'https:'; } catch (e) { return false; } }
+  if (!isUrl(feed)) return corsResponse(JSON.stringify({ error: 'RSS 地址格式不正确' }), 400);
+
+  let domain = '';
+  try { domain = new URL(feed).hostname; } catch (e) {}
+  let site = siteIn;
+  if (!site) site = domain ? 'https://' + domain : feed;
+  else if (!/^https?:\/\//i.test(site)) site = 'https://' + site.replace(/^\/+/, '');
+
+  const existing = await readGitHubFile(ALLIANCE_PATH, env).catch(function () { return null; });
+  let data;
+  try { data = existing ? JSON.parse(existing.content) : { updated: null, source: '', total: 0, active: 0, blogs: [] }; }
+  catch (e) { data = { updated: null, source: '', total: 0, active: 0, blogs: [] }; }
+  const blogs = Array.isArray(data.blogs) ? data.blogs : [];
+
+  const dup = blogs.some(function (b) {
+    return (b.domain && domain && b.domain.toLowerCase() === domain.toLowerCase())
+        || (b.feed && feed && b.feed.toLowerCase() === feed.toLowerCase());
+  });
+  if (dup) return corsResponse(JSON.stringify({ error: '该博客已收录，请勿重复提交' }), 409);
+
+  const now = new Date().toISOString();
+  blogs.push({
+    name: name,
+    domain: domain,
+    site: site,
+    feed: feed,
+    desc: desc,
+    posts: 0,
+    updated: now,
+    added: now,
+    location: '',
+    sunset: false,
+    ok: true,
+    hidden: false,
+    pending: true,
+    tags: tags
+  });
+
+  const since = new Date(Date.now() - 365 * 24 * 3600 * 1000).toISOString().slice(0, 10);
+  data.updated = now;
+  data.source = data.source || 'https://www.boyouquan.com/blogs';
+  data.total = blogs.length;
+  data.active = blogs.filter(function (b) { return b.updated && String(b.updated).slice(0, 10) >= since; }).length;
+  data.blogs = blogs;
+
+  const content = JSON.stringify(data);
+  const bytes = new TextEncoder().encode(content).length;
+  if (bytes * 1.4 > 1000 * 1024) {
+    return corsResponse(JSON.stringify({ error: '数据过大，暂无法提交，请联系管理员' }), 413);
+  }
+  await writeGitHubFile(ALLIANCE_PATH, content, existing ? existing.sha : undefined, 'Submit blog: ' + name, env);
+  return corsResponse(JSON.stringify({ ok: true, message: '提交成功，等待审核后展示。' }));
+}
+
 // 从博友圈重新导入：通过 GitHub Actions workflow_dispatch 触发（导入脚本翻 120 页，
 // 不能放在 Worker 里同步跑，会超过 50 子请求 / 次的限制）。
 async function triggerAllianceImport(env) {
@@ -1035,8 +1106,8 @@ export default {
 
     const path = url.pathname;
 
-    // 分类/标签是公开信息，允许未鉴权访问（便于后台即使 token 异常也能加载）
-    const isPublicPath = path === '/wgpjyhxlxn/api/taxonomies' || path === '/wgpjyhxlxn/api/ping';
+    // 分类/标签是公开信息，提交接口也公开（供 www.pgoj.top 提交页匿名调用）
+    const isPublicPath = path === '/wgpjyhxlxn/api/taxonomies' || path === '/wgpjyhxlxn/api/ping' || path === '/wgpjyhxlxn/api/submit';
     if (!checkAuth(request, env) && !isLocalDev(request) && !isPublicPath) {
       return corsResponse(JSON.stringify({ error: 'Unauthorized' }), 401);
     }
@@ -1122,6 +1193,11 @@ export default {
       }
       if (path === '/wgpjyhxlxn/api/alliance/import' && request.method === 'POST') {
         return await triggerAllianceImport(env);
+      }
+
+      // ─── 公开提交接口（无需登录，供 www.pgoj.top 提交页调用） ─────────
+      if (path === '/wgpjyhxlxn/api/submit' && request.method === 'POST') {
+        return await submitBlog(request, env);
       }
 
       // ─── 页面管理 API ────────────────────────────────────────────

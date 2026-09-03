@@ -273,6 +273,7 @@
     .list-card-badge.ok { background:rgba(66,184,131,0.12); color:var(--green); }
     .list-card-badge.bad { background:rgba(239,68,68,0.12); color:var(--red); }
     .list-card-badge.sunset { background:rgba(148,163,184,0.14); color:var(--muted); }
+    .list-card-badge.pending { background:rgba(74,144,217,0.14); color:#357ABD; }
     .list-card-meta { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:6px; }
 
     /* ── 模态框 ── */
@@ -670,6 +671,7 @@
             <option value="ok">正常</option>
             <option value="failed">失联</option>
             <option value="sunset">停更</option>
+            <option value="pending">待审核</option>
           </select>
           <span class="alliance-count" id="allianceCount"></span>
         </div>
@@ -2632,6 +2634,7 @@ async function loadAlliance() {
 }
 
 function allianceStatusOf(b) {
+  if (b.pending) return { key: 'pending', label: '待审核', cls: 'pending' };
   if (b.ok === false) return { key: 'failed', label: '失联', cls: 'bad' };
   if (b.sunset) return { key: 'sunset', label: '停更', cls: 'sunset' };
   return { key: 'ok', label: '正常', cls: 'ok' };

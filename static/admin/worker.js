@@ -949,6 +949,9 @@ async function submitBlog(request, env) {
   try { body = await request.json(); } catch (e) {
     return corsResponse(JSON.stringify({ error: '请求格式错误' }), 400);
   }
+  // S04: 公开接口速率限制（无 KV binding 时跳过）
+  const rl = await checkSubmitRateLimit(request, env);
+  if (rl) return rl;
   const name = (body.name || '').toString().trim();
   const feed = (body.feed || '').toString().trim();
   const siteIn = (body.site || body.domain || '').toString().trim();
@@ -966,10 +969,6 @@ async function submitBlog(request, env) {
   let site = siteIn;
   if (!site) site = domain ? 'https://' + domain : feed;
   else if (!/^https?:\/\//i.test(site)) site = 'https://' + site.replace(/^\/+/, '');
-
-  // S04: 公开接口速率限制（无 KV binding 时跳过）
-  const rl = await checkSubmitRateLimit(request, env);
-  if (rl) return rl;
 
   // P08: 乐观锁重试，解决并发读-改-写竞态（GitHub 返回 409 时重读最新版本再写）
   const MAX_ATTEMPTS = 3;

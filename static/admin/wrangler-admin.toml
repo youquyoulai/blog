@@ -7,6 +7,10 @@ compatibility_flags = ["nodejs_compat"]
 binding = "R2_BUCKET"
 bucket_name = "imgpg"
 
+[[kv_namespaces]]
+binding = "SUBMISSIONS_KV"
+id = "7c77fab7296849c8af4138b4c3e9d991"
+
 [vars]
 R2_PUBLIC_URL = "https://img.pgoj.top"
 

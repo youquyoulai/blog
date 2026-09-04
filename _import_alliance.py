@@ -23,6 +23,7 @@
 """
 import argparse
 import base64
+import email.utils
 import gzip
 import html
 import http.client
@@ -179,6 +180,42 @@ def norm_time(s):
         int(hh or 0), int(mm or 0), int(ss or 0))
 
 
+def parse_pubdate(s):
+    """RSS/Atom 日期 -> ISO 字符串(东八区)。
+
+    RSS 常见 RFC 822:  'Mon, 06 Sep 2021 08:00:00 GMT'
+    Atom 常见 ISO 8601: '2026-09-02T08:00:00+08:00' / '...Z'
+    解析失败返回空串（前端会 fallback 到博友圈记录的 updated）。"""
+    if not s:
+        return ""
+    s = str(s).strip()
+    if not s or s in ("-", "null", "None"):
+        return ""
+    # 先试 ISO 8601（Atom / 部分规范 RSS）
+    iso = norm_time(s)
+    if iso:
+        # 带时区的先统一换算到东八区再去掉偏移，与 alliance.json 格式一致
+        try:
+            dt = datetime.fromisoformat(s.replace("Z", "+00:00"))
+            if dt.tzinfo is not None:
+                dt = dt.astimezone(CST).replace(tzinfo=None)
+            return dt.isoformat(timespec="seconds")
+        except Exception:
+            return iso
+    # 再试 RFC 822/2822（标准 RSS pubDate）
+    try:
+        dt = email.utils.parsedate_to_datetime(s)
+        if dt is None:
+            return ""
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=CST)
+        else:
+            dt = dt.astimezone(CST).replace(tzinfo=None)
+        return dt.isoformat(timespec="seconds")
+    except Exception:
+        return ""
+
+
 def fetch_page(page, fresh=False, timeout=20):
     """取单页。命中本地缓存直接返回，除非 fresh=True。"""
     cache_file = os.path.join(CACHE_DIR, "page_%03d.json" % page)
@@ -241,7 +278,11 @@ def fetch_feed(url, timeout=15):
         )
         if not (title or link):
             return None
-        return {"title": title, "link": link, "summary": desc}
+        pub = (it.findtext("pubDate")
+               or it.findtext("{http://purl.org/dc/elements/1.1/}date")
+               or "")
+        return {"title": title, "link": link, "summary": desc,
+                "pubDate": parse_pubdate(pub)}
 
     if entries:
         e = entries[0]
@@ -257,7 +298,10 @@ def fetch_feed(url, timeout=15):
         )
         if not (title or link):
             return None
-        return {"title": title, "link": link, "summary": summ}
+        pub = (e.findtext(NS + "published") or e.findtext(NS + "updated")
+               or e.findtext(NS + "modified") or "")
+        return {"title": title, "link": link, "summary": summ,
+                "pubDate": parse_pubdate(pub)}
 
     return None
 
@@ -452,6 +496,44 @@ def main():
         log("  输出: %s (%.1f KB, base64 %.1f KB / 1024)"
             % (args.out_latest, lsize / 1024.0,
                len(base64.b64encode(open(args.out_latest, "rb").read())) / 1024.0))
+
+        # ── 回写基础数据：把各站 updated 更新为 RSS 最新发布时间 ──
+        # 原先 --latest-only 只刷新 alliance-latest.json，导致页面顶部
+        # "数据更新于" 与卡片上的 "X天前" 一直停留在上次全量导入的时间。
+        # 这里抓到 RSS 的站用真实发布时间回写，页面时间才会真正每天前进。
+        if latest_map and os.path.exists(args.out):
+            try:
+                with open(args.out, encoding="utf-8") as f:
+                    base = json.load(f)
+                blog_map = {}
+                for b in (base.get("blogs") or []):
+                    if b.get("domain"):
+                        blog_map[b["domain"]] = b
+                synced = 0
+                for domain, item in latest_map.items():
+                    pub = item.get("pubDate")
+                    b = blog_map.get(domain)
+                    # 只在该站已有 updated 为空、或 RSS 时间更新时才回写，
+                    # 避免博友圈接口偶发返回旧数据把时间倒退。
+                    if pub and b and str(pub) > str(b.get("updated") or ""):
+                        b["updated"] = pub
+                        synced += 1
+                if synced:
+                    since = (datetime.now(CST) - timedelta(days=365)).strftime("%Y-%m-%d")
+                    base["updated"] = out_latest["updated"]
+                    base["active"] = sum(
+                        1 for b in base.get("blogs") or []
+                        if b.get("updated") and str(b["updated"])[:10] >= since)
+                    # 重排，让首屏服务端渲染的卡片也按最新时间展示
+                    (base.get("blogs") or []).sort(
+                        key=lambda x: str(x.get("updated") or "0000"), reverse=True)
+                    with open(args.out, "w", encoding="utf-8") as f:
+                        json.dump(base, f, ensure_ascii=False, separators=(",", ":"))
+                    log("  已回写 %d 个博客的更新时间 -> %s" % (synced, args.out))
+                else:
+                    log("  无博客需要回写更新时间")
+            except Exception as e:
+                log("  ! 回写 %s 失败: %s" % (args.out, e))
 
     log("\n完成。用时 %.1f 秒" % (time.time() - t0))
 

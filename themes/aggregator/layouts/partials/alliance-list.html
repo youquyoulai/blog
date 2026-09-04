@@ -19,7 +19,15 @@
   <div class="al-stat">
     收录 <b>{{ $total }}</b> 个独立博客
   </div>
-  <div class="al-meta">数据更新于 {{ substr $data.updated 0 16 | replaceRE "T" " " }}</div>
+{{/* 顶部时间取「基础数据」与「RSS 最新文章」中较新的那个。
+     非周一 CI 只跑 --latest-only，alliance.json 时间不会自己前进，
+     若只看 $data.updated 页面会一直显示旧时间。 */}}
+{{ $du := substr (printf "%v" ($data.updated | default "")) 0 19 }}
+{{ $lu := "" }}
+{{ with (index hugo.Data "alliance-latest") }}{{ with .updated }}{{ $lu = substr (printf "%v" .) 0 19 }}{{ end }}{{ end }}
+{{ $shown := $du }}
+{{ if and $lu (gt $lu $du) }}{{ $shown = $lu }}{{ end }}
+<div class="al-meta">数据更新于 {{ $shown | replaceRE "T" " " }}</div>
 </div>
 
 <div class="al-search">
@@ -36,8 +44,15 @@
 <div class="al-grid" id="al-list">
   {{ range $i, $b := first 12 $active }}
   {{ $ini := substr (printf "%s" $b.name) 0 1 }}
+  {{ $lt := index $latest $b.domain }}
+  {{/* 卡片时间：RSS 抓到的发布时间优先于博友圈记录时间（取较新者） */}}
+  {{ $pub := "" }}
+  {{ if $lt }}{{ $pub = printf "%v" (index $lt "pubDate" | default "") }}{{ end }}
+  {{ $bu := printf "%v" ($b.updated | default "") }}
+  {{ $showT := $bu }}
+  {{ if and $pub (gt (substr $pub 0 19) (substr $bu 0 19)) }}{{ $showT = $pub }}{{ end }}
   <div class="al-card"
-       data-updated="{{ $b.updated }}"
+       data-updated="{{ $showT }}"
        data-posts="{{ $b.posts }}"
        data-added="{{ $b.added }}">
     <div class="al-top">
@@ -46,10 +61,9 @@
         <a class="al-name" href="{{ $b.site }}" target="_blank" rel="noopener nofollow external">{{ $b.name }}</a>
         <span class="al-domain">{{ $b.domain }}</span>
       </div>
-      <span class="al-time" data-t="{{ $b.updated }}">{{ substr $b.updated 0 10 }}</span>
+      <span class="al-time" data-t="{{ $showT }}">{{ substr $showT 0 10 }}</span>
     </div>
     <span class="al-desc" style="display:none">{{ $b.desc }}</span>
-    {{ $lt := index $latest $b.domain }}
     {{ with $lt }}
     <div class="al-post">
       <a class="al-post-title" href="{{ .link }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>
@@ -117,17 +131,21 @@
     var ini = (b.name || '').charAt(0) || '#';
     var c = (b._ci || 0) % 6;
     var avCls = 'al-av' + ' al-c' + c;
-    var timeStr = b.updated ? b.updated.slice(0, 10) : '从未更新';
     var lt = LATEST[b.domain] || null;
+    // 与服务端首屏保持一致：RSS 发布时间优先于博友圈记录时间（取较新者）
+    var showT = String(b.updated || '');
+    var pub = (lt && lt.pubDate) ? String(lt.pubDate) : '';
+    if (pub && pub.slice(0, 19) > showT.slice(0, 19)) showT = pub;
+    var timeStr = showT ? showT.slice(0, 10) : '从未更新';
     var h = '<div class="al-card"'
-      + ' data-updated="' + esc(b.updated || '') + '"'
+      + ' data-updated="' + esc(showT) + '"'
       + ' data-posts="' + esc(b.posts || '') + '"'
       + ' data-added="' + esc(b.added || '') + '">'
       + '<div class="al-top">'
       + '<div class="' + avCls + '">' + esc(ini) + '</div>'
       + '<div class="al-id"><a class="al-name" href="' + esc(b.site) + '" target="_blank" rel="noopener nofollow external">' + esc(b.name) + '</a>'
       + '<span class="al-domain">' + esc(b.domain) + '</span></div>'
-      + '<span class="al-time" data-t="' + esc(b.updated || '') + '">' + esc(timeStr) + '</span></div>'
+      + '<span class="al-time" data-t="' + esc(showT) + '">' + esc(timeStr) + '</span></div>'
       + '<span class="al-desc" style="display:none">' + esc(b.desc || '') + '</span>';
     if (lt) {
       h += '<div class="al-post"><a class="al-post-title" href="' + esc(lt.link) + '" target="_blank" rel="noopener noreferrer">' + esc(lt.title) + '</a>';

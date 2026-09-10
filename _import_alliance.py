@@ -325,6 +325,122 @@ def map_blog(b):
     }
 
 
+# ── 站点清理：停更 / 失联 / 已关站 ──
+# 用户要求（2026-09-10）：打不开的博客、半年以上不更新的博客，后台不再保留。
+#
+# ⚠️ 重要：CI（GitHub Actions）里批量抓 RSS 失败率极高（2026-09 实测 87%），
+# 绝不能拿"本次 RSS 没抓到"当失联依据 —— 那样会误杀 800+ 正常站。
+# 失联只认本地探测脚本 _probe_dead.py 产出的 data/_probe_result.json。
+STALE_DAYS = int(os.environ.get("ALLIANCE_STALE_DAYS", "180"))
+DEAD_CONFIRM_DAYS = int(os.environ.get("ALLIANCE_DEAD_CONFIRM_DAYS", "30"))
+DEAD_PROBE_FILE = os.environ.get("ALLIANCE_DEAD_FILE", "data/_probe_result.json")
+PRUNED_FILE = "data/_pruned.json"
+
+# 只认"服务器给出了明确响应"的失败作为失联证据。
+# 网络层错误（本机代理 Tunnel/502、SSL 握手、超时、DNS）一律不算 ——
+# 实测这些大多是探测机自身网络到不了，而不是站点真死了，照样删会误杀一片。
+DEAD_HARD_REASONS = (
+    "HTTP 404", "HTTP 410",            # 服务器明确说资源没了
+    "HTTP 521", "HTTP 522",            # Cloudflare 报源站已关/连不上
+    "not-xml",                         # 连上了，但返回的不是 feed
+    "RemoteDisconnected",              # 连接被服务端掐断
+)
+
+
+def parse_dt(s):
+    """ISO 时间串 -> aware datetime；解析不了返回 None"""
+    if not s:
+        return None
+    try:
+        dt = datetime.fromisoformat(str(s).replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=CST)
+        return dt
+    except Exception:
+        return None
+
+
+def load_dead_domains(path=DEAD_PROBE_FILE, max_age_days=30):
+    """读取本地探测结果，返回确认失联的域名集合。
+    - 文件缺失/为空 -> 空集（宁可不删，也不误删）
+    - 探测结果超过 max_age_days 天 -> 视为过期不再生效，
+      避免一次探测把后来已恢复的站永久钉死"""
+    try:
+        with open(path, encoding="utf-8") as f:
+            d = json.load(f)
+        at = parse_dt(d.get("probed_at"))
+        if not at:
+            return set()
+        if (datetime.now(CST) - at).days > max_age_days:
+            log("  ! 探测结果 %s 已过期(%s)，失联名单本轮不生效"
+                % (path, d.get("probed_at")))
+            return set()
+        res = d.get("result") or {}
+        out = set()
+        for k, v in res.items():
+            if not v or v.get("ok"):
+                continue
+            reason = str(v.get("reason") or "")
+            if any(s in reason for s in DEAD_HARD_REASONS):
+                out.add(k)
+        return out
+    except Exception:
+        return set()
+
+
+def prune_blogs(blogs, where=""):
+    """剔除停更(>STALE_DAYS天) / 确认失联 / 博友圈判定异常 / 已关站(sunset) 的站点。
+
+    失联只取两类可靠证据，且要求该站已 DEAD_CONFIRM_DAYS 天没更新才动手：
+      1. 本地探测拿到服务器的明确失败响应（404/410/521/522/非XML）
+      2. 博友圈自身健康检测 statusOk = false
+    网络层错误（代理 502、SSL、超时、DNS）一律不采信。
+    """
+    if not blogs:
+        return blogs
+    now = datetime.now(CST)
+    cutoff = now - timedelta(days=STALE_DAYS)
+    confirm = now - timedelta(days=DEAD_CONFIRM_DAYS)
+    dead = load_dead_domains()
+    keep, dropped = [], []
+    for b in blogs:
+        dom = b.get("domain") or ""
+        dt = parse_dt(b.get("updated"))
+        # 没更新时间的站不做失联判定，只靠停更规则也拿它没办法 -> 先保留
+        old_enough = (dt is None) or (dt < confirm)
+        if b.get("sunset"):
+            dropped.append((dom, "sunset", b.get("updated") or ""))
+            continue
+        if dom and dom in dead and old_enough:
+            dropped.append((dom, "dead", b.get("updated") or ""))
+            continue
+        # 博友圈自己的健康检测：statusOk=false 且长期没更新
+        if b.get("ok") is False and old_enough:
+            dropped.append((dom, "unhealthy", b.get("updated") or ""))
+            continue
+        if dt and dt < cutoff:
+            dropped.append((dom, "stale", b.get("updated") or ""))
+            continue
+        keep.append(b)
+    if dropped:
+        n_stale = sum(1 for x in dropped if x[1] == "stale")
+        n_dead = sum(1 for x in dropped if x[1] in ("dead", "unhealthy"))
+        n_sun = sum(1 for x in dropped if x[1] == "sunset")
+        log("  清理%s: 剔除 %d 个（停更>%d天 %d / 失联 %d / 已关站 %d），保留 %d"
+            % (where, len(dropped), STALE_DAYS, n_stale, n_dead, n_sun, len(keep)))
+        try:
+            rec = {"at": datetime.now(CST).isoformat(timespec="seconds"),
+                   "stale_days": STALE_DAYS,
+                   "items": [{"domain": d, "reason": r, "updated": u}
+                             for d, r, u in dropped]}
+            with open(PRUNED_FILE, "w", encoding="utf-8") as f:
+                json.dump(rec, f, ensure_ascii=False, separators=(",", ":"))
+            log("  剔除名单已存: %s" % PRUNED_FILE)
+        except Exception as e:
+            log("  ! 写剔除名单失败: %s" % e)
+    return keep
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=0, help="只抓前 N 页（0=全量）")
@@ -415,6 +531,8 @@ def main():
                     continue
                 seen[item["domain"]] = item
         blogs = list(seen.values())
+        # 全量导入也要清理：博友圈仍收录的死站/僵尸站，每周一回来就再剔一次
+        blogs = prune_blogs(blogs, "(全量导入)")
         blogs.sort(key=lambda x: (x["updated"] or "0000"), reverse=True)
 
         active = sum(1 for b in blogs if b["updated"] and b["updated"][:4] >= "2026")
@@ -518,18 +636,23 @@ def main():
                     if pub and b and str(pub) > str(b.get("updated") or ""):
                         b["updated"] = pub
                         synced += 1
-                if synced:
+                before = len(base.get("blogs") or [])
+                base["blogs"] = prune_blogs(base.get("blogs") or [], "(增量刷新)")
+                removed = before - len(base["blogs"])
+                if synced or removed:
                     since = (datetime.now(CST) - timedelta(days=365)).strftime("%Y-%m-%d")
                     base["updated"] = out_latest["updated"]
+                    base["total"] = len(base["blogs"])
                     base["active"] = sum(
-                        1 for b in base.get("blogs") or []
+                        1 for b in base["blogs"]
                         if b.get("updated") and str(b["updated"])[:10] >= since)
                     # 重排，让首屏服务端渲染的卡片也按最新时间展示
-                    (base.get("blogs") or []).sort(
+                    base["blogs"].sort(
                         key=lambda x: str(x.get("updated") or "0000"), reverse=True)
                     with open(args.out, "w", encoding="utf-8") as f:
                         json.dump(base, f, ensure_ascii=False, separators=(",", ":"))
-                    log("  已回写 %d 个博客的更新时间 -> %s" % (synced, args.out))
+                    log("  已回写 %d 个博客的更新时间、剔除 %d 个 -> %s"
+                        % (synced, removed, args.out))
                 else:
                     log("  无博客需要回写更新时间")
             except Exception as e:

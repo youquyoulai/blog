@@ -66,10 +66,6 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: 触发 Pages 重建
-        if: steps.commit.outputs.changed == 'true' && env.CF_DEPLOY_HOOK != ''
-        env:
-          CF_DEPLOY_HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
-        run: |
-          echo "触发 Cloudflare Pages 重建..."
-          curl -fsS -X POST "$CF_DEPLOY_HOOK"
+      # 注：pennear Pages 项目已于 2026-09-09 绑定 GitHub 仓库，
+      # 本步提交推送后 CF 会自动拉取构建，无需 deploy hook
+      # （CF 的 Deploy Hook 只对已绑定 Git 的项目生效，重复触发会白白多消耗构建次数）。

@@ -86,3 +86,12 @@ _fix_*.py
 _find_post_content.py
 _list_tags.py
 _simplify_css.py
+
+# 本地临时/诊断文件（2026-09-10）
+_remote_*.json
+_dryrun_kept.json
+_pruned_report.html
+.tmp/
+__pycache__/
+deploy*.sh
+deploy*.ps1

@@ -59,6 +59,8 @@ a:hover { text-decoration: underline; }
   letter-spacing: .02em;
 }
 .brand:hover { text-decoration: none; color: var(--color_link); }
+/* 首页把品牌名包成 h1，这里清掉标题默认样式，视觉与原 <a> 完全一致 */
+.brand-h { margin: 0; font: inherit; }
 .site-nav { display: flex; gap: 1.25rem; }
 .site-nav a {
   font-size: .875rem;
@@ -221,27 +223,10 @@ html { scroll-behavior: smooth; }
   padding: 0 16px;
 }
 
-/* ===== 顶部 hero 与全站搜索 ===== */
-.hero { padding: 1.5rem 0 1rem; }
-.hero-title { margin: 0; font-size: 1.375rem; font-weight: 600; letter-spacing: .02em; }
-.hero-desc { margin: .375rem 0 0; font-size: .8125rem; color: var(--color_text_light); }
-.hero-search { position: relative; }
-.hero-search input {
-  width: 100%; padding: .625rem .875rem; font-size: 15px; font-family: inherit;
-  color: var(--color_text); background: var(--color_card);
-  border: 1px solid var(--color_border); border-radius: var(--radius_md);
-}
-.hero-search input:focus { outline: none; border-color: var(--color_link); }
-.hero-hint {
-  position: absolute; right: .75rem; top: 50%; transform: translateY(-50%);
-  font-size: .6875rem; color: var(--color_text_light);
-  border: 1px solid var(--color_border); border-radius: 4px; padding: 0 .3rem;
-}
-
-/* ===== 模块切换条 ===== */
+/* ===== 模块切换条（首页/分类页首元素，顶部留出呼吸空间）===== */
 .nav-chips {
   display: flex; flex-wrap: wrap; gap: .375rem;
-  padding-bottom: 1rem; margin-bottom: .25rem;
+  padding: 1.25rem 0 1rem; margin-bottom: .25rem;
 }
 .nav-chips .chip {
   font-size: .75rem; padding: .25rem .625rem; border-radius: 999px;
@@ -289,8 +274,7 @@ html { scroll-behavior: smooth; }
 .nav-none { padding: 1.5rem 0; font-size: .875rem; color: var(--color_text_light); text-align: center; }
 
 @media (max-width: 640px) {
-  .hero { padding: 1.25rem 0 1rem; }
-  .hero-title { font-size: 1.1875rem; }
+  .nav-chips { padding-top: 1rem; }
   .nav-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
   .nc { padding: .5rem .625rem; gap: .5rem; }
   .nc-ic { width: 24px; height: 24px; flex: 0 0 24px; border-radius: 7px; font-size: .75rem; }

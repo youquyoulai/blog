@@ -1,11 +1,6 @@
 {{ define "main" }}
 {{- $mods := partial "nav-mods.html" . -}}
 <div class="wrap-wide">
-  <section class="hero">
-    <h1 class="hero-title">{{ site.Title }}</h1>
-    <p class="hero-desc">{{ site.Params.description }}</p>
-  </section>
-
   {{ partial "nav-chips.html" (dict "cur" "blogs" "linked" false) }}
 
   {{ range $mods }}

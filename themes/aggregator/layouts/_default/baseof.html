@@ -17,7 +17,12 @@
 <body>
   <header class="site-header">
     <div class="wrap header-inner">
+      {{/* 首页没有 hero 了，把品牌名作为页面唯一 h1，保住标题层级与 SEO */}}
+      {{ if .IsHome }}
+      <h1 class="brand-h"><a class="brand" href="{{ site.BaseURL }}">{{ site.Title }}</a></h1>
+      {{ else }}
       <a class="brand" href="{{ site.BaseURL }}">{{ site.Title }}</a>
+      {{ end }}
       <nav class="site-nav" aria-label="主导航">
         <a href="{{ site.BaseURL }}"{{ if .IsHome }} class="current"{{ end }}>首页</a>
         <a href="{{ "alliance.html" | relURL }}"{{ if eq .RelPermalink "/alliance.html" }} class="current"{{ end }}>博客</a>

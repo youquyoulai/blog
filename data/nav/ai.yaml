@@ -1,0 +1,45 @@
+order: 30
+name: AI 工具
+desc: 对话、写作、绘图与搜索，日常在用的那些
+accent: c0
+items:
+  - name: ChatGPT
+    url: https://chatgpt.com
+    desc: 通用对话助手，生态最全
+    tag: 对话
+  - name: Claude
+    url: https://claude.ai
+    desc: 长文本理解与代码能力突出
+    tag: 对话
+  - name: DeepSeek
+    url: https://chat.deepseek.com
+    desc: 国产模型，推理能力在线
+    tag: 对话
+  - name: 豆包
+    url: https://www.doubao.com
+    desc: 字节出品，中文场景顺手
+    tag: 对话
+  - name: Kimi
+    url: https://www.kimi.com
+    desc: 擅长长文档阅读与联网检索
+    tag: 对话
+  - name: 通义千问
+    url: https://tongyi.aliyun.com
+    desc: 阿里系模型，配套工具多
+    tag: 对话
+  - name: 智谱清言
+    url: https://chatglm.cn
+    desc: 清华系 GLM 模型入口
+    tag: 对话
+  - name: 秘塔搜索
+    url: https://metaso.cn
+    desc: 无广告 AI 搜索，附引用来源
+    tag: 搜索
+  - name: 即梦 AI
+    url: https://jimeng.jianying.com
+    desc: 图片与视频生成，日常够用
+    tag: 绘图
+  - name: 讯飞星火
+    url: https://xinghuo.xfyun.cn
+    desc: 语音能力见长的综合助手
+    tag: 对话

@@ -1,0 +1,5 @@
+{{ define "main" }}
+{{/* 完整博客聚合页：原首页内容整块迁到 /alliance.html，
+     首页只保留 teaser（见 partials/alliance-teaser.html）。 */}}
+{{ partial "alliance-list.html" . }}
+{{ end }}

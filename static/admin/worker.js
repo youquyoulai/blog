@@ -928,6 +928,87 @@ async function updateAlliance(request, env) {
   return corsResponse(JSON.stringify({ ok: true, total: blogs.length, bytes: bytes }));
 }
 
+// ═════════════════════════════════════════════════════════════════
+// 导航站模块管理（data/nav/*.yaml）
+// 前端已有 js-yaml，YAML 的解析与生成都放前端做；
+// Worker 只负责「读原文 / 写原文 / 删文件」，不在这里引入 YAML 依赖。
+// ═════════════════════════════════════════════════════════════════
+const NAV_DIR = 'data/nav';
+const NAV_CONTENT_DIR = 'content/nav';
+// 模块 id 只允许小写字母、数字与连字符，避免路径穿越
+const NAV_ID_RE = /^[a-z0-9][a-z0-9-]{0,31}$/;
+
+async function listNavModules(env) {
+  let entries = [];
+  try {
+    entries = await githubFetch('/repos/' + GITHUB_REPO + '/contents/' + NAV_DIR, 'GET', env.GITHUB_TOKEN);
+  } catch (e) {
+    if (e.message.includes('404')) return corsResponse(JSON.stringify({ modules: [] }));
+    throw e;
+  }
+  const files = (entries || []).filter(function (f) {
+    return f.type === 'file' && /\.ya?ml$/i.test(f.name);
+  });
+  const modules = await Promise.all(files.map(async function (f) {
+    const id = f.name.replace(/\.ya?ml$/i, '');
+    let content = '', sha = null;
+    try {
+      const file = await readGitHubFile(NAV_DIR + '/' + f.name, env);
+      if (file) { content = file.content; sha = file.sha; }
+    } catch (e) { /* 单个文件读失败不影响其他模块 */ }
+    return { id: id, file: f.name, content: content, sha: sha };
+  }));
+  return corsResponse(JSON.stringify({ modules: modules }));
+}
+
+// 保存（id 不存在即新建）。sha 由前端回传；缺失或过期时自动重新读取。
+async function saveNavModule(request, env) {
+  const body = await request.json();
+  const id = String(body.id || '').trim();
+  const content = body.content;
+  if (!NAV_ID_RE.test(id)) {
+    return corsResponse(JSON.stringify({ error: '模块 id 不合法（只允许小写字母、数字、连字符）' }), 400);
+  }
+  if (typeof content !== 'string' || !content.trim()) {
+    return corsResponse(JSON.stringify({ error: '内容为空' }), 400);
+  }
+  let sha = body.sha || null;
+  if (!sha) {
+    const existing = await readGitHubFile(NAV_DIR + '/' + id + '.yaml', env).catch(function () { return null; });
+    sha = existing ? existing.sha : null;
+  }
+  const res = await writeGitHubFile(NAV_DIR + '/' + id + '.yaml', content, sha || undefined,
+    'Update nav module: ' + id, env);
+  return corsResponse(JSON.stringify({
+    ok: true, id: id,
+    sha: (res && res.content) ? res.content.sha : null,
+  }));
+}
+
+// 删除模块：同时清掉对应的分类页 content/nav/<id>.md，避免留下空页面。
+async function deleteNavModule(id, env) {
+  if (!NAV_ID_RE.test(id)) {
+    return corsResponse(JSON.stringify({ error: '模块 id 不合法' }), 400);
+  }
+  const existing = await readGitHubFile(NAV_DIR + '/' + id + '.yaml', env).catch(function () { return null; });
+  if (!existing) return corsResponse(JSON.stringify({ error: '模块不存在' }), 404);
+  await githubFetch('/repos/' + GITHUB_REPO + '/contents/' + NAV_DIR + '/' + id + '.yaml', 'DELETE',
+    env.GITHUB_TOKEN, { message: 'Delete nav module: ' + id, sha: existing.sha });
+
+  // 分类页一并删除（不存在则跳过）
+  let pageRemoved = false;
+  try {
+    const page = await readGitHubFile(NAV_CONTENT_DIR + '/' + id + '.md', env);
+    if (page) {
+      await githubFetch('/repos/' + GITHUB_REPO + '/contents/' + NAV_CONTENT_DIR + '/' + id + '.md', 'DELETE',
+        env.GITHUB_TOKEN, { message: 'Delete nav page: ' + id, sha: page.sha });
+      pageRemoved = true;
+    }
+  } catch (e) { /* 分类页删不掉不影响模块删除结果 */ }
+
+  return corsResponse(JSON.stringify({ ok: true, pageRemoved: pageRemoved }));
+}
+
 // 公开提交接口：供 pennear.pgoj.top 提交页调用，无需 admin token。
 // checkOrigin 已限制来源为 *.pgoj.top，配合下面的 isPublicPath 放行匿名 POST。
 // S04: 基于 KV 的提交速率限制（IP 维度，每日上限 3 次）。
@@ -1226,6 +1307,18 @@ export default {
       }
       if (path === '/wgpjyhxlxn/api/alliance/import' && request.method === 'POST') {
         return await triggerAllianceImport(env);
+      }
+
+      // ─── 导航模块 API（data/nav/*.yaml） ─────────────────────────
+      if (path === '/wgpjyhxlxn/api/nav' && request.method === 'GET') {
+        return await listNavModules(env);
+      }
+      if (path === '/wgpjyhxlxn/api/nav' && request.method === 'PUT') {
+        return await saveNavModule(request, env);
+      }
+      if (path.startsWith('/wgpjyhxlxn/api/nav/') && request.method === 'DELETE') {
+        const id = decodeURIComponent(path.replace('/wgpjyhxlxn/api/nav/', ''));
+        return await deleteNavModule(id, env);
       }
 
       // ─── 公开提交接口（无需登录，供 pennear.pgoj.top 提交页调用） ─────────

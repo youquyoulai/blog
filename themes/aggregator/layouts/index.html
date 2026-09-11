@@ -1,3 +1,18 @@
 {{ define "main" }}
-{{ partial "alliance-list.html" . }}
+{{- $mods := partial "nav-mods.html" . -}}
+<div class="wrap-wide">
+  <section class="hero">
+    <h1 class="hero-title">{{ site.Title }}</h1>
+    <p class="hero-desc">{{ site.Params.description }}</p>
+  </section>
+
+  {{ partial "nav-chips.html" (dict "cur" "blogs" "linked" false) }}
+
+  {{ range $mods }}
+    {{ partial "nav-section.html" (dict "mod" . "limit" 8 "linked" true) }}
+  {{ end }}
+
+  {{/* 博客聚合放在最后：模块预览在上，聚合区压轴 */}}
+  {{ partial "alliance-teaser.html" (dict "limit" 8) }}
+</div>
 {{ end }}

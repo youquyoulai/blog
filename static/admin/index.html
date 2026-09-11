@@ -312,6 +312,58 @@
       .comment-card { flex-direction:column; }
       .comment-card .comment-actions { flex-wrap:wrap; margin-top:8px; }
     }
+
+    /* ── 仪表盘统计栏 ── */
+    .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(118px,1fr)); }
+    .stat-item { text-align:center; padding:12px 6px; border-right:1px solid var(--border); }
+    .stat-item:last-child { border-right:none; }
+    .stat-num { font-size:1.7rem; font-weight:700; line-height:1.15; }
+    .stat-label { font-size:0.8rem; color:var(--muted); margin-top:4px; }
+    .stat-num.c-blue { color:#1877f2; }
+    .stat-num.c-green { color:#00a400; }
+    .stat-num.c-orange { color:#f59e0b; }
+    .stat-num.c-red { color:#e41e3f; }
+    .stat-num.c-teal { color:#12a5b8; }
+    .dash-actions { display:flex; gap:10px; flex-wrap:wrap; }
+    @media (max-width:600px) {
+      .stat-item { border-right:none; border-bottom:1px solid var(--border); }
+      .stat-item:last-child { border-bottom:none; }
+      .stat-num { font-size:1.45rem; }
+    }
+
+    /* ── 导航模块管理 ── */
+    .navm-layout { display:grid; grid-template-columns:230px 1fr; gap:16px; align-items:start; }
+    .navm-list { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; }
+    .navm-list-head { padding:10px 14px; border-bottom:1px solid var(--border); font-size:0.75rem; font-weight:600; color:var(--muted); letter-spacing:0.04em; }
+    .navm-mod { display:flex; align-items:center; gap:8px; padding:10px 14px; border-bottom:1px solid var(--border); cursor:pointer; font-size:0.875rem; transition:background 0.15s; }
+    .navm-mod:last-child { border-bottom:none; }
+    .navm-mod:hover { background:var(--input-bg); }
+    .navm-mod.active { background:var(--accent-bg); color:var(--accent); font-weight:600; }
+    .navm-order { font-size:0.68rem; color:var(--muted); background:var(--input-bg); border-radius:4px; padding:1px 5px; flex-shrink:0; }
+    .navm-mod.active .navm-order { background:rgba(24,119,242,0.14); color:var(--accent); }
+    .navm-n { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .navm-cnt { font-size:0.72rem; color:var(--muted); flex-shrink:0; }
+    .navm-editor { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px; }
+    .navm-form-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:14px; }
+    .navm-item { display:grid; grid-template-columns:120px 1.2fr 1.2fr 92px 96px; gap:8px; align-items:center; padding:8px; border:1px solid var(--border); border-radius:var(--radius); margin-bottom:8px; background:var(--surface); }
+    .navm-item input { width:100%; padding:7px 9px; background:var(--input-bg); border:1px solid var(--border); border-radius:6px; color:var(--text); font-size:0.82rem; outline:none; }
+    .navm-item input:focus { border-color:var(--accent); }
+    .navm-ops { display:flex; gap:4px; justify-content:flex-end; }
+    .navm-icon-btn { width:27px; height:27px; display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--border); border-radius:6px; background:var(--surface); color:var(--muted); cursor:pointer; font-size:0.78rem; line-height:1; }
+    .navm-icon-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
+    .navm-icon-btn:disabled { opacity:0.35; cursor:default; }
+    .navm-icon-btn.danger:hover { border-color:var(--red); color:var(--red); }
+    .navm-item-head { display:grid; grid-template-columns:120px 1.2fr 1.2fr 92px 96px; gap:8px; padding:0 8px 6px; font-size:0.72rem; color:var(--muted); font-weight:500; }
+    .swatches { display:flex; gap:6px; align-items:center; }
+    .swatch { width:26px; height:26px; border-radius:7px; border:2px solid transparent; cursor:pointer; padding:0; }
+    .swatch.sel { border-color:var(--text); }
+    .navm-hint { font-size:0.78rem; color:var(--muted); line-height:1.7; margin-top:14px; }
+    @media (max-width:900px) {
+      .navm-layout { grid-template-columns:1fr; }
+      .navm-item, .navm-item-head { grid-template-columns:1fr 1fr; }
+      .navm-item-head { display:none; }
+      .navm-ops { grid-column:span 2; justify-content:flex-start; }
+    }
   </style>
   <script data-cfasync="false" src="image-processor.js"></script>
   <script data-cfasync="false" src="comments.js"></script>
@@ -354,8 +406,13 @@
       </div>
     </div>
     <nav class="sidebar-nav">
-      <div class="nav-section-label">内容</div>
-      <button class="nav-item active" data-tab="images" onclick="switchTab('images')">
+      <div class="nav-section-label">总览</div>
+      <button class="nav-item active" data-tab="dashboard" onclick="switchTab('dashboard')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        仪表盘
+      </button>
+      <div class="nav-section-label" style="margin-top:8px;">内容</div>
+      <button class="nav-item" data-tab="images" onclick="switchTab('images')">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
         图库
       </button>
@@ -381,6 +438,10 @@
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75M21 21v-2a4 4 0 0 0-3-3.87"/></svg>
         博客联盟
       </button>
+      <button class="nav-item" data-tab="nav" onclick="switchTab('nav')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>
+        导航模块
+      </button>
       <div class="nav-section-label" style="margin-top:8px;">系统</div>
       <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
@@ -398,7 +459,7 @@
     <button class="topbar-menu-btn" onclick="toggleSidebar()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
-    <div class="topbar-breadcrumb" id="topbarTitle">图库</div>
+    <div class="topbar-breadcrumb" id="topbarTitle">仪表盘</div>
     <div class="topbar-actions">
       <a href="https://pennear.pgoj.top/" target="_blank" class="btn btn-ghost btn-sm" id="blogLink">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -408,6 +469,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
         发布
       </button>
+      <button class="btn btn-ghost btn-sm" onclick="doLogout()" title="退出登录">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        退出
+      </button>
     </div>
   </header>
 
@@ -415,8 +480,41 @@
   <main class="main-content">
     <div class="page-body">
 
+      <!-- ▸ 仪表盘 -->
+      <div id="tab-dashboard" class="tab-content active">
+        <div class="page-header">
+          <div><h1>仪表盘</h1><div class="page-meta">比邻 · 站点总览</div></div>
+          <button class="btn btn-sm btn-ghost" onclick="loadDashboard()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            刷新
+          </button>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-body" style="padding:6px 10px;">
+            <div class="stat-grid" id="dashStats">
+              <div class="stat-item"><div class="stat-num c-blue">–</div><div class="stat-label">加载中</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h2>快捷操作</h2></div>
+          <div class="card-body">
+            <div class="dash-actions">
+              <button class="btn btn-primary" onclick="switchTab('nav')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                管理导航模块
+              </button>
+              <button class="btn" onclick="switchTab('alliance')">博客联盟</button>
+              <button class="btn" onclick="switchTab('posts')">写文章</button>
+              <button class="btn" onclick="triggerDeploy()">生成站点</button>
+              <a class="btn" href="https://pennear.pgoj.top/" target="_blank">查看前台</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- ▸ 图库 -->
-      <div id="tab-images" class="tab-content active">
+      <div id="tab-images" class="tab-content">
         <div class="page-header">
           <div><h1>图库</h1><div class="page-meta">R2 对象存储 · img.pgoj.top</div></div>
           <div style="display:flex;gap:8px;">
@@ -896,6 +994,36 @@
         </div>
       </div>
 
+      <!-- ▸ 导航模块 -->
+      <div id="tab-nav" class="tab-content">
+        <div class="page-header">
+          <div><h1>导航模块</h1><div class="page-meta">首页各分类的网址卡片 · 对应 data/nav/*.yaml</div></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-sm btn-ghost" onclick="loadNavModules()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,4 23,10 17,10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              刷新
+            </button>
+            <button class="btn btn-sm" onclick="navNewModule()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              新建模块
+            </button>
+            <button class="btn btn-sm btn-primary" onclick="navSaveModule()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+              保存当前模块
+            </button>
+          </div>
+        </div>
+        <div class="navm-layout">
+          <div class="navm-list">
+            <div class="navm-list-head">模块列表（按排序值）</div>
+            <div id="navmList"><div class="loading" style="padding:16px;"><div class="spinner"></div>加载中...</div></div>
+          </div>
+          <div class="navm-editor" id="navmEditor">
+            <div class="empty-state"><p>从左侧选择一个模块进行编辑</p></div>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /page-body -->
   </main>
 
@@ -989,7 +1117,7 @@ function closeSidebar() {
 
 /* ===== 初始化 ===== */
 function init() {
-  if (token) { showApp(); checkApi(); } else { showLogin(); }
+  if (token) { showApp(); checkApi(); loadDashboard(); } else { showLogin(); }
 }
 
 function showLogin() {
@@ -1023,6 +1151,7 @@ async function doLogin() {
     if (res.ok) {
       showApp();
       checkApi();
+      loadDashboard();
     } else {
       errorEl.textContent = '令牌无效，请重试';
       errorEl.style.display = 'block';
@@ -1345,6 +1474,8 @@ function switchTab(name) {
   var nav = document.querySelector('.nav-item[data-tab="' + name + '"]');
   if (nav) nav.classList.add('active');
 
+  if (name === 'dashboard') loadDashboard();
+  if (name === 'nav') loadNavModules();
   if (name === 'images') loadImages();
   if (name === 'posts') { loadPosts(); }
   if (name === 'subsections') loadSubSections();
@@ -1359,6 +1490,7 @@ function switchTab(name) {
 
   // 同步顶栏标题
   var titles = {
+    'dashboard':'仪表盘', 'nav':'导航模块',
     'images':'图库', 'posts':'文章', 'subsections':'专题', 'comments':'评论', 'taxonomies':'分类 / 标签',
     'wenhui':'文汇 RSS', 'alliance':'博客联盟', 'links':'友链', 'pages':'独立页面', 'settings':'系统设置',
     'editor':'编辑文章', 'pageEditor':'编辑页面', 'subsection-editor':'编辑专题'
@@ -3122,8 +3254,305 @@ async function deletePage() {
   }
 }
 
+/* ===== 仪表盘 ===== */
+async function loadDashboard() {
+  var el = document.getElementById('dashStats');
+  if (!el) return;
+  var stats = [
+    { key: 'blogs', num: 0, label: '收录博客', cls: 'c-blue' },
+    { key: 'mods',  num: 0, label: '导航模块', cls: 'c-green' },
+    { key: 'sites', num: 0, label: '导航网址', cls: 'c-orange' },
+    { key: 'posts', num: 0, label: '文章',     cls: 'c-red' },
+    { key: 'pages', num: 0, label: '页面',     cls: 'c-teal' }
+  ];
+  var byKey = {};
+  stats.forEach(function (s) { byKey[s.key] = s; });
+  function render() {
+    el.innerHTML = stats.map(function (s) {
+      return '<div class="stat-item"><div class="stat-num ' + s.cls + '">' + s.num + '</div><div class="stat-label">' + s.label + '</div></div>';
+    }).join('');
+  }
+  render();
+  api('/api/alliance').then(function (d) {
+    byKey.blogs.num = ((d && d.blogs) || []).length; render();
+  }).catch(function () {});
+  api('/api/nav').then(function (d) {
+    var mods = (d && d.modules) || [];
+    byKey.mods.num = mods.length;
+    var n = 0;
+    mods.forEach(function (m) { n += navCountItems(m.content); });
+    byKey.sites.num = n;
+    render();
+  }).catch(function () {});
+  api('/api/posts').then(function (d) {
+    byKey.posts.num = Array.isArray(d) ? d.length : ((d && d.posts) || []).length; render();
+  }).catch(function () {});
+  api('/api/pages').then(function (d) {
+    byKey.pages.num = Array.isArray(d) ? d.length : ((d && d.pages) || []).length; render();
+  }).catch(function () {});
+}
+
+/* ═══════════════════════════════════════════════════════════
+   导航模块管理（data/nav/*.yaml）
+   ═══════════════════════════════════════════════════════════ */
+var NAV_ID_RE = /^[a-z0-9][a-z0-9-]{0,31}$/;
+var NAV_ACCENTS = [
+  { id: 'c0', bg: '#EAF0E6', fg: '#56704A' },
+  { id: 'c1', bg: '#E6EEF4', fg: '#3D6480' },
+  { id: 'c2', bg: '#F5EDE4', fg: '#8A6A48' },
+  { id: 'c3', bg: '#F2E9EF', fg: '#7A5670' },
+  { id: 'c4', bg: '#FDF2E3', fg: '#8A6A2E' },
+  { id: 'c5', bg: '#EDEAE4', fg: '#6B645C' }
+];
+var _navModules = [];   // [{id, file, content, sha, data}]
+var _navCur = -1;
+var _navDraft = null;
+var _navIsNew = false;
+
+function navCountItems(content) {
+  try {
+    var d = jsyaml.load(content) || {};
+    return (d.items || []).length;
+  } catch (e) { return 0; }
+}
+
+async function loadNavModules(selectId) {
+  var el = document.getElementById('navmList');
+  if (!el) return;
+  el.innerHTML = '<div class="loading" style="padding:16px;"><div class="spinner"></div>加载中...</div>';
+  try {
+    var d = await api('/api/nav');
+    _navModules = ((d && d.modules) || []).map(function (m) {
+      var data = {};
+      try { data = jsyaml.load(m.content) || {}; } catch (e) { data = {}; }
+      data.items = data.items || [];
+      return { id: m.id, file: m.file, content: m.content, sha: m.sha, data: data };
+    });
+    _navModules.sort(function (a, b) { return (a.data.order || 99) - (b.data.order || 99); });
+    renderNavModList();
+    if (!_navModules.length) { _navCur = -1; _navDraft = null; navRenderEditor(); return; }
+    var idx = 0;
+    if (selectId) {
+      for (var i = 0; i < _navModules.length; i++) { if (_navModules[i].id === selectId) { idx = i; break; } }
+    }
+    navSelectModule(idx);
+  } catch (e) {
+    el.innerHTML = '<div style="padding:16px;color:var(--red);font-size:0.85rem;">加载失败：' + escHtml(e.message) + '</div>';
+  }
+}
+
+function renderNavModList() {
+  var el = document.getElementById('navmList');
+  if (!el) return;
+  if (!_navModules.length) {
+    el.innerHTML = '<div style="padding:14px;color:var(--muted);font-size:0.82rem;">暂无模块，点右上角「新建模块」</div>';
+    return;
+  }
+  el.innerHTML = _navModules.map(function (m, i) {
+    return '<div class="navm-mod' + (i === _navCur ? ' active' : '') + '" onclick="navSelectModule(' + i + ')">'
+      + '<span class="navm-order">' + (m.data.order != null ? m.data.order : 99) + '</span>'
+      + '<span class="navm-n">' + escHtml(m.data.name || m.id) + '</span>'
+      + '<span class="navm-cnt">' + (m.data.items || []).length + '</span>'
+      + '</div>';
+  }).join('');
+}
+
+function navSelectModule(i) {
+  if (i < 0 || i >= _navModules.length) return;
+  var m = _navModules[i];
+  _navCur = i; _navIsNew = false;
+  _navDraft = {
+    id: m.id,
+    order: m.data.order != null ? m.data.order : 99,
+    name: m.data.name || m.id,
+    desc: m.data.desc || '',
+    accent: m.data.accent || 'c1',
+    items: (m.data.items || []).map(function (it) {
+      return { name: it.name || '', url: it.url || '', desc: it.desc || '', tag: it.tag || '' };
+    })
+  };
+  if (!_navDraft.items.length) _navDraft.items.push({ name: '', url: '', desc: '', tag: '' });
+  renderNavModList();
+  navRenderEditor();
+}
+
+function navNewModule() {
+  var maxOrder = 0;
+  _navModules.forEach(function (m) { if ((m.data.order || 0) > maxOrder) maxOrder = m.data.order || 0; });
+  _navIsNew = true; _navCur = -1;
+  _navDraft = {
+    id: '', order: maxOrder + 10, name: '', desc: '', accent: 'c1',
+    items: [{ name: '', url: '', desc: '', tag: '' }]
+  };
+  renderNavModList();
+  navRenderEditor();
+  var f = document.getElementById('navmId');
+  if (f) f.focus();
+}
+
+function navSetAccent(id) {
+  if (!_navDraft) return;
+  _navDraft.accent = id;
+  var box = document.querySelectorAll('#navmEditor .swatch');
+  for (var i = 0; i < NAV_ACCENTS.length; i++) {
+    if (box[i]) box[i].className = 'swatch' + (NAV_ACCENTS[i].id === id ? ' sel' : '');
+  }
+}
+
+function navRenderEditor() {
+  var box = document.getElementById('navmEditor');
+  if (!box) return;
+  var d = _navDraft;
+  if (!d) {
+    box.innerHTML = '<div class="empty-state"><p>从左侧选择一个模块进行编辑</p></div>';
+    return;
+  }
+  var sw = NAV_ACCENTS.map(function (a) {
+    return '<button class="swatch' + (a.id === d.accent ? ' sel' : '') + '" style="background:' + a.bg + ';" onclick="navSetAccent(\'' + a.id + '\')" title="' + a.id + '"></button>';
+  }).join('');
+  box.innerHTML =
+    '<div class="navm-form-row">'
+    + '<div class="form-field" style="margin:0;"><label>模块 ID' + (_navIsNew ? '（新模块，不可重复）' : '（不可改）') + '</label>'
+    + '<input id="navmId" value="' + escHtml(d.id) + '"' + (_navIsNew ? '' : ' disabled') + ' placeholder="如 ai"></div>'
+    + '<div class="form-field" style="margin:0;"><label>模块名称</label><input id="navmName" value="' + escHtml(d.name) + '" placeholder="如 AI 工具"></div>'
+    + '<div class="form-field" style="margin:0;"><label>排序（小在前）</label><input id="navmOrder" type="number" value="' + d.order + '"></div>'
+    + '<div class="form-field" style="margin:0;"><label>模块简介</label><input id="navmDesc" value="' + escHtml(d.desc) + '" placeholder="分类页标题下显示"></div>'
+    + '<div class="form-field" style="margin:0;"><label>主题色</label><div class="swatches">' + sw + '</div></div>'
+    + '</div>'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 10px;gap:8px;flex-wrap:wrap;">'
+    + '<div style="font-size:0.9rem;font-weight:600;">网址条目 <span id="navmItemCount" style="color:var(--muted);font-weight:400;font-size:0.8rem;"></span></div>'
+    + '<div style="display:flex;gap:8px;">'
+    + '<button class="btn btn-sm" onclick="navAddItem()">+ 添加网址</button>'
+    + (_navIsNew ? '' : '<button class="btn btn-sm btn-danger" onclick="navDeleteModule()">删除模块</button>')
+    + '</div></div>'
+    + '<div class="navm-item-head"><span>名称</span><span>网址</span><span>简介</span><span>标签</span><span style="text-align:right">操作</span></div>'
+    + '<div id="navmItems"></div>'
+    + '<p class="navm-hint">· 排序：条目用 ↑ ↓ 调整顺序；模块之间的先后由上方「排序」数字决定<br>'
+    + '· 保存只写入 GitHub 仓库，前台需点顶栏「发布」重新构建后才会变化<br>'
+    + '· 删除模块会连同分类页 content/nav/&lt;id&gt;.md 一并删除</p>';
+  navRenderItems();
+}
+
+function navRenderItems() {
+  var box = document.getElementById('navmItems');
+  if (!box || !_navDraft) return;
+  var items = _navDraft.items;
+  var cnt = document.getElementById('navmItemCount');
+  if (cnt) cnt.textContent = '共 ' + items.length + ' 条';
+  box.innerHTML = items.map(function (it, i) {
+    return '<div class="navm-item">'
+      + '<input value="' + escHtml(it.name) + '" placeholder="名称" oninput="navSetItem(' + i + ',\'name\',this.value)">'
+      + '<input value="' + escHtml(it.url) + '" placeholder="https://" oninput="navSetItem(' + i + ',\'url\',this.value)">'
+      + '<input value="' + escHtml(it.desc) + '" placeholder="简介" oninput="navSetItem(' + i + ',\'desc\',this.value)">'
+      + '<input value="' + escHtml(it.tag) + '" placeholder="标签" oninput="navSetItem(' + i + ',\'tag\',this.value)">'
+      + '<div class="navm-ops">'
+      + '<button class="navm-icon-btn" onclick="navMoveItem(' + i + ',-1)"' + (i === 0 ? ' disabled' : '') + ' title="上移">↑</button>'
+      + '<button class="navm-icon-btn" onclick="navMoveItem(' + i + ',1)"' + (i === items.length - 1 ? ' disabled' : '') + ' title="下移">↓</button>'
+      + '<button class="navm-icon-btn danger" onclick="navDelItem(' + i + ')" title="删除">✕</button>'
+      + '</div></div>';
+  }).join('');
+}
+
+function navSetItem(i, field, val) {
+  if (!_navDraft || !_navDraft.items[i]) return;
+  _navDraft.items[i][field] = val;
+}
+
+function navAddItem() {
+  if (!_navDraft) return;
+  _navDraft.items.push({ name: '', url: '', desc: '', tag: '' });
+  navRenderItems();
+  var rows = document.querySelectorAll('#navmItems .navm-item');
+  var last = rows[rows.length - 1];
+  if (last) { var f = last.querySelector('input'); if (f) f.focus(); }
+}
+
+function navDelItem(i) {
+  if (!_navDraft) return;
+  _navDraft.items.splice(i, 1);
+  if (!_navDraft.items.length) _navDraft.items.push({ name: '', url: '', desc: '', tag: '' });
+  navRenderItems();
+}
+
+function navMoveItem(i, delta) {
+  if (!_navDraft) return;
+  var items = _navDraft.items;
+  var j = i + delta;
+  if (j < 0 || j >= items.length) return;
+  var tmp = items[i]; items[i] = items[j]; items[j] = tmp;
+  navRenderItems();
+}
+
+async function navSaveModule() {
+  var d = _navDraft;
+  if (!d) return;
+  var idEl = document.getElementById('navmId');
+  var id = (_navIsNew ? (idEl ? idEl.value : '') : d.id).trim().toLowerCase();
+  var name = (document.getElementById('navmName').value || '').trim();
+  var order = parseInt(document.getElementById('navmOrder').value, 10);
+  var desc = (document.getElementById('navmDesc').value || '').trim();
+  if (!NAV_ID_RE.test(id)) { toast('模块 ID 只能用 小写字母 / 数字 / 连字符', 'error'); return; }
+  if (!name) { toast('请填写模块名称', 'error'); return; }
+  if (isNaN(order)) order = 99;
+
+  var items = [];
+  for (var i = 0; i < d.items.length; i++) {
+    var it = d.items[i];
+    var n = (it.name || '').trim(), u = (it.url || '').trim();
+    if (!n && !u) continue;   // 整行空白直接丢弃
+    if (!n) { toast('第 ' + (i + 1) + ' 条缺少名称', 'error'); return; }
+    if (!u) { toast('第 ' + (i + 1) + ' 条缺少网址', 'error'); return; }
+    items.push({ name: n, url: u, desc: (it.desc || '').trim(), tag: (it.tag || '').trim() });
+  }
+
+  var exist = null;
+  for (var j = 0; j < _navModules.length; j++) { if (_navModules[j].id === id) exist = _navModules[j]; }
+  if (_navIsNew && exist) { toast('模块 ID 已存在，请换一个', 'error'); return; }
+
+  var obj = { order: order, name: name, desc: desc, accent: d.accent || 'c1', items: items };
+  var yamlStr;
+  try {
+    yamlStr = jsyaml.dump(obj, { lineWidth: -1, noRefs: true });
+  } catch (e) { toast('生成 YAML 失败: ' + e.message, 'error'); return; }
+
+  try {
+    var res = await api('/api/nav', 'PUT', {
+      id: id, content: yamlStr,
+      sha: (!_navIsNew && exist) ? exist.sha : null
+    });
+    toast('已保存，点「发布」后前台生效', 'success');
+    await loadNavModules(id);
+  } catch (e) {
+    toast('保存失败: ' + e.message, 'error');
+  }
+}
+
+async function navDeleteModule() {
+  if (!_navDraft || _navIsNew) return;
+  var name = _navDraft.name || _navDraft.id;
+  if (!confirm('确定删除模块「' + name + '」？\n会同时删除分类页 content/nav/' + _navDraft.id + '.md，且不可撤销。')) return;
+  try {
+    await api('/api/nav/' + encodeURIComponent(_navDraft.id), 'DELETE', {});
+    toast('已删除模块', 'success');
+    _navCur = -1; _navDraft = null; _navIsNew = false;
+    await loadNavModules();
+  } catch (e) {
+    toast('删除失败: ' + e.message, 'error');
+  }
+}
+
 /* ===== 设置 ===== */
 function showSettings() { switchTab('settings'); }
+
+/* ===== 退出登录 ===== */
+function doLogout() {
+  if (!confirm('确定退出登录？')) return;
+  localStorage.removeItem('admin_token');
+  token = '';
+  var ti = document.getElementById('tokenInput');
+  if (ti) ti.value = '';
+  showLogin();
+}
 
 // 启动
 init();

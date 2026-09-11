@@ -1,0 +1,46 @@
+{{- /* 首页「博客聚合」模块预览：只渲染最近更新的 N 个站，每站带上最新一篇文章。
+      完整列表（搜索 / 排序 / 分页）在 /alliance.html。 */ -}}
+{{- $N := .limit | default 8 -}}
+{{- $data := hugo.Data.alliance -}}
+{{- $blogs := $data.blogs | default slice -}}
+{{- $latest := dict -}}
+{{- with (index hugo.Data "alliance-latest") }}{{ $latest = .map | default dict }}{{ end -}}
+{{- $cutoff := (now.AddDate 0 0 -180) | dateFormat "2006-01-02T15:04:05" -}}
+{{- $total := 0 -}}
+{{- $shown := slice -}}
+{{- range $b := $blogs -}}
+  {{- if not $b.pending }}{{ $total = add $total 1 }}{{ end -}}
+  {{- if and (lt (len $shown) $N) (not $b.pending) $b.updated (ge (substr $b.updated 0 19) $cutoff) -}}
+    {{- $shown = $shown | append $b -}}
+  {{- end -}}
+{{- end -}}
+<section class="sec" id="sec-blogs" data-sec="blogs">
+  <div class="sec-head">
+    <h2 class="sec-title">博客聚合</h2>
+    <span class="sec-count">收录 {{ $total }} 个活跃博客</span>
+    <a class="sec-more" href="{{ "alliance.html" | relURL }}">更多 →</a>
+  </div>
+  <div class="al-grid al-teaser">
+    {{ range $i, $b := $shown }}
+    {{- $ini := substr (printf "%s" $b.name) 0 1 -}}
+    {{- $lt := index $latest $b.domain -}}
+    {{- $showT := printf "%v" ($b.updated | default "") -}}
+    {{- if $lt }}{{ with (index $lt "pubDate") }}{{ if gt (substr . 0 19) (substr $showT 0 19) }}{{ $showT = . }}{{ end }}{{ end }}{{ end -}}
+    <div class="al-card">
+      <div class="al-top">
+        <div class="al-av al-c{{ mod $i 6 }}">{{ if $ini }}{{ $ini }}{{ else }}#{{ end }}</div>
+        <div class="al-id">
+          <a class="al-name" href="{{ $b.site }}" target="_blank" rel="noopener nofollow external">{{ $b.name }}</a>
+          <span class="al-domain">{{ $b.domain }}</span>
+        </div>
+        <span class="al-time">{{ substr $showT 0 10 }}</span>
+      </div>
+      {{ with $lt }}
+      <div class="al-post">
+        <a class="al-post-title" href="{{ .link }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+</section>

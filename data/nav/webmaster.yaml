@@ -1,0 +1,53 @@
+order: 40
+name: 站长工具
+desc: 备案、解析、测速、收录，建站必备
+accent: c3
+items:
+  - name: ICP 备案查询
+    url: https://beian.miit.gov.cn
+    desc: 工信部官方备案信息查询
+    tag: 备案
+  - name: 站长工具
+    url: https://tool.chinaz.com
+    desc: SEO 综合查询、DNS、Ping 等
+    tag: 综合
+  - name: 爱站网
+    url: https://www.aizhan.com
+    desc: 权重、关键词与友链检测
+    tag: SEO
+  - name: SSL 证书检测
+    url: https://www.ssllabs.com/ssltest/
+    desc: 证书链与配置安全评级
+    tag: 安全
+  - name: PageSpeed Insights
+    url: https://pagespeed.web.dev
+    desc: 谷歌官方页面性能与体验评分
+    tag: 测速
+  - name: ITDog 拨测
+    url: https://www.itdog.cn/http/
+    desc: 全国多线路网站访问速度检测
+    tag: 测速
+  - name: 17ce
+    url: https://www.17ce.com
+    desc: 多地 ping 与 DNS 解析测试
+    tag: 测速
+  - name: Cloudflare
+    url: https://www.cloudflare.com
+    desc: CDN、DNS 与安全防护
+    tag: CDN
+  - name: Google Search Console
+    url: https://search.google.com/search-console
+    desc: 谷歌收录与索引状态管理
+    tag: 收录
+  - name: 百度搜索资源平台
+    url: https://ziyuan.baidu.com
+    desc: 百度收录提交与抓取诊断
+    tag: 收录
+  - name: Wayback Machine
+    url: https://archive.org/web/
+    desc: 网页历史快照存档
+    tag: 存档
+  - name: Bing 网站管理员
+    url: https://www.bing.com/webmasters
+    desc: Bing 收录提交与 SEO 报告
+    tag: 收录

@@ -1,0 +1,45 @@
+order: 50
+name: 设计资源
+desc: 图标、图片、配色与字体
+accent: c2
+items:
+  - name: Iconfont
+    url: https://www.iconfont.cn
+    desc: 阿里矢量图标库，中文站首选
+    tag: 图标
+  - name: Unsplash
+    url: https://unsplash.com
+    desc: 免费可商用高清图片
+    tag: 图库
+  - name: Pexels
+    url: https://www.pexels.com
+    desc: 免费图片与视频素材
+    tag: 图库
+  - name: Coolors
+    url: https://coolors.co
+    desc: 配色方案生成与对比度检查
+    tag: 配色
+  - name: 站酷
+    url: https://www.zcool.com.cn
+    desc: 国内设计师作品社区
+    tag: 社区
+  - name: 花瓣网
+    url: https://huaban.com
+    desc: 灵感采集与素材收藏
+    tag: 灵感
+  - name: 字由
+    url: https://www.hellofont.cn
+    desc: 字体管理与商用授权查询
+    tag: 字体
+  - name: 即时设计
+    url: https://js.design
+    desc: 在线 UI 设计与协作
+    tag: 设计
+  - name: SVG Repo
+    url: https://www.svgrepo.com
+    desc: 免费 SVG 图标与矢量素材
+    tag: 图标
+  - name: 中国色
+    url: https://zhongguose.com
+    desc: 中国传统色卡与配色
+    tag: 配色

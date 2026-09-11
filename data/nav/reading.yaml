@@ -1,0 +1,37 @@
+order: 60
+name: 阅读订阅
+desc: RSS 阅读器、书源与阅读记录
+accent: c4
+items:
+  - name: Inoreader
+    url: https://www.inoreader.com
+    desc: 老牌 RSS 阅读器，规则强大
+    tag: RSS
+  - name: Feedly
+    url: https://feedly.com
+    desc: 界面清爽的跨平台订阅器
+    tag: RSS
+  - name: Follow
+    url: https://follow.is
+    desc: 新一代开源信息浏览器
+    tag: RSS
+  - name: RSSHub
+    url: https://rsshub.app
+    desc: 万物皆可 RSS 的开源路由
+    tag: 工具
+  - name: 微信读书
+    url: https://weread.qq.com
+    desc: 阅读时长与笔记导出
+    tag: 读书
+  - name: 豆瓣读书
+    url: https://book.douban.com
+    desc: 书评、豆列与豆瓣评分
+    tag: 读书
+  - name: 国家数字图书馆
+    url: https://www.nlc.cn
+    desc: 国家图书馆数字资源门户
+    tag: 资源
+  - name: Zotero
+    url: https://www.zotero.org
+    desc: 文献管理与引用收集
+    tag: 工具

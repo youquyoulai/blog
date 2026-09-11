@@ -1,0 +1,13 @@
+{{- /* 读取 data/nav/*.yaml，按 order 升序返回模块列表。
+      返回值为 slice，供首页与各分类页共用（Hugo partial 可 return 任意类型）。 */ -}}
+{{- $mods := slice -}}
+{{- range $id, $m := hugo.Data.nav -}}
+  {{- $mods = $mods | append (dict
+      "id" $id
+      "order" ($m.order | default 99)
+      "name" $m.name
+      "desc" $m.desc
+      "accent" ($m.accent | default "c1")
+      "items" $m.items) -}}
+{{- end -}}
+{{- return (sort $mods "order" "asc") -}}

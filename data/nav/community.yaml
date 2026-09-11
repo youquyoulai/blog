@@ -1,0 +1,45 @@
+order: 20
+name: 社区论坛
+desc: 独立博客圈与开发者扎堆的地方
+accent: c1
+items:
+  - name: 博友圈
+    url: https://www.boyouquan.com
+    desc: 独立博客收录、友链交换与更新监控
+    tag: 博客圈
+  - name: V2EX
+    url: https://www.v2ex.com
+    desc: 创意工作者社区，话题覆盖广泛
+    tag: 综合
+  - name: Linux.do
+    url: https://linux.do
+    desc: 新锐技术社区，氛围活跃
+    tag: 技术
+  - name: NodeLoc
+    url: https://www.nodeloc.com
+    desc: 服务器、建站与开发技术交流
+    tag: 建站
+  - name: Hostloc
+    url: https://www.hostloc.com
+    desc: 主机、VPS 与 IDC 信息集散地
+    tag: 主机
+  - name: 十年之约
+    url: https://www.foreverblog.cn
+    desc: 独立博客十年之约，坚持写作
+    tag: 博客圈
+  - name: 开往
+    url: https://www.travellings.cn
+    desc: 博客友链接力，随机跳转到下一个站
+    tag: 博客圈
+  - name: SegmentFault
+    url: https://segmentfault.com
+    desc: 中文技术问答与专栏
+    tag: 问答
+  - name: 吾爱破解
+    url: https://www.52pojie.cn
+    desc: 软件逆向、安全与资源分享
+    tag: 安全
+  - name: 掘金
+    url: https://juejin.cn
+    desc: 前端与后端技术内容社区
+    tag: 技术

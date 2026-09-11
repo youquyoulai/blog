@@ -1,0 +1,23 @@
+{{ define "main" }}
+{{- $id := .Params.nav_id | default .File.BaseFileName -}}
+{{- $raw := index hugo.Data.nav $id -}}
+{{- if $raw -}}
+{{- $m := dict "id" $id "name" $raw.name "desc" $raw.desc "accent" $raw.accent "items" $raw.items -}}
+<div class="wrap-wide">
+  {{ partial "nav-chips.html" (dict "cur" $id "linked" true) }}
+
+  <header class="sec-page-head">
+    <h1>{{ $m.name }}</h1>
+    {{ with $m.desc }}<p>{{ . }}</p>{{ end }}
+  </header>
+
+  {{ partial "nav-section.html" (dict "mod" $m "linked" false) }}
+
+  <p class="sec-back"><a href="{{ site.BaseURL }}">← 返回导航首页</a></p>
+</div>
+{{- else -}}
+<div class="wrap-wide">
+  <p>未找到模块数据：{{ $id }}</p>
+</div>
+{{- end -}}
+{{ end }}

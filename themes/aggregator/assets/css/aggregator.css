@@ -7,7 +7,11 @@
   --radius_md: 10px;
   --radius_sm: 6px;
   --maxw: 760px;
+  --maxw_wide: 1180px;
   --color_header_bg: #ffffff;
+  --color_card: #ffffff;
+  --color_border_hover: #d3d6da;
+  --header_h: 56px;
 }
 
 * { box-sizing: border-box; }
@@ -96,7 +100,7 @@ a:hover { text-decoration: underline; }
 .al-bar {
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
   gap: .5rem; padding: .75rem 1rem; margin: 1rem 0;
-  background: #fff; border: 1px solid var(--color_border); border-radius: var(--radius_md);
+  background: var(--color_card); border: 1px solid var(--color_border); border-radius: var(--radius_md);
   font-size: .8125rem; color: var(--color_text_light);
 }
 .al-bar b { color: var(--color_text); font-weight: 600; }
@@ -105,23 +109,23 @@ a:hover { text-decoration: underline; }
 .al-search input {
   flex: 1; min-width: 0; padding: .5rem .75rem;
   border: 1px solid var(--color_border); border-radius: var(--radius_md);
-  background: #fff; font-size: .875rem; color: var(--color_text); font-family: inherit;
+  background: var(--color_card); font-size: .875rem; color: var(--color_text); font-family: inherit;
 }
 .al-search input:focus { outline: none; border-color: var(--color_link); }
 .al-search select {
   padding: .5rem .5rem; border: 1px solid var(--color_border); border-radius: var(--radius_md);
-  background: #fff; font-size: .8125rem; color: var(--color_text); font-family: inherit; cursor: pointer;
+  background: var(--color_card); font-size: .8125rem; color: var(--color_text); font-family: inherit; cursor: pointer;
 }
 .al-count { font-size: .8125rem; color: var(--color_text_light); white-space: nowrap; }
 
 /* ===== 卡片网格（响应式列数：桌面 3 列 / 平板 2 列 / 手机 1 列） ===== */
 .al-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
 .al-card {
-  background: #fff; border: 1px solid var(--color_border); border-radius: var(--radius_md);
+  background: var(--color_card); border: 1px solid var(--color_border); border-radius: var(--radius_md);
   padding: 14px; display: flex; flex-direction: column; gap: 10px;
   transition: border-color .15s, box-shadow .15s;
 }
-.al-card:hover { border-color: #d3d6da; box-shadow: 0 2px 10px rgba(0, 0, 0, .04); }
+.al-card:hover { border-color: var(--color_border_hover); box-shadow: 0 2px 10px rgba(0, 0, 0, .04); }
 .al-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .al-av {
   width: 36px; height: 36px; flex: 0 0 36px; border-radius: 50%;
@@ -175,7 +179,7 @@ a:hover { text-decoration: underline; }
 .al-pager button {
   font-family: inherit; font-size: .8125rem; min-width: 34px; height: 32px;
   padding: 0 .5rem; border: 1px solid var(--color_border); border-radius: var(--radius_sm);
-  background: #fff; color: var(--color_text); cursor: pointer;
+  background: var(--color_card); color: var(--color_text); cursor: pointer;
 }
 .al-pager button:hover:not(:disabled) { border-color: var(--color_link); color: var(--color_link); }
 .al-pager button.cur { background: var(--color_link); border-color: var(--color_link); color: #fff; cursor: default; }
@@ -183,7 +187,7 @@ a:hover { text-decoration: underline; }
 .al-pager .gap { padding: 0 .25rem; color: var(--color_text_light); }
 
 .al-empty-state {
-  padding: 1.5rem; background: #fff; border: 1px solid var(--color_border);
+  padding: 1.5rem; background: var(--color_card); border: 1px solid var(--color_border);
   border-radius: var(--radius_md); font-size: .875rem; line-height: 2;
 }
 .al-empty-state code {
@@ -204,4 +208,109 @@ a:hover { text-decoration: underline; }
   .al-card { padding: 12px; gap: 8px; }
   .al-bar { padding: .625rem .75rem; }
   .al-search input { padding: .4rem .5rem; }
+}
+
+/* ============================================================
+   导航首页（宽容器 + 模块区块 + 网址卡片）
+   ============================================================ */
+html { scroll-behavior: smooth; }
+
+.wrap-wide {
+  max-width: var(--maxw_wide);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ===== 顶部 hero 与全站搜索 ===== */
+.hero { padding: 1.5rem 0 1rem; }
+.hero-title { margin: 0; font-size: 1.375rem; font-weight: 600; letter-spacing: .02em; }
+.hero-desc { margin: .375rem 0 0; font-size: .8125rem; color: var(--color_text_light); }
+.hero-search { position: relative; }
+.hero-search input {
+  width: 100%; padding: .625rem .875rem; font-size: 15px; font-family: inherit;
+  color: var(--color_text); background: var(--color_card);
+  border: 1px solid var(--color_border); border-radius: var(--radius_md);
+}
+.hero-search input:focus { outline: none; border-color: var(--color_link); }
+.hero-hint {
+  position: absolute; right: .75rem; top: 50%; transform: translateY(-50%);
+  font-size: .6875rem; color: var(--color_text_light);
+  border: 1px solid var(--color_border); border-radius: 4px; padding: 0 .3rem;
+}
+
+/* ===== 模块切换条 ===== */
+.nav-chips {
+  display: flex; flex-wrap: wrap; gap: .375rem;
+  padding-bottom: 1rem; margin-bottom: .25rem;
+}
+.nav-chips .chip {
+  font-size: .75rem; padding: .25rem .625rem; border-radius: 999px;
+  color: var(--color_text_light); border: 1px solid var(--color_border);
+  background: var(--color_card);
+}
+.nav-chips .chip:hover { color: var(--color_text); border-color: var(--color_border_hover); text-decoration: none; }
+.nav-chips .chip.cur { background: var(--color_link); border-color: var(--color_link); color: #fff; }
+
+/* ===== 模块区块 ===== */
+.sec { scroll-margin-top: calc(var(--header_h) + 12px); margin-bottom: 1.75rem; }
+.sec-head { display: flex; align-items: baseline; gap: .5rem; margin-bottom: .625rem; }
+.sec-title { margin: 0; font-size: .9375rem; font-weight: 600; }
+.sec-count { font-size: .75rem; color: var(--color_text_light); }
+.sec-more { margin-left: auto; font-size: .75rem; color: var(--color_link); white-space: nowrap; }
+.sec-more:hover { text-decoration: underline; }
+
+/* ===== 网址卡片 ===== */
+.nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+.nc {
+  display: flex; align-items: center; gap: .625rem; padding: .625rem .75rem;
+  background: var(--color_card); border: 1px solid var(--color_border);
+  border-radius: var(--radius_md); color: var(--color_text);
+  transition: border-color .15s, box-shadow .15s;
+}
+.nc:hover { border-color: var(--color_border_hover); box-shadow: 0 2px 8px rgba(0, 0, 0, .04); text-decoration: none; }
+.nc-ic {
+  width: 28px; height: 28px; flex: 0 0 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8125rem; font-weight: 500; line-height: 1;
+}
+.nc-bd { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 1px; }
+.nc-n { font-size: .8125rem; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nc-d { font-size: .6875rem; color: var(--color_text_light); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nc-t { font-size: .6875rem; color: var(--color_text_light); flex-shrink: 0; }
+
+/* ===== 首页聚合预览：比列表页更宽的卡片 ===== */
+.al-teaser { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+
+/* ===== 分类详情页 ===== */
+.sec-page-head { padding: 1rem 0 .25rem; }
+.sec-page-head h1 { margin: 0 0 .25rem; font-size: 1.25rem; font-weight: 600; }
+.sec-page-head p { margin: 0 0 1rem; font-size: .8125rem; color: var(--color_text_light); }
+.sec-back { margin: 0 0 2rem; font-size: .8125rem; }
+.nav-none { padding: 1.5rem 0; font-size: .875rem; color: var(--color_text_light); text-align: center; }
+
+@media (max-width: 640px) {
+  .hero { padding: 1.25rem 0 1rem; }
+  .hero-title { font-size: 1.1875rem; }
+  .nav-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+  .nc { padding: .5rem .625rem; gap: .5rem; }
+  .nc-ic { width: 24px; height: 24px; flex: 0 0 24px; border-radius: 7px; font-size: .75rem; }
+  .nc-d { display: none; }
+  .al-teaser { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   暗色模式：只覆盖变量，卡片等跟随 --color_card
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color_bg: #16181c;
+    --color_text: #e3e4e6;
+    --color_text_light: #8d8f94;
+    --color_border: #2a2d33;
+    --color_border_hover: #3a3e46;
+    --color_link: #74a8e8;
+    --color_header_bg: #1a1d21;
+    --color_card: #1d2026;
+  }
+  body { -webkit-font-smoothing: auto; }
 }

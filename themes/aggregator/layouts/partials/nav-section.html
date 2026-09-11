@@ -1,0 +1,17 @@
+{{- /* 一个模块区块。
+      参数：mod(必填) / limit(>0 时只取前 N 条) / linked(是否显示「更多 →」，分类页传 false) */ -}}
+{{- $m := .mod -}}
+{{- $limit := .limit | default 0 -}}
+{{- $linked := .linked | default true -}}
+{{- $items := $m.items | default slice -}}
+{{- if and $limit (gt $limit 0) }}{{ $items = first $limit $items }}{{ end -}}
+<section class="sec" id="sec-{{ $m.id }}" data-sec="{{ $m.id }}">
+  <div class="sec-head">
+    <h2 class="sec-title">{{ $m.name }}</h2>
+    <span class="sec-count">{{ len $m.items }} 个</span>
+    {{ if $linked }}<a class="sec-more" href="{{ printf "nav/%s.html" $m.id | relURL }}">更多 →</a>{{ end }}
+  </div>
+  <div class="nav-grid">
+    {{ range $items }}{{ partial "nav-card.html" (dict "item" . "accent" $m.accent) }}{{ end }}
+  </div>
+</section>

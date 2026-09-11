@@ -1,5 +1,5 @@
 {{- /* 模块切换条：首页出锚点(#sec-xx)，分类页出真实链接(/nav/xx.html)
-       「博客聚合」排最后，与首页把聚合模块放底部的顺序保持一致。 */ -}}
+       「比邻」排最后，与首页把博客聚合模块放底部的顺序保持一致。 */ -}}
 {{- $mods := partial "nav-mods.html" . -}}
 {{- $cur := .cur | default "" -}}
 {{- $linked := .linked | default false -}}
@@ -7,5 +7,5 @@
   {{ range $mods }}
   <a class="chip{{ if eq $cur .id }} cur{{ end }}" href="{{ if $linked }}{{ printf "nav/%s.html" .id | relURL }}{{ else }}#sec-{{ .id }}{{ end }}">{{ .name }}</a>
   {{ end }}
-  <a class="chip{{ if eq $cur "blogs" }} cur{{ end }}" href="{{ if $linked }}{{ "alliance.html" | relURL }}{{ else }}#sec-blogs{{ end }}">博客聚合</a>
+  <a class="chip{{ if eq $cur "blogs" }} cur{{ end }}" href="{{ if $linked }}{{ "alliance.html" | relURL }}{{ else }}#sec-blogs{{ end }}">比邻</a>
 </nav>

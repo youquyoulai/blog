@@ -1,7 +1,8 @@
 {{ define "main" }}
 {{- $mods := partial "nav-mods.html" . -}}
 <div class="wrap-wide">
-  {{ partial "nav-chips.html" (dict "cur" "blogs" "linked" false) }}
+  {{/* 首页 chips 是锚点条，不设选中态（cur 留空） */}}
+  {{ partial "nav-chips.html" (dict "cur" "" "linked" false) }}
 
   {{ range $mods }}
     {{ partial "nav-section.html" (dict "mod" . "limit" 8 "linked" true) }}

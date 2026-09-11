@@ -1,7 +1,7 @@
 baseURL = 'https://pennear.pgoj.top/'
 languageCode = 'zh-cn'
 defaultContentLanguage = 'zh'
-title = '比邻'
+title = '驿站'
 theme = 'aggregator'
 uglyURLs = true
 
@@ -21,9 +21,9 @@ disableKinds = ['taxonomy', 'term', 'RSS']
 
 [params]
   author = '平哥'
-  description = '收录活跃的独立博客，按最近更新时间排列。数据来自博友圈。'
-  keywords = '独立博客,比邻,博客聚合,博友圈'
-  logo = '比邻'
+  description = '一个中文独立站点的导航站：收录活跃博客（比邻）、社区论坛、AI 与站长工具。'
+  keywords = '导航站,独立博客,比邻,博客聚合,站长工具,AI工具,博友圈'
+  logo = '驿站'
   builtYear = '2026'
   email = 'wuliwuju@126.com'
   favicon = '/favicon.ico'

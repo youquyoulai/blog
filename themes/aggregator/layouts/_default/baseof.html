@@ -25,7 +25,7 @@
       {{ end }}
       <nav class="site-nav" aria-label="主导航">
         <a href="{{ site.BaseURL }}"{{ if .IsHome }} class="current"{{ end }}>首页</a>
-        <a href="{{ "alliance.html" | relURL }}"{{ if eq .RelPermalink "/alliance.html" }} class="current"{{ end }}>博客</a>
+        <a href="{{ "alliance.html" | relURL }}"{{ if eq .RelPermalink "/alliance.html" }} class="current"{{ end }}>比邻</a>
         <a href="{{ "submit.html" | relURL }}"{{ if eq .RelPermalink "/submit.html" }} class="current"{{ end }}>提交</a>
         <a href="{{ "about.html" | relURL }}"{{ if eq .RelPermalink "/about.html" }} class="current"{{ end }}>关于</a>
       </nav>

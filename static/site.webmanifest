@@ -1,7 +1,7 @@
 {
-  "name": "比邻",
-  "short_name": "比邻",
-  "description": "比邻 — 收录活跃的中文独立博客，按最近更新时间排列。",
+  "name": "驿站",
+  "short_name": "驿站",
+  "description": "驿站 — 中文独立站点导航：活跃博客、社区论坛、AI 与站长工具。",
   "start_url": "/",
   "display": "standalone",
   "icons": [

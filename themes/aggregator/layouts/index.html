@@ -4,8 +4,9 @@
   {{/* 首页 chips 是锚点条，不设选中态（cur 留空） */}}
   {{ partial "nav-chips.html" (dict "cur" "" "linked" false) }}
 
+  {{/* 导航模块每类只出 4 条预览，点「更多」进该模块的完整页 */}}
   {{ range $mods }}
-    {{ partial "nav-section.html" (dict "mod" . "limit" 8 "linked" true) }}
+    {{ partial "nav-section.html" (dict "mod" . "limit" 4 "linked" true) }}
   {{ end }}
 
   {{/* 博客聚合放在最后：模块预览在上，聚合区压轴 */}}

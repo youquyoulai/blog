@@ -5,7 +5,7 @@
 {{- $linked := .linked | default true -}}
 {{- $items := $m.items | default slice -}}
 {{- if and $limit (gt $limit 0) }}{{ $items = first $limit $items }}{{ end -}}
-<section class="sec" id="sec-{{ $m.id }}" data-sec="{{ $m.id }}">
+<section class="sec sec--{{ $m.accent }}" id="sec-{{ $m.id }}" data-sec="{{ $m.id }}">
   <div class="sec-head">
     <h2 class="sec-title">{{ $m.name }}</h2>
     <span class="sec-count">{{ len $m.items }} 个</span>
